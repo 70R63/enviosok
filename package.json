@@ -2,7 +2,8 @@
     "private": true,
     "scripts": {
         "dev": "vite",
-        "build": "vite build"
+        "build": "vite build",
+        "watch": "vite build --watch"
     },
     "devDependencies": {
         "@tailwindcss/forms": "^0.5.2",
@@ -18,7 +19,6 @@
     },
     "dependencies": {
         "chart.js": "^3.9.1",
-        "n": "^9.0.0",
         "parsleyjs": "^2.9.2"
     }
 }
