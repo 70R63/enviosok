@@ -1,13 +1,20 @@
-// Example starter JavaScript for disabling form submissions if there are invalid fields
 window.tipoValidacion = function(inputInvalido,msgDefault) {
     if (inputInvalido.validity.valueMissing){
         return msgDefault ?? 'Dato obligatorio';
+    }
+    if(inputInvalido.validity.patternMismatch){
+        if (inputInvalido.type === 'text'){
+            if(inputInvalido.name==="rfc")
+                return 'Escribe un RFC válido. Ejemplo: EJEM900101XXX.'
+            else
+                return 'Campo inválido';
+        }
     }
     if (inputInvalido.validity.tooLong){
         return "El límite de caracteres debe ser menor o igual a "+inputInvalido.maxlength;
     }
     if (inputInvalido.validity.tooShort){
-        return "El mínimo de caracteres es de "+inputInvalido.minLength;
+        return "El mínimo de caracteres es de "+inputInvalido.minlength;
     }
     if (inputInvalido.validity.rangeOverflow){
         if (inputInvalido.type === 'date')
@@ -18,12 +25,11 @@ window.tipoValidacion = function(inputInvalido,msgDefault) {
     }
     if (inputInvalido.validity.rangeUnderflow){
         if (inputInvalido.type === 'date'){
-            if(inputInvalido.min == '1970-01-01'){
-                return "La fecha debe ser posterior a 01/01/1970";
+            if(inputInvalido.min){
+                return "La fecha debe ser posterior a "+inputInvalido.min;
             }else{
                 return "La fecha debe ser posterior a la actual";
             }
-
         }
     }
     if (inputInvalido.validity.typeMismatch) {
@@ -35,20 +41,11 @@ window.tipoValidacion = function(inputInvalido,msgDefault) {
             return 'Hora inválida';
         return 'Tipo de dato incorrecto';
     }
-    if(inputInvalido.validity.pattern){
-        if (inputInvalido.type === 'text')
-            return 'Campo inválido';
-
-    }
     return 'Campo inválido';
-
-
-
 }
 
 window.validarFormulario = function (event){
     let form = event.target;
-
     if (!form.checkValidity()) {
         event.preventDefault();
         event.stopPropagation();
@@ -64,11 +61,80 @@ window.validarFormulario = function (event){
     }
     form.classList.add('was-validated');
 }
-    // Fetch all the forms we want to apply custom Bootstrap validation styles to
+
+window.cambiarTab = function(tabId){
+    var triggerEl = document.querySelector(`a[href="#${tabId}"]`);
+    triggerEl.dispatchEvent(new Event('click'));
+}
+
 var forms = document.querySelectorAll('.needs-validation');
 Array.prototype.slice.call(forms)
     .forEach(function (form) {
         form.addEventListener('submit', function (event) {
             validarFormulario(event);
+        }, false);
+    });
+
+var formularioDatos = document.getElementById('formularioDatos');
+var formularioDocumentacion = document.getElementById('formularioDocumentacion');
+if(formularioDatos && formularioDocumentacion){
+    formularioDatos.addEventListener('submit',function(e){
+        e.preventDefault();
+        validarFormulario(e);
+        if(formularioDatos.checkValidity()){
+            var tabDocumentacion = document.querySelector(`a[href="#tabDocumentacion"]`);
+            tabDocumentacion.classList.remove('disabled');
+            cambiarTab('tabDocumentacion');
+        }
+    },false);
+    formularioDocumentacion.addEventListener('submit',function(e){
+        e.preventDefault();
+        validarFormulario(e);
+        if(formularioDocumentacion.checkValidity()){
+            Array.from(formularioDatos.elements).forEach(function(element) {
+                if (element.name) {
+                    var inputHidden = document.createElement('input');
+                    inputHidden.type = 'hidden';
+                    inputHidden.name = element.name;
+                    inputHidden.value = element.value;
+                    formularioDocumentacion.appendChild(inputHidden);
+                }
+            });
+            formularioDocumentacion.submit();
+        }
+    },false);
+}
+
+var documentos = document.querySelectorAll('.documento-registro');
+Array.prototype.slice.call(documentos)
+    .forEach(function (el) {
+        el.addEventListener('change', function (event) {
+            var archivo = event.target.files[0];
+            // Valida si el archivo es una imagen
+            if (archivo && archivo.type.startsWith('image/')) {
+                var reader = new FileReader();
+                reader.onload = function() {
+                    var output = document.getElementById(el.dataset.preview);
+                    output.parentElement.querySelector('.col-12').innerHTML='';
+                    output.src = reader.result;
+                    output.style.display = 'block'; // Muestra el elemento <img>
+                };
+                reader.readAsDataURL(archivo);
+            } else {
+                alert('Por favor, selecciona un archivo de imagen.');
+                // Opcional: Limpia el input file si el archivo no es una imagen
+                event.target.value = '';
+                // Opcional: Oculta el elemento <img> si estaba visible de una selección anterior
+                var output = document.getElementById(el.dataset.preview);
+                if (output) {
+                    output.style.display = 'none';
+                    output.parentElement.querySelector('.col-12').innerHTML=`<div class="alert alert-warning alert-dismissible fade show" role="alert">
+                          <strong>Holy guacamole!</strong> Por favor, selecciona un archivo de imagen.
+                          <button type="button" class="close" data-bs-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                          </button>
+                        </div>`;
+                }
+            }
         }, false);
     });

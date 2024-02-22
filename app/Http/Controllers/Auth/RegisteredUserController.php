@@ -57,7 +57,10 @@ class RegisteredUserController extends Controller
             'colonia' => ['required','string', 'max:255'],
             'calle' => ['required','string', 'max:255'],
             'no_exterior' => ['required','numeric','max:99999'],
-            'tipo_vialidad_id' => ['required']
+            'tipo_vialidad_id' => ['required'],
+            'ine_anverso' => ['required','image','max:2048'],
+            'ine_reverso' => ['required','image','max:2048'],
+            'selfie' => ['required','image','max:2048'],
         ]);
 
         $user = User::create([
@@ -72,8 +75,13 @@ class RegisteredUserController extends Controller
         $rolCliente = Roles::whereSlug('cliente')->first();
         $user->roles()->sync([ $rolCliente->id ]);
         $this->domicilio->guardarDomicilio($request,$user);
+
+        foreach ($request->allFiles() as $k=>$file){
+            $file->store('documentos/'.$user->id.'/'.$k);
+        }
+
         event(new Registered($user));
         Auth::login($user);
-        return redirect(RouteServiceProvider::HOME);
+        return redirect(RouteServiceProvider::HOME)->with('success',["Te has registrado correctamente. Te notificaremos por email cuando tu información sea validada."]);
     }
 }
