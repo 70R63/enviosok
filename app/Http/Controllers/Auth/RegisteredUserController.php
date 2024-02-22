@@ -3,6 +3,9 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Models\Catalogo;
+use App\Models\CatalogoElemento;
+use App\Models\Roles\Roles;
 use App\Models\User;
 use App\Providers\RouteServiceProvider;
 use App\Services\DomicilioService;
@@ -27,7 +30,9 @@ class RegisteredUserController extends Controller
      */
     public function create()
     {
-        return view('auth.register');
+        $cat = Catalogo::whereCodigo('tiposVialidad')->first();
+        $tiposVialidad = CatalogoElemento::whereCatalogoId($cat->id)->orderBy('nombre')->get();
+        return view('auth.register',compact('tiposVialidad'));
     }
 
     /**
@@ -41,7 +46,7 @@ class RegisteredUserController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'nombre' => ['required', 'string', 'max:255'],
+            'name' => ['required', 'string', 'max:255'],
             'apellido_paterno' => ['required', 'string', 'max:255'],
             'rfc' => ['required', 'string', 'max:13'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
@@ -56,7 +61,7 @@ class RegisteredUserController extends Controller
         ]);
 
         $user = User::create([
-            'nombre' => $request->nombre,
+            'name' => $request->name,
             'apellido_paterno' => $request->apellido_paterno,
             'apellido_materno' => @$request->apellido_materno,
             'rfc' => $request->rfc,
@@ -64,12 +69,11 @@ class RegisteredUserController extends Controller
             'password' => Hash::make($request->password),
         ]);
 
+        $rolCliente = Roles::whereSlug('cliente')->first();
+        $user->roles()->sync([ $rolCliente->id ]);
         $this->domicilio->guardarDomicilio($request,$user);
-
         event(new Registered($user));
-
         Auth::login($user);
-
         return redirect(RouteServiceProvider::HOME);
     }
 }

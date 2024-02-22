@@ -20,10 +20,10 @@ class CreateRolesPermisosTable extends Migration
            $table->primary(['roles_id','permisos_id']);
         });
 
-        /*Artisan::call('db:seed', [
+        Artisan::call('db:seed', [
             '--class' => 'rolesPermisosSeeder',
             '--force' => true
-        ]);*/
+        ]);
 
     }
 

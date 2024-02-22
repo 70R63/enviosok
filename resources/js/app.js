@@ -12,6 +12,7 @@ Alpine.start();
 //window.route = route;
 //window.Ziggy = Ziggy;
 
+import './forms';
 import './domicilios';
 
 
