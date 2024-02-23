@@ -247,7 +247,7 @@
                                         <div class="col-12"></div>
                                         <img id="previewIneAnverso" src="" alt="Preview de la imagen" style="display: none; max-width: 300px;">
                                     </div>
-                                    <input class="form-control documento-registro" data-preview="previewIneAnverso" name="ine_anverso" type="file" id="ine_anverso" required accept="image/*">
+                                    <input class="form-control documento-registro" data-preview="previewIneAnverso" name="ine_anverso" type="file" id="ine_anverso" required accept="image/*" capture="environment">
                                     <div class="invalid-feedback">
                                         Dato obligatorio
                                     </div>
@@ -263,7 +263,7 @@
                                         <div class="col-12"></div>
                                         <img id="previewIneReverso" src="" alt="Preview de la imagen" style="display: none; max-width: 300px;">
                                     </div>
-                                    <input class="form-control documento-registro" data-preview="previewIneReverso" name="ine_reverso" type="file" id="ine_reverso" required accept="image/*">
+                                    <input class="form-control documento-registro" data-preview="previewIneReverso" name="ine_reverso" type="file" id="ine_reverso" required accept="image/*" capture="environment">
                                     <div class="invalid-feedback">
                                         Dato obligatorio
                                     </div>
@@ -279,7 +279,7 @@
                                         <div class="col-12"></div>
                                         <img id="previewSelfie" src="" alt="Preview de la imagen" style="display: none; max-width: 300px;">
                                     </div>
-                                    <input class="form-control documento-registro" data-preview="previewSelfie" name="selfie" type="file" id="selfie" required accept="image/*">
+                                    <input class="form-control documento-registro" data-preview="previewSelfie" name="selfie" type="file" id="selfie" required accept="image/*" capture="user">
                                     <div class="invalid-feedback">
                                         Dato obligatorio
                                     </div>
