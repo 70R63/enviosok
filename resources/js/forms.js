@@ -11,10 +11,10 @@ window.tipoValidacion = function(inputInvalido,msgDefault) {
         }
     }
     if (inputInvalido.validity.tooLong){
-        return "El límite de caracteres debe ser menor o igual a "+inputInvalido.maxlength;
+        return "El límite de caracteres debe ser menor o igual a "+inputInvalido.maxLength;
     }
     if (inputInvalido.validity.tooShort){
-        return "El mínimo de caracteres es de "+inputInvalido.minlength;
+        return "El mínimo de caracteres es de "+inputInvalido.minLength;
     }
     if (inputInvalido.validity.rangeOverflow){
         if (inputInvalido.type === 'date')

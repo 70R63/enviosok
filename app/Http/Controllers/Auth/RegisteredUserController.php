@@ -58,9 +58,9 @@ class RegisteredUserController extends Controller
             'calle' => ['required','string', 'max:255'],
             'no_exterior' => ['required','numeric','max:99999'],
             'tipo_vialidad_id' => ['required'],
-            'ine_anverso' => ['required','image','max:2048'],
-            'ine_reverso' => ['required','image','max:2048'],
-            'selfie' => ['required','image','max:2048'],
+            'ine_anverso' => ['required','image','max:5120'],
+            'ine_reverso' => ['required','image','max:5120'],
+            'selfie' => ['required','image','max:5120'],
         ]);
 
         $user = User::create([
