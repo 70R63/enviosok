@@ -80,7 +80,7 @@
             <div class="main-sidebar main-sidebar-sticky side-menu">
 
                 <div class="sidemenu-logo">
-                    <a class="main-logo" href="https://xpertamexico.com/" target="_blank">
+                    <a class="main-logo" href="https://enviosok.com/" target="_blank">
                         <img src="{{ url('spruha/img/brand/xpertaLogoTrans-110x91-2.png') }}" class="header-brand-img desktop-logo" alt="logo">
                         <img src="{{ url('spruha/img/brand/xperta-50x56-removebg-preview.png') }}" class="header-brand-img icon-logo" alt="logo">
                         <img src="{{ url('spruha/img/brand/ulalaBco.png') }}" class="header-brand-img desktop-logo theme-logo" alt="logo">
@@ -218,7 +218,7 @@
                     <div class="collapse navbar-collapse" id="navbarSupportedContent-4">
 
                         <div class="d-flex order-lg-2 ml-auto">
-                            <b class="tx-18 text">HOLA {{ Auth::user()->name }}, BIENVENIDO AL PORTAL DE '{{ Session::get('empresa_nombre') }}'</b>
+                            <b class="tx-18 text">HOLA {{ Auth::user()->name }}, BIENVENIDO AL PORTAL DE ENVIOSOK</b>
                         </div>
                     
                         @include('perfil.index')
@@ -249,7 +249,7 @@
                 <div class="container">
                     <div class="row row-sm">
                         <div class="col-md-12">
-                            <span>Copyright © 2022 <a href="https://www.xpertamexico.com/" target="_blank">XPERTAMEXICO</a>. Designed by <a href="#">TED</a> All rights reserved.</span>
+                            <span>Copyright © 2022 <a href="https://www.enviosok.com/" target="_blank">ENVIOSOK</a>. Designed by <a href="#">TED</a> All rights reserved.</span>
                         </div>
                     </div>
                 </div>
@@ -334,6 +334,7 @@
         <script src="{{ asset('js/guardar.js') }}" ></script> 
         <script src="{{ asset('js/tipoEnvio.js') }}" ></script>
         <script src="{{ asset('js/cotizar.js') }}" ></script>
+        @routes
         <script src="{{ asset('js/empresa.js') }}" ></script>
         <!-- Personalizacion de validicon con parley -->
         <script src="{{ asset('js/form-validation.js') }}" ></script>
@@ -350,10 +351,10 @@
         @routes
         <script src="{{ asset('js/saldos/saldos.js') }}" ></script>
         
-        // SDK MercadoPago.js
+        
         <script src="https://sdk.mercadopago.com/js/v2"></script>
         <script type="text/javascript">
-            const mp = new MercadoPago('TEST-d306e10e-dff9-4f88-b66b-235a51178e95');
+            const mp = new MercadoPago('TEST-21790bfd-c517-494f-a444-ef70f555a49b');
             const bricksBuilder = mp.bricks();
 
         </script>
@@ -361,7 +362,8 @@
             mp.bricks().create("wallet", "wallet_container", {
                initialization: {
                    //preferenceId: "150057237-7d260728-3417-423b-aea8-5c9606097842",
-                    preferenceId: "150057237-ff55b2da-f9fc-4c77-b883-d88de6ef5fb4",
+                    preferenceId: "1717901241-0a0511d0-90a9-47e3-bfc4-d5ffb6b25a1e",
+                    redirectMode: "blank"
                },
             customization: {
              texts: {
