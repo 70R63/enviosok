@@ -5,12 +5,15 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreTarifaRequest;
 use App\Http\Requests\UpdateTarifaRequest;
 use App\Models\Tarifa;
-use App\Models\Ltd;
+use App\Models\Cfg_ltd as mCfgLtd;
 use App\Models\Servicio;
 use App\Models\Empresa;
 
 use Log;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
+
+//Negocio
+use App\Negocio\Clientes\Tarifas as nTarifas;
 
 class TarifaController extends Controller
 {
@@ -30,21 +33,16 @@ class TarifaController extends Controller
     public function index()
     {
         try {
-            Log::info(__CLASS__." ".__FUNCTION__." ".__LINE__);    
-            $tabla = Tarifa::get();
+            Log::info(__CLASS__." ".__FUNCTION__." ".__LINE__);
 
-            $pluckLtd = Ltd::where('estatus',1)
-                                ->pluck('nombre','id');
+            $nTarifas = new nTarifas();
+            $nTarifas->resumenPorCorporativos();
+                        
+            $tabla= $nTarifas->getTabla();
+            $pluckLtd= $nTarifas->getPluckLtd();
+            $pluckServicio= $nTarifas->getPluckServicio();
+            $pluckEmpresa= $nTarifas->getPluckEmpresa();
 
-            $pluckServicio = Servicio::where('estatus',1)
-                    ->pluck('nombre','id');
-
-            $pluckEmpresa = Empresa::where('estatus',1)
-                    ->pluck('nombre','id');
-
-            Log::debug(print_r($tabla,true));
-            Log::debug(print_r($pluckLtd,true));
-            Log::debug(print_r($pluckServicio,true));
             return view(self::DASH_v 
                     ,compact("tabla", "pluckLtd", "pluckServicio", "pluckEmpresa")
                 );
@@ -67,7 +65,7 @@ class TarifaController extends Controller
 
             $pluckEmpresa = Empresa::pluck('nombre','id');
             
-            $pluckLtd = Ltd::where('estatus',1)
+            $pluckLtd = mCfgLtd::where('estatus',1)
                                 ->pluck('nombre','id');
 
             $pluckServicio = Servicio::where('estatus',1)
@@ -122,7 +120,34 @@ class TarifaController extends Controller
      */
     public function show(Tarifa $tarifa)
     {
-        //
+        try {
+            Log::info(__CLASS__." ".__FUNCTION__." ".__LINE__);    
+            Log::debug($tarifa->toArray());
+
+            $nTarifas = new nTarifas();
+            
+            $nTarifas->resumenPorCliente($tarifa);
+            
+            $tabla= $nTarifas->getTabla();
+            $pluckLtd= $nTarifas->getPluckLtd();
+            $pluckServicio= $nTarifas->getPluckServicio();
+            $pluckEmpresa= $nTarifas->getPluckEmpresa();
+
+            Log::info(__CLASS__." ".__FUNCTION__." ".__LINE__);  
+            return view(self::SHOW_v 
+                    ,compact("tabla","pluckLtd", "pluckServicio","pluckEmpresa")
+                );  
+         
+        } catch (ModelNotFoundException $e) {
+            Log::info(__CLASS__." ".__FUNCTION__." ModelNotFoundException");
+            return \Redirect::back()
+                ->withErrors(array($e->getMessage()))
+                ->withInput();
+
+        } catch (Exception $e) {
+            Log::info(__CLASS__." ".__FUNCTION__);
+            Log::info("Error general ");       
+        }
     }
 
     /**
