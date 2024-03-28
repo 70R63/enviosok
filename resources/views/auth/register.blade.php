@@ -3,11 +3,11 @@
     <div class="container">
         <div class="row">
             <div class="col-md-4 bg-primary rounded-left d-flex flex-column align-items-center justify-content-center text-center" style="min-height: 100%;">
-                <img  src="{{ url('spruha/img/brand/xpertaLogoTrans-138x142.png') }}" class="header-brand-img mb-1" alt="logo">
+                <img  src="{{ url('spruha/img/brand/enviosok2.png') }}" class="header-brand-img mb-1" alt="logo">
                 <div class="clearfix"></div>
-                <img src="{{ url('spruha/img/svgs/user.svg') }}" class="ht-90 mb-0" alt="user">
-                <h5 class="mt-4 text-white">Create Your Account</h5>
-                <span class="tx-white-6 tx-13 mb-5 mt-xl-0">Signup to create, discover and connect with the global community</span>
+<img src="{{ url('spruha/img/svgs/user.svg') }}" class="ht-90 mb-0" alt="user">
+                <h5 class="mt-4 text-white">Crea tu cuenta</h5>
+                <span class="tx-white-6 tx-13 mb-5 mt-xl-0">Regístrate para crear, descubrir y conectarte con la comunidad global</span>
             </div>
             <div class="col-md-8 bg-white rounded-right p-4 registro">
                 <div class="row">
