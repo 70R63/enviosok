@@ -141,19 +141,11 @@ function guiasTabla(){
 
 function documentoRetorno(row, rol){
 
-    //console.log(data)
+    console.log(rol)
 
     var doc = documento(row)
 
-    var htmlRetorno = '<span> <i title="Retorno de la guia" class="si si-action-undo text-warning tx-20"> </i> </span>';
-    var htmlEliminarGuia = "";
-    if (rol == "admin"){
-        var htmlEliminarGuia =' <a  class="remove-list text-danger tx-20 remove-button ">    \
-                            <i id="eliminarGuia" title="Eliminar Guia id '+row.id +'" class="fa fa-trash" alt="Eliminar"></i>\
-                            </a>';
-        
-    }
-    return doc+htmlRetorno+htmlEliminarGuia;
+    return doc;
 }
 
 function documento(row){
