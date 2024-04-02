@@ -156,6 +156,7 @@
                             @include('menu.direcciones')
                             @include('menu.usuario')
                             @include('menu.guia')
+                            @include('menu.reportes')
                             
                         @endcanany
 
@@ -232,7 +233,6 @@
                     @include('mensaje.exitoso')
                     <div class="inner-body">
                         <!-- Page Content -->
-                        hola
                         @yield('content')
                         <!-- End Page Content -->     
                     </div>

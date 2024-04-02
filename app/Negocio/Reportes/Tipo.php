@@ -30,9 +30,9 @@ class Tipo
                 
             ;
 
-        //Log::debug();
+        
         Log::info(__CLASS__." ".__FUNCTION__." ".__LINE__);
-     
+        $parametros['clienteIdCombo'] = auth()->user()->empresa_id;
         $ltdLeyenda = Config("ltd.general")[$parametros['ltdId']];
 
 

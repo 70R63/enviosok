@@ -1,12 +1,4 @@
-<!-- Modal -->
-<script src="https://sdk.mercadopago.com/js/v2">
-    
-    
-</script>
-<script type="text/javascript">
-    //const mp = new MercadoPago('TEST-21790bfd-c517-494f-a444-ef70f555a49b');
-    //const bricksBuilder = mp.bricks();
-</script>
+
 <div class="modal" id="myModal">
 
 {!! Form::open([ 'route' => 'cotizaciones.create', 'method' => 'GET' , 'class'=>'parsley-style-1', 'id'=>'generalForm' ]) !!}

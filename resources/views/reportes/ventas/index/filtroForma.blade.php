@@ -2,24 +2,7 @@
 {!! Form::open([ 'route' => 'api.reportes.ventas', 'method' => 'POST' , 'class'=>'parsley-style-1', 'id'=>'reporteVentasForm' ]) !!}
     <div class="card custom-card">
         <div class="card-body">
-            <div class="row row-sm">
-                <div class="col-lg-12">
-                    <div class="input-group mb-3">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text" id="basic-addon1">CLIENTE</span>
-                        </div>
-                        {!! Form::select('clienteIdCombo'
-                            , array()
-                            ,null
-                            ,['class'       => 'form-control select2'
-                                ,'placeholder'  => 'TODOS'
-                                ,'id'       => 'clienteIdCombo'
-                                
-                            ]);
-                        !!}
-                    </div>
-                </div>
-            </div>
+            
 
             <div class="row row-sm">
                 <div class="col-lg-12">

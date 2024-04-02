@@ -12,9 +12,12 @@ use App\Dto\RedpackDTO;
 
 use App\Singlenton\Redpack as sRedpack;
 use App\Singlenton\Dhl as sDhl;
+
 //Generales 
 use Log;
 use Carbon\Carbon;
+//NEGOCIO
+use App\Negocio\Guias\Rastreo as nRastreo;
 
 class RastreosController extends Controller
 {
@@ -33,23 +36,10 @@ class RastreosController extends Controller
         try {
             Log::info(__CLASS__." ".__FUNCTION__." INICIANDO-----------------"); 
 
-            $rastreoPeticion = array();
-            foreach ( Config('ltd.general') as $key => $value) {
-                Log::info("LTD ID ".$key);
-                if ($key == 0) 
-                    continue;
-                if ($key == 6) 
-                    continue;
-                
-                $rastreoPeticionLtd = Rastreo_peticion::where('completado',1)
-                    ->where("ltd_id",$key)
-                    ->latest()
-                    ->first()->toArray()
-                ;
+            $nRastreo = new nRastreo();
+            $nRastreo->peticionesHistorial();
 
-                $rastreoPeticion[]= $rastreoPeticionLtd;
-
-            }            
+            $rastreoPeticion = $nRastreo->getRastreoPeticion();
             Log::debug(__CLASS__." ".__FUNCTION__." FINALIZANDO----------------- ");
             return view(self::DASH_v 
                     ,compact("rastreoPeticion") 

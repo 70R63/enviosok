@@ -10,7 +10,7 @@
 			<span class="input-group-text" id="basic-addon1"> Nombre<span class="tx-danger">*</span></span>
 		</div>
 		{!! Form::select('cliente'
-			, $cliente
+			, array()
 			,'MEX'
 			,['class' 		=> 'form-control select2 cotizacionSemi'
 				,'placeholder'	=> 'Seleccionar'

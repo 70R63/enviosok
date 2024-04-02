@@ -116,7 +116,7 @@ $("#generarReporte").click(function(e) {
 
                 tablaReporteVentas();
             }).fail( function( data,jqXHR, textStatus, errorThrown ) {
-                console.log( "fail" );
+                console.error( textStatus );
                 swal(
                     "Error!",
                     textStatus,
