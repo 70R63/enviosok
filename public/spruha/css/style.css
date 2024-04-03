@@ -108,7 +108,7 @@ License        :   Licensed under ThemeForest License
 /* ########## BOOTSTRAP OVERRIDES ########## */
 /* ###### Bootstrap ###### */
 :root {
-    --primary-bg-color: #0068ff;
+    --primary-bg-color: #4fbfa8;
     --primary-transparentcolor: #e4e9ff;
     --primary-bg-color: #0068ff;
     --indigo: #4b0082;
@@ -177,7 +177,7 @@ body {
     text-align: left;
     background-color: #ffffff;
     font-family: "Roboto", sans-serif !important;
-    background: #EDF2F9;
+    background: #EDF9F1; #fondo 
     color: #1d212f;
     direction: ltr;
     -webkit-font-smoothing: antialiased;
@@ -4498,7 +4498,7 @@ fieldset:disabled a.btn {
 
 .form-control:disabled,
 .form-control[readonly] {
-    background-color: #f6f6ff;
+    background-color: #EDF9F1; /*chs*/
     opacity: 1;
 }
 
@@ -73019,3 +73019,14 @@ body.horizontalmenu {
 
 /* ###### ie css ###### */
 /*# sourceMappingURL=style.css.map */
+
+.flex-container {
+  display: flex;
+  /* background-color: DodgerBlue;*/
+}
+
+.flex-container > b {
+  background-color: #white;
+  justify-content:flex-end;
+  
+}

@@ -29,9 +29,8 @@
 
         <!-- Style css-->
         <link href="{{ url('spruha/css/style.css') }}"  rel="stylesheet">
-        <link href="{{ url('spruha/css/skins.css') }}"  rel="stylesheet">
-        <link id="theme" rel="stylesheet" type="text/css" media="all" href="{{ url('spruha/css/colors/color6.css') }}">
-       
+        <link id="theme" rel="stylesheet" type="text/css" media="all" href="{{ url('spruha/css/colors/color3.css') }}">
+
         <!-- Select2 css-->
         <link href="{{ url('spruha/plugins/select2/css/select2.min.css') }}"  rel="stylesheet">
 
@@ -83,7 +82,7 @@
                         <img src="{{ url('spruha/img/brand/ulalaBco.png') }}" class="header-brand-img icon-logo theme-logo" alt="logo">
                     </a>
                 </div>
-
+-
                 <div class="main-sidebar-body">
                     <ul class="nav">
                         <li class="nav-header"><span class="nav-label"><br></span></li>
@@ -348,28 +347,6 @@
         <script src="{{ asset('js/saldos/saldos.js') }}" ></script>
         
         
-        <script src="https://sdk.mercadopago.com/js/v2"></script>
-        <script type="text/javascript">
-            //const mp = new MercadoPago('TEST-21790bfd-c517-494f-a444-ef70f555a49b');
-            //const bricksBuilder = mp.bricks();
-
-        </script>
-        <script type="text/javascript">
-            /*
-            mp.bricks().create("wallet", "wallet_container", {
-               initialization: {
-                   //preferenceId: "150057237-7d260728-3417-423b-aea8-5c9606097842",
-                    preferenceId: "1717901241-887ec437-e039-4344-b748-095915ada70c",
-                    redirectMode: "blank"
-               },
-            customization: {
-             texts: {
-              valueProp: 'smart_option',
-             },
-             },
-            });
-            */
-        </script>
         
 
 {{--INTEGRACION DE ROLES Y USUARIOS--}} 
