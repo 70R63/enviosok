@@ -27,7 +27,7 @@
                     
                 </div>
                 <div>
-                    @include('tarifa.dashboard.tabla')
+                    @include('tarifa.dashboard.resumen')
                 </div>    
             </div>
         </div>
