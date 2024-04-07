@@ -160,6 +160,9 @@ class Estafeta {
         $uri = sprintf("%sv1/wayBills?outputType=%s&outputGroup=REQUEST&responseMode=SYNC_INLINE&printingTemplate=NORMAL_TIPO7_ZEBRAORI",$this->baseUri,$formatoImpresion);
 
         Log::debug(print_r("Armando Peticion $formatoImpresion",true));
+
+        Log::info(__CLASS__." ".__FUNCTION__." ".__LINE__." uri => $uri");
+
         $response = $client->request('POST', $uri, [
             'headers'   => $headers
             ,'body'     => json_encode($body)
@@ -312,15 +315,6 @@ class Estafeta {
         Log::info(__CLASS__." ".__FUNCTION__." ".__LINE__." INICIO");
         
 
-        /*
-        $empresas = EmpresaEmpresas::where('empresa_id',$empresa_id)->pluck('id')->toArray();
-        
-        Log::info(__CLASS__." ".__FUNCTION__." ".__LINE__." EmpresaEmpresas");
-        Log::debug(print_r($empresas,true));
-
-        $ltdCredencial = LtdCredencial::where('ltd_id',2)
-                                ->whereIn('empresa_id',$empresas);
-        */
         $ltdCredencial = LtdCredencial::where('ltd_id',2);
         Log::info(__CLASS__." ".__FUNCTION__." ".__LINE__." LtdCredencial");
         Log::debug(print_r($ltdCredencial->get()->toArray(),true));

@@ -36,16 +36,19 @@ class Tipo
         $ltdLeyenda = Config("ltd.general")[$parametros['ltdId']];
 
 
-        $carbon = Carbon::parse();
-        $carbon->settings(['toStringFormat' => 'Y-m-d']);
+        $carbon = Carbon::now()->format('Y-m-d-H-i-s.u');
+        //$carbon->settings(['toStringFormat' => 'YYYY-MM-DDThh:mm:ssTZD']);
 
         $fechaIni = empty($parametros['fecha_ini']) ? "0000-00-00" : Carbon::parse($parametros['fecha_ini'])->format('Y-m-d');
 
         $fechaFin = empty($parametros['fecha_fin']) ? "0000-00-00" : Carbon::parse($parametros['fecha_fin'])->format('Y-m-d');
-
+/*
         $nameCsv = sprintf("csv/%s-cliente_%s-ltd_%s-servicio_%s-de_%s-a_%s.csv"
             ,(string)$carbon,$parametros['clienteIdCombo'],$parametros['ltdId'],$parametros['servicio_id'], $fechaIni, $fechaFin );
+            */
 
+        $nameCsv= sprintf("csv/%s.csv",(string)$carbon);
+        //Storage::disk('csv')->put($nameCsv,base64_decode($sEstafeta->documento));
         $filename =  public_path($nameCsv);
         $handle = fopen($filename, 'w');
 

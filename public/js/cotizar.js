@@ -477,15 +477,15 @@ $('#cotizacionAjax tbody').on('click', 'tr', function () {
         console.error(saldoPorEmpresa)
 
         console.log("crearPreferencia")
-        crearPreferencia(precioIva,ltd_nombre, servicioNombre);
+        crearPreferencia(400,ltd_nombre, servicioNombre);
         
-        
-        if (precioIva > saldoPorEmpresa ) {
-            console.log("myModalMercadoPago")
-            $("#myModalMercadoPago").modal("show");
-        } else {
+        console.log(saldoPorEmpresa +">"+ precioIva)
+        if ( saldoPorEmpresa > precioIva   ) {
             console.log("myModal")
             $("#myModal").modal("show");
+        } else {
+            console.log("myModalMercadoPago")
+            $("#myModalMercadoPago").modal("show");
         }
         
         

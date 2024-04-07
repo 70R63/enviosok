@@ -20,7 +20,7 @@
                     </div>
                     <div class="pricing-plans  bg-primary">
                         <span class="price-value1">
-                            $<span id="spanPrecio"></span> MXP
+                            $<span id="spanPrecio" class="spanPrecio"></span> MXP
                         </span>
                     </div>
                     <div class="pricingContent2">

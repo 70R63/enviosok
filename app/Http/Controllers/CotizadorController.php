@@ -65,35 +65,29 @@ class CotizadorController extends Controller
             Log::debug(print_r($objeto,true));
             $cliente=array();
             $sucursal= array();
-            $empresaId = 0;
+            $empresaId = auth()->user()->empresa_id;
 
             Log::info(__CLASS__." ".__FUNCTION__." LINE ".__LINE__." Validacion esManual");
             if ($objeto['esManual']==="NO") {
                 Log::info(__CLASS__." ".__FUNCTION__." LINE ".__LINE__." Obteniendo direccion");
-               $cliente = Cliente::findOrFail($request->get("cliente_id"));
-               $sucursal = Sucursal::findOrFail($request->get("sucursal_id"));
+                $cliente = Cliente::findOrFail($request->get("cliente_id"));
+                $sucursal = Sucursal::findOrFail($request->get("sucursal_id"));
 
-               $empresaId = $sucursal->empresa_id;
             }else{
-
-                if ($objeto['esManual']==="SEMI") {
-                    Log::info(__CLASS__." ".__FUNCTION__." LINE ".__LINE__." semi");
-                    $sucursal = Sucursal::findOrFail($request->get("sucursal_id"));
-                    $empresaId = $sucursal->empresa_id;
-                }else{
-                    Log::info(__CLASS__." ".__FUNCTION__." LINE ".__LINE__." MANUAL SI  ");
-                    $empresaId = $objeto['empresa_id'];
-                }
+                Log::info(__CLASS__." ".__FUNCTION__." LINE ".__LINE__." semi");
+                $sucursal = Sucursal::findOrFail($request->get("sucursal_id"));
 
             }
 
-
+            Log::info(__CLASS__." ".__FUNCTION__." LINE ".__LINE__." ==>DEBUG  ");
             $objeto['pesos'] = explode(",", $request['pesos'][0] );
             $objeto['largos'] = explode(",", $request['largos'][0] );
             $objeto['anchos'] = explode(",", $request['anchos'][0] );
             $objeto['altos'] = explode(",", $request['altos'][0] );
 
+            Log::debug(__CLASS__." ".__FUNCTION__." LINE ".__LINE__." $empresaId");
             $empresa = Empresa::findOrFail($empresaId);
+            Log::debug(__CLASS__." ".__FUNCTION__." LINE ".__LINE__." ==>DEBUG  ");
             Log::debug(print_r($empresa->nombre,true));
             $objeto['clienteXperta'] = $empresa->nombre;
             $objeto['empresa_id'] = $empresa->id;
@@ -108,6 +102,7 @@ class CotizadorController extends Controller
             Log::info(__CLASS__." ".__FUNCTION__." ".__LINE__." FINALIZANDO CON EXITO-----------------");  
             Log::debug(print_r($objeto,true));
             
+
             return view(self::CREAR_v
                 , compact('cliente', 'sucursal', 'precio', 'piezas', 'ltd_nombre','objeto','servicio') 
             );

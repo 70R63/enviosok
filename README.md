@@ -7,11 +7,12 @@
 <a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
 </p>
 
-## About Laravel
+## About ENVIOSOK
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+ENVIOSOK es una herramienta para el uso de envios mediante paquetarias (LTD) goznando de todas las funcionalidades que tiene cada paquteria unificando procesos e integracion, esto ahorra a las empresas tiempo en envestigacion para unifcar procesos con difrerente spaqueterias, de igual foma tendra una forma rapida y facil de ver que paqueteria tiene el mejor costo.
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
+- Simple de uso.
+- Soporta Multiple paqueterias.
 - [Powerful dependency injection container](https://laravel.com/docs/container).
 - Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
 - Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
@@ -63,7 +64,13 @@ If you discover a security vulnerability within Laravel, please send an e-mail t
 
 The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
 
-## SANCTUM
+
+
+## Para Desarrolladores
+
+En esta Sección buscamos dar tips para un despliegue 
+
+### SANCTUM
 
 
 Installar desde composer require laravel/sanctum o usar compuser update
@@ -76,13 +83,17 @@ php artisan migrate
 php artisan optimize
 
 
-## SEEDERS DE USUARIOS Y ROLES
-
+### SEEDERS DE USUARIOS Y ROLES
 
 Para crear el usuario administador ejecutar los siguientes commandos.
-
 
 php artisan db:seed --class=rolesPermisosSeeder
 php artisan db:seed --class=createRolesSeeder
 
 
+### LINK SUAVES
+
+- Para la creacion de links revisar filesystems.php, con eso se validara que carpetas hacen falta que se creen y se otorge los permisos.
+
+  - **php artisan optimize**
+  - **php artisan storage:link**
