@@ -23,4 +23,8 @@ class Domicilio extends Model
     public function getSepomexAttribute(){
         return SEPOMEX::where('d_codigo',$this->cp)->first();
     }
+
+    public function tipoVialidad(){
+        return $this->belongsTo(CatalogoElemento::class,'tipo_vialidad_id');
+    }
 }

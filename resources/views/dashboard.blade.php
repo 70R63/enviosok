@@ -20,7 +20,7 @@
 
 
         <!-- Bootstrap css-->
-        <link href="{{ url('spruha/plugins/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet"/ type="text/css">
+        <link href="{{ url('spruha/plugins/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">
 
         <!-- Icons css-->
         <link href="{{ url('spruha/plugins/web-fonts/icons.css') }}"  rel="stylesheet"/>
@@ -338,6 +338,10 @@
         <script src="{{ asset('js/remitente.js') }}" ></script>
         <script src="{{ asset('js/destinatario.js') }}" ></script>
         @routes
+        <script>
+            var url_base = '{{url('/')}}';
+            var token = document.head.querySelector('meta[name="csrf-token"]');
+        </script>
         <script src="{{ asset('js/direcciones.js') }}" ></script>
         <script src="{{ asset('js/reportesVentas.js') }}" ></script>
         <script src="{{ asset('js/reportes/repesajes.js') }}" ></script>

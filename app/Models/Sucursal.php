@@ -12,18 +12,18 @@ class Sucursal extends Model
 {
     use HasFactory;
 
-    protected $guarded = []; 
+    protected $guarded = [];
 
     /**
      * Agraga a la consulta los casos de negocio.
      *
-     * 
+     *
     */
 
     protected static function boot()
     {
 
-        parent::boot();        
+        parent::boot();
         static::addGlobalScope('estatus', function (Builder $builder) {
             $builder->where('sucursals.estatus', '1');
 
@@ -38,19 +38,19 @@ class Sucursal extends Model
      * Funcion para crear un objeto para insertar el registro del cliente.
      *
      * @param $request
-     * @return array 
-     * 
+     * @return array
+     *
     */
 
     public function insertParse($request){
         Log::info(__CLASS__." ".__FUNCTION__." INICIANDO ---------");
-        
+
         if ($request['esManual'] === "SI" || $request['esManual'] === "SEMI" || $request['esManual'] === "API") {
             $empresa_id = $request['empresa_id'];
         } else {
             $empresa_id = auth()->user()->empresa_id;
         }
-        
+
         $insert = array(
             "nombre"    => $request['nombre']
             ,"contacto" => $request['contacto']
@@ -69,26 +69,26 @@ class Sucursal extends Model
             );
 
         $this->insertId = $this->create($insert)->id;
-        
-        
-        Log::info(__CLASS__." ".__FUNCTION__." ".__LINE__." FINALIZANDO ---------");
-        
 
-    }    
+
+        Log::info(__CLASS__." ".__FUNCTION__." ".__LINE__." FINALIZANDO ---------");
+
+
+    }
 
     /**
      * Funcion para crear un objeto para insertar el registro del remitente.
      *
      * @param $request
-     * @return array 
-     * 
+     * @return array
+     *
     */
 
     public function existe($request){
 
         Log::info(__CLASS__." ".__FUNCTION__." INICIANDO ---------");
 
-        
+
         if ($request['esManual'] === "SI" || $request['esManual'] === "SEMI" || $request['esManual'] === "API") {
             $empresa_id = $request['empresa_id'];
         } else {
@@ -112,7 +112,7 @@ class Sucursal extends Model
             $this->insertId = $remitente[0];
         }
 
-        
+
     }
 
     public function getExiste(){
@@ -122,5 +122,9 @@ class Sucursal extends Model
 
     public function getId(){
         return $this->insertId;
+    }
+
+    public function domicilio(){
+        return $this->morphOne(Domicilio::class,'modelo');
     }
 }

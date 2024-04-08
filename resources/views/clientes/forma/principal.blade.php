@@ -1,7 +1,11 @@
+@php
+    $cat = App\Models\Catalogo::whereCodigo('tiposVialidad')->first();
+    $tiposVialidad = App\Models\CatalogoElemento::whereCatalogoId($cat->id)->orderBy('nombre')->get();
+@endphp
 <div class="col-sm-12 ">
     <div class="card custom-card">
         <div class="card-body">
-        	<div class="card-item">
+        	<div class="row">
 				<div class="input-group mb-3">
 					<div class="input-group-prepend">
 						<span class="input-group-text" id="basic-addon1">NOMBRE
@@ -10,7 +14,7 @@
 					</div>
 
 					{!! Form::text('nombre'
-						, null
+						, @$objeto ? @$objeto->nombre : null
 						,['class' 		=> 'form-control'
 							,'id'		=> 'nombre'
 							,'required'	=>	'true'
@@ -26,7 +30,7 @@
 					</div>
 
 					{!! Form::text('contacto'
-						, null
+						, @$objeto ? @$objeto->contacto : null
 						,['class' 		=> 'form-control'
 							,'id'		=> 'contacto'
 							,'required'	=>	'true'
@@ -42,51 +46,11 @@
 					</div>
 
 					{!! Form::text('direccion'
-						, null
+						, @$objeto ? @$objeto->direccion : null
 						,['class' 		=> 'form-control'
 							,'id'		=> 'direccion'
 							,'required'	=>	'true'
 							,'maxlength'	=> 30
-						])
-					!!}
-
-					<div class="input-group-prepend">
-						<span class="input-group-text" id="basic-addon1">NO. EXTERIOR
-							<span class="tx-danger">*</span>
-						</span>
-					</div>
-
-					{!! Form::text('no_ext'
-						, null
-						,['class' 		=> 'form-control'
-							,'id'		=> 'no_ext'
-							,'required'	=>	'true'
-						])
-					!!}
-
-					<div class="input-group-prepend">
-						<span class="input-group-text" id="basic-addon1">NO. INTERIOR</span>
-					</div>
-
-					{!! Form::text('no_int'
-						, null
-						,['class' 		=> 'form-control'
-							,'id'		=> 'no_int'
-						])
-					!!}
-				</div>
-
-				<div class="input-group mb-3">
-					<div class="input-group-prepend">
-						<span class="input-group-text" id="basic-addon1">REFERENCIA
-						</span>
-					</div>
-
-					{!! Form::text('direccion2'
-						, null
-						,['class' 		=> 'form-control'
-							,'id'		=> 'direccion2'
-							
 						])
 					!!}
 				</div>
@@ -99,62 +63,154 @@
 					</div>
 
 					{!! Form::text('cp'
-						, null
+						, @$objeto ? @$objeto->domicilio->cp : null
 						,['class' 		=> 'form-control'
 							,'id'		=> 'cp'
 							,'required'	=>	'true'
 						])
 					!!}
 
-					<div class="input-group-prepend">
-						<span class="input-group-text" id="basic-addon1">COLONIA
-							<span class="tx-danger">*</span>
-						</span>
-					</div>
-					{!! Form::select('colonia'
-						, ( isset($objeto->colonia)) ? array($objeto->colonia) : array()
-						,"0"
-						,['class' 		=> 'form-control'
-							,'placeholder'	=> 'Seleccionar'
-							,'required'	=> 'true'
-							,'name'		=> 'colonia'
-							,'id'		=> 'colonia'
-							
-						]);
-					!!}
-				</div>
-
-				<div class="input-group mb-3">
-					<div class="input-group-prepend">
-						<span class="input-group-text" id="basic-addon1">CIUDAD
-							<span class="tx-danger">*</span>
-						</span>
-					</div>
-
-					{!! Form::text('ciudad'
-						, null
-						,['class' 		=> 'form-control'
-							,'id'		=> 'ciudad'
-							,'required'	=>	'true'
-							,'readonly' =>  'true'
-						])
-					!!}
-				
-					<div class="input-group-prepend">
+                    <div class="input-group-prepend">
 						<span class="input-group-text" id="basic-addon1">ENTIDAD FEDERATIVA
 							<span class="tx-danger">*</span>
 						</span>
-					</div>
-					{!! Form::text('entidad_federativa'
-						, null
-						,['class' 		=> 'form-control'
-							,'id'		=> 'entidad_federativa'
-							,'required'	=>	'true'
-							
-						])
-					!!}
+                    </div>
+                    {!! Form::text('estado'
+                        , @$objeto ? @$objeto->domicilio->estado : null
+                        ,['class' 		=> 'form-control'
+                            ,'id'		=> 'estado'
+                            ,'required'	=>	'true'
+
+                        ])
+                    !!}
+                    <input type="hidden" name="codigo_estado" id="codigo_estado">
+                    <input type="hidden" name="tipo_asentamiento" id="tipo_asentamiento" value="{{@$objeto ? @$objeto->domicilio->tipo_asentamiento : ''}}">
+                    <div class="input-group-prepend">
+						<span class="input-group-text" id="basic-addon1">MUNICIPIO / ALCALDÍA
+							<span class="tx-danger">*</span>
+						</span>
+                    </div>
+                    {!! Form::text('municipio_alcaldia'
+                        , @$objeto ? @$objeto->domicilio->municipio_alcaldia : null
+                        ,['class' 		=> 'form-control'
+                            ,'id'		=> 'municipio_alcaldia'
+                            ,'required'	=>	'true'
+
+                        ])
+                    !!}
 
 				</div>
+
+				<div class="input-group mb-3 div-colonia-cp col-md-4 p-0">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id="basic-addon1">COLONIA
+                                <span class="tx-danger">*</span>
+                            </span>
+                        </div>
+
+                        {!! Form::select('colonia'
+                            , ( isset($objeto->domicilio)) ? [$objeto->domicilio->colonia=>$objeto->domicilio->colonia] : array()
+                            ,   isset($objeto->domicilio) ? @$objeto->domicilio->colonia : ''
+                            ,['class' 		=> 'form-control'
+                                ,'placeholder'	=> 'Seleccionar'
+                                ,'required'	=> 'true'
+                                ,'name'		=> 'colonia'
+                                ,'id'		=> 'colonia'
+
+                            ]);
+                        !!}
+                </div>
+                <div class="input-group mb-3 col-md-4 p-0">
+                    <div class="input-group-prepend">
+						<span class="input-group-text" id="basic-addon1">CALLE
+							<span class="tx-danger">*</span>
+						</span>
+                    </div>
+                    {!! Form::text('calle'
+                        , @$objeto ? $objeto->domicilio->calle : null
+                        ,['class' 		=> 'form-control'
+                            ,'id'		=> 'calle'
+                            ,'required'	=>	'true'
+
+                        ])
+                    !!}
+                </div>
+				<div class="input-group mb-3 col-md-4 p-0">
+
+                    <div class="input-group-prepend">
+						<span class="input-group-text" id="basic-addon1">CIUDAD
+							<span class="tx-danger">*</span>
+						</span>
+                    </div>
+
+                    {!! Form::text('ciudad'
+                        , @$objeto ? $objeto->domicilio->ciudad : null
+                        ,['class' 		=> 'form-control'
+                            ,'id'		=> 'ciudad'
+                            ,'required'	=>	'true'
+                            ,'readonly' =>  'true'
+                        ])
+                    !!}
+
+
+
+
+
+				</div>
+
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+						<span class="input-group-text" id="basic-addon1">NÚMERO EXTERIOR
+							<span class="tx-danger">*</span>
+						</span>
+                    </div>
+
+                    {!! Form::text('no_exterior'
+                        , @$objeto ? $objeto->domicilio->no_exterior : null
+                        ,['class' 		=> 'form-control'
+                            ,'id'		=> 'no_exterior'
+                            ,'required'	=>	'true'
+                        ])
+                    !!}
+
+                    <div class="input-group-prepend">
+						<span class="input-group-text" id="basic-addon1">NÚMERO INTERIOR
+						</span>
+                    </div>
+                    {!! Form::text('no_interior'
+                        , @$objeto ? $objeto->domicilio->no_interior : null
+                        ,['class' 		=> 'form-control'
+                            ,'id'		=> 'no_interior'
+                        ])
+                    !!}
+
+                    <div class="input-group-prepend">
+						<span class="input-group-text" id="basic-addon1">TIPO DE VIALIDAD
+							<span class="tx-danger">*</span>
+						</span>
+                    </div>
+                    <select name="tipo_vialidad_id" class="form-control" id="tipo_vialidad_id" required>
+                        <option value="">Selecciona una opción</option>
+                        @foreach($tiposVialidad as $i)
+                            <option value="{{$i->id}}" {{@$objeto && $objeto->domicilio->tipo_vialidad_id==$i->id ? 'selected' :''}}>{{$i->nombre}}</option>
+                        @endforeach
+                    </select>
+
+                </div>
+
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+						<span class="input-group-text" id="basic-addon1">REFERENCIAS
+						</span>
+                    </div>
+
+                    {!! Form::text('referencias'
+                        , @$objeto ? $objeto->domicilio->referencias : null
+                        ,['class' 		=> 'form-control'
+                            ,'id'		=> 'referencias'
+                        ])
+                    !!}
+                </div>
 
 				<div class="input-group mb-3">
 					<div class="input-group-prepend">
@@ -181,7 +237,7 @@
 					</div>
 
 					{!! Form::text('celular'
-						, null
+						, @$objeto ? $objeto->celular : null
 						,['class' 		=> 'form-control'
 							,'id'		=> 'celular'
 							,'required'	=>	'true'
@@ -193,10 +249,10 @@
 					</div>
 
 					{!! Form::text('telefono'
-						, null
+						, @$objeto ? $objeto->telefono : null
 						,['class' 		=> 'form-control'
 							,'id'		=> 'telefono'
-							
+
 						])
 					!!}
 				</div>

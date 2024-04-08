@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoresucursalRequest;
 use App\Http\Requests\UpdatesucursalRequest;
+use App\Models\Domicilio;
 use App\Models\Sucursal;
 use App\Models\Empresa;
 
@@ -28,15 +29,15 @@ class SucursalController extends Controller
     {
 
         try {
-            Log::info(__CLASS__." ".__FUNCTION__);    
+            Log::info(__CLASS__." ".__FUNCTION__);
             $tabla = Sucursal::get();
 
-            return view(self::DASH_v 
+            return view(self::DASH_v
                     ,compact("tabla")
                 );
 
         } catch (Exception $e) {
-            Log::info(__CLASS__." ".__FUNCTION__." Exception");    
+            Log::info(__CLASS__." ".__FUNCTION__." Exception");
         }
     }
 
@@ -48,8 +49,8 @@ class SucursalController extends Controller
     public function create()
     {
         try {
-            Log::info(__CLASS__." ".__FUNCTION__);    
-           
+            Log::info(__CLASS__." ".__FUNCTION__);
+
             $pluckEmpresa = Empresa::pluck('nombre','id');
 
             return view(self::CREAR_v
@@ -57,7 +58,7 @@ class SucursalController extends Controller
             );
         } catch (Exception $e) {
             Log::info(__CLASS__." ".__FUNCTION__);
-            Log::info("Error general ");       
+            Log::info("Error general ");
         }
     }
 
@@ -72,17 +73,47 @@ class SucursalController extends Controller
         Log::info(__CLASS__." ".__FUNCTION__);
         $mensaje = "";
         try {
-            
-            Sucursal::create($request->except('_token'));
+
+            $sucursal = Sucursal::create([
+                "nombre"    => $request['nombre']
+                ,"contacto" => $request['contacto']
+                ,"direccion"=> $request['direccion']
+                ,"celular"  => $request['celular']
+                ,"telefono" => $request['telefono']
+                ,"empresa_id"=> $request['empresa_id']
+            ]);
+            Domicilio::updateOrCreate([
+                'modelo_id'=>$sucursal->id,
+                'modelo_type'=>$sucursal->getMorphClass(),
+            ],
+                [
+                    'cp'=>$request->cp,
+                    'estado'=>$request->estado,
+                    'codigo_estado'=>@$request->codigo_estado,
+                    'municipio_alcaldia'=>$request->municipio_alcaldia,
+                    'colonia'=>$request->colonia,
+                    'tipo_asentamiento'=>$request->tipo_asentamiento,
+                    'tipo_vialidad_id'=>$request->tipo_vialidad_id,
+                    'calle'=>$request->calle,
+                    'ciudad'=>@$request->ciudad,
+                    'no_exterior'=>$request->no_exterior,
+                    'no_interior'=>@$request->no_interior,
+                    'referencias'=>@$request->referencias,
+                    'latitud'=>@$request->latitud,
+                    'longitud'=>@$request->longitud,
+                    'modelo_id'=>$sucursal->id,
+                    'modelo_type'=>$sucursal->getMorphClass(),
+                ]);
+
 
             $tmp = sprintf("El registro de la REMITENTE '%s', fue exitoso",$request->get('nombre'));
             $notices = array($tmp);
-  
+
             return \Redirect::route(self::INDEX_r) -> withSuccess ($notices);
 
-        } catch(\Illuminate\Database\QueryException $e){ 
+        } catch(\Illuminate\Database\QueryException $e){
             Log::info(__CLASS__." ".__FUNCTION__." "."QueryException");
-            Log::debug($e->getMessage()); 
+            Log::debug($e->getMessage());
             $mensaje= $e->getMessage();
         } catch (Exception $e) {
             Log::info(__CLASS__." ".__FUNCTION__." "."Exception");
@@ -122,19 +153,19 @@ class SucursalController extends Controller
             $objeto = Sucursal::findOrFail($id);
 
             $pluckEmpresa = Empresa::pluck('nombre','id');
-               
+
             Log::debug($objeto);
             return view(self::EDITAR_v
-                , compact('objeto',"pluckEmpresa") 
+                , compact('objeto',"pluckEmpresa")
             );
-       
+
         } catch (ModelNotFoundException $e) {
             Log::info(__CLASS__." ".__FUNCTION__." ModelNotFoundException");
             $mensaje = $e->getMessage();
         } catch (Exception $e) {
             Log::info(__CLASS__." ".__FUNCTION__." "."Exception");
             Log::debug( $e->getMessage() );
-            $mensaje = $e->getMessage();    
+            $mensaje = $e->getMessage();
         }
 
         return \Redirect::back()
@@ -161,15 +192,15 @@ class SucursalController extends Controller
                 unset($datosUpdate['colonia']);
             }
             $objeto->fill($datosUpdate)->save();
-  
+
             $tmp = sprintf("Actualizacion del id '%s', fue exitoso",$id);
             $notices = array($tmp);
 
             return \Redirect::route(self::INDEX_r) -> withSuccess ($notices);
 
-        } catch(\Illuminate\Database\QueryException $e){ 
+        } catch(\Illuminate\Database\QueryException $e){
             Log::info(__CLASS__." ".__FUNCTION__." "."QueryException");
-            Log::debug($e->getMessage()); 
+            Log::debug($e->getMessage());
             $mensaje =  $e->getMessage();
         } catch (Exception $e) {
             Log::info(__CLASS__." ".__FUNCTION__." "."Exception");
@@ -193,7 +224,7 @@ class SucursalController extends Controller
         Log::info(__CLASS__." ".__FUNCTION__);
         $mensaje = "";
         try {
-            
+
             Log::info("Registro a Eliminar ". $id);
 
             $objeto = Sucursal::findOrFail($id);
@@ -202,12 +233,12 @@ class SucursalController extends Controller
 
             $tmp = sprintf("El Registro '%s' de la Sucursal '%s', fue eliminado exitosamente",$id,$objeto->nombre);
             $notices = array($tmp);
-  
+
             return \Redirect::route(self::INDEX_r) -> withSuccess ($notices);
 
-        } catch(\Illuminate\Database\QueryException $e){ 
+        } catch(\Illuminate\Database\QueryException $e){
             Log::info(__CLASS__." ".__FUNCTION__." "."QueryException");
-            Log::debug($e->getMessage()); 
+            Log::debug($e->getMessage());
             $mensaje = $e->getMessage();
 
         } catch (Exception $e) {

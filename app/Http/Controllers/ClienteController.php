@@ -5,10 +5,12 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreClienteRequest;
 use App\Http\Requests\UpdateClienteRequest;
 use App\Models\Cliente;
+use App\Models\Domicilio;
 use App\Models\Ltd;
 use App\Models\Servicio;
 use App\Models\Empresa;
 
+use Illuminate\Support\Facades\Auth;
 use Log;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 
@@ -28,16 +30,16 @@ class ClienteController extends Controller
     public function index()
     {
         try {
-            Log::info(__CLASS__." ".__FUNCTION__);    
+            Log::info(__CLASS__." ".__FUNCTION__);
             $tabla = Cliente::get();
 
-            
-            return view(self::DASH_v 
+
+            return view(self::DASH_v
                     ,compact("tabla")
                 );
 
         } catch (Exception $e) {
-            Log::info(__CLASS__." ".__FUNCTION__." Exception");    
+            Log::info(__CLASS__." ".__FUNCTION__." Exception");
         }
     }
 
@@ -49,17 +51,17 @@ class ClienteController extends Controller
     public function create()
     {
         try {
-            Log::info(__CLASS__." ".__FUNCTION__);    
+            Log::info(__CLASS__." ".__FUNCTION__);
             $tabla = array();
 
              $pluckEmpresa = Empresa::where('estatus',1)
                     ->pluck('nombre','id');
-            return view(self::CREAR_v 
+            return view(self::CREAR_v
                     ,compact("pluckEmpresa")
                 );
         } catch (Exception $e) {
             Log::info(__CLASS__." ".__FUNCTION__);
-            Log::info("Error general ");       
+            Log::info("Error general ");
         }
     }
 
@@ -74,17 +76,46 @@ class ClienteController extends Controller
         Log::info(__CLASS__." ".__FUNCTION__);
         $mensaje = "";
         try {
-            
-            Cliente::create($request->except('_token'));
+            $cliente = Cliente::create([
+                "nombre"    => $request['nombre']
+                ,"contacto" => $request['contacto']
+                ,"direccion"=> $request['direccion']
+                ,"celular"  => $request['celular']
+                ,"telefono" => $request['telefono']
+                ,"empresa_id"=> $request['empresa_id']
+            ]);
+
+            Domicilio::updateOrCreate([
+                    'modelo_id'=>$cliente->id,
+                    'modelo_type'=>$cliente->getMorphClass(),
+                ],
+                [
+                    'cp'=>$request->cp,
+                    'estado'=>$request->estado,
+                    'codigo_estado'=>@$request->codigo_estado,
+                    'municipio_alcaldia'=>$request->municipio_alcaldia,
+                    'colonia'=>$request->colonia,
+                    'tipo_asentamiento'=>$request->tipo_asentamiento,
+                    'tipo_vialidad_id'=>$request->tipo_vialidad_id,
+                    'calle'=>$request->calle,
+                    'ciudad'=>@$request->ciudad,
+                    'no_exterior'=>$request->no_exterior,
+                    'no_interior'=>@$request->no_interior,
+                    'referencias'=>@$request->referencias,
+                    'latitud'=>@$request->latitud,
+                    'longitud'=>@$request->longitud,
+                    'modelo_id'=>$cliente->id,
+                    'modelo_type'=>$cliente->getMorphClass(),
+                ]);
 
             $tmp = sprintf("El registro de la nueva DIRECCION '%s', fue exitoso",$request->get('nombre'));
             $notices = array($tmp);
-  
+
             return \Redirect::route(self::INDEX_r) -> withSuccess ($notices);
 
-        } catch(\Illuminate\Database\QueryException $e){ 
+        } catch(\Illuminate\Database\QueryException $e){
             Log::info(__CLASS__." ".__FUNCTION__." "."QueryException");
-            Log::debug($e->getMessage()); 
+            Log::debug($e->getMessage());
             $mensaje= $e->getMessage();
         } catch (Exception $e) {
             Log::info(__CLASS__." ".__FUNCTION__." "."Exception");
@@ -122,21 +153,21 @@ class ClienteController extends Controller
             Log::debug($id);
             Log::info(__CLASS__." ".__FUNCTION__."");
             $objeto = Cliente::findOrFail($id);
-               
+
             $pluckEmpresa = Empresa::pluck('nombre','id');
-            
+
             //Log::debug(print_r($pluckEmpresa,true));
             return view(self::EDITAR_v
-                , compact('objeto',"pluckEmpresa") 
+                , compact('objeto',"pluckEmpresa")
             );
-       
+
         } catch (ModelNotFoundException $e) {
             Log::info(__CLASS__." ".__FUNCTION__." ModelNotFoundException");
             $mensaje = $e->getMessage();
         } catch (Exception $e) {
             Log::info(__CLASS__." ".__FUNCTION__." "."Exception");
             Log::debug( $e->getMessage() );
-            $mensaje = $e->getMessage();    
+            $mensaje = $e->getMessage();
         }
 
         return \Redirect::back()
@@ -157,21 +188,50 @@ class ClienteController extends Controller
         $mensaje = "";
         try {
             $objeto = Cliente::findOrFail($id);
+
             $datosUpdate = $request->post();
             Log::debug(print_r($datosUpdate,true));
-            if ($datosUpdate['colonia']==0) {
-                unset($datosUpdate['colonia']);
-            }
-            $objeto->fill($datosUpdate)->save();
-  
+
+            $objeto ->update([
+                "nombre"    => $request['nombre']
+                ,"contacto" => $request['contacto']
+                ,"direccion"=> $request['direccion']
+                ,"celular"  => $request['celular']
+                ,"telefono" => $request['telefono']
+                ,"empresa_id"=> $request['empresa_id']
+            ]);
+
+                Domicilio::updateOrCreate([
+                    'modelo_id'=>$objeto->id,
+                    'modelo_type'=>$objeto->getMorphClass(),
+                ],
+                [
+                    'cp'=>$request->cp,
+                    'estado'=>$request->estado,
+                    'codigo_estado'=>@$request->codigo_estado,
+                    'municipio_alcaldia'=>$request->municipio_alcaldia,
+                    'colonia'=>$request->colonia,
+                    'tipo_asentamiento'=>$request->tipo_asentamiento,
+                    'tipo_vialidad_id'=>$request->tipo_vialidad_id,
+                    'calle'=>$request->calle,
+                    'ciudad'=>@$request->ciudad,
+                    'no_exterior'=>$request->no_exterior,
+                    'no_interior'=>@$request->no_interior,
+                    'referencias'=>@$request->referencias,
+                    'latitud'=>@$request->latitud,
+                    'longitud'=>@$request->longitud,
+                    'modelo_id'=>$objeto->id,
+                    'modelo_type'=>$objeto->getMorphClass(),
+                ]);
+
             $tmp = sprintf("Actualizacion del id '%s', fue exitoso",$objeto->id);
             $notices = array($tmp);
 
             return \Redirect::route(self::INDEX_r) -> withSuccess ($notices);
 
-        } catch(\Illuminate\Database\QueryException $e){ 
+        } catch(\Illuminate\Database\QueryException $e){
             Log::info(__CLASS__." ".__FUNCTION__." "."QueryException");
-            Log::debug($e->getMessage()); 
+            Log::debug($e->getMessage());
             $mensaje =  $e->getMessage();
         } catch (Exception $e) {
             Log::info(__CLASS__." ".__FUNCTION__." "."Exception");
@@ -195,7 +255,7 @@ class ClienteController extends Controller
         Log::info(__CLASS__." ".__FUNCTION__);
         $mensaje = "";
         try {
-            
+
             Log::info("Registro a Eliminar ". $id);
 
             $objeto = Cliente::findOrFail($id);
@@ -204,12 +264,12 @@ class ClienteController extends Controller
 
             $tmp = sprintf("El Registro '%s' de la Empresa '%s', fue eliminado exitosamente",$id,$objeto->empresa);
             $notices = array($tmp);
-  
+
             return \Redirect::route(self::INDEX_r) -> withSuccess ($notices);
 
-        } catch(\Illuminate\Database\QueryException $e){ 
+        } catch(\Illuminate\Database\QueryException $e){
             Log::info(__CLASS__." ".__FUNCTION__." "."QueryException");
-            Log::debug($e->getMessage()); 
+            Log::debug($e->getMessage());
             $mensaje = $e->getMessage();
 
         } catch (Exception $e) {
