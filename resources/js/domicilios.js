@@ -1,5 +1,5 @@
 
-window.addEventListener('load', function () {
+document.addEventListener('DOMContentLoaded', function () {
     //$('.selects').selectpicker();
     var cp = document.getElementById("cp");
     if(cp)cp.addEventListener("keyup", function(){

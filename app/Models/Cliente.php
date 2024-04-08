@@ -14,7 +14,7 @@ class Cliente extends Model
     use HasFactory;
 
     protected $table = 'clientes';
-    protected $guarded = []; 
+    protected $guarded = [];
 
     private $existe = false ;
     private $insertId = 0 ;
@@ -23,12 +23,12 @@ class Cliente extends Model
     /**
      * Agraga a la consulta los casos de negocio.
      *
-     * 
+     *
     */
 
     protected static function boot()
     {
-        parent::boot();        
+        parent::boot();
         static::addGlobalScope('estatus', function (Builder $builder) {
             $builder->where('clientes.estatus', '1');
 
@@ -43,21 +43,21 @@ class Cliente extends Model
      * Funcion para crear un objeto para insertar el registro del cliente.
      *
      * @param $request
-     * @return array 
-     * 
+     * @return array
+     *
     */
 
     public function insertSemiManual($request){
         Log::info(__CLASS__." ".__FUNCTION__." INICIANDO ---------");
 
-        
+
         if ($request['esManual'] === "SI" || $request['esManual'] === "SEMI" || $request['esManual'] === "API" ) {
             $empresa_id = $request['empresa_id'];
         } else {
             $empresa_id = auth()->user()->empresa_id;
         }
-        
-        
+
+
         $insert = array(
             "nombre"    => $request['nombre_d']
             ,"contacto" => $request['contacto_d']
@@ -76,19 +76,19 @@ class Cliente extends Model
             );
 
         $this->insertId = $this->create($insert)->id;
-        
-        
-        Log::info(__CLASS__." ".__FUNCTION__." ".__LINE__." FINALIZANDO ---------");
-        
 
-    }    
+
+        Log::info(__CLASS__." ".__FUNCTION__." ".__LINE__." FINALIZANDO ---------");
+
+
+    }
 
     /**
      * Funcion para crear un objeto para insertar el registro del cliente.
      *
      * @param $request
-     * @return array 
-     * 
+     * @return array
+     *
     */
 
     public function validaCliente($request){
@@ -121,17 +121,17 @@ class Cliente extends Model
                             ->where('empresa_id',$empresa_id)
                             ->pluck('id')
                             ->toArray();
-                
-                break;     
+
+                break;
             case "RETORNO":
                 Log::info(__CLASS__." ".__FUNCTION__." ".__LINE__." esManual = RETORNO ");
                 $cliente = self::where("id", $request['cliente_id'] )->pluck('id')
                             ->toArray();;
-                break;           
+                break;
             default:
                 Log::info("No se detecto el canal");
         }
-        
+
 
         Log::debug(print_r($cliente,true));
 
@@ -143,7 +143,7 @@ class Cliente extends Model
             $this->insertId = $cliente[0];
         }
 
-        
+
     }
 
     public function getExiste(){
@@ -153,5 +153,9 @@ class Cliente extends Model
 
     public function getId(){
         return $this->insertId;
+    }
+
+    public function domicilio(){
+        return $this->morphOne(Domicilio::class,'modelo');
     }
 }

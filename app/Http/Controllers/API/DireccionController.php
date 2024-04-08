@@ -22,19 +22,45 @@ class DireccionController extends ApiController
 
         try {
             if($tipo === "destinatario"){
-                $tabla = Cliente::get()->toArray();    
+                $tabla = [];
+                foreach (Cliente::all() as $i){
+                    $tabla[]=[
+                        'id'=>$i->id,
+                        'nombre'=>$i->nombre,
+                        'contacto'=>$i->contacto,
+                        'direccion'=>$i->direccion,
+                        'colonia'=>$i->domicilio->colonia,
+                        'ciudad'=>$i->domicilio->ciudad,
+                        'cp'=>$i->domicilio->cp,
+                        'entidad_federativa'=>$i->domicilio->estado,
+                        'telefono'=>$i->telefono,
+                    ];
+                }
             }else{
-                $tabla = Sucursal::get()->toArray();
+                $tabla = [];
+                foreach (Sucursal::all() as $i){
+                    $tabla[]=[
+                        'id'=>$i->id,
+                        'nombre'=>$i->nombre,
+                        'contacto'=>$i->contacto,
+                        'direccion'=>$i->direccion,
+                        'colonia'=>$i->domicilio->colonia,
+                        'ciudad'=>$i->domicilio->ciudad,
+                        'cp'=>$i->domicilio->cp,
+                        'entidad_federativa'=>$i->domicilio->estado,
+                        'telefono'=>$i->telefono,
+                    ];
+                }
             }
-            
+
 
             $success['mensaje'] = "Asignacion exitosa";
 
             return $this->successResponse($tabla, 'User login successfully.');
 
-        } catch(\Illuminate\Database\QueryException $e){ 
+        } catch(\Illuminate\Database\QueryException $e){
             Log::info(__CLASS__." ".__FUNCTION__." QueryException");
-            Log::debug($e->getMessage()); 
+            Log::debug($e->getMessage());
             $mensaje = $e->getMessage();
 
         } catch (\Exception $e) {
@@ -44,6 +70,6 @@ class DireccionController extends ApiController
         }
         Log::info(__CLASS__." ".__FUNCTION__." FINALIZANDO-----------------");
         return $this->sendError($mensaje);
-        
+
     }
 }
