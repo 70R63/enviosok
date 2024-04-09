@@ -19,4 +19,3 @@ composer.lock
 .gitignore
 /public/reportes/*
 public/zip/*
-public/build/assets/*
