@@ -22,12 +22,12 @@ class Tarifa extends Model
     /**
      * Agraga a la consulta los casos de negocio.
      *
-     * 
+     *
     */
 
     protected static function boot()
     {
-        parent::boot();        
+        parent::boot();
         static::addGlobalScope('status', function (Builder $builder) {
             $builder->where('tarifas.estatus', '1');
 
@@ -70,17 +70,19 @@ class Tarifa extends Model
                     ->where('ltd_id',$ltdId)
                     ->where('cp',$cp_d)
                     ->get()->toArray();
+
             Log::debug(print_r($ltdCobertura,true));
+
 
             if ( count($ltdCobertura) >= 1){
                 Log::info(__CLASS__." ".__FUNCTION__." ".__LINE__);
                 $ltdCobertura = $ltdCobertura[0];
-                $servicio = Servicio::where('nombre', 'like',$ltdCobertura['garantia'] )
+                $servicio = Servicio::where('nombre', 'like',$ltdCobertura['garantia']=="11:30"?'terrestre':str_replace('.','',$ltdCobertura['garantia'] ))
                     ->where('estatus',1)
                     ->get()->toArray()[0];
 
                 Log::info(__CLASS__." ".__FUNCTION__." ".__LINE__);
-                Log::debug(print_r($servicio,true)); 
+                Log::debug(print_r($servicio,true));
                 $prioridad = $servicio['prioridad'];
             } else {
                 Log::info(__CLASS__." ".__FUNCTION__." ".__LINE__);
@@ -90,14 +92,14 @@ class Tarifa extends Model
 
             Log::info(__CLASS__." ".__FUNCTION__." ".__LINE__);
             return $query->where('servicios.prioridad','>=', $prioridad);
-        
-        } 
+
+        }
         //fin Estafeta
-        
+
 
         Log::info(__CLASS__." ".__FUNCTION__." ".__LINE__);
         return $query;
-        
+
     }
 
     /**
@@ -119,7 +121,7 @@ class Tarifa extends Model
                 ->groupBy('tarifas.id')
 
                 ;
-        
+
     }
 
 
@@ -145,7 +147,7 @@ class Tarifa extends Model
             ->where("grupo_destino", $postalGrupoDestino)
             ->pluck("zona")->toArray();
         Log::info(__CLASS__." ".__FUNCTION__." ".__LINE__);
-        return $zona[0]; 
+        return $zona[0];
 
     }
 

@@ -83,6 +83,7 @@ class ClienteController extends Controller
                 ,"celular"  => $request['celular']
                 ,"telefono" => $request['telefono']
                 ,"empresa_id"=> $request['empresa_id']
+                , 'cp'=>$request->cp,
             ]);
 
             Domicilio::updateOrCreate([
@@ -199,6 +200,7 @@ class ClienteController extends Controller
                 ,"celular"  => $request['celular']
                 ,"telefono" => $request['telefono']
                 ,"empresa_id"=> $request['empresa_id']
+                ,'cp'=>$request->cp,
             ]);
 
                 Domicilio::updateOrCreate([

@@ -17,7 +17,7 @@ class EmpresaSeeder extends Seeder
     {
         Empresa::create([
             'contacto' => 'Sysadmin 0 ',
-            'nombre' =>"Empresa Sysadmin 0" 
+            'nombre' =>"EmpresaEmpresa Sysadmin 0"
             ,'email'    => 'jjj@gmail.com'
         ]);
     }

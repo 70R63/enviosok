@@ -35,18 +35,18 @@ class CotizadorController extends Controller
     public function index()
     {
         try {
-            Log::info(__CLASS__." ".__FUNCTION__);    
+            Log::info(__CLASS__." ".__FUNCTION__);
 
             $sucursal = Sucursal::orderby('nombre')->pluck('nombre','id');
 
             $cliente = Cliente::orderby('contacto')->pluck('contacto','id');
 
-            return view(self::DASH_v 
+            return view(self::DASH_v
                     ,compact( "sucursal", "cliente")
                 );
 
         } catch (Exception $e) {
-            Log::info(__CLASS__." ".__FUNCTION__." Exception");    
+            Log::info(__CLASS__." ".__FUNCTION__." Exception");
         }
     }
 
@@ -61,7 +61,7 @@ class CotizadorController extends Controller
         Log::info(__CLASS__." ".__FUNCTION__." ".__LINE__." INICIANDO-----------------");
         try {
 
-            $objeto = $request->all();           
+            $objeto = $request->all();
             Log::debug(print_r($objeto,true));
             $cliente=array();
             $sucursal= array();
@@ -70,12 +70,12 @@ class CotizadorController extends Controller
             Log::info(__CLASS__." ".__FUNCTION__." LINE ".__LINE__." Validacion esManual");
             if ($objeto['esManual']==="NO") {
                 Log::info(__CLASS__." ".__FUNCTION__." LINE ".__LINE__." Obteniendo direccion");
-                $cliente = Cliente::findOrFail($request->get("cliente_id"));
-                $sucursal = Sucursal::findOrFail($request->get("sucursal_id"));
+                $cliente = Cliente::find($request->get("cliente_id"));
+                $sucursal = Sucursal::find($request->get("sucursal_id"));
 
             }else{
                 Log::info(__CLASS__." ".__FUNCTION__." LINE ".__LINE__." semi");
-                $sucursal = Sucursal::findOrFail($request->get("sucursal_id"));
+                $sucursal = Sucursal::find($request->get("sucursal_id"));
 
             }
 
@@ -98,19 +98,19 @@ class CotizadorController extends Controller
             $precio = $request->get("precio");
             $ltd_nombre = $request->get("ltd_nombre");
             $piezas = $request->get("piezas_guia");
-            
-            Log::info(__CLASS__." ".__FUNCTION__." ".__LINE__." FINALIZANDO CON EXITO-----------------");  
+
+            Log::info(__CLASS__." ".__FUNCTION__." ".__LINE__." FINALIZANDO CON EXITO-----------------");
             Log::debug(print_r($objeto,true));
-            
+
 
             return view(self::CREAR_v
-                , compact('cliente', 'sucursal', 'precio', 'piezas', 'ltd_nombre','objeto','servicio') 
+                , compact('cliente', 'sucursal', 'precio', 'piezas', 'ltd_nombre','objeto','servicio')
             );
 
-        } catch(\Illuminate\Database\QueryException $ex){ 
+        } catch(\Illuminate\Database\QueryException $ex){
             Log::info(__CLASS__." ".__FUNCTION__." "."QueryException");
-            Log::debug($ex->getMessage()); 
-    
+            Log::debug($ex->getMessage());
+
         } catch (Exception $e) {
             Log::info(__CLASS__." ".__FUNCTION__." "."Exception");
             Log::debug( $e->getMessage() );
@@ -131,7 +131,7 @@ class CotizadorController extends Controller
      */
     public function store(StoreCotizadorRequest $request)
     {
-        
+
     }
 
     /**

@@ -28,11 +28,11 @@ class ClienteController extends ApiController
 
             $resultado = Empresa::whereIN('id',$empresas)
                     ->get()->toArray();
-           
+
             //Log::debug(print_r($resultado,true));
             //$resultado = array();
             $mensaje = "ok";
-            return $this->successResponse($resultado, $mensaje);    
+            return $this->successResponse($resultado, $mensaje);
 
         } catch (\InvalidArgumentException $ex) {
             Log::debug($ex );
@@ -41,7 +41,7 @@ class ClienteController extends ApiController
         } catch (\ErrorException $ex) {
             Log::info(__CLASS__." ".__FUNCTION__." ErrorException");
             Log::debug(print_r($ex,true));
-            
+
             $mensaje =$ex->getMessage();
 
         } catch (\HttpException $ex) {

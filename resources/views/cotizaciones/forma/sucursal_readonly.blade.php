@@ -1,7 +1,7 @@
 <!-- Campos para el sucursal con valor readonly -->
 <div class="card custom-card">
     <div class="card-body">
-    	
+
         <div class="card-header border-bottom-0 pt-0 pl-0 pr-0 d-flex">
             <label class="main-content-label mb-4">DETALLES DEL REMITENTE</label>
         </div>
@@ -63,7 +63,7 @@
 				</div>
 
 				{!! Form::text('no_ext'
-					, $sucursal->no_ext
+					, $sucursal->domicilio->no_exterior
 					,['class' 		=> 'form-control'
 						,'id'		=> 'no_ext'
 						,'required'	=>	'true'
@@ -76,7 +76,7 @@
 				</div>
 
 				{!! Form::text('no_int'
-					, $sucursal->no_int
+					, $sucursal->domicilio->no_interior
 					,['class' 		=> 'form-control'
 						,'id'		=> 'no_int'
 						,'readonly' =>  'true'
@@ -104,7 +104,7 @@
 				</div>
 
 				{!! Form::text('direccion2'
-					, $sucursal->direccion2
+					, $sucursal->domicilio->referencias
 					,['class' 		=> 'form-control'
 						,'id'		=> 'direccion2'
 						,'readonly' =>  'true'
@@ -120,7 +120,7 @@
 				</div>
 
 				{!! Form::text('colonia'
-					, $sucursal->colonia
+					, $sucursal->domicilio->colonia
 					,['class' 		=> 'form-control'
 						,'id'		=> 'colonia'
 						,'required'	=>	'true'
@@ -136,7 +136,7 @@
 				</div>
 
 				{!! Form::text('ciudad'
-					, $sucursal->ciudad
+					, $sucursal->domicilio->ciudad
 					,['class' 		=> 'form-control'
 						,'id'		=> 'ciudad'
 						,'required'	=>	'true'
@@ -152,7 +152,7 @@
 				</div>
 
 				{!! Form::text('entidad_federativa'
-					, $sucursal->entidad_federativa
+					, $sucursal->domicilio->estado
 					,['class' 		=> 'form-control'
 						,'id'		=> 'entidad_federativa'
 						,'required'	=>	'true'
@@ -197,6 +197,6 @@
 {!! Form::hidden('sucursal_id'
     , $sucursal->id
     ,['class'       => 'form-control'
-        ,'id'       => 'sucursal_id' 
+        ,'id'       => 'sucursal_id'
     ])
 !!}

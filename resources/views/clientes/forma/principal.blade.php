@@ -148,7 +148,6 @@
                         ,['class' 		=> 'form-control'
                             ,'id'		=> 'ciudad'
                             ,'required'	=>	'true'
-                            ,'readonly' =>  'true'
                         ])
                     !!}
 

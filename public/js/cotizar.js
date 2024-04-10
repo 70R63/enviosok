@@ -24,27 +24,27 @@ function pesoDimensionalyBascula(){
         var indexPeso = 0 +control
         var indexLargo = 1 +control
         var indexAncho = 2 +control
-        var indexAlto = 3 +control 
-        
+        var indexAlto = 3 +control
+
 
         var peso = $('.registroMultipieza .multi').get()[indexPeso].value
         var largo = $('.registroMultipieza .multi').get()[indexLargo].value
         var ancho = $('.registroMultipieza .multi').get()[indexAncho].value
         var alto = $('.registroMultipieza .multi').get()[indexAlto].value
-        
+
         if ($('.registroMultipieza').length == 1){
             pesoBascula = peso*piezas
-            pesoDimensional = (((alto*ancho*largo)/5000)*piezas)    
-            
+            pesoDimensional = (((alto*ancho*largo)/5000)*piezas)
+
         }else{
             pesoBascula = peso
             pesoDimensional = ((alto*ancho*largo)/5000)
         }
-        
+
         console.log("bascula "+pesoBascula+ ">"+ pesoDimensional+" dimensional")
         iteracionClone++
 
-    })  
+    })
 
     pesoFacturado = pesoFacturado + ((bascula > dimensional) ? Math.ceil(bascula) : Math.ceil(dimensional));
     return pesoFacturado;
@@ -66,8 +66,8 @@ function pesofacturado(){
         var indexPeso = 0 +control
         var indexLargo = 1 +control
         var indexAncho = 2 +control
-        var indexAlto = 3 +control 
-        
+        var indexAlto = 3 +control
+
 
         var peso = $('.registroMultipieza .multi').get()[indexPeso].value
         var largo = $('.registroMultipieza .multi').get()[indexLargo].value
@@ -76,18 +76,18 @@ function pesofacturado(){
 
         if ($('.registroMultipieza').length == 1){
             bascula = peso*piezas
-            dimensional = (((alto*ancho*largo)/5000)*piezas)    
-            
+            dimensional = (((alto*ancho*largo)/5000)*piezas)
+
         }else{
             bascula = peso
             dimensional = ((alto*ancho*largo)/5000)
         }
-        
+
         pesoFacturado = pesoFacturado + ((bascula > dimensional) ? Math.ceil(bascula) : Math.ceil(dimensional));
         console.log("bascula "+bascula+ ">"+ dimensional+" dimensional")
         iteracionClone++
 
-    })       
+    })
     console.log("peso facturado = "+pesoFacturado)
     $("#pesoFacturado").val(pesoFacturado);
 }
@@ -96,10 +96,10 @@ function costoSeguroValidar(seguro){
     costoSeguro = 0;
     valorEnvio = 0;
     console.log("costoSeguroValidar "+seguro)
-    
+
     if ($('#checkSeguro').is(":checked")) {
         valorEnvio = $("#valor_envio").val();
-        costoSeguro = (valorEnvio * seguro)/100;  
+        costoSeguro = (valorEnvio * seguro)/100;
     }
     return costoSeguro;
 }
@@ -124,16 +124,16 @@ function preciofinal(dataRow){
     if ( textAreaExtendida == "SI"){
         costoCoberturaExtendida = dataRow.extendida
         console.log(costoCoberturaExtendida);
-    } 
+    }
 
     return dataRow.costo+ costoPesoExtra + costoSeguro + costoCoberturaExtendida;
 }
 
 function fechaTentativa(row){
-    
+
     var ahora = new Date();
     var diaLaboral = 0
-    
+
     ahora.setDate(ahora.getDate()+row.tiempo_entrega)
 
     if (ahora.getDay() === 0 || ahora.getDay() === 6 )
@@ -153,7 +153,7 @@ function obtenerCP(id, modelo) {
         /* send the csrf-token and the input to the controller */
         headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
         data: "id="+id+"&modelo="+modelo
-        
+
         /* remind that 'data' is the response of the AjaxController */
         }).done(function( response) {
             console.log("done");
@@ -161,24 +161,24 @@ function obtenerCP(id, modelo) {
 
             if ("Sucursal" == modelo) {
                 if (contador == 1) {
-                    $("#cp").val(response.data[0].cp);    
+                    $("#cp").val(response.data[0].cp);
                 } else {
                     $("#cp").val("00000");
                 }
-                
+
             } else {
                 if (contador == 1) {
-                    $("#cp_d").val(response.data[0].cp);    
+                    $("#cp_d").val(response.data[0].cp);
                 } else {
                     $("#cp_d").val("00000");
                 }
             }
-            
-        
+
+
         }).fail( function( data,jqXHR, textStatus, errorThrown ) {
             console.log( "fail" );
             console.log(textStatus);
-            
+
             alert( data.responseJSON.message);
 
         }).always(function() {
@@ -197,19 +197,19 @@ function validaSaldo(response){
                 "El Saldo: "+response.data.saldo +" es menor al limite permitido",
                 "Revisar con tu Administrador!",
                 "error"
-              )    
+              )
         }
-        
+
         if (response.data.saldo <0) {
             saldoNegativo = true;
             swal(
                 "Saldo Negativo: $"+response.data.saldo ,
                 "Revisar con tu Administrador!",
                 "error"
-              )    
+              )
         }
 
-       
+
     } else {
 
     }
@@ -232,7 +232,7 @@ $("#limpiar").click(function() {
     $("#sucursal").attr("required","true");
     $("#cliente").attr("required","true");
     $("#cliente_id").removeAttr("required");
-    
+
     $(".checkSemiHtml").show()
     $(".cotizacionSemi").attr("readonly","true");
     $("#esManual").val("NO");
@@ -246,7 +246,7 @@ $("#cotizar").click(function(e) {
     e.preventDefault();
 
     var form = $('#cotizacionesForm').parsley().refresh();
-    var action = $('#cotizacionesForm').attr("action"); 
+    var action = $('#cotizacionesForm').attr("action");
     console.log(action)
     saldoNegativo = false;
     if ( form.validate() ){
@@ -257,14 +257,14 @@ $("#cotizar").click(function(e) {
             /* send the csrf-token and the input to the controller */
             headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
             data: $('#cotizacionesForm').serialize()
-            
+
             /* remind that 'data' is the response of the AjaxController */
             }).done(function( response) {
                 console.log("done");
                 console.log(response.data.data);
 
                 //validaSaldo(response)
-                
+
 
                 table = $('#cotizacionAjax').DataTable({
                     "oLanguage": {
@@ -276,8 +276,8 @@ $("#cotizar").click(function(e) {
 
                     ,"data": response.data.data,
                     columnDefs: [
-                        {  
-                            targets: 10 
+                        {
+                            targets: 10
                             ,"createdCell": function(td, cellData, rowData, row, col) {
                                 switch(cellData) {
                                     case "SI":
@@ -294,16 +294,16 @@ $("#cotizar").click(function(e) {
                         { "data": "id" },
                         { "data": "nombre" },
                         { "data": "servicios_nombre" },
-                        { "data": "fecha_tentativa" 
+                        { "data": "fecha_tentativa"
                             ,render: function (data, type, row) {
-                                return fechaTentativa(row);   
-                            } 
+                                return fechaTentativa(row);
+                            }
                         },
                         { "data": "zona" },
-                        { "data": "costo" 
+                        { "data": "costo"
                             ,render: function (data,row) {
                                 return '$ '+data;
-                            } 
+                            }
                         },
                         { "data": "kg_ini" },
                         { "data": "kg_fin" },
@@ -313,22 +313,22 @@ $("#cotizar").click(function(e) {
                         { "data": "extendida" },
                         { "data": "seguro"
                             ,render: function (data, type, row, meta) {
-                                return '$ '+costoSeguroValidar(row.seguro);   
-                            } 
+                                return '$ '+costoSeguroValidar(row.seguro);
+                            }
                         },
                         { "data": "costo_total"
                             ,render: function (data, type, row, meta) {
-                                return '$ '+preciofinal(row);   
-                            } 
+                                return '$ '+preciofinal(row);
+                            }
                         }
                     ],
                     "autoWidth": false,
                 });
-                
+
             }).fail( function( data,jqXHR, textStatus, errorThrown ) {
                 console.log( "fail" );
                 console.log(textStatus);
-                
+
                 swal(
                     "Error!",
                     data.responseJSON.message,
@@ -339,7 +339,7 @@ $("#cotizar").click(function(e) {
             }).always(function() {
                 console.log( "complete" );
             });
-        
+
     } else {
         console.log( "enviosForm con errores" );
         return false;
@@ -353,18 +353,18 @@ table = $('#cotizacionAjax').DataTable({
 });
 
 $('#cotizacionAjax tbody').on('click', 'tr', function () {
-   
+
     saldoNegativo=false
     if (saldoNegativo) {
         swal(
             "Por el monento no puede hacer guias",
             "Revisar con tu Administrador!",
             "error"
-          ) 
+          )
 
     } else {
 
-        var dataRow = table.row(this).data(); 
+        var dataRow = table.row(this).data();
 
         console.log(dataRow);
         //Valores de la cotizacion de la Forma Cotizacion
@@ -438,9 +438,9 @@ $('#cotizacionAjax tbody').on('click', 'tr', function () {
         $("#peso_bascula").val(bascula);
         $("#sobre_peso_kg").val(sobrePesoKg);
         $("#costo_extendida").val(costoCoberturaExtendida);
-        
-        
-        
+
+
+
         var iteracionClone = 0
         var pesos = []
         var largos = []
@@ -453,20 +453,20 @@ $('#cotizacionAjax tbody').on('click', 'tr', function () {
             var indexPeso = 0 +control
             var indexLargo = 1 +control
             var indexAncho = 2 +control
-            var indexAlto = 3 +control 
-            
+            var indexAlto = 3 +control
+
 
             var peso = $('.registroMultipieza .multi').get()[indexPeso].value
             var largo = $('.registroMultipieza .multi').get()[indexLargo].value
             var ancho = $('.registroMultipieza .multi').get()[indexAncho].value
             var alto = $('.registroMultipieza .multi').get()[indexAlto].value
-            
+
             pesos.push(peso)
             largos.push(largo)
             anchos.push(ancho)
             altos.push(alto)
             iteracionClone++
-        })      
+        })
 
         $("#pesos").val(pesos);
         $("#largos").val(largos);
@@ -478,7 +478,7 @@ $('#cotizacionAjax tbody').on('click', 'tr', function () {
 
         console.log("crearPreferencia")
         crearPreferencia(400,ltd_nombre, servicioNombre);
-        
+
         console.log(saldoPorEmpresa +">"+ precioIva)
         if ( saldoPorEmpresa > precioIva   ) {
             console.log("myModal")
@@ -487,11 +487,11 @@ $('#cotizacionAjax tbody').on('click', 'tr', function () {
             console.log("myModalMercadoPago")
             $("#myModalMercadoPago").modal("show");
         }
-        
-        
+
+
 
     }
-    
+
 });
 
 
@@ -499,11 +499,8 @@ $("#sucursal").change(function() {
     var idSucursal = $('#sucursal').val();
     console.log("sucursal "+idSucursal)
     obtenerCP(idSucursal, "Sucursal");
-
     direccionesPorEmpresa(idSucursal)
-   
-            
-}); 
+});
 
 $("#cliente").change(function() {
     var idCliente = $('#cliente').val();
@@ -516,11 +513,11 @@ $(function(){
         pesofacturado();
     });
 
-    
+
     $("#handleCounterMax28").click( function (){
         pesofacturado();
     });
-    
+
 });
 
 function obtenerClientes() {
@@ -532,30 +529,30 @@ function obtenerClientes() {
         /* send the csrf-token and the input to the controller */
         headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
         //data: "clienid="+id
-        
+
         /* remind that 'data' is the response of the AjaxController */
         }).done(function( response) {
             console.log("done");
             //console.log(response.data);
-           
+
             $('#clienteIdCombo').empty();
             $("#clienteIdCombo").append('<option selector="0" value="0"> TODOS</option>');
-            
+
             $.each(response.data,function(key, empresa) {
                 $("#clienteIdCombo").append('<option selector='+key+' value="'+empresa.id+'" >'+empresa.nombre+'</option>');
-              });   
-            
-        
+              });
+
+
         }).fail( function( data,jqXHR, textStatus, errorThrown ) {
             console.log( "fail" );
             console.log(textStatus);
-            
+
             swal(
                 "Error!",
                 data.responseJSON.message,
                 "error"
               );
-            
+
 
         }).always(function() {
             console.log( "complete" );
@@ -569,40 +566,40 @@ function direccionesPorEmpresa(idSucursa){
 
     $.ajax({
         /* Usar el route  */
-        //url: route('api.cp.colonias'), 
-        url: route('api.direcciones.tipo', [idSucursa]),
+        //url: route('api.cp.colonias'),
+        url: url_base+'/api/direccion/destinatario',
         type: 'GET',
         /* send the csrf-token and the input to the controller */
         headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
-        
-        
+
+
         /* remind that 'data' is the response of the AjaxController */
         }).done(function( response) {
             console.log("done");
             console.log(response.data);
-           
+
             $('#cliente').empty();
             $("#cliente").append('<option selector="0" value="0"> Selecciona</option>');
             $.each(response.data,function(key, empresa) {
                 $("#cliente").append('<option selector='+key+' value="'+empresa.id+'" >'+empresa.nombre+'</option>');
-              });   
-            
-        
+              });
+
+
         }).fail( function( data,jqXHR, textStatus, errorThrown ) {
             console.log( "fail" );
             console.log(textStatus);
-            
+
             swal(
                 "Error!",
                 data.responseJSON.message,
                 "error"
               );
-            
+
 
         }).always(function() {
             console.log( "complete" );
     });
-    
+
 }
 
 function crearPreferencia(precioIva,ltd_nombre, servicioNombre){
@@ -612,7 +609,7 @@ function crearPreferencia(precioIva,ltd_nombre, servicioNombre){
         );
     const bricksBuilder = mp.bricks();
 
-        
+
     element = document.getElementById("wallet_container");
     element.remove(); // Elimina el div con el id 'div-02'
 
@@ -688,7 +685,7 @@ function crearPreferencia(precioIva,ltd_nombre, servicioNombre){
     }).fail( function( data,jqXHR, textStatus, errorThrown ) {
         console.log( "fail" );
         console.log(textStatus);
-        
+
         swal(
             "Error!",
             data.responseJSON.message,
@@ -699,20 +696,20 @@ function crearPreferencia(precioIva,ltd_nombre, servicioNombre){
     }).always(function() {
         console.log( "complete" );
     });
-    
+
 }
 
 $("#addRow").click(function () {
     console.log('AddRow')
-    var piezas = $("#piezas").val()  
+    var piezas = $("#piezas").val()
     var multipiezas = $(".registroMultipieza").length;
-    
-    
+
+
     var html = $("#clone").clone(true,true)
 
     $('.registroMultipieza').each(function( index ) {
-        $(this).remove();    
-        
+        $(this).remove();
+
     });
 
     console.log("piezas -> "+piezas)
@@ -722,7 +719,7 @@ $("#addRow").click(function () {
     }
 
     pesofacturado();
-    
+
 });
 
 // La fucnion habilita el modo edicion de los CP, esto ayuda a realizar una cotizacion manual basda en tarifias de un cliente
@@ -759,7 +756,7 @@ $('#checkManual').change(function() {
         $("#cliente").removeAttr("required");
         $("#cliente_id").attr("required","true");
         $("#esManual").val("SI");
-        
+
     } else {
         $(".checkManualHtml").show()
         $(".clienteCombo").hide()

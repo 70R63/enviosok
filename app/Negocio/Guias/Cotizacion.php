@@ -36,7 +36,7 @@ class Cotizacion {
 
      /**
      * Metodo base, Genera la logica para las cotizacion
-     * 
+     *
      * @param array $parametros
      * @return void
     */
@@ -53,7 +53,7 @@ class Cotizacion {
             } else {
                 $empresa_id= Sucursal::where('id',$request['sucursal'])
                         ->value('empresa_id');
-            }    
+            }
             $empresasLtdQuery = EmpresaLtd::where('empresa_id',$empresa_id);
         } else {
             Log::info(__CLASS__." ".__FUNCTION__." ".__LINE__);
@@ -63,15 +63,15 @@ class Cotizacion {
 
 
         Log::info(__CLASS__." ".__FUNCTION__." ".__LINE__." Empresa id =$empresa_id");
-            
-        
+
+
         if ($ltd_id > 0){
             Log::info(__CLASS__." ".__FUNCTION__." ".__LINE__." Consulta ltd_id=$ltd_id");
             $empresasLtdQuery->where('ltd_id',$ltd_id);
         }
 
-       
-        
+
+
         */
 
 
@@ -82,16 +82,16 @@ class Cotizacion {
         $tabla = array();
         foreach ($ltds as $ltdId => $nombre) {
             Log::info(__CLASS__." ".__FUNCTION__." ".__LINE__." LTD $ltdId => nombre $nombre ");
-                        
+
             $tablaTmp = array();
 /*
             $servicioIds = Tarifa::select('servicio_id')
                             ->where("ltds_id", $ltdId)
                             //->where("empresa_id", $empresa_id)
                             ->distinct()->get()->pluck('servicio_id')->toArray();
-  */      
+  */
             Log::info(__CLASS__." ".__FUNCTION__." ".__LINE__." $canal");
-           /* 
+           /*
             if ($canal === "API") {
                 $query = TarifaApi::base($empresa_id, $request['cp_d'], $ltdId);
             } else {
@@ -101,7 +101,7 @@ class Cotizacion {
             $query = Tarifa::base($empresa_id,$request['cp_d'], $ltdId);
 
             $tablaTmp = $query->get()->toArray();
-            
+
             foreach ($tablaTmp as $key => $value) {
                 $tablaTmp[$key]['zona'] = "NA";
             }
@@ -128,7 +128,7 @@ class Cotizacion {
 
                                 $query = Tarifa::base($empresa_id, $request['cp_d'], $ltdId);
                                 $query = $query->where('servicio_id', $value);
-                                
+
                                 $zona = Tarifa::fedexZona($request['cp'],$request['cp_d']);
 
 
@@ -136,11 +136,11 @@ class Cotizacion {
                                 if ($zona >=1 && $zona <= 4){
                                     Log::info("zONA 1 A 4");
                                     $costoZona = $query->min("costo");
-                                    
+
                                 } else {
                                     Log::info("zONA 5 A 8");
                                     $costoZona = $query->max("costo");
-                                    
+
                                 }
                                 Log::debug(print_r("-----------------------------",true));
                                 Log::debug(print_r($costoZona,true));
@@ -155,8 +155,8 @@ class Cotizacion {
                                     $value['zona']=$zona;
                                     $tabla[] = array_merge($tabla, $value);
                                 }
-                                
-                                       
+
+
                             }
                             //FIN foreach ($servicioIds as $key => $value) {
                             break;
@@ -165,9 +165,9 @@ class Cotizacion {
                             if ($canal === "API") {
                                 $query->where("servicio_id",$request['servicio_id']);
                             }
-                            
+
                             $tablaTmp = $query->get()->toArray();
-                            
+
                             foreach ($tablaTmp as $key => $value) {
                                 $tablaTmp[$key]['zona'] = "NA";
                             }
@@ -177,7 +177,7 @@ class Cotizacion {
                         default:
                             Log::info(__CLASS__." ".__FUNCTION__." ".__LINE__." ltd default");
                             $tablaTmp = $query->get()->toArray();
-                            
+
                             foreach ($tablaTmp as $key => $value) {
                                 $tablaTmp[$key]['zona'] = "NA";
                             }
@@ -185,7 +185,7 @@ class Cotizacion {
                             $tabla = array_merge($tabla, $tablaTmp);
 
                     }
-                    //Fin switch ($ltdId) 
+                    //Fin switch ($ltdId)
                 break;
                 case "2"://RANGO
                     Log::info(__CLASS__." ".__FUNCTION__." ".__LINE__." Clasificacion 2 = RANGO");
@@ -203,7 +203,7 @@ class Cotizacion {
                             Log::info(__CLASS__." ".__FUNCTION__." ".__LINE__." ltd 1 = FEDEX");
                             foreach ($servicioIds as $key => $value) {
                                 Log::info(__CLASS__." ".__FUNCTION__." ".__LINE__." servicio_id =$value");
-        
+
                                 $query = Tarifa::base($empresa_id, $request['cp_d'], $ltdId);
                                 $tablaTmp = $query->where( 'kg_ini', "<=", $request['pesoFacturado'] )
                                 ->where('kg_fin', ">=", $request['pesoFacturado'] )
@@ -216,13 +216,13 @@ class Cotizacion {
                                 }
 
                                 $tabla = array_merge($tabla, $tablaTmp);
-                                           
+
                             }
                             //FIN foreach ($servicioIds as $key => $value) {
                         break;
                         case "2":
                             Log::info(__CLASS__." ".__FUNCTION__." ".__LINE__." ltd 2 = ESTAFETA");
-                           
+
                             $tablaTmp = array();
 
                             $query = Tarifa::base($empresa_id, $request['cp_d'], $ltdId);
@@ -230,11 +230,11 @@ class Cotizacion {
                             ->where('kg_fin', ">=", $request['pesoFacturado'] )
                             ->get()->toArray()
                             ;
-                
+
                             Log::debug(__CLASS__." ".__FUNCTION__." ".__LINE__." Validando Query Rango");
                             Log::debug(print_r($tablaTmp,true));
 
-                                    
+
                             if (empty($tablaTmp)) {
                                 Log::info(__CLASS__." ".__FUNCTION__." ".__LINE__." Buscando el ultimo rango");
 
@@ -249,13 +249,13 @@ class Cotizacion {
                                     $tarifaIds = $tarifaIdsGeneral
                                         ->where("kg_fin", $maxKgFin)
                                         ->get()->toArray();
-                        
+
                                     Log::debug(print_r($tarifaIds,true));
                                     $query = Tarifa::rangoMaximo($empresa_id, $request['cp_d'], $ltdId, $tarifaIds[0]['id']);
                                     $tablaTmp = $query->get()->toArray();
                                 }
                                 //fin foreach ($servicioIds as $key => $value) {
-                    
+
                             } else {
                                 Log::info(__CLASS__." ".__FUNCTION__." ".__LINE__." Tabla con resultado no se busca ultimo rango ");
                             }
@@ -263,7 +263,7 @@ class Cotizacion {
                             foreach ($tablaTmp as $key => $value) {
                                 $tablaTmp[$key]['zona'] = "NA";
                             }
-                            $tabla = array_merge($tabla, $tablaTmp);            
+                            $tabla = array_merge($tabla, $tablaTmp);
                         break;
                         case "3":
                             Log::info(__CLASS__." ".__FUNCTION__." ".__LINE__." ltd ".Config('ltd.redpack.id')."=".Config('ltd.redpack.nombre') );
@@ -277,11 +277,11 @@ class Cotizacion {
                                 ->where('servicio_id', $value)
                                 ->get()->toArray()
                                 ;
-                    
+
                                 Log::debug(__CLASS__." ".__FUNCTION__." ".__LINE__." Validando Query Rango");
                                 Log::debug(print_r($tablaTmp,true));
 
-                                        
+
                                 if (empty($tablaTmp)) {
                                     Log::info(__CLASS__." ".__FUNCTION__." ".__LINE__." Buscando el ultimo rango");
                                     $tarifaIdsGeneral = Tarifa::select("id", "servicio_id", "kg_fin" )
@@ -294,11 +294,11 @@ class Cotizacion {
                                     $tarifaIds = $tarifaIdsGeneral
                                         ->where("kg_fin", $maxKgFin)
                                         ->get()->toArray();
-                        
+
                                     Log::debug(print_r($tarifaIds,true));
                                     $query = Tarifa::rangoMaximo($empresa_id, $request['cp_d'], $ltdId, $tarifaIds[0]['id']);
                                     $tablaTmp = $query->get()->toArray();
-                        
+
                                 }
                                 foreach ($tablaTmp as $key => $value) {
                                     $tablaTmp[$key]['zona'] = "NA";
@@ -332,17 +332,17 @@ class Cotizacion {
 
                         Log::debug(__CLASS__." ".__FUNCTION__." ".__LINE__." Validando Query Rango");
                         Log::debug(print_r($tablaTmp->get()->toArray(),true));
-                        
+
                         $zona = Tarifa::fedexZona($request['cp'],$request['cp_d']);
 
                         if ($zona >=1 && $zona <= 4){
                             Log::info("zONA 1 A 4");
                             $costoZona = $query->min("costo");
-                            
+
                         } else {
                             Log::info("zONA 5 A 8");
                             $costoZona = $query->max("costo");
-                            
+
                         }
                         Log::debug(__CLASS__." ".__FUNCTION__." ".__LINE__."  costoZona=$costoZona");
                         $tablaTmp = $query->where("costo","like","%".$costoZona."%")->get()->toArray();
@@ -373,7 +373,7 @@ class Cotizacion {
                         Log::debug("No se cuenta con cobertura");
                         break;
                     }
-                    
+
 
                     Log::debug(print_r($estadoCoberturaDestino,true));
                     $postalGrupoOrigen = PostalGrupo::select('grupo')
@@ -399,7 +399,7 @@ class Cotizacion {
                     Log::info(__CLASS__." ".__FUNCTION__." ".__LINE__);
                     Log::debug("Zona ".$zona[0]);
                     Log::info(__CLASS__." ".__FUNCTION__." ".__LINE__);
-                    
+
                     $tarifas = DhlTarifas::select('precio', 'dhl_tarifas.id', 'dhl_tarifas.servicio_id','servicios.nombre as servicios_nombre','servicios.tiempo_entrega')
                             ->join('servicios','servicios.id', '=', 'dhl_tarifas.servicio_id')
                             ->where('zona',$zona[0] )
@@ -412,14 +412,14 @@ class Cotizacion {
                         $tarifas = $tarifas->where('precio',$maxPrecio)
                                         ->get()->toArray()
                                         ;
-                        
+
                     } else {
                         Log::info(__CLASS__." ".__FUNCTION__." ".__LINE__." pesoFacturado <70");
                         $tarifas = $tarifas->where('kg', $request['pesoFacturado'])
                             ->get()->toArray()
                             ;
                     }
-                    
+
 
                     Log::info(__CLASS__." ".__FUNCTION__." ".__LINE__);
 
@@ -432,15 +432,15 @@ class Cotizacion {
 
                         $descuentoPorcentaje = $empresa['descuento']/100;
                         $costoDescuento = round($tarifa['precio'] *$descuentoPorcentaje,2);
-                        
+
                         $subCosto = $tarifa['precio']-$costoDescuento;
                         Log::debug(print_r($subCosto,true));
 
                         $fscIncremento = $empresa['fsc']/100;
-                        Log::debug(print_r($fscIncremento,true)); 
-                        
+                        Log::debug(print_r($fscIncremento,true));
+
                         $costoFsc = round( $subCosto*$fscIncremento ,2);
-                        Log::debug(print_r($costoFsc,true)); 
+                        Log::debug(print_r($costoFsc,true));
 
                         $costo = round( $subCosto*(1+$fscIncremento) ,2);
                         Log::debug(print_r($costo,true));
@@ -454,7 +454,7 @@ class Cotizacion {
                         }
 
                         $servicioNombre = ($tarifa['servicio_id'] ===2) ? 'Dia Sig' : 'Terrestre' ;
-                        
+
                         $tablaTmp = $tarifa;
                         $tablaTmp['costo'] =$costo;
                         $tablaTmp['precio'] =$costo;
@@ -468,15 +468,15 @@ class Cotizacion {
                         $tablaTmp['extendida'] = $empresa['area_extendida'];
                         $tablaTmp['seguro'] = $empresa['seguro'];
                         $tablaTmp['zona'] = $zona[0];
-                        Log::debug(print_r($tablaTmp,true));  
+                        Log::debug(print_r($tablaTmp,true));
                         Log::info(__CLASS__." ".__FUNCTION__." ".__LINE__." CALCULO KG ADICIOANL DHL");
-                        if ($request['pesoFacturado'] >70) { 
-                            
+                        if ($request['pesoFacturado'] >70) {
+
 
                             $kgAdicional = $request['pesoFacturado'] -70;
                             Log::info(__CLASS__." ".__FUNCTION__." ".__LINE__);
                             $kgCosto = Config('ltd.dhl.kgmas70.zona')[$zona[0]];
-                            $kgAdicional = ($kgAdicional* $kgCosto  );  
+                            $kgAdicional = ($kgAdicional* $kgCosto  );
                             Log::info($kgAdicional);
                             $descuentoKgAdicional = $kgAdicional *$descuentoPorcentaje;
                             $precioAdicional=round($kgAdicional-$descuentoKgAdicional,2);
@@ -519,7 +519,7 @@ class Cotizacion {
                     }
                     //Fin foreach
 
-                    Log::info(__CLASS__." ".__FUNCTION__." ".__LINE__); 
+                    Log::info(__CLASS__." ".__FUNCTION__." ".__LINE__);
                 break;
                 case 5: //ZONA
                     Log::info(__CLASS__." ".__FUNCTION__." ".__LINE__." Clasificacion 5 = ".Config('tarifa.clasificacion.5') );
@@ -548,8 +548,8 @@ class Cotizacion {
         } else {
             $empresa = Empresa::select("tipo_pago_id")->where("id", $empresa_id)->firstOrFail();
         }
-        
-        
+
+
         $this->tipoPagoId = $empresa->tipo_pago_id;
 
     }// fin public function base ($guiaId){
@@ -557,44 +557,44 @@ class Cotizacion {
 
     /**
      * Se obtienen los datos para armar el insert de fedex
-     * 
+     *
      * @author Javier Hernandez
      * @copyright 2022-2023 XpertaMexico
      * @package App\Negocio\Guias
      * @api
-     * 
+     *
      * @version 1.0.0
-     * 
+     *
      * @since 1.0.0 Primera version de la funcion fedexApi
-     * 
+     *
      * @throws
      *
      * @param array $parametros eseseses
-     * 
-     * @var int 
-     * 
-     * 
-     * @return json Objeto con la respuesta de exito o fallo 
+     *
+     * @var int
+     *
+     *
+     * @return json Objeto con la respuesta de exito o fallo
      */
 
     public function valoresCotizacion($data){
         Log::info(__CLASS__." ".__FUNCTION__." ".__LINE__);
-        
+
         $data['costo_kg_extra']= 0;
         $data['costo_seguro'] = 0;
         $data['costo_extendida'] = 0;
         $data['sobre_peso_kg'] =0;
         $data['bSeguro'] = false;
-       
+
         $data['peso_bascula'] = $data['peso'];
         $data['peso_dimensional'] = ($data['alto']*$data['ancho']*$data['largo'])/5000;
-        
+
         Log::info(__CLASS__." ".__FUNCTION__." ".__LINE__);
         $data['peso_facturado'] = ($data['peso_bascula'] > $data['peso_dimensional']) ? ceil($data['peso_bascula']) : ceil($data['peso_dimensional']) ;
-        
+
         $data['pesoFacturado']=$data['peso_facturado'];
 
-        
+
         Log::info(__CLASS__." ".__FUNCTION__." ".__LINE__);
         $data['subPrecio'] = $data['costo_kg_extra']+$data['costo_seguro']+$data['costo_extendida'];
 
@@ -605,24 +605,24 @@ class Cotizacion {
 
     /**
      * Se obtienen los datos obtener el precio
-     * 
+     *
      * @author Javier Hernandez
      * @copyright 2022-2023 XpertaMexico
      * @package App\Negocio\Guias
      * @api
-     * 
+     *
      * @version 1.0.0
-     * 
+     *
      * @since 1.0.0 Primera version de la funcion fedexApi
-     * 
+     *
      * @throws
      *
-     * @param array $data informacion de todo el flujo 
-     * 
-     * @var int 
-     * 
-     * 
-     * @return json Objeto con la respuesta de exito o fallo 
+     * @param array $data informacion de todo el flujo
+     *
+     * @var int
+     *
+     *
+     * @return json Objeto con la respuesta de exito o fallo
      */
 
     public function calculoPrecio($data) {
@@ -634,7 +634,7 @@ class Cotizacion {
 
         //Calcula sobre peso
         if ($data['peso_facturado'] > $this->tarifa['kg_fin'] ) {
-            
+
             $data['sobre_peso_kg'] = $data['peso_facturado'] - $this->tarifa['kg_fin'];
             $data['costo_kg_extra'] = $data['sobre_peso_kg'] * $this->tarifa['kg_extra'];
         }
@@ -650,7 +650,7 @@ class Cotizacion {
         //Valida area extendida
         if ( $this->tarifa['extendida_cobertura'] === "SI"){
             $data['costo_extendida'] = $this->tarifa['extendida'];
-            
+
         }
         $data['subPrecio'] = $data['costo_base']+$data['costo_kg_extra']+$data['costo_seguro'] + $data['costo_extendida'];
         $data['precio'] = round($data['subPrecio']*1.16, 2);

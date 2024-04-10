@@ -4,7 +4,7 @@
     	<div class="card-header border-bottom-0 pt-0 pl-0 pr-0 d-flex">
             <label class="main-content-label mb-4">DETALLES DEL DESTINATARIO </label>
         </div>
-    	
+
     	<div class="card-item">
 			<div class="input-group mb-3">
 				<div class="input-group-prepend">
@@ -61,7 +61,7 @@
 				</div>
 
 				{!! Form::text('no_ext_d'
-					, $cliente->no_ext
+					, $cliente->domicilio->no_exterior
 					,['class' 		=> 'form-control'
 						,'id'		=> 'no_ext_d'
 						,'required'	=>	'true'
@@ -74,7 +74,7 @@
 				</div>
 
 				{!! Form::text('no_int_d'
-					, $cliente->no_int
+					, $cliente->domicilio->no_interior
 					,['class' 		=> 'form-control'
 						,'id'		=> 'no_int_d'
 						,'readonly' =>  'true'
@@ -102,7 +102,7 @@
 				</div>
 
 				{!! Form::text('direccion2_d'
-					, $cliente->direccion2
+					, $cliente->domicilio->referencias
 					,['class' 		=> 'form-control'
 						,'id'		=> 'direccion2_d'
 						,'readonly' =>  'true'
@@ -118,7 +118,7 @@
 				</div>
 
 				{!! Form::text('colonia_d'
-					, $cliente->colonia
+					, $cliente->domicilio->colonia
 					,['class' 		=> 'form-control'
 						,'id'		=> 'colonia_d'
 						,'required'	=>	'true'
@@ -134,7 +134,7 @@
 				</div>
 
 				{!! Form::text('ciudad_d'
-					, $cliente->ciudad
+					, $cliente->domicilio->ciudad
 					,['class' 		=> 'form-control'
 						,'id'		=> 'ciudad_d'
 						,'required'	=>	'true'
@@ -150,7 +150,7 @@
 				</div>
 
 				{!! Form::text('entidad_federativa_d'
-					, $cliente->entidad_federativa
+					, $cliente->domicilio->estado
 					,['class' 		=> 'form-control'
 						,'id'		=> 'entidad_federativa_d'
 						,'required'	=>	'true'
@@ -173,7 +173,7 @@
 						,'readonly' =>  'true'
 					])
 				!!}
-			
+
 			<div class="input-group-prepend">
 					<span class="input-group-text" id="basic-addon1">TELEFONO
 					</span>
@@ -196,6 +196,6 @@
 {!! Form::hidden('cliente_id'
     , $cliente->id
     ,['class'       => 'form-control'
-        ,'id'       => 'cliente_id' 
+        ,'id'       => 'cliente_id'
     ])
 !!}

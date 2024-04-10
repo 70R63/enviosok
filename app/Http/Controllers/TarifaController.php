@@ -9,6 +9,7 @@ use App\Models\Cfg_ltd as mCfgLtd;
 use App\Models\Servicio;
 use App\Models\Empresa;
 
+use Illuminate\Support\Facades\Auth;
 use Log;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 
@@ -37,18 +38,18 @@ class TarifaController extends Controller
 
             $nTarifas = new nTarifas();
             $nTarifas->resumenPorCorporativos();
-                        
+
             $tabla= $nTarifas->getTabla();
             $pluckLtd= $nTarifas->getPluckLtd();
             $pluckServicio= $nTarifas->getPluckServicio();
             $pluckEmpresa= $nTarifas->getPluckEmpresa();
 
-            return view(self::DASH_v 
+            return view(self::DASH_v
                     ,compact("tabla", "pluckLtd", "pluckServicio", "pluckEmpresa")
                 );
 
         } catch (Exception $e) {
-            Log::info(__CLASS__." ".__FUNCTION__." Exception");    
+            Log::info(__CLASS__." ".__FUNCTION__." Exception");
         }
     }
 
@@ -60,22 +61,26 @@ class TarifaController extends Controller
     public function create()
     {
         try {
-            Log::info(__CLASS__." ".__FUNCTION__);    
+            Log::info(__CLASS__." ".__FUNCTION__);
             $tabla = array();
 
-            $pluckEmpresa = Empresa::pluck('nombre','id');
-            
+            if(Auth::user()->hasRol('sysadmin,admin,contraloria,comercial,adminops,operaciones')){
+                $pluckEmpresa = Empresa::withOutGlobalScopes()->pluck('nombre','id');
+            }else{
+                $pluckEmpresa = Empresa::pluck('nombre','id');
+            }
+
             $pluckLtd = mCfgLtd::where('estatus',1)
                                 ->pluck('nombre','id');
 
             $pluckServicio = Servicio::where('estatus',1)
                                 ->pluck('nombre','id');
-            return view(self::CREAR_v 
+            return view(self::CREAR_v
                     ,compact("tabla","pluckLtd", "pluckServicio","pluckEmpresa")
                 );
         } catch (Exception $e) {
             Log::info(__CLASS__." ".__FUNCTION__);
-            Log::info("Error general ");       
+            Log::info("Error general ");
         }
     }
 
@@ -89,18 +94,18 @@ class TarifaController extends Controller
     {
         Log::info(__CLASS__." ".__FUNCTION__);
         try {
-            
+
             Tarifa::create($request->except('_token'));
 
             $tmp = sprintf("El registro de la nueva TARIFA '%s', fue exitoso",$request->get('nombre'));
             $notices = array($tmp);
-  
+
             return \Redirect::route(self::INDEX_r) -> withSuccess ($notices);
 
-        } catch(\Illuminate\Database\QueryException $ex){ 
+        } catch(\Illuminate\Database\QueryException $ex){
             Log::info(__CLASS__." ".__FUNCTION__." "."QueryException");
-            Log::debug($ex->getMessage()); 
-    
+            Log::debug($ex->getMessage());
+
         } catch (Exception $e) {
             Log::info(__CLASS__." ".__FUNCTION__." "."Exception");
             Log::debug( $e->getMessage() );
@@ -121,23 +126,23 @@ class TarifaController extends Controller
     public function show(Tarifa $tarifa)
     {
         try {
-            Log::info(__CLASS__." ".__FUNCTION__." ".__LINE__);    
+            Log::info(__CLASS__." ".__FUNCTION__." ".__LINE__);
             Log::debug($tarifa->toArray());
 
             $nTarifas = new nTarifas();
-            
+
             $nTarifas->resumenPorCliente($tarifa);
-            
+
             $tabla= $nTarifas->getTabla();
             $pluckLtd= $nTarifas->getPluckLtd();
             $pluckServicio= $nTarifas->getPluckServicio();
             $pluckEmpresa= $nTarifas->getPluckEmpresa();
 
-            Log::info(__CLASS__." ".__FUNCTION__." ".__LINE__);  
-            return view(self::SHOW_v 
+            Log::info(__CLASS__." ".__FUNCTION__." ".__LINE__);
+            return view(self::SHOW_v
                     ,compact("tabla","pluckLtd", "pluckServicio","pluckEmpresa")
-                );  
-         
+                );
+
         } catch (ModelNotFoundException $e) {
             Log::info(__CLASS__." ".__FUNCTION__." ModelNotFoundException");
             return \Redirect::back()
@@ -146,7 +151,7 @@ class TarifaController extends Controller
 
         } catch (Exception $e) {
             Log::info(__CLASS__." ".__FUNCTION__);
-            Log::info("Error general ");       
+            Log::info("Error general ");
         }
     }
 
@@ -159,17 +164,17 @@ class TarifaController extends Controller
     public function edit(Tarifa $tarifa)
     {
         try {
-            Log::info(__CLASS__." ".__FUNCTION__);    
+            Log::info(__CLASS__." ".__FUNCTION__);
             $tarifa = Tarifa::findOrFail($tarifa->id);
             $pluckEmpresa = Empresa::pluck('nombre','id');
-            
+
             $pluckLtd = Ltd::where('estatus',1)
                                 ->pluck('nombre','id');
 
             $pluckServicio = Servicio::where('estatus',1)
                                 ->pluck('nombre','id');
 
-            return view(self::EDITAR_v 
+            return view(self::EDITAR_v
                     ,compact("tarifa","pluckLtd", "pluckServicio","pluckEmpresa")
                 );
         } catch (ModelNotFoundException $e) {
@@ -180,7 +185,7 @@ class TarifaController extends Controller
 
         } catch (Exception $e) {
             Log::info(__CLASS__." ".__FUNCTION__);
-            Log::info("Error general ");       
+            Log::info("Error general ");
         }
     }
 
@@ -195,17 +200,17 @@ class TarifaController extends Controller
     {
         Log::info(__CLASS__." ".__FUNCTION__);
         try {
-            
+
             $tarifa->fill($request->post())->save();
-  
+
             $tmp = sprintf("Actualizacion de la TARIFA '%s', fue exitoso",$tarifa->id);
             $notices = array($tmp);
 
             return \Redirect::route(self::INDEX_r) -> withSuccess ($notices);
 
-        } catch(\Illuminate\Database\QueryException $ex){ 
+        } catch(\Illuminate\Database\QueryException $ex){
             Log::info(__CLASS__." ".__FUNCTION__." "."QueryException");
-            Log::debug($ex->getMessage()); 
+            Log::debug($ex->getMessage());
             return \Redirect::back()
                 ->withErrors(array($ex->errorInfo[2]))
                 ->withInput();
@@ -233,12 +238,12 @@ class TarifaController extends Controller
 
             $tarifa->estatus = 0;
             $tarifa->save();
-  
+
             return \Redirect::route(self::INDEX_r) -> withSuccess ($notices);
 
-        } catch(\Illuminate\Database\QueryException $ex){ 
+        } catch(\Illuminate\Database\QueryException $ex){
             Log::info(__CLASS__." ".__FUNCTION__." "."QueryException");
-            Log::debug($ex->getMessage()); 
+            Log::debug($ex->getMessage());
             return \Redirect::back()
                 ->withErrors(array($ex->errorInfo[2]))
                 ->withInput();

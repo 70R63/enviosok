@@ -27,7 +27,7 @@ Route::get('/dashboard', function () {
 })->middleware(['auth'])->name('dashboard');
 
 /*
-|Los roles definidos son 
+|Los roles definidos son
 |- sysadmin
 |- admin
 |- contraloria
@@ -35,7 +35,7 @@ Route::get('/dashboard', function () {
 |- comercial
 |- adminops
 |- operaciones
-|- cliente 
+|- cliente
 |- usuario
 */
 //Menu SysAdmin
@@ -76,7 +76,7 @@ Route::resource('rastreos','RastreosController')
 
 Route::group(['as'=>'guias.'  ,'prefix'=>'guias'],function(){
     Route::resource('masivas','Guias\MasivasController')
-        ->middleware(['roles:sysadmin,admin,contraloria,adminops,operaciones,cliente,auditoria,usuario']); 
+        ->middleware(['roles:sysadmin,admin,contraloria,adminops,operaciones,cliente,auditoria,usuario']);
 });
 
 
@@ -93,7 +93,7 @@ Route::resource('reportes/repesajes','Reportes\RepesajeController')
 
 Route::group(['as'=>'reportes.'  ,'prefix'=>'reportes'],function(){
     Route::resource('pagado','Reportes\PagosController')
-        ->middleware(['roles:sysadmin,admin,contraloria,adminops,operaciones,auditoria']); 
+        ->middleware(['roles:sysadmin,admin,contraloria,adminops,operaciones,auditoria']);
 });
 
 //Menu Saldos

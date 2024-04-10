@@ -17,13 +17,13 @@ class Empresa extends Model
     /**
      * Agraga a la consulta los casos de negocio.
      *
-     * 
+     *
     */
 
     protected static function boot()
     {
 
-        parent::boot();        
+        parent::boot();
         static::addGlobalScope('estatus_empresa', function (Builder $builder) {
             $builder->where('empresas.estatus', '1');
 
@@ -31,7 +31,7 @@ class Empresa extends Model
             $empresas = EmpresaEmpresas::where('id',$empresaId)
                 ->pluck('empresa_id')->toArray();
             $builder->whereIN('id',$empresas);
-    
+
         });
     }
 }

@@ -81,6 +81,7 @@ class SucursalController extends Controller
                 ,"celular"  => $request['celular']
                 ,"telefono" => $request['telefono']
                 ,"empresa_id"=> $request['empresa_id']
+                , 'cp'=>$request->cp,
             ]);
             Domicilio::updateOrCreate([
                 'modelo_id'=>$sucursal->id,
@@ -187,11 +188,40 @@ class SucursalController extends Controller
         try {
             $objeto = Sucursal::findOrFail($id);
             $datosUpdate = $request->post();
+            $objeto ->update([
+                "nombre"    => $request['nombre']
+                ,"contacto" => $request['contacto']
+                ,"direccion"=> $request['direccion']
+                ,"celular"  => $request['celular']
+                ,"telefono" => $request['telefono']
+                ,"empresa_id"=> $request['empresa_id']
+                ,'cp'=>$request->cp,
+            ]);
+
+            Domicilio::updateOrCreate([
+                'modelo_id'=>$objeto->id,
+                'modelo_type'=>$objeto->getMorphClass(),
+            ],
+                [
+                    'cp'=>$request->cp,
+                    'estado'=>$request->estado,
+                    'codigo_estado'=>@$request->codigo_estado,
+                    'municipio_alcaldia'=>$request->municipio_alcaldia,
+                    'colonia'=>$request->colonia,
+                    'tipo_asentamiento'=>$request->tipo_asentamiento,
+                    'tipo_vialidad_id'=>$request->tipo_vialidad_id,
+                    'calle'=>$request->calle,
+                    'ciudad'=>@$request->ciudad,
+                    'no_exterior'=>$request->no_exterior,
+                    'no_interior'=>@$request->no_interior,
+                    'referencias'=>@$request->referencias,
+                    'latitud'=>@$request->latitud,
+                    'longitud'=>@$request->longitud,
+                    'modelo_id'=>$objeto->id,
+                    'modelo_type'=>$objeto->getMorphClass(),
+                ]);
+
             Log::debug(print_r($datosUpdate,true));
-            if ($datosUpdate['colonia']==0) {
-                unset($datosUpdate['colonia']);
-            }
-            $objeto->fill($datosUpdate)->save();
 
             $tmp = sprintf("Actualizacion del id '%s', fue exitoso",$id);
             $notices = array($tmp);

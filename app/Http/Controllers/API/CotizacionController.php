@@ -34,7 +34,7 @@ class CotizacionController extends BaseController
         Log::info(__CLASS__." ".__FUNCTION__." ".__LINE__);
         Log::debug($request);
 
-        
+
         $nCotizacion = new nCotizacion();
         $nCotizacion->base($request);
         Log::info(__CLASS__." ".__FUNCTION__." ".__LINE__);
@@ -45,9 +45,9 @@ class CotizacionController extends BaseController
         $success['data'] = $tabla;
         $success['saldo'] = $nCotizacion->getSaldo();
         $success['tipoPagoId'] = $nCotizacion->getTipoPagoId();
-       
+
         return $this->successResponse($success, 'Cotizacion exitosa.');
-        
+
     }
 
     /**
@@ -67,49 +67,49 @@ class CotizacionController extends BaseController
         }
         $resultado = $datos->get()
                 ->toArray();
-        
+
         Log::info(__CLASS__." ".__FUNCTION__." ".__LINE__);
         Log::info($resultado);
         return $this->successResponse($resultado, 'User login successfully.');
-        
+
     }
 
     public function store(Request $request)
     {
         $success['name'] = "nombre";
-        
+
         return $this->successResponse($success, 'User login successfully.');
     }
 
     private function queryBaseTarifa()
     {
         $success['name'] = "nombre";
-        
+
         return $this->successResponse($success, 'User login successfully.');
     }
 
     /**
      * Se busca obtener las tarifas como si se realizara una gaui en comparacion de index que obtiene tarifas y en un js se hacen calculos.
-     * 
+     *
      * @author Javier Hernandez
      * @copyright 2022-2023 XpertaMexico
      * @package App\Http\Controllers\API
      * @api
-     * 
+     *
      * @version 1.0.0
-     * 
+     *
      * @since 1.0.0 Primera version de la funcion cotizaciones
-     * 
+     *
      * @throws
      *
      * @param  Illuminate\Http\Request  $request Recibe la paticion del cliente
-     * 
+     *
      * @var array $data Se convierte el Json de la peticion a array
-     * @var class $nCreacion Clase para el desarrollo del caso de uso 
+     * @var class $nCreacion Clase para el desarrollo del caso de uso
      * @var array $response Usado para obteenr la respues del servcvio REST de FEDEX
-     * 
-     * 
-     * @return json Objeto con la respuesta de exito o fallo 
+     *
+     *
+     * @return json Objeto con la respuesta de exito o fallo
      */
 
     public function cotizaciones(Request $request){
@@ -119,22 +119,22 @@ class CotizacionController extends BaseController
             $data =$request->all();
                 if(empty($data))
                     throw ValidationException::withMessages(array("Favor de validar tu body"));
-           
+
             $data['canal'] = "API";
             $data['esManual'] = "API";
             $data['sucursal_id']=0;
             $data['numero_solicitud'] = Carbon::now()->timestamp;
-            
+
             Log::debug(__CLASS__." ".__FUNCTION__." ".__LINE__);
-          
-           
+
+
             $servicio = $request->route()->parameter('servicios');
             $ltd = $request->route()->parameter('ltds');
-            
-            
+
+
             switch ($servicio) {
                 case 'terrestre':
-                    $data['servicio_id']=1; 
+                    $data['servicio_id']=1;
                     break;
                 case 'diasig':
                     $data['servicio_id']=2;
@@ -142,11 +142,11 @@ class CotizacionController extends BaseController
                 case '2dias':
                     $data['servicio_id']=3;
                 break;
-                
+
                 default:
                     throw ValidationException::withMessages(array("Favor de validar tu servicio"));
                     break;
-               
+
             }
             Log::debug(__CLASS__." ".__FUNCTION__." ".__LINE__);
             //Validar cambio posterior apra evitar esta reasignacion
@@ -170,12 +170,12 @@ class CotizacionController extends BaseController
                     $nCreacion->soloCotizacion($data, $servicio);
                     $objetoGeneral = $nCreacion;
                     break;
-                
+
                 default:
                     throw ValidationException::withMessages(array("La paqueteria no existe favor de validar con el Administrador"));
                     break;
             }
-            
+
 
             Log::info(__CLASS__." ".__FUNCTION__." ".__LINE__);
 
@@ -185,12 +185,12 @@ class CotizacionController extends BaseController
             Log::info(__CLASS__." ".__FUNCTION__.__LINE__." ValidationException");
             Log::debug(print_r($ex->getMessage(),true));
             return $this->sendError("ValidationException",$ex->getMessage(), "400");
-        
+
         } catch ( ModelNotFoundException $ex) {
             Log::info(__CLASS__." ".__FUNCTION__.__LINE__." ModelNotFoundException");
             Log::debug(print_r($ex,true));
             return $this->sendError("ModelNotFoundException","Favor de contactar al proveedor", "400");
-            
+
         } catch (\Spatie\DataTransferObject\DataTransferObjectError $ex) {
             Log::info(__CLASS__." ".__FUNCTION__.__LINE__." DataTransferObjectError");
             Log::debug(print_r($ex->getMessage(),true));
@@ -200,7 +200,7 @@ class CotizacionController extends BaseController
             Log::info(__CLASS__." ".__FUNCTION__." GuzzleHttp\Exception\ClientException");
             $response = $ex->getResponse()->getBody()->getContents();
             Log::debug(print_r($response,true));
-            
+
             return $this->sendError("LTD ClientException",$response, "400");
 
         } catch (\GuzzleHttp\Exception\InvalidArgumentException $ex) {
@@ -213,12 +213,12 @@ class CotizacionController extends BaseController
             $response = $ex->getResponse()->getBody()->getContents();
             Log::debug(print_r($response,true));
             Log::debug(print_r(json_decode($response),true));
-            return $this->sendError("ServerException",$ex->getMessage(), "400");            
+            return $this->sendError("ServerException",$ex->getMessage(), "400");
 
         } catch (\ErrorException $ex) {
             Log::info(__CLASS__." ".__FUNCTION__." ErrorException");
             Log::debug(print_r($ex,true));
-            
+
             $mensaje =$ex->getMessage();
             return $this->sendError("ErrorException",$ex->getMessage(), "400");
 
