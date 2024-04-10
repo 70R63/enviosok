@@ -64,7 +64,7 @@
 
                     {!! Form::text('cp'
                         , @$objeto ? @$objeto->domicilio->cp : null
-                        ,['class' 		=> 'form-control'
+                        ,['class' 		=> 'form-control cp'
                             ,'id'		=> 'cp'
                             ,'required'	=>	'true'
                         ])
@@ -77,14 +77,13 @@
                     </div>
                     {!! Form::text('estado'
                         , @$objeto ? @$objeto->domicilio->estado : null
-                        ,['class' 		=> 'form-control'
-                            ,'id'		=> 'estado'
+                        ,['class' 		=> 'form-control estado'
                             ,'required'	=>	'true'
 
                         ])
                     !!}
-                    <input type="hidden" name="codigo_estado" id="codigo_estado">
-                    <input type="hidden" name="tipo_asentamiento" id="tipo_asentamiento" value="{{@$objeto ? @$objeto->domicilio->tipo_asentamiento : ''}}">
+                    <input type="hidden" class="codigo_estado" name="codigo_estado">
+                    <input type="hidden" class="tipo_asentamiento" name="tipo_asentamiento" value="{{@$objeto ? @$objeto->domicilio->tipo_asentamiento : ''}}">
                     <div class="input-group-prepend">
 						<span class="input-group-text" id="basic-addon1">MUNICIPIO / ALCALDÍA
 							<span class="tx-danger">*</span>
@@ -92,8 +91,7 @@
                     </div>
                     {!! Form::text('municipio_alcaldia'
                         , @$objeto ? @$objeto->domicilio->municipio_alcaldia : null
-                        ,['class' 		=> 'form-control'
-                            ,'id'		=> 'municipio_alcaldia'
+                        ,['class' 		=> 'form-control municipio_alcaldia'
                             ,'required'	=>	'true'
 
                         ])
@@ -111,11 +109,10 @@
                     {!! Form::select('colonia'
                         , ( isset($objeto->domicilio)) ? [$objeto->domicilio->colonia=>$objeto->domicilio->colonia] : array()
                         ,   isset($objeto->domicilio) ? @$objeto->domicilio->colonia : ''
-                        ,['class' 		=> 'form-control'
+                        ,['class' 		=> 'form-control colonia'
                             ,'placeholder'	=> 'Seleccionar'
                             ,'required'	=> 'true'
                             ,'name'		=> 'colonia'
-                            ,'id'		=> 'colonia'
 
                         ]);
                     !!}
@@ -128,8 +125,7 @@
                     </div>
                     {!! Form::text('calle'
                         , @$objeto ? $objeto->domicilio->calle : null
-                        ,['class' 		=> 'form-control'
-                            ,'id'		=> 'calle'
+                        ,['class' 		=> 'form-control calle'
                             ,'required'	=>	'true'
 
                         ])
@@ -145,8 +141,7 @@
 
                     {!! Form::text('ciudad'
                         , @$objeto ? $objeto->domicilio->ciudad : null
-                        ,['class' 		=> 'form-control'
-                            ,'id'		=> 'ciudad'
+                        ,['class' 		=> 'form-control ciudad'
                             ,'required'	=>	'true'
                         ])
                     !!}
@@ -166,8 +161,7 @@
 
                     {!! Form::text('no_exterior'
                         , @$objeto ? $objeto->domicilio->no_exterior : null
-                        ,['class' 		=> 'form-control'
-                            ,'id'		=> 'no_exterior'
+                        ,['class' 		=> 'form-control no_exterior'
                             ,'required'	=>	'true'
                         ])
                     !!}
@@ -178,8 +172,7 @@
                     </div>
                     {!! Form::text('no_interior'
                         , @$objeto ? $objeto->domicilio->no_interior : null
-                        ,['class' 		=> 'form-control'
-                            ,'id'		=> 'no_interior'
+                        ,['class' 		=> 'form-control no_interior'
                         ])
                     !!}
 
@@ -188,13 +181,26 @@
 							<span class="tx-danger">*</span>
 						</span>
                     </div>
-                    <select name="tipo_vialidad_id" class="form-control" id="tipo_vialidad_id" required>
+                    <select name="tipo_vialidad_id" class="form-control tipo_vialidad_id" required>
                         <option value="">Selecciona una opción</option>
                         @foreach($tiposVialidad as $i)
                             <option value="{{$i->id}}" {{@$objeto && $objeto->domicilio->tipo_vialidad_id==$i->id ? 'selected' :''}}>{{$i->nombre}}</option>
                         @endforeach
                     </select>
 
+                </div>
+
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+						<span class="input-group-text" id="basic-addon1">REFERENCIAS
+						</span>
+                    </div>
+
+                    {!! Form::text('referencias'
+                        , @$objeto ? $objeto->domicilio->referencias : null
+                        ,['class' 		=> 'form-control'
+                        ])
+                    !!}
                 </div>
 
 				<div class="input-group mb-3">

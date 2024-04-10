@@ -1,15 +1,23 @@
 document.addEventListener('DOMContentLoaded', function () {
     //$('.selects').selectpicker();
     var cp = document.getElementById("cp");
+    var cpDestino = document.getElementById("cp_d");
     if (cp) cp.addEventListener("keyup", function () {
         if (this.value.length == 5) {
-            setDomicilioAjax(this.value);
+            setDomicilioAjax(this.value,null,this);
+        }
+    }, false);
+    if (cpDestino) cpDestino.addEventListener("keyup", function () {
+        if (this.value.length == 5) {
+            setDomicilioAjax(this.value,null,this);
         }
     }, false);
     /*Ajax buscar domicilio*/
-    window.setDomicilioAjax = function (cp, colonia = null) {
+    window.setDomicilioAjax = function (cp, colonia = null,elemento) {
         var token = document.head.querySelector('meta[name="csrf-token"]');
         var url = url_base;
+        var padre = elemento.closest('.card-body');
+        if(!padre) padre = elemento.closest('form');
         $.post(url + '/api/domicilio', {
             cp: cp,
             _token: token.content
@@ -18,51 +26,51 @@ document.addEventListener('DOMContentLoaded', function () {
                 var domicilio = response.domicilio;
                 var select = response.colonias;
                 if ((response.mensaje) && (response.mensaje == "resultados")) {
-                    document.getElementById('estado').value = domicilio.d_estado;
-                    document.getElementById('codigo_estado').value = domicilio.codigo_estado;
-                    document.getElementById('tipo_asentamiento').value = domicilio.d_tipo_asenta;
-                    document.getElementById('municipio_alcaldia').value = domicilio.d_mnpio;
-                    document.getElementById('ciudad').value = domicilio.d_CP;
-                    document.querySelector('.div-colonia-cp').innerHTML = `<div class="input-group-prepend">
+                    padre.querySelector('.estado').value = domicilio.d_estado;
+                    padre.querySelector('.codigo_estado').value = domicilio.codigo_estado;
+                    padre.querySelector('.tipo_asentamiento').value = domicilio.d_tipo_asenta;
+                    padre.querySelector('.municipio_alcaldia').value = domicilio.d_mnpio;
+                    padre.querySelector('.ciudad').value = domicilio.d_CP;
+                    padre.querySelector('.div-colonia-cp').innerHTML = `<div class="input-group-prepend">
                             <span class="input-group-text" id="basic-addon1">COLONIA
                                 <span class="tx-danger">*</span>
                             </span>
                         </div>`;
-                    document.querySelector('.div-colonia-cp').innerHTML = `<div class="input-group-prepend">
+                    padre.querySelector('.div-colonia-cp').innerHTML = `<div class="input-group-prepend">
                             <span class="input-group-text" id="basic-addon1">COLONIA
                                 <span class="tx-danger">*</span>
                             </span>
                         </div>`+select;
-                    $('.select-colonia').on('change', function (e) {
+                    padre.querySelector('.select-colonia').addEventListener('change', function (e) {
                         if ($(this).val() == 'otra') {
-                            document.querySelector('.div-colonia-cp').innerHTML = `<div class="input-group-prepend">
+                            padre.querySelector('.div-colonia-cp').innerHTML = `<div class="input-group-prepend">
                             <span class="input-group-text" id="basic-addon1">COLONIA
                                 <span class="tx-danger">*</span>
                             </span>
                         </div>`;
-                            document.querySelector('.div-colonia-cp')
+                            padre.querySelector('.div-colonia-cp')
                                 .innerHTML = `<div class="input-group-prepend">
                             <span class="input-group-text" id="basic-addon1">COLONIA
                                 <span class="tx-danger">*</span>
                             </span>
-                        </div>`+'<input type="text" class="form-control" placeholder="Escribe el nombre de otra colonia" name="colonia" id="colonia">';
-                            $("#tipo_asentamiento").val('Colonia');
-                            $('#colonia').focus();
+                        </div>`+'<input type="text" class="padre-control colonia" placeholder="Escribe el nombre de otra colonia" name="colonia" id="colonia">';
+                            padre.querySelector(".tipo_asentamiento").value='Colonia';
+                            padre.querySelector('.colonia').focus();
                         } else {
                             let value = $(this).val();
-                            let selected = document.querySelector(`option[value='${value}']`)
+                            let selected = padre.querySelector(`option[value='${value}']`)
                             if (selected)
-                                $("#tipo_asentamiento").val(selected.dataset.tipoasenta);
+                                padre.querySelector(".tipo_asentamiento").value = selected.dataset.tipoasenta;
                         }
                     });
-                    if (colonia) document.querySelector('#colonia').value = colonia;
+                    if (colonia) padre.querySelector('.colonia').value = colonia;
                 } else {
-                    document.getElementById('estado').value = '';
-                    document.getElementById('codigo_estado').value = '';
-                    document.getElementById('municipio_alcaldia').value = '';
-                    document.querySelector('.div-colonia-cp').innerHTML = '';
-                    document.querySelector('.div-colonia-cp')
-                        .innerHTML = '<input type="text" class="form-control" placeholder="Escribe el nombre de la colonia" name="colonia" id="colonia">';
+                    padre.querySelector('.estado').value = '';
+                    padre.querySelector('.codigo_estado').value = '';
+                    padre.querySelector('.municipio_alcaldia').value = '';
+                    padre.querySelector('.div-colonia-cp').innerHTML = '';
+                    padre.querySelector('.div-colonia-cp')
+                        .innerHTML = '<input type="text" class="padre-control colonia" placeholder="Escribe el nombre de la colonia" name="colonia" id="colonia">';
                 }
             })
             .fail(function (e) {

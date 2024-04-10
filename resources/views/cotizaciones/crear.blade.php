@@ -3,6 +3,10 @@
 
 
 @include('cotizaciones.crear.header')
+@php
+    $cat = App\Models\Catalogo::whereCodigo('tiposVialidad')->first();
+    $tiposVialidad = App\Models\CatalogoElemento::whereCatalogoId($cat->id)->orderBy('nombre')->get();
+@endphp
 <!--Row-->
 <div class="row row-sm">
     <div class="col-lg-12">
@@ -12,7 +16,7 @@
                     <div>
                         <label class="main-content-label mb-2">RESUMEN</label> <span class="d-block tx-12 mb-3 text-muted">A CONTINUACION SE MUESTRA EL RESUMEN DE LA NUEVA GUIA</span>
                     </div>
-                    
+
                 </div>
                 <div class="card-header border-bottom-0 pt-0 pl-0 pr-0 d-flex">
                     <label class="main-content-label mb-4">CLIENTE : {{$objeto['clienteXperta']}}</label>
@@ -33,25 +37,25 @@
 
         @else
             @include('cotizaciones.forma.sucursal_readonly')
-        @endif 
-        
+        @endif
+
         <div>
             <a href="{{ route('cotizaciones.index') }}" class="btn badge-dark" >Cancelar</a>
-            
+
             <button type="submit" class="btn btn-primary ml-3" id="btnEnviar">Crear Guia</button>
-        </div>    
+        </div>
     </div>
-    
+
     <div class="col-lg-12 col-xl-4 col-md-4">
         @if($objeto['esManual']==='NO' ||  $objeto['esManual']==='RETORNO')
             @include('cotizaciones.forma.cliente_readonly')
         @else
             @include('cotizaciones.forma.cliente_esmanual_readonly')
-            
-        @endif    
+
+        @endif
     </div>
-    
-        
+
+
     <div class="col-lg-12 col-xl-4 col-md-4">
         @include('cotizaciones.crear.card_preciofinal')
     </div>
