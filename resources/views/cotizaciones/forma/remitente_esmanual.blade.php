@@ -60,7 +60,7 @@
 						</span>
                     </div>
                     {!! Form::text('cp'
-                        , $_GET['cp_d_manual']
+                        , $_GET['cp_manual']
                         ,['class' 		=> 'form-control cp'
                             ,'required'	=>	'true'
                             , 'id' => 'cp'
