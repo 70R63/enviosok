@@ -12,6 +12,7 @@ document.addEventListener('DOMContentLoaded', function () {
             setDomicilioAjax(this.value,null,this);
         }
     }, false);
+
     /*Ajax buscar domicilio*/
     window.setDomicilioAjax = function (cp, colonia = null,elemento) {
         var token = document.head.querySelector('meta[name="csrf-token"]');
@@ -77,4 +78,10 @@ document.addEventListener('DOMContentLoaded', function () {
                 console.log(e);
             });
     }
+
+
+    if(cp.value.length===5)
+        cp.dispatchEvent(new Event('keyup'))
+    if(cpDestino.value.length===5)
+        cpDestino.dispatchEvent(new Event('keyup'))
 });
