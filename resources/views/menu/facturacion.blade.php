@@ -3,27 +3,16 @@
 		<span class="shape1"></span>
 		<span class="shape2"></span>
 		<i class="ti-wallet sidemenu-icon"></i>
-		<span class="sidemenu-label">F AC T U R A C I O N</span>
+		<span class="sidemenu-label">MIS FINANZAS</span>
 		<i class="angle fe fe-chevron-right"></i>
 	</a>
 	<ul class="nav-sub">
 		<li class="nav-sub-item">
-			<a class="nav-sub-link" href="crypto-dashbaord.html">Dashboard</a>
+			<a class="nav-sub-link" href="#">Facturación</a>
 		</li>
 		<li class="nav-sub-item">
-			<a class="nav-sub-link" href="crypto-market.html">Marketcap</a>
+			<a class="nav-sub-link" href="{{ route('finanzas.pasarelapagos.index') }}">Pasarela de Pagos.</a>
 		</li>
-		<li class="nav-sub-item">
-			<a class="nav-sub-link" href="crypto-currency-exchange.html">Currency exchange</a>
-		</li>
-		<li class="nav-sub-item">
-			<a class="nav-sub-link" href="crypto-buy-sell.html">Buy & Sell</a>
-		</li>
-		<li class="nav-sub-item">
-			<a class="nav-sub-link" href="crypto-wallet.html">Wallet</a>
-		</li>
-		<li class="nav-sub-item">
-			<a class="nav-sub-link" href="crypto-transcations.html">Transcations</a>
-		</li>
+		
 	</ul>
 </li>

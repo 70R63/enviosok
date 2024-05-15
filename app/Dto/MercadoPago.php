@@ -1,0 +1,32 @@
+<?php
+namespace App\Dto;
+
+use Log;
+
+
+class MercadoPago 
+{
+    private $data = array();
+    
+    function __construct()
+    {
+        // code...
+    }
+
+    public function parsear($data){
+    	Log::info(__CLASS__." ".__FUNCTION__." ".__LINE__);
+        $dataParseado = array();
+    	$dataParseado['empresa_id']= auth()->user()->empresa_id;
+    	$dataParseado['banco_id']= 30;
+    	$dataParseado['referencia']= $data['payment_id'];
+
+    	Log::info(__CLASS__." ".__FUNCTION__." ".__LINE__);
+    	$this->data=$dataParseado;
+    }
+
+    public function getData(){
+        return $this->data;
+    }
+
+
+}

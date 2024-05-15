@@ -8,17 +8,23 @@
 	</a>
 	<ul class="nav-sub">
 		<li class="nav-sub-item">
-			<a class="nav-sub-link" href="{{ route('guia.index') }}">Dashboard</a>
+			<a class="nav-sub-link" href="{{ route('guia.index') }}">Mis Envios</a>
 		</li>
 	</ul>
 	<ul class="nav-sub">
 		<li class="nav-sub-item">
-			<a class="nav-sub-link" href="{{ route('cotizaciones.index') }}">Creación</a>
+			<a class="nav-sub-link" href="{{ route('cotizaciones.index') }}">Cotizacion Rápida</a>
 		</li>
 	</ul>
 	<ul class="nav-sub">
 		<li class="nav-sub-item">
 			<a class="nav-sub-link" href="{{ route('rastreos.index') }}">Rastreo </a>
+		</li>
+	</ul>
+
+	<ul class="nav-sub">
+		<li class="nav-sub-item">
+			<a class="nav-sub-link" href="#">Recolecciones </a>
 		</li>
 	</ul>
 

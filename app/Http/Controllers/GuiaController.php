@@ -65,11 +65,7 @@ class GuiaController extends Controller
             $servicioPluck = Servicio::pluck("nombre","id");
             
             Log::info(__CLASS__." ".__FUNCTION__." ".__LINE__); 
-        /*
-            header('Content-Type: text/plain; charset=utf-8');
-            header('Content-Disposition: attachment; filename=zpl.txt');
-        header("Content-Transfer-Encoding: binary");
-    */
+        
             Log::debug(__CLASS__." ".__FUNCTION__." Return View DASH_v ");
             return view(self::DASH_v 
                     ,compact( "ltdActivo", "servicioPluck")

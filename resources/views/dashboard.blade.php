@@ -156,6 +156,8 @@
                             @include('menu.usuario')
                             @include('menu.guia')
                             @include('menu.reportes')
+                            @include('menu.saldos')
+                            @include('menu.facturacion')
 
                         @endcanany
 

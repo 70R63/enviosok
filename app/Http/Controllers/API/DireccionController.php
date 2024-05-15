@@ -17,12 +17,15 @@ class DireccionController extends ApiController
      */
     public function index($tipo)
     {
-        Log::info(__CLASS__." ".__FUNCTION__." INICIANDO-----------------");
+        Log::info(__CLASS__." ".__FUNCTION__." ".__LINE__." INICIANDO-----------------");
         Log::debug($tipo);
 
         try {
+
+            $tabla = [];
             if($tipo === "destinatario"){
-                $tabla = [];
+                Log::info(__CLASS__." ".__FUNCTION__." ".__LINE__);
+                
                 foreach (Cliente::all() as $i){
                     $tabla[]=[
                         'id'=>$i->id,
@@ -37,14 +40,17 @@ class DireccionController extends ApiController
                     ];
                 }
             }else{
-                $tabla = [];
+                Log::info(__CLASS__." ".__FUNCTION__." ".__LINE__);
+
                 foreach (Sucursal::all() as $i){
+
+                    Log::debug(print_r($i,true));
                     $tabla[]=[
                         'id'=>$i->id,
                         'nombre'=>$i->nombre,
                         'contacto'=>$i->contacto,
                         'direccion'=>$i->direccion,
-                        'colonia'=>$i->domicilio->colonia,
+                        'colonia'=>$i->colonia,
                         'ciudad'=>$i->domicilio->ciudad,
                         'cp'=>$i->domicilio->cp,
                         'entidad_federativa'=>$i->domicilio->estado,
@@ -52,6 +58,7 @@ class DireccionController extends ApiController
                     ];
                 }
             }
+            /**/
 
 
             $success['mensaje'] = "Asignacion exitosa";

@@ -17,6 +17,8 @@ use App\Models\CP;
 use App\Models\Guia;
 use App\Models\Empresa;
 
+use App\Negocio\Guias\Cotizacion as nCotizacion;
+
 class CotizadorController extends Controller
 {
 
@@ -32,17 +34,22 @@ class CotizadorController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
         try {
             Log::info(__CLASS__." ".__FUNCTION__);
+
+            $objeto = $request->all();           
+            Log::debug(print_r($objeto,true));
 
             $sucursal = Sucursal::orderby('nombre')->pluck('nombre','id');
 
             $cliente = Cliente::orderby('contacto')->pluck('contacto','id');
 
-            return view(self::DASH_v
-                    ,compact( "sucursal", "cliente")
+
+            return view(self::DASH_v 
+                    ,compact( "objeto")
+
                 );
 
         } catch (Exception $e) {
@@ -63,21 +70,17 @@ class CotizadorController extends Controller
 
             $objeto = $request->all();
             Log::debug(print_r($objeto,true));
-            $cliente=array();
-            $sucursal= array();
+            
             $empresaId = auth()->user()->empresa_id;
 
             Log::info(__CLASS__." ".__FUNCTION__." LINE ".__LINE__." Validacion esManual");
-            if ($objeto['esManual']==="NO") {
-                Log::info(__CLASS__." ".__FUNCTION__." LINE ".__LINE__." Obteniendo direccion");
-                $cliente = Cliente::find($request->get("cliente_id"));
-                $sucursal = Sucursal::find($request->get("sucursal_id"));
 
-            }else{
-                Log::info(__CLASS__." ".__FUNCTION__." LINE ".__LINE__." semi");
-                $sucursal = Sucursal::find($request->get("sucursal_id"));
+            $nCotizacion = new nCotizacion();
+            $nCotizacion->cotizacionTipo($objeto);
 
-            }
+
+            $sucursal= $nCotizacion->getSucursal();
+            $cliente= $nCotizacion->getCliente();
 
             Log::info(__CLASS__." ".__FUNCTION__." LINE ".__LINE__." ==>DEBUG  ");
             $objeto['pesos'] = explode(",", $request['pesos'][0] );
@@ -99,10 +102,14 @@ class CotizadorController extends Controller
             $ltd_nombre = $request->get("ltd_nombre");
             $piezas = $request->get("piezas_guia");
 
-            Log::info(__CLASS__." ".__FUNCTION__." ".__LINE__." FINALIZANDO CON EXITO-----------------");
+            Log::info(__CLASS__." ".__FUNCTION__." ".__LINE__." objeto");
             Log::debug(print_r($objeto,true));
+            Log::info(__CLASS__." ".__FUNCTION__." ".__LINE__." sucursal");
+            Log::debug(print_r($sucursal,true));
+            Log::info(__CLASS__." ".__FUNCTION__." ".__LINE__." cliente");
+            Log::debug(print_r($cliente,true));
 
-
+            Log::info(__CLASS__." ".__FUNCTION__." ".__LINE__." FINALIZANDO CON EXITO-----------------");
             return view(self::CREAR_v
                 , compact('cliente', 'sucursal', 'precio', 'piezas', 'ltd_nombre','objeto','servicio')
             );
@@ -140,9 +147,33 @@ class CotizadorController extends Controller
      * @param  \App\Models\Cotizador  $cotizador
      * @return \Illuminate\Http\Response
      */
-    public function show(StoreCotizadorRequest $request)
+    public function show(Request $request)
     {
-        //
+        Log::info(__CLASS__." ".__FUNCTION__." ".__LINE__." INICIANDO-----------------");
+        try {
+
+            
+            Log::debug(print_r($request->route()->parameter('cotizacione'),true));
+            $objeto = $request->all();
+
+            Log::debug(print_r($objeto,true));
+
+
+            $nCotizacion = new nCotizacion();
+           
+            return view(self::DASH_v 
+                    ,compact( "objeto")
+                );
+
+        } catch(\Illuminate\Database\QueryException $ex){ 
+            Log::info(__CLASS__." ".__FUNCTION__." "."QueryException");
+            Log::debug($ex->getMessage()); 
+    
+        } catch (Exception $e) {
+            Log::info(__CLASS__." ".__FUNCTION__." "."Exception");
+            Log::debug( $e->getMessage() );
+
+        }
     }
 
     /**

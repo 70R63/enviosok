@@ -93,12 +93,12 @@ Route::resource('reportes/repesajes','Reportes\RepesajeController')
 
 Route::group(['as'=>'reportes.'  ,'prefix'=>'reportes'],function(){
     Route::resource('pagado','Reportes\PagosController')
-        ->middleware(['roles:sysadmin,admin,contraloria,adminops,operaciones,auditoria']);
+        ->middleware(['roles:sysadmin,admin,contraloria,adminops,operaciones,auditoria,cliente']);
 });
 
 //Menu Saldos
 Route::resource('saldos/pagos','Saldos\PagosController')
-    ->middleware(['roles:sysadmin,admin,contraloria,adminops,operaciones']);
+    ->middleware(['roles:sysadmin,admin,contraloria,adminops,operaciones,cliente']);
 
 Route::resource('saldos/ajustes','Saldos\AjustesController')
     ->middleware(['roles:admin,contraloria,adminops,operaciones']);
@@ -106,5 +106,25 @@ Route::resource('saldos/ajustes','Saldos\AjustesController')
 Route::resource('saldos/externas','Saldos\GuiasExternasController')
     ->middleware(['roles:admin,contraloria,adminops,operaciones']);
 
+//Menu Finanzas
+Route::group(['as'=>'finanzas.'  ,'prefix'=>'finanzas'],function(){
+    Route::resource('pasarelapagos','PasarelaPagoController')
+        ->middleware(['roles:sysadmin,admin,contraloria,cliente']
+    );
+
+});
+
+
+
+//Controllers comodin
+//Route::get('returnMP', ["ReturnMPController", 'index'])->middleware('auth');
+Route::middleware(['auth'])->group(function(){
+Route::group(['as'=>'returnmp.'  ,'prefix'=>'returnmp'],function(){
+    Route::get('success', 'ReturnMPController@success')->name('success');
+    Route::get('pending', 'ReturnMPController@pending')->name('pending');
+    Route::get('failure', 'ReturnMPController@failure')->name('failure');
+
+});
+});
 
 require __DIR__.'/auth.php';

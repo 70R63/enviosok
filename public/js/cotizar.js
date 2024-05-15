@@ -12,7 +12,65 @@ var costoKgExtra = 0;
 var saldoNegativo = false;
 var saldoMinimo = 90;
 
+$(document).ready(function() {
+    
+    var radio = $('input[type="radio"]:checked').val()    
+    console.log(radio)
+    checkCotizacion(radio)
+})
 
+function checkCotizacion(radio){
+    console.log("function tipoCotizacion")
+
+    var sucursalIdOculto =  $("#sucursal_id_oculto").val()
+    var clienteIdOculto = $("#cliente_id_oculto").val()
+
+    console.log("sucursal=" + sucursalIdOculto + " cliente="+clienteIdOculto)
+     switch (radio){
+        case 'libreta':
+            console.log("libreta")
+            $(".checkManualHtml").show()
+            $(".clienteCombo").hide()
+            $(".checkSemiHtml").show()
+            $("#clienteIdCombo").removeAttr("required");
+            $(".cotizacionManual").attr("readonly","true");
+            
+            direccionesPorEmpresa("remitente","#sucursal",sucursalIdOculto );
+            $("#sucursal").attr("required","true");
+               
+            direccionesPorEmpresa("destinatario", "#cliente", clienteIdOculto);
+            $("#cliente").attr("required","true");
+
+            $("cp").attr("required","true");
+            $("#esManual").val("NO");
+            break;
+        case 'semi':
+            console.log("semi")
+            $(".checkManualHtml").show()
+            
+            $(".cotizacionManual").attr("readonly","true");
+            $("#sucursal").attr("required","true");
+
+            direccionesPorEmpresa("remitente","#sucursal", sucursalIdOculto);
+            $(".cotizacionSemi").removeAttr("readonly");
+           
+            $("#esManual").val("SEMI");
+            $(".checkSemiHtml").hide()
+            break;
+        case 'manual':
+            console.log("manual")
+            $(".checkManualHtml").hide()
+            
+            $(".cotizacionManual").removeAttr("readonly");
+            $("#sucursal").removeAttr("required");
+            $("#cliente").removeAttr("required");
+            
+            $("#esManual").val("SI");
+            break;
+
+    }
+
+}
 
 function pesoDimensionalyBascula(){
 
@@ -263,8 +321,6 @@ $("#cotizar").click(function(e) {
                 console.log("done");
                 console.log(response.data.data);
 
-                //validaSaldo(response)
-
 
                 table = $('#cotizacionAjax').DataTable({
                     "oLanguage": {
@@ -354,143 +410,245 @@ table = $('#cotizacionAjax').DataTable({
 
 $('#cotizacionAjax tbody').on('click', 'tr', function () {
 
-    saldoNegativo=false
-    if (saldoNegativo) {
-        swal(
-            "Por el monento no puede hacer guias",
-            "Revisar con tu Administrador!",
-            "error"
-          )
+   
+    var dataRow = table.row(this).data(); 
+    console.log(dataRow);
+    //Valores de la cotizacion de la Forma Cotizacion
+    var sucursal_id = $('#sucursal').val();
+    var cliente_id = $('#cliente').val();
+    var cp = $('#cp').val();
+    var cp_d = $('#cp_d').val();
+    var largo = $('#largo').val();
+    var ancho = $('#ancho').val();
+    var alto = $('#alto').val();
+    var bSeguro = ( $('#checkSeguro').is(":checked") ? true : false);
+    var valorEnvio = $('#valor_envio').val();
+    var contenido = $('#contenido').val();
+    var esManual = $("#esManual").val();
+    var empresaId = $("#clienteIdCombo").val();
 
-    } else {
+    //Inicializacion de variables del renglon de la cotizacion
+    var tarifa_id = table.row(this).data()['id'];
+    var ltd_nombre = table.row(this).data()['nombre'];
+    var ltd_id = table.row(this).data()['ltds_id'];
+    var servicioNombre = dataRow['servicios_nombre'];
+    var servicioId  = dataRow['servicio_id'];
+    var precio =  preciofinal(dataRow);
+    var iva = precio*0.16;
+    var precioIva = (precio+iva).toFixed(2);
+    var ocurre  = dataRow['ocurre'];
+    var areaExtendida  = dataRow['extendida_cobertura'];
+    var zona  = dataRow['zona'];
+    var costoBase  = dataRow['costo'];
 
-        var dataRow = table.row(this).data();
+    //valores para el modal resumen_cotizacion.blade
+    $(".spanPrecio").text( precioIva );
+    $("#spanMensajeria").text(ltd_nombre);
+    $("#spanservicioId").text(servicioNombre);
+    $("#spanRemitente").text(cp);
+    $("#spanDestinatario").text(cp_d);
+    $("#spanPieza").text(piezas);
+    $("#spanSeguro").text(costoSeguro);
+    $("#spanValorEnvio").text(valorEnvio);
+    $("#spanPeso").text(peso);
+    $("#spanCotizacionManual").text(esManual);
+    $("#spanOcurre").text(ocurre);
+    $("#spanAreaExtendida").text(areaExtendida);
+    $("#spanZona").text(zona);
 
-        console.log(dataRow);
-        //Valores de la cotizacion de la Forma Cotizacion
-        var sucursal_id = $('#sucursal').val();
-        var cliente_id = $('#cliente').val();
-        var cp = $('#cp').val();
-        var cp_d = $('#cp_d').val();
-        var largo = $('#largo').val();
-        var ancho = $('#ancho').val();
-        var alto = $('#alto').val();
-        var bSeguro = ( $('#checkSeguro').is(":checked") ? true : false);
-        var valorEnvio = $('#valor_envio').val();
-        var contenido = $('#contenido').val();
-        var esManual = $("#esManual").val();
-        var empresaId = $("#clienteIdCombo").val();
+    //valores para request, campos ocultos guiastore_ocultos -> card_preciofinal
+    pesofacturado()
+    $("#precio").val(precioIva);
+    $("#tarifa_id").val(tarifa_id);
+    $("#sucursal_id").val(sucursal_id);
+    $("#cliente_id").val(cliente_id);
+    $("#ltd_nombre").val(ltd_nombre);
+    $("#ltd_id").val(ltd_id);
+    $("#piezas_guia").val(piezas);
+    $("#servicio_id").val(servicioId);
+    $("#peso_facturado").val(peso);
+    $("#bSeguro").val(bSeguro);
+    $("#costo_seguro").val(costoSeguro);
+    $("#contenido_r").val(contenido);
+    $("#extendida_r").val(areaExtendida);
+    $("#valor_envio_r").val(valorEnvio);
+    $("#esManual").val(esManual);
+    $("#cp_manual").val(cp);
+    $("#cp_d_manual").val(cp_d);
+    $("#empresa_id").val(empresaId);
+    $("#ocurre").val(ocurre);
+    $("#zona").val(zona);
+    $("#costo_base").val(costoBase);
+    $("#costo_kg_extra").val(costoPesoExtra); //costoKgExtra
+    $("#peso_dimensional").val(dimensional);
+    $("#peso_bascula").val(bascula);
+    $("#sobre_peso_kg").val(sobrePesoKg);
+    $("#costo_extendida").val(costoCoberturaExtendida);
+    
+    
+    
+    var iteracionClone = 0
+    var pesos = []
+    var largos = []
+    var anchos = []
+    var altos = []
 
-        //Inicializacion de variables del renglon de la cotizacion
-        var tarifa_id = table.row(this).data()['id'];
-        var ltd_nombre = table.row(this).data()['nombre'];
-        var ltd_id = table.row(this).data()['ltds_id'];
-        var servicioNombre = dataRow['servicios_nombre'];
-        var servicioId  = dataRow['servicio_id'];
-        var precio =  preciofinal(dataRow);
-        var iva = precio*0.16;
-        var precioIva = (precio+iva).toFixed(2);
-        var ocurre  = dataRow['ocurre'];
-        var areaExtendida  = dataRow['extendida_cobertura'];
-        var zona  = dataRow['zona'];
-        var costoBase  = dataRow['costo'];
+    $('.registroMultipieza').each(function(){
+        console.log("--------------"+iteracionClone)
+        var control = +iteracionClone *4
+        var indexPeso = 0 +control
+        var indexLargo = 1 +control
+        var indexAncho = 2 +control
+        var indexAlto = 3 +control 
+        
 
-        //valores para el modal resumen_cotizacion.blade
-        $(".spanPrecio").text( precioIva );
-        $("#spanMensajeria").text(ltd_nombre);
-        $("#spanservicioId").text(servicioNombre);
-        $("#spanRemitente").text(cp);
-        $("#spanDestinatario").text(cp_d);
-        $("#spanPieza").text(piezas);
-        $("#spanSeguro").text(costoSeguro);
-        $("#spanValorEnvio").text(valorEnvio);
-        $("#spanPeso").text(peso);
-        $("#spanCotizacionManual").text(esManual);
-        $("#spanOcurre").text(ocurre);
-        $("#spanAreaExtendida").text(areaExtendida);
-        $("#spanZona").text(zona);
+        var peso = $('.registroMultipieza .multi').get()[indexPeso].value
+        var largo = $('.registroMultipieza .multi').get()[indexLargo].value
+        var ancho = $('.registroMultipieza .multi').get()[indexAncho].value
+        var alto = $('.registroMultipieza .multi').get()[indexAlto].value
+        
+        pesos.push(peso)
+        largos.push(largo)
+        anchos.push(ancho)
+        altos.push(alto)
+        iteracionClone++
+    })      
+
+    $("#pesos").val(pesos);
+    $("#largos").val(largos);
+    $("#anchos").val(anchos);
+    $("#altos").val(altos);
+
+
+    var dataRow = table.row(this).data();
+
+    console.log(dataRow);
+    //Valores de la cotizacion de la Forma Cotizacion
+    var sucursal_id = $('#sucursal').val();
+    var cliente_id = $('#cliente').val();
+    var cp = $('#cp').val();
+    var cp_d = $('#cp_d').val();
+    var largo = $('#largo').val();
+    var ancho = $('#ancho').val();
+    var alto = $('#alto').val();
+    var bSeguro = ( $('#checkSeguro').is(":checked") ? true : false);
+    var valorEnvio = $('#valor_envio').val();
+    var contenido = $('#contenido').val();
+    var esManual = $("#esManual").val();
+    var empresaId = $("#clienteIdCombo").val();
+
+    //Inicializacion de variables del renglon de la cotizacion
+    var tarifa_id = table.row(this).data()['id'];
+    var ltd_nombre = table.row(this).data()['nombre'];
+    var ltd_id = table.row(this).data()['ltds_id'];
+    var servicioNombre = dataRow['servicios_nombre'];
+    var servicioId  = dataRow['servicio_id'];
+    var precio =  preciofinal(dataRow);
+    var iva = precio*0.16;
+    var precioIva = (precio+iva).toFixed(2);
+    var ocurre  = dataRow['ocurre'];
+    var areaExtendida  = dataRow['extendida_cobertura'];
+    var zona  = dataRow['zona'];
+    var costoBase  = dataRow['costo'];
+
+    //valores para el modal resumen_cotizacion.blade
+    $(".spanPrecio").text( precioIva );
+    $("#spanMensajeria").text(ltd_nombre);
+    $("#spanservicioId").text(servicioNombre);
+    $("#spanRemitente").text(cp);
+    $("#spanDestinatario").text(cp_d);
+    $("#spanPieza").text(piezas);
+    $("#spanSeguro").text(costoSeguro);
+    $("#spanValorEnvio").text(valorEnvio);
+    $("#spanPeso").text(peso);
+    $("#spanCotizacionManual").text(esManual);
+    $("#spanOcurre").text(ocurre);
+    $("#spanAreaExtendida").text(areaExtendida);
+    $("#spanZona").text(zona);
 
         //valores para request, campos ocultos guiastore_ocultos -> card_preciofinal
-        pesofacturado()
-        $("#precio").val(precioIva);
-        $("#tarifa_id").val(tarifa_id);
-        $("#sucursal_id").val(sucursal_id);
-        $("#cliente_id").val(cliente_id);
-        $("#ltd_nombre").val(ltd_nombre);
-        $("#ltd_id").val(ltd_id);
-        $("#piezas_guia").val(piezas);
-        $("#servicio_id").val(servicioId);
-        $("#peso_facturado").val(peso);
-        $("#bSeguro").val(bSeguro);
-        $("#costo_seguro").val(costoSeguro);
-        $("#contenido_r").val(contenido);
-        $("#extendida_r").val(areaExtendida);
-        $("#valor_envio_r").val(valorEnvio);
-        $("#esManual").val(esManual);
-        $("#cp_manual").val(cp);
-        $("#cp_d_manual").val(cp_d);
-        $("#empresa_id").val(empresaId);
-        $("#ocurre").val(ocurre);
-        $("#zona").val(zona);
-        $("#costo_base").val(costoBase);
-        $("#costo_kg_extra").val(costoPesoExtra); //costoKgExtra
-        $("#peso_dimensional").val(dimensional);
-        $("#peso_bascula").val(bascula);
-        $("#sobre_peso_kg").val(sobrePesoKg);
-        $("#costo_extendida").val(costoCoberturaExtendida);
+    pesofacturado()
+    $("#precio").val(precioIva);
+    $("#tarifa_id").val(tarifa_id);
+    $("#sucursal_id").val(sucursal_id);
+    $("#cliente_id").val(cliente_id);
+    $("#ltd_nombre").val(ltd_nombre);
+    $("#ltd_id").val(ltd_id);
+    $("#piezas_guia").val(piezas);
+    $("#servicio_id").val(servicioId);
+    $("#peso_facturado").val(peso);
+    $("#bSeguro").val(bSeguro);
+    $("#costo_seguro").val(costoSeguro);
+    $("#contenido_r").val(contenido);
+    $("#extendida_r").val(areaExtendida);
+    $("#valor_envio_r").val(valorEnvio);
+    $("#esManual").val(esManual);
+    $("#cp_manual").val(cp);
+    $("#cp_d_manual").val(cp_d);
+    $("#empresa_id").val(empresaId);
+    $("#ocurre").val(ocurre);
+    $("#zona").val(zona);
+    $("#costo_base").val(costoBase);
+    $("#costo_kg_extra").val(costoPesoExtra); //costoKgExtra
+    $("#peso_dimensional").val(dimensional);
+    $("#peso_bascula").val(bascula);
+    $("#sobre_peso_kg").val(sobrePesoKg);
+    $("#costo_extendida").val(costoCoberturaExtendida);
 
 
 
-        var iteracionClone = 0
-        var pesos = []
-        var largos = []
-        var anchos = []
-        var altos = []
+    var iteracionClone = 0
+    var pesos = []
+    var largos = []
+    var anchos = []
+    var altos = []
 
-        $('.registroMultipieza').each(function(){
-            console.log("--------------"+iteracionClone)
-            var control = +iteracionClone *4
-            var indexPeso = 0 +control
-            var indexLargo = 1 +control
-            var indexAncho = 2 +control
-            var indexAlto = 3 +control
-
-
-            var peso = $('.registroMultipieza .multi').get()[indexPeso].value
-            var largo = $('.registroMultipieza .multi').get()[indexLargo].value
-            var ancho = $('.registroMultipieza .multi').get()[indexAncho].value
-            var alto = $('.registroMultipieza .multi').get()[indexAlto].value
-
-            pesos.push(peso)
-            largos.push(largo)
-            anchos.push(ancho)
-            altos.push(alto)
-            iteracionClone++
-        })
-
-        $("#pesos").val(pesos);
-        $("#largos").val(largos);
-        $("#anchos").val(anchos);
-        $("#altos").val(altos);
-
-        var saldoPorEmpresa = document.getElementById("spanSaldoPorEmpresa").innerText;
-        console.error(saldoPorEmpresa)
-
-        console.log("crearPreferencia")
-        crearPreferencia(400,ltd_nombre, servicioNombre);
-
-        console.log(saldoPorEmpresa +">"+ precioIva)
-        if ( saldoPorEmpresa > precioIva   ) {
-            console.log("myModal")
-            $("#myModal").modal("show");
-        } else {
-            console.log("myModalMercadoPago")
-            $("#myModalMercadoPago").modal("show");
-        }
+    $('.registroMultipieza').each(function(){
+        console.log("--------------"+iteracionClone)
+        var control = +iteracionClone *4
+        var indexPeso = 0 +control
+        var indexLargo = 1 +control
+        var indexAncho = 2 +control
+        var indexAlto = 3 +control
 
 
+        var peso = $('.registroMultipieza .multi').get()[indexPeso].value
+        var largo = $('.registroMultipieza .multi').get()[indexLargo].value
+        var ancho = $('.registroMultipieza .multi').get()[indexAncho].value
+        var alto = $('.registroMultipieza .multi').get()[indexAlto].value
 
+        pesos.push(peso)
+        largos.push(largo)
+        anchos.push(ancho)
+        altos.push(alto)
+        iteracionClone++
+    })
+
+    $("#pesos").val(pesos);
+    $("#largos").val(largos);
+    $("#anchos").val(anchos);
+    $("#altos").val(altos);
+
+    var saldoPorEmpresa = document.getElementById("spanSaldoPorEmpresa").innerText;
+    console.error(saldoPorEmpresa)
+
+    console.log("crearPreferencia")
+    //crearPreferencia(400,ltd_nombre, servicioNombre);
+
+    saldoPorEmpresa = parseFloat(saldoPorEmpresa);
+    precioIva = parseFloat(precioIva);
+
+    console.log(saldoPorEmpresa +">"+ precioIva)
+    console.log(saldoPorEmpresa > precioIva)
+
+    if ( saldoPorEmpresa > precioIva   ) {
+        console.log("myModal")
+        $("#myModal").modal("show");
+    } else {
+        console.log("myModalMercadoPago")
+        $("#myModalMercadoPago").modal("show");
     }
+
 
 });
 
@@ -499,12 +657,13 @@ $("#sucursal").change(function() {
     var idSucursal = $('#sucursal').val();
     console.log("sucursal "+idSucursal)
     obtenerCP(idSucursal, "Sucursal");
-    direccionesPorEmpresa(idSucursal)
-});
+            
+}); 
+
 
 $("#cliente").change(function() {
     var idCliente = $('#cliente').val();
-    console.log("sucursal "+idCliente)
+    console.log("cliente "+idCliente)
     obtenerCP(idCliente, "Cliente");
 });
 
@@ -561,13 +720,14 @@ function obtenerClientes() {
 }
 
 
-function direccionesPorEmpresa(idSucursa){
+function direccionesPorEmpresa(direccionTipo, tipoTag, idCombo=0){
     console.log( "direccionesPorEmpresa" );
 
     $.ajax({
         /* Usar el route  */
-        //url: route('api.cp.colonias'),
-        url: url_base+'/api/direccion/destinatario',
+        
+        url: route('api.direcciones.tipo', [direccionTipo]),
+
         type: 'GET',
         /* send the csrf-token and the input to the controller */
         headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
@@ -577,14 +737,15 @@ function direccionesPorEmpresa(idSucursa){
         }).done(function( response) {
             console.log("done");
             console.log(response.data);
-
-            $('#cliente').empty();
-            $("#cliente").append('<option selector="0" value="0"> Selecciona</option>');
+            
+            $(tipoTag).empty();
+            $(tipoTag).append('<option selector="0" value=""> Selecciona</option>');
             $.each(response.data,function(key, empresa) {
-                $("#cliente").append('<option selector='+key+' value="'+empresa.id+'" >'+empresa.nombre+'</option>');
-              });
-
-
+                var selectedOp = (parseInt(empresa.id) === parseInt(idCombo) ) ? 'selected' : '' ;
+                console.log(selectedOp)
+                $(tipoTag).append('<option value="'+empresa.id+'" '+ selectedOp +' >'+empresa.nombre+'</option>');
+            });   
+            
         }).fail( function( data,jqXHR, textStatus, errorThrown ) {
             console.log( "fail" );
             console.log(textStatus);
@@ -722,51 +883,13 @@ $("#addRow").click(function () {
 
 });
 
-// La fucnion habilita el modo edicion de los CP, esto ayuda a realizar una cotizacion manual basda en tarifias de un cliente
 
-$('#checkCotizacionManual').change(function() {
+$('input[type="radio"]').on('click change', function(e) {
+    //console.log(e.target);
+    var tipoCotizacion = e.target.value;
 
-    console.log("checkCotizacionManual");
-    var checkSeguro = $(this).is( ":checked" )
-    if ( checkSeguro ) {
-        $("#cliente").removeAttr("required");
-        $(".cotizacionSemi").removeAttr("readonly");
-        //$("cotizacionSemi").removeAttr("required");
-        $("#esManual").val("SEMI");
-        $(".checkSemiHtml").hide()
-    } else {
-        $(".checkSemiHtml").show()
-        $(".cotizacionSemi").attr("readonly","true");
-        $("#cliente").attr("required","true");
-        $("#esManual").val("NO");
-    }
-  });
-
-$('#checkManual').change(function() {
-
-    console.log("checkManualHtml");
-    var check = $(this).is( ":checked" )
-    if ( check ) {
-        $(".checkManualHtml").hide()
-        $(".clienteCombo").show()
-        $("#clienteIdCombo").attr("required","true");
-        obtenerClientes()
-        $(".cotizacionManual").removeAttr("readonly");
-        $("#sucursal").removeAttr("required");
-        $("#cliente").removeAttr("required");
-        $("#cliente_id").attr("required","true");
-        $("#esManual").val("SI");
-
-    } else {
-        $(".checkManualHtml").show()
-        $(".clienteCombo").hide()
-        $("#clienteIdCombo").removeAttr("required");
-        $(".cotizacionManual").attr("readonly","true");
-        $("#sucursal").attr("required","true");
-        $("#cliente").attr("required","true");
-        $("#cliente_id").removeAttr("required");
-        $("#esManual").val("NO");
-    }
+   checkCotizacion(tipoCotizacion);
+    
 });
 
 
