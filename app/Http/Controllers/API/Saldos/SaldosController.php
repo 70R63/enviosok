@@ -14,7 +14,6 @@ use App\Negocio\Saldos\Saldos as nSaldos;
 #MODELS
 
 
-
 class SaldosController extends ApiController
 {
 

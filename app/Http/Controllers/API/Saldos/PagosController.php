@@ -62,7 +62,6 @@ class PagosController extends ApiController
     }
 
 
-
     /**
      * Se obtiene los registros de lo sdeposties de la una vista
      * @method GET
