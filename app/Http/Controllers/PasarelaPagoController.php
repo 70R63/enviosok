@@ -7,12 +7,9 @@ use Log;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 
-//MODELS
-use App\Models\PasarelaPago;
-
 
 //NEGOCIO
-use App\Negocio\Saldos\MercadoPago as nMarcadoPago; 
+use App\Negocio\Finanzas\MercadoPago as nMarcadoPago; 
 
 class PasarelaPagoController extends Controller
 {
@@ -26,11 +23,14 @@ class PasarelaPagoController extends Controller
         
         try {
             Log::info(__CLASS__." ".__FUNCTION__." ".__LINE__); 
-          
-            
+            $nMarcadoPago = new nMarcadoPago();
+            $nMarcadoPago->preferences();
             Log::info(__CLASS__." ".__FUNCTION__." ".__LINE__); 
+
+            $preferences =$nMarcadoPago->getpreferences();
+
             return view("finanzas.index" 
-                
+                ,compact("preferences")    
             );
             
             
@@ -57,7 +57,7 @@ class PasarelaPagoController extends Controller
         }
         $notices[] = $mensaje;
         Log::info(__CLASS__." ".__FUNCTION__." ".__LINE__);
-        return \Redirect::route("reportes.pagado.index") -> withSuccess ($notices);
+        return \Redirect::route("dashboard") -> withSuccess ($notices);
     }
 
     /**
@@ -87,7 +87,7 @@ class PasarelaPagoController extends Controller
      * @param  \App\Models\PasarelaPago  $pasarelaPago
      * @return \Illuminate\Http\Response
      */
-    public function show(PasarelaPago $pasarelaPago)
+    public function show(Request $pasarelaPago)
     {
         //
     }
@@ -98,7 +98,7 @@ class PasarelaPagoController extends Controller
      * @param  \App\Models\PasarelaPago  $pasarelaPago
      * @return \Illuminate\Http\Response
      */
-    public function edit(PasarelaPago $pasarelaPago)
+    public function edit(Request $pasarelaPago)
     {
         //
     }
@@ -110,7 +110,7 @@ class PasarelaPagoController extends Controller
      * @param  \App\Models\PasarelaPago  $pasarelaPago
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, PasarelaPago $pasarelaPago)
+    public function update(Request $request, Request $pasarelaPago)
     {
         //
     }
@@ -121,7 +121,7 @@ class PasarelaPagoController extends Controller
      * @param  \App\Models\PasarelaPago  $pasarelaPago
      * @return \Illuminate\Http\Response
      */
-    public function destroy(PasarelaPago $pasarelaPago)
+    public function destroy(Request $pasarelaPago)
     {
         //
     }

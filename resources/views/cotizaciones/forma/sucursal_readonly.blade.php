@@ -123,7 +123,7 @@
 						</span>
                 </div>
                 {!! Form::text('calle'
-                    , @$sucursal ? $sucursal->domicilio->calle : null
+                    , @$sucursal ? $sucursal->calle : null
                     ,['class' 		=> 'form-control calle'
                         ,'required'	=>	'true'
                     ,'readonly' =>  'true'

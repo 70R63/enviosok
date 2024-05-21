@@ -13,9 +13,20 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('pasarela_pagos', function (Blueprint $table) {
+        Schema::create('mp_preferences', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
+             $table->boolean('estatus')->default(1);
+
+            $table->bigInteger('client_id');
+            $table->unsignedInteger('collector_id');
+            $table->string('currency_id');
+            $table->string('title');
+            $table->string('id_preference');
+            $table->string('init_point');
+            $table->unsignedInteger('unit_price');
+            $table->unsignedInteger('quantity');
+            
         });
     }
 
@@ -26,6 +37,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('pasarela_pagos');
+        Schema::dropIfExists('mp_preferences');
     }
 };

@@ -7,11 +7,11 @@ use Illuminate\Http\Request;
 //GENERAL
 use Log;
 use Carbon\Carbon;
+use Illuminate\Validation\ValidationException;
 
-//MODELS
 
 //NEGOCIO
-use App\Negocio\Saldos\MercadoPago as nMarcadoPago; 
+use App\Negocio\MercadoPago\MercadoPago as nMarcadoPago; 
 
 
 
@@ -24,14 +24,24 @@ class ReturnMPController extends Controller
         $tabla = array();
         $iniciarBusqueda =true;
         try {
-            Log::info(__CLASS__." ".__FUNCTION__." ".__LINE__); 
-            Log::debug(print_r($request->all(),true));
-           
-            
-            $mensaje="Pago Exito";
+            Log::info(__CLASS__." ".__FUNCTION__." ".__LINE__);
+            $data = $request->all(); 
+            Log::debug(print_r($data,true));
+            $data['empresa_id'] = auth()->user()->empresa_id;
 
+            Log::info(__CLASS__." ".__FUNCTION__." ".__LINE__);
+            $nMarcadoPago = new nMarcadoPago();
+            $nMarcadoPago->pagoExitoso($data);
             
+            Log::info(__CLASS__." ".__FUNCTION__." ".__LINE__);
+            return \Redirect::route("finanzas.pasarela.index") -> withSuccess ($nMarcadoPago->getMensajes());    
             
+        } catch (ValidationException $e) {
+            Log::info(__CLASS__." ".__FUNCTION__." ".__LINE__); 
+            $mensajeInterno=$e->getMessage();
+            Log::debug(print_r($mensajeInterno,true));
+            Log::info("ValidationException");       
+            $mensaje = sprintf("ValidationException - %s",$mensajeInterno );
 
         } catch (ModelNotFoundException $e) {
             Log::info(__CLASS__." ".__FUNCTION__." ".__LINE__); 
@@ -55,7 +65,7 @@ class ReturnMPController extends Controller
         }
         $notices[] = $mensaje;
         Log::info(__CLASS__." ".__FUNCTION__." ".__LINE__);
-        return \Redirect::route("reportes.pagado.index") -> withSuccess ($notices);
+        return \Redirect::route("finanzas.pasarela.index") -> withErrors ($notices);
     }
 
 
@@ -71,8 +81,13 @@ class ReturnMPController extends Controller
            
             $nMarcadoPago = new nMarcadoPago();
             $nMarcadoPago->registroPago($data);
-
-            $mensaje="Pago en fallo ";  
+            
+            Log::info(__CLASS__." ".__FUNCTION__." ".__LINE__);
+            $nMarcadoPago->obtenerPreference($data['preference_id']);
+            $preference = $nMarcadoPago->getPreference();
+             Log::debug(print_r($preference,true));
+            Log::info(__CLASS__." ".__FUNCTION__." ".__LINE__);
+            $mensaje=sprintf("El pago de $ %s no se realizo. ", $preference['unit_price']);  
             
 
         } catch (ModelNotFoundException $e) {
@@ -97,7 +112,7 @@ class ReturnMPController extends Controller
         }
         $notices[] = $mensaje;
         Log::info(__CLASS__." ".__FUNCTION__." ".__LINE__);
-        return \Redirect::route("reportes.pagado.index") -> withSuccess ($notices);
+        return \Redirect::route("finanzas.pasarela.index") -> withErrors ($notices);
     }
 
 
@@ -134,6 +149,6 @@ class ReturnMPController extends Controller
         }
         $notices[] = $mensaje;
         Log::info(__CLASS__." ".__FUNCTION__." ".__LINE__);
-        return \Redirect::route("reportes.pagado.index") -> withSuccess ($notices);
+        return \Redirect::route("finanzas.pasarela.index") -> withErrors ($notices);
     }
 }

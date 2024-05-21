@@ -44,16 +44,16 @@ class DireccionController extends ApiController
 
                 foreach (Sucursal::all() as $i){
 
-                    Log::debug(print_r($i,true));
+                    Log::debug(print_r($i->toArray(),true));
                     $tabla[]=[
                         'id'=>$i->id,
                         'nombre'=>$i->nombre,
                         'contacto'=>$i->contacto,
                         'direccion'=>$i->direccion,
                         'colonia'=>$i->colonia,
-                        'ciudad'=>$i->domicilio->ciudad,
-                        'cp'=>$i->domicilio->cp,
-                        'entidad_federativa'=>$i->domicilio->estado,
+                        'ciudad'=>$i->ciudad, //chs 20240519
+                        'cp'=>$i->cp, //chs 20240519
+                        'entidad_federativa'=>$i->entidad_federativa,//chs 20240519
                         'telefono'=>$i->telefono,
                     ];
                 }

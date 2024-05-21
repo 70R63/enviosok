@@ -64,13 +64,13 @@ class Cliente extends Model
             ,"direccion"=> $request['direccion_d']
             ,"direccion2"=>$request['direccion2_d']
             ,"cp"       => $request['cp_d']
-            ,"colonia"  => $request['colonia_d']
+            ,"colonia"  => "Colonia" //$request['colonia_d'] chs 20240519
             ,"ciudad"   => $request['ciudad_d']
-            ,"entidad_federativa"=>$request['entidad_federativa_d']
+            ,"entidad_federativa"=> "Entidad" //$request['entidad_federativa_d'] chs 20240519
             ,"celular"  => $request['celular_d']
             ,"telefono" => $request['telefono_d']
             ,"empresa_id"=>$empresa_id
-            ,"no_ext"   => $request['no_ext_d']
+            ,"no_ext"   => "ext" //$request['no_ext_d'] chs 20240519
             ,"no_int"   => $request['no_int_d']
 
             );

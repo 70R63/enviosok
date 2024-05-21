@@ -108,7 +108,7 @@ Route::resource('saldos/externas','Saldos\GuiasExternasController')
 
 //Menu Finanzas
 Route::group(['as'=>'finanzas.'  ,'prefix'=>'finanzas'],function(){
-    Route::resource('pasarelapagos','PasarelaPagoController')
+    Route::resource('pasarela','PasarelaPagoController')
         ->middleware(['roles:sysadmin,admin,contraloria,cliente']
     );
 

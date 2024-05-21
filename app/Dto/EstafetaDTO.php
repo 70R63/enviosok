@@ -184,7 +184,8 @@ class EstafetaDTO
             $wayBillDocument->content=str_split($data['contenido'],25)[0]; 
         }
 
-        if ( strlen($data['direccion2_d']) < 2   ) {
+        //chs 20240519
+        if ( !isset($data['direccion2_d']) || strlen($data['direccion2_d']) < 2   ) {
             $aditionalInfo = "NA";
         } else {
             $aditionalInfo = str_split($data['direccion2_d'],25)[0]; 
@@ -255,7 +256,7 @@ class EstafetaDTO
         $address->zipCode = $data['cp'];
         $address->roadName = str_split($data['direccion'],50)[0];
         $address->settlementName = str_split($data['colonia'],57)[0];
-        $address->externalNum = $data['no_ext'] ;
+        $address->externalNum = ( isset($data['no_ext']) ) ? $data["no_ext"] : "NA" ; //chs 20240519
         $address->indoorInformation = (empty($data['no_int']) ? "" : $data['no_int']);
 
         $contact = new Contact();
@@ -282,8 +283,8 @@ class EstafetaDTO
 
         $address->zipCode = $data['cp_d'];
         $address->roadName = str_split($data['direccion_d'],50)[0];
-        $address->settlementName = $data['colonia_d'];
-        $address->externalNum = $data['no_ext_d'];
+        $address->settlementName = "col duro" ; //$data['colonia_d']; //chs 20240519
+        $address->externalNum = "ext duro";//$data['no_ext_d']; //chs 20240519
         $address->indoorInformation = (empty($data['no_int_d']) ? "" : $data['no_int_d']); 
         
         $contact = new Contact();        
@@ -313,8 +314,8 @@ class EstafetaDTO
 
         $address->zipCode = $data['cp_d'];
         $address->roadName = str_split($data['direccion_d'],50)[0];
-        $address->settlementName = $data['colonia_d'];
-        $address->externalNum = $data['no_ext_d'];
+        $address->settlementName = "col duro" ;//chs 20240519$data['colonia_d'];
+        $address->externalNum = "no ext duro";//chs 20240519$data['no_ext_d'];
         $address->indoorInformation = (empty($data['no_int_d']) ? "" : $data['no_int_d']);
         
         $contact->corporateName=$data['nombre_d'];

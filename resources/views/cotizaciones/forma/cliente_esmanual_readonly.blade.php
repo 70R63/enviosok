@@ -72,7 +72,7 @@
 						<span class="input-group-text" id="basic-addon1">ENTIDAD FEDERATIVA
 						</span>
                     </div>
-                    {!! Form::text('estado'
+                    {!! Form::text('estado_d'
                         , ''
                         ,['class' 		=> 'form-control estado'
                             ,'required'	=>	'true'
@@ -98,11 +98,11 @@
 
             <div class="input-group mb-3 div-colonia-cp col-md-6 p-0">
                 <div class="input-group-prepend">
-                            <span class="input-group-text" id="basic-addon1">COLONIA
+                            <span class="input-group-text" id="basic-addon1">COLONIA 1
                             </span>
                 </div>
 
-                {!! Form::text('colonia'
+                {!! Form::text('colonia_d'
                     , ''
                     ,['class' 		=> 'form-control colonia'
                         ,'required'	=>	'true'
@@ -111,7 +111,7 @@
             </div>
             <div class="input-group mb-3 col-md-6 p-0">
                 <div class="input-group-prepend">
-						<span class="input-group-text" id="basic-addon1">CALLE
+						<span class="input-group-text" id="basic-addon1">CALLE 1
 						</span>
                 </div>
                 {!! Form::text('calle'

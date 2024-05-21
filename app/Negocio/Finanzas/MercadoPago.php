@@ -1,25 +1,22 @@
 <?php
-namespace App\Negocio\Saldos;
+namespace App\Negocio\Finanzas;
 
 //GENERAL
 use Carbon\Carbon;
 use Log;
 
 //modelos
-use App\Models\Saldos\Pagos as mPagos;
 use App\Models\MpPreference as mMpPreference;
 
 //Negocio
-use App\Negocio\Saldos\Saldos AS nSaldos;
+
 
 //DTO
-use App\Dto\MercadoPago as dtoMercadoPago;
-
-class MercadoPago1 {
-
-    private $preference = array();
 
 
+class MercadoPago {
+
+	private $preferences = array();
 	/**
      * Se obtienen los datos de las tarifas de los clietnes ligados al cliente
      * 
@@ -47,33 +44,21 @@ class MercadoPago1 {
      * @return void
      */
 
-	public function registroPago($data){
+	public function preferences(){
 
 		Log::info(__CLASS__." ".__FUNCTION__." ".__LINE__); 
 
-		$dtoMercadoPago = new dtoMercadoPago();
-		$dtoMercadoPago->parsear($data);
-		$dataParseada = $dtoMercadoPago->getData();
+		$this->preferences = mMpPreference::select("init_point", "currency_id", "unit_price")
+		->get()->toArray();
 
-		if ( $data['payment_id']==='null' ) {
-			Log::info(__CLASS__." ".__FUNCTION__." ".__LINE__); 
-			$maxValue = mPagos::max('id');
-			Log::debug($maxValue);	
-
-			$dataParseada['referencia']= sprintf("%s-%s",$dataParseada['referencia'], $maxValue);
-			Log::info(__CLASS__." ".__FUNCTION__." ".__LINE__); 
-		}
-		
-
-		mPagos::create($dataParseada);
-
+		Log::debug($this->preferences); 
 
 		Log::info(__CLASS__." ".__FUNCTION__." ".__LINE__); 
 
 	}
 
-
-
-    
-
+	public function getpreferences()
+    {
+        return $this->preferences;
+    }
 }

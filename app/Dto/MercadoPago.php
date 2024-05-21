@@ -16,10 +16,10 @@ class MercadoPago
     public function parsear($data){
     	Log::info(__CLASS__." ".__FUNCTION__." ".__LINE__);
         $dataParseado = array();
-    	$dataParseado['empresa_id']= auth()->user()->empresa_id;
+    	$dataParseado['empresa_id']= $data['empresa_id'];
     	$dataParseado['banco_id']= 30;
     	$dataParseado['referencia']= $data['payment_id'];
-
+        $dataParseado['importe']=$data['unit_price'];
     	Log::info(__CLASS__." ".__FUNCTION__." ".__LINE__);
     	$this->data=$dataParseado;
     }

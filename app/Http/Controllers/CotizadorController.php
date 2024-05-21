@@ -18,6 +18,7 @@ use App\Models\Guia;
 use App\Models\Empresa;
 
 use App\Negocio\Guias\Cotizacion as nCotizacion;
+use App\Negocio\MercadoPago\MercadoPago as nMercadoPago;
 
 class CotizadorController extends Controller
 {
@@ -46,9 +47,13 @@ class CotizadorController extends Controller
 
             $cliente = Cliente::orderby('contacto')->pluck('contacto','id');
 
+            $nMercadoPago = new nMercadoPago();
+            $nMercadoPago->preferences();
+            $preferences = $nMercadoPago->getPreferences();
 
+            Log::info(__CLASS__." ".__FUNCTION__." ".__LINE__);
             return view(self::DASH_v 
-                    ,compact( "objeto")
+                    ,compact( "objeto", "preferences")
 
                 );
 
@@ -105,7 +110,7 @@ class CotizadorController extends Controller
             Log::info(__CLASS__." ".__FUNCTION__." ".__LINE__." objeto");
             Log::debug(print_r($objeto,true));
             Log::info(__CLASS__." ".__FUNCTION__." ".__LINE__." sucursal");
-            Log::debug(print_r($sucursal,true));
+            Log::debug(print_r($sucursal->toArray(),true));
             Log::info(__CLASS__." ".__FUNCTION__." ".__LINE__." cliente");
             Log::debug(print_r($cliente,true));
 

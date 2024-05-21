@@ -53,45 +53,7 @@ class ApiController extends Controller
 
     public function domicilio(Request $request)
     {
-        /*if(!$request->ajax()){
-            return Response::json([
-                'mensaje' => 'Error',
-                'codigo' => 1,
-            ], 404);
-        }*/
-        /*
-                if(!isset($request->numero))
-                    return Response::json(["mensaje"=>"Por favor introduzca el número de expediente"],400);
-
-                if(STR::contains($request->numero,"/CI/"))
-                    $rh =Expediente::whereNumeroRh($request->numero)
-        ->with('hechos.domicilio')->with('involucrados.domicilio')
-                    ->with('involucrados.sexo', function ($query) {
-                        $query->select('codigo');
-                    })->first();
-                else
-                    $rh =Expediente::whereNumeroRh($request->numero)
-                    ->with('hechos.domicilio')->with('involucrados.domicilio')
-                    ->with('involucrados.ocupacion', function ($query) {
-                        $query->select('id','codigo');
-                    })
-                    ->with('involucrados.nacionalidad', function ($query) {
-                        $query->select('id','codigo');
-                    })
-                    ->with('involucrados.sexo', function ($query) {
-                        $query->select('id','codigo');
-                    })
-                    ->with('involucrados.tipo', function ($query) {
-                        $query->select('id','codigo');
-                    })->first();
-
-                if(!isset($rh->id))
-                    return Response::json(["mensaje"=>"Este Rh no existe"],400);
-
-                return Response::json($rh, 200);*/
-
-
-
+        
         $domicilio = SEPOMEX::where('d_codigo', $request->cp)->first();
         $colonias = SEPOMEX::where('d_codigo', $request->cp)->pluck('d_tipo_asenta','d_asenta');
         if(!isset($domicilio->d_codigo)){

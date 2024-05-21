@@ -11,7 +11,7 @@
 			<a class="nav-sub-link" href="#">Facturación</a>
 		</li>
 		<li class="nav-sub-item">
-			<a class="nav-sub-link" href="{{ route('finanzas.pasarelapagos.index') }}">Pasarela de Pagos.</a>
+			<a class="nav-sub-link" href="{{ route('finanzas.pasarela.index') }}">Pasarela de Pagos.</a>
 		</li>
 		
 	</ul>
