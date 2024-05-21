@@ -77,17 +77,14 @@ class ReturnMPController extends Controller
             Log::info(__CLASS__." ".__FUNCTION__." ".__LINE__); 
             $data= $request->all();
             Log::debug(print_r($data,true));
-
+            $data['empresa_id'] = auth()->user()->empresa_id;
            
             $nMarcadoPago = new nMarcadoPago();
-            $nMarcadoPago->registroPago($data);
+            $nMarcadoPago->pagoFallido($data);
+            
             
             Log::info(__CLASS__." ".__FUNCTION__." ".__LINE__);
-            $nMarcadoPago->obtenerPreference($data['preference_id']);
-            $preference = $nMarcadoPago->getPreference();
-             Log::debug(print_r($preference,true));
-            Log::info(__CLASS__." ".__FUNCTION__." ".__LINE__);
-            $mensaje=sprintf("El pago de $ %s no se realizo. ", $preference['unit_price']);  
+            return \Redirect::route("finanzas.pasarela.index") -> withErrors ($nMarcadoPago->getMensajes()); 
             
 
         } catch (ModelNotFoundException $e) {

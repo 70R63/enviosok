@@ -206,6 +206,47 @@ class MercadoPago {
     }
 
 
+    /**
+     * PAgo Exito se realizara validacion y mensajes
+     * 
+     * @author Javier Hernandez
+     * @copyright 2022-2024 EnvioOK
+     * @package App\Negocio\MercadoPago
+     * @api
+     * 
+     * @version 1.0.0
+     * 
+     * @since 1.0.0 Primera version de la funcion pagoExitoso
+     * 
+     * @throws Illuminate\Validation\ValidationException
+     *
+     * @param array $data Valores de respuesta de Mercado Pago
+     * 
+     * @var array $data
+     * 
+     * 
+     * @return void
+     */
+
+    public function pagoFallido($data){
+        Log::info(__CLASS__." ".__FUNCTION__." ".__LINE__);
+
+        $this->obtenerPreference($data['preference_id']);
+
+        $data = array_merge($data,$this->preference);
+        Log::info(__CLASS__." ".__FUNCTION__." ".__LINE__);
+        
+        $this->registroPago($data);
+        $data = array_merge($this->dataParseada,$data);
+
+         $this->mensajes[]= sprintf("El pago de '%s %s' no se realizo ",$this->preference['unit_price'],$this->preference['currency_id']);
+       
+
+        Log::info(__CLASS__." ".__FUNCTION__." ".__LINE__);
+
+    }
+
+
     public function getMensajes()
     {
         return $this->mensajes;
