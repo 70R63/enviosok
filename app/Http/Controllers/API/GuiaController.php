@@ -403,7 +403,14 @@ class GuiaController extends Controller
             $tabla= array();
             Log::info(__CLASS__." ".__FUNCTION__." FINALIZANDO-----------------");
             return $this->successResponse($tabla, 'successfully.');
-            
+        
+
+        } catch(ValidationException $ex){ 
+            Log::info(__CLASS__." ".__FUNCTION__." ".__LINE__." ValidationException");
+            Log::debug($ex->getMessage()); 
+            $this->error = "ErrorException";
+            $this->mensaje =$ex->getMessage();
+
         } catch(\Illuminate\Database\QueryException $ex){ 
             Log::info(__CLASS__." ".__FUNCTION__." "."QueryException");
             Log::debug($ex->getMessage()); 

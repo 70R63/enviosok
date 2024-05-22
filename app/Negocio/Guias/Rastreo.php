@@ -5,6 +5,7 @@ namespace App\Negocio\Guias;
 //GENERALES
 use Log;
 use Carbon\Carbon;
+use DB;
 
 //EXCEPTION
 use Illuminate\Validation\ValidationException;
@@ -50,9 +51,12 @@ class Rastreo {
     public function peticionesHistorial (){
         Log::info(__CLASS__." ".__FUNCTION__." ".__LINE__);
         
-        $rastreoPeticionLtd = Rastreo_peticion::where('completado',1)
-                    ->get()
-                    ->toArray()
+        $rastreoPeticionLtd = Rastreo_peticion::select("ltd_id", "nombre", DB::raw('MAX(peticion_fin) peticion_fin'))
+                ->join('cfg_ltds', 'cfg_ltds.id', '=', 'rastreo_peticions.ltd_id')
+                ->where('completado',1)
+                ->groupBy("rastreo_peticions.ltd_id")
+                ->get()
+                ->toArray()
                 ;
 
         $this->rastreoPeticion= $rastreoPeticionLtd ;           

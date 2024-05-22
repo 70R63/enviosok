@@ -1,5 +1,5 @@
 $(document).ready(function() {
-    console.log("Ready peticion ajax ")
+    console.log("Rastreo.js Ready peticion ajax ")
     if ($('#rastreoTabla').length) {
         rastrearTabla()     
     }

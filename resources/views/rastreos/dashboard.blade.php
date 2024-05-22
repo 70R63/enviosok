@@ -25,7 +25,7 @@
                 <div class="card-body">
                     <div class="card-header border-bottom-0 pt-0 pl-0 pr-0 d-flex">
                         <div>
-                            <label class="main-content-label mb-2">{{ Config('ltd.general')[$row['ltd_id']] }} </label> 
+                            <label class="main-content-label mb-2">{{ $row['nombre'] }} </label> 
                             <span class="d-block tx-14 mb-3 text-success">{{ $row['peticion_fin']}}</span>
                         </div>
                     </div>
