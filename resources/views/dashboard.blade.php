@@ -78,7 +78,7 @@
                     <a class="main-logo" href="https://enviosok.com/" target="_blank">
                         <img src="{{ url('img/Envios_OK_variante_C4x.png') }}" class="header-brand-img desktop-logo" alt="logo">
                         
-                        <img src="{{ url('img/Envios_OK_variante_C4x.png') }}" class="header-brand-img icon-logo" alt="logo">
+                        <img src="{{ url('img/personaje.svg') }}" class="header-brand-img icon-logo" alt="logo">
                         
                         <img src="{{ url('spruha/img/brand/ulalaBco.png') }}" class="header-brand-img desktop-logo theme-logo" alt="logo">
                         
