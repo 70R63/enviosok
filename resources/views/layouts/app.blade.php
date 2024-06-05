@@ -13,6 +13,7 @@
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
     @vite('resources/css/app.css')
+    
 
 
 
@@ -73,7 +74,7 @@
         </main>
         <footer class="mt-auto text-center text-lg-start main-footer">
             <div class="text-center">
-                <span>Copyright © 2024 <a href="#">"https://www.envios-ok.com/"</a>. Designed by <a href="#">Envios-ok</a> All rights reserved.</span>
+                <span>Copyright © 2024 <a href="#">ENVIOS OK</a>. Designed by <a href="#">TED</a> All rights reserved.</span>
             </div>
         </footer>
     </div>

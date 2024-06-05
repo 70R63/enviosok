@@ -6,6 +6,7 @@
 
         <meta charset="utf-8">
         <meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport">
+        <meta name="google-site-verification" content="Zvnh-85JQrapTpoEpzYXG7dldWEV0e9JSPhMh_IiBjU"/>
         <!-- Favicon -->
         <link rel="icon" href="{{ url('spruha/img/brand/favicon.ico') }}" type="image/x-icon"/>
 
@@ -55,6 +56,7 @@
 
 
         @yield('css_rol_page')
+        
 
     </head>
 
@@ -80,9 +82,6 @@
                         
                         <img src="{{ url('img/personaje.svg') }}" class="header-brand-img icon-logo" alt="logo">
                         
-                        <img src="{{ url('spruha/img/brand/ulalaBco.png') }}" class="header-brand-img desktop-logo theme-logo" alt="logo">
-                        
-                        <img src="{{ url('spruha/img/brand/ulalaBco.png') }}" class="header-brand-img icon-logo theme-logo" alt="logo">
                     </a>
                 </div>
 -
@@ -354,8 +353,7 @@
         <script src="{{ asset('js/saldos/pagos.js') }}" ></script>
         @routes
         <script src="{{ asset('js/saldos/saldos.js') }}" ></script>
-
-
+        <script src="{{ asset('js/dashboard.js') }}" ></script>
 
 
 {{--INTEGRACION DE ROLES Y USUARIOS--}}

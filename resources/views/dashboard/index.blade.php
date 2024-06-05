@@ -16,88 +16,9 @@
         </div>
     </div>
 </div>
-
+<!-- Burbujas Resumen Guias -->
 <div class="row row-sm">
-    <div class="col-md-12 col-sm-12 col-lg-12 col-xl-12 col-xxl-2">
-        <div class="card custom-card">
-            <div class="card-body text-center">
-                <div class="d-flex mt-4">
-                    <div class="icon-service bg-primary-transparent rounded-circle text-primary">
-                        <i class="si si-plus"></i>
-                    </div>
-                    <div class="">
-                        <span class="main-content-label text-uppercase tx-14 mt-4 ">Creadas</span>
-                        <div class="d-flex my-auto"><h4 class="mt-1 mb-0">10</h4></div>
-                    </div>
-                </div>  
-            </div>
-        </div>
-    </div>
-
-    <div class="col-md-12 col-xl-12 col-lg-12 col-xxl-2">
-        <div class="card custom-card">
-            <div class="card-body text-center">
-               <div class="d-flex mt-4">
-                    <div class="icon-service bg-secondary-transparent rounded-circle text-secondary">
-                        <i class="ti ti-truck"></i>
-                    </div>
-                    <div class="">
-                        <span class="main-content-label text-uppercase tx-14 mt-4 ">En Transíto</span>
-                        <div class="d-flex my-auto"><h4 class="mt-1 mb-0">3</h4></div>
-                    </div>
-                </div> 
-            </div>
-        </div>
-    </div>
-
-    <div class="col-md-12 col-sm-12 col-lg-12 col-xl-12 col-xxl-2">
-        <div class="card custom-card">
-            <div class="card-body text-center">
-               <div class="d-flex mt-4">
-                    <div class="icon-service bg-success-transparent rounded-circle text-success">
-                        <i class="ti ti-envelope"></i>
-                    </div>
-                    <div class="">
-                        <span class="main-content-label text-uppercase tx-14 mt-4 ">ENTREGADAS</span>
-                        <div class="d-flex my-auto"><h4 class="mt-1 mb-0">7</h4></div>
-                    </div>
-                </div> 
-            </div>
-        </div>
-    </div>
-
-    <div class="col-md-12 col-xl-12 col-lg-12 col-xxl-2">
-        <div class="card custom-card">
-            <div class="card-body text-center">
-               <div class="d-flex mt-4">
-                    <div class="icon-service bg-secondary-transparent rounded-circle text-secondary">
-                        <i class="si si-close"></i>
-                    </div>
-                    <div class="">
-                        <span class="main-content-label text-uppercase tx-14 mt-4 ">canceladas</span>
-                        <div class="d-flex my-auto"><h4 class="mt-1 mb-0">5</h4></div>
-                    </div>
-                </div> 
-            </div>
-        </div>
-    </div>
-
-    <div class="col-md-12 col-xl-12 col-lg-12 col-xxl-2">
-        <div class="card custom-card">
-            <div class="card-body text-center">
-                <div class="d-flex mt-4">
-                    <div class="icon-service bg-info-transparent rounded-circle text-info">
-                        <i class="fe fe-dollar-sign"></i>
-                    </div>
-                    <div class="">
-                        <span class="main-content-label text-uppercase tx-14 mt-4 ">precio promedio</span>
-                        <div class="d-flex my-auto"><h4 class="mt-1 mb-0">100.257134</h4></div>
-                    </div>
-                </div> 
-            </div>
-        </div>
-    </div>
-
+     @include('dashboard.dashboard.burbujas_resumen')
 </div>
 
 <div class="row row-sm">

@@ -155,7 +155,7 @@ class MercadoPago {
         }
 
         $this->preference = $preference[0];
-        $this->mensajes[] = sprintf("Vaidacion de Id referencia Exitoso");
+        $this->mensajes[] = sprintf("Preferencia '%s' ", $id);
 
         Log::info(__CLASS__." ".__FUNCTION__." ".__LINE__); 
 
@@ -201,6 +201,7 @@ class MercadoPago {
         $nSaldos->calcular($data);
         $this->mensajes[]= sprintf("El pago de '%s %s' se realizo con exito",$this->preference['unit_price'],$this->preference['currency_id']);
 
+        $this->mensajes[]= sprintf("MP payment_id='%s'",$data['payment_id']);
         Log::info(__CLASS__." ".__FUNCTION__." ".__LINE__);
 
     }
@@ -240,6 +241,43 @@ class MercadoPago {
         $data = array_merge($this->dataParseada,$data);
 
          $this->mensajes[]= sprintf("El pago de '%s %s' no se realizo ",$this->preference['unit_price'],$this->preference['currency_id']);
+       
+
+        Log::info(__CLASS__." ".__FUNCTION__." ".__LINE__);
+
+    }
+
+
+    /**
+     * Pago Pendiente se realizara validacion y mensajes de los diferentes estatus de pago no realizado, Estatus de MP https://www.mercadopago.com.mx/developers/es/docs/your-integrations/test/cards
+     * 
+     * @author Javier Hernandez
+     * @copyright 2023-2024 EnviosOK
+     * @package App\Negocio\MercadoPago
+     * @api
+     * 
+     * @version 1.0.0
+     * 
+     * @since 1.0.0 Primera version de la funcion pagoPendiente
+     * 
+     * @throws Illuminate\Validation\ValidationException
+     *
+     * @param array $data Valores de respuesta de Mercado Pago
+     * 
+     * @var array $data
+     * 
+     * 
+     * @return void
+     */
+
+    public function pagoPendiente($data){
+        Log::info(__CLASS__." ".__FUNCTION__." ".__LINE__);
+
+        $this->obtenerPreference($data['preference_id']);
+
+        Log::info(__CLASS__." ".__FUNCTION__." ".__LINE__);
+
+        $this->mensajes[]= sprintf("El pago de '%s %s' no se realizo, 'payment_id'=%s ",$this->preference['unit_price'],$this->preference['currency_id'], $data['payment_id']);
        
 
         Log::info(__CLASS__." ".__FUNCTION__." ".__LINE__);

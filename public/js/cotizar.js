@@ -15,7 +15,7 @@ var saldoMinimo = 90;
 $(document).ready(function() {
     
     var radio = $('input[type="radio"]:checked').val()    
-    console.log(radio)
+    
     checkCotizacion(radio)
 })
 

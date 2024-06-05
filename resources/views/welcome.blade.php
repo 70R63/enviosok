@@ -3,7 +3,7 @@
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-
+        <meta name="google-site-verification" content="Zvnh-85JQrapTpoEpzYXG7dldWEV0e9JSPhMh_IiBjU"/>
         <title>Laravel</title>
 
         <!-- Fonts -->

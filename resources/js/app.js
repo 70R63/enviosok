@@ -9,10 +9,8 @@ window.Alpine = Alpine;
 
 Alpine.start();
 
-//window.route = route;
-//window.Ziggy = Ziggy;
-
 import './forms';
 import './domicilios';
+import './dashboard';
 
 

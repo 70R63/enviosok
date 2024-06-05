@@ -65,7 +65,7 @@ class ReturnMPController extends Controller
         }
         $notices[] = $mensaje;
         Log::info(__CLASS__." ".__FUNCTION__." ".__LINE__);
-        return \Redirect::route("finanzas.pasarela.index") -> withErrors ($notices);
+        return \Redirect::route("cotizaciones.index") -> withErrors ($notices);
     }
 
 
@@ -118,10 +118,14 @@ class ReturnMPController extends Controller
         
         try {
             Log::info(__CLASS__." ".__FUNCTION__." ".__LINE__); 
-            Log::debug(print_r($request->all(),true));
+            $data = $request->all();
+            $data['empresa_id'] = auth()->user()->empresa_id;
+            Log::debug(print_r($data,true));
            
-            
-            $mensaje="Pago pendiente";  
+            $nMarcadoPago = new nMarcadoPago();
+            $nMarcadoPago->pagoPendiente($data);
+
+            $mensaje= $nMarcadoPago->getMensajes();  
             
 
         } catch (ModelNotFoundException $e) {

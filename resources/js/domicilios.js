@@ -1,5 +1,6 @@
 
 document.addEventListener('DOMContentLoaded', function () {
+    console.log("hola domicilio");
     //$('.selects').selectpicker();
     var cp = document.getElementById("cp");
     if(cp)cp.addEventListener("keyup", function(){

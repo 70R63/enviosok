@@ -20,7 +20,7 @@ use App\Http\Controllers\API\Ltd\FedexController;
 use App\Http\Controllers\API\Ltd\EstafetaController;
 
 
-use App\Http\Controllers\API\DEV\GuiaController as DevGuiaController ;
+#use App\Http\Controllers\API\DEV\GuiaController as DevGuiaController ;
 
 
 /*
@@ -71,7 +71,7 @@ Route::name('api')->group(function () {
             Route::get('rastreoTabla', 'rastreoTabla');
         });
 
-
+/*
         Route::name('api.')->group(function () {
             //MENU FEDEX
 
@@ -125,6 +125,7 @@ Route::name('api')->group(function () {
             });
 
         });// FIN api.
+    */
 
     });
 //});
@@ -204,6 +205,14 @@ Route::middleware(['throttle:100,1','auth'])->group(function () {
 
 
 
+        //MENU SALDOS
+        Route::group(['prefix'=>'dashboard','as'=>'dashboard.'], function(){
+            Route::controller(GuiaController::class)->group(function(){
+                Route::get('resumenGuias', 'resumenGuiasDashboard')->name('resumenGuias');
+               
+            });
+
+        });
 
 
 
@@ -217,7 +226,7 @@ Route::middleware(['throttle:100,1','auth'])->group(function () {
 });
 
 //AMBIENTE DEV TEMPORAL
-
+/*
 Route::name('api.dev.')->group(function () {
     Route::group(['prefix'=>'dev/'], function(){
         Route::name('enviosperros.')->group(function () {
@@ -233,13 +242,14 @@ Route::name('api.dev.')->group(function () {
         });
     });
 });
-
+*/
 
 Route::middleware(['throttle:10,1','validaToken'])->group(function(){
+    /*
     Route::controller(DevGuiaController::class)->group(function(){
         Route::post('dev/estafeta', 'estafeta');
     });
-
+    */
     Route::name('api.dev.')->group(function () {
 
         Route::group(['prefix'=>'dev/'], function(){
