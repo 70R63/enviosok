@@ -16,6 +16,10 @@ use App\Http\Controllers\LtdController;
 */
 
 
+Route::get('/home', function () {
+    return view('index');
+});
+
 Route::get('/', function () {
     return view('auth.login');
 });
