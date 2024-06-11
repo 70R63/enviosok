@@ -51,14 +51,16 @@
                     <label class="credit-label payment-cards four ml-0 col" for="credit"><span class="d-none d-md-block">Manual</span>
                         <img  alt="Ingresa ambos CPs">
                     </label>
+                    
                     <input type="radio" name="radio3" id="debit" value="semi"
                     {{ ($objeto['radio3']==="semi") ? 'checked' : '' }}>
                     <label class="debit-label payment-cards four col" for="debit"><span class="d-none d-md-block">Semi manual </span>
                         <img alt="El CP destino se debe ingresar"></label>
+                    
                     <input type="radio" name="radio3" id="paypal" value="libreta"
                     {{ ($objeto['radio3']==="libreta") ? 'checked' : '' }}>
                     <label class="paypal-label payment-cards four col" for="paypal"><span class="d-none d-md-block">Libreta de Direcciones</span>
-                        <img alt="Busca el contacto">
+                        <img src="{{ url('img/personaje.svg') }} alt="Busca el contacto">
                     </label>
 
                 </div>      
@@ -70,14 +72,18 @@
                     <label class="credit-label payment-cards four ml-0 col" for="credit"><span class="d-none d-md-block">Manual</span>
                         <img  alt="Ingresa ambos CPs">
                     </label>
+
                     <input type="radio" name="radio3" id="debit" value="semi">
                     <label class="debit-label payment-cards four col" for="debit"><span class="d-none d-md-block">Semi manual </span>
-                        <img alt="El CP destino se debe ingresar"></label>
-                    <input type="radio" name="radio3" id="paypal" value="libreta">
-                    <label class="paypal-label payment-cards four col" for="paypal"><span class="d-none d-md-block">Libreta de Direcciones</span>
-                        <img alt="Busca el contacto">
+                        <img alt="El CP destino se debe ingresar">
                     </label>
-
+                    
+                    <input type="radio" name="radio3" id="paypal" value="libreta">
+                    <label class="paypal-label payment-cards four col" for="paypal">
+                        <span class="d-none d-md-block">Libreta de Direcciones 1</span>
+                        <img src="{{ url('img/azul_5@4x.png') }}" alt="Busca el contacto">
+                    </label>
+                   
                 </div>
 
                 @endif

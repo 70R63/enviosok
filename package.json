@@ -19,7 +19,7 @@
     },
     "dependencies": {
         "bootstrap": "^5.2.3",
-        "chart.js": "^3.9.1",
+        "chart.js": "^4",
         "parsleyjs": "^2.9.2"
     }
 }

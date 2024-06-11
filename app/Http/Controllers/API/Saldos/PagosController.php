@@ -62,6 +62,7 @@ class PagosController extends ApiController
     }
 
 
+
     /**
      * Se obtiene los registros de lo sdeposties de la una vista
      * @method GET
@@ -69,14 +70,18 @@ class PagosController extends ApiController
      * @return \Illuminate\Http\Response
      */
     
-    public function tablaPagos($empresa_id)
+    public function tablaPagos()
     {
         try {
             Log::info(__CLASS__." ".__FUNCTION__." ".__LINE__);
+            $empresaId = auth()->user()->empresa_id;
            
-            $pagos = Pagos::select("*","pagos.id AS pago_id","empresas.nombre AS empresa_nombre", "bancos.nombre AS banco_nombre", "users.name AS users_nombre",\DB::raw('DATE_FORMAT(pagos.created_at, "%Y-%m-%d") as createdAt'))
+            $pagos = Pagos::select("pagos.id AS pago_id","empresas.nombre AS empresa_nombre", "bancos.nombre AS banco_nombre", "users.name AS users_nombre",\DB::raw('DATE_FORMAT(pagos.created_at, "%Y-%m-%d") as createdAt')
+                ,\DB::raw("CONCAT (pagos.fecha_deposito,' ', pagos.hora_deposito) as fecha_pago")
+                ,"pagos.importe", "pagos.referencia", "pagos.descripcion"
+            )
 
-                ->where("pagos.empresa_id",$empresa_id)
+                ->where("pagos.empresa_id",$empresaId)
                 ->joinEmpresa()
                 ->joinBancos()
                 ->joinUsuario()

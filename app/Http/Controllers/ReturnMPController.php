@@ -34,7 +34,7 @@ class ReturnMPController extends Controller
             $nMarcadoPago->pagoExitoso($data);
             
             Log::info(__CLASS__." ".__FUNCTION__." ".__LINE__);
-            return \Redirect::route("finanzas.pasarela.index") -> withSuccess ($nMarcadoPago->getMensajes());    
+            return \Redirect::route("cotizaciones.index") -> withSuccess ($nMarcadoPago->getMensajes());    
             
         } catch (ValidationException $e) {
             Log::info(__CLASS__." ".__FUNCTION__." ".__LINE__); 
@@ -65,7 +65,7 @@ class ReturnMPController extends Controller
         }
         $notices[] = $mensaje;
         Log::info(__CLASS__." ".__FUNCTION__." ".__LINE__);
-        return \Redirect::route("cotizaciones.index") -> withErrors ($notices);
+        return \Redirect::route("finanzas.pasarela.index") -> withErrors ($notices);
     }
 
 

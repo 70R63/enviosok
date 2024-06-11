@@ -30,11 +30,9 @@ class PagosController extends Controller
             $tabla = array();
 
             Log::info(__CLASS__." ".__FUNCTION__." ".__LINE__);
-            return view("saldos.pagos.index"
+            return view("saldos.pagos.show"
                     ,compact("tabla")
-                )
-
-            ;
+                );
             
 
         } catch (Exception $e) {
