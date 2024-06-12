@@ -14,6 +14,7 @@ use App\Negocio\Saldos\Saldos as nSaldos;
 #MODELS
 
 
+
 class SaldosController extends ApiController
 {
 
@@ -44,8 +45,10 @@ class SaldosController extends ApiController
 		try {
 			Log::info(__CLASS__." ".__FUNCTION__." ".__LINE__." INICIO---------------");
 			Log::debug(print_r($request->all(),true));
+
+            $empresaId = auth()->user()->empresa_id;
 			$nSaldos = new nSaldos();
-			$monto = $nSaldos->porEmpresa($request->empresa_id);
+			$monto = $nSaldos->porEmpresa($empresaId);
 			
 			Log::info(__CLASS__." ".__FUNCTION__." ".__LINE__." monto = $monto");
 

@@ -22,6 +22,25 @@
         <div class="card-body text-center">
            <div class="d-flex mt-4">
                 <div class="icon-service bg-secondary-transparent rounded-circle text-secondary">
+                    <i class="si si-close"></i>
+                </div>
+                <div class="">
+                    <span class="main-content-label text-uppercase tx-14 mt-4 ">Recolectadas</span>
+                    <div class="d-flex my-auto">
+                        <h4 class="mt-1 mb-0"><span id="dashboardCanceladas" ></span>
+                        </h4>
+                    </div>
+                </div>
+            </div> 
+        </div>
+    </div>
+</div>
+
+<div class="col-md-12 col-xl-12 col-lg-12 col-xxl-2">
+    <div class="card custom-card">
+        <div class="card-body text-center">
+           <div class="d-flex mt-4">
+                <div class="icon-service bg-secondary-transparent rounded-circle text-secondary">
                     <i class="ti ti-truck"></i>
                 </div>
                 <div class="">
@@ -55,24 +74,7 @@
     </div>
 </div>
 
-<div class="col-md-12 col-xl-12 col-lg-12 col-xxl-2">
-    <div class="card custom-card">
-        <div class="card-body text-center">
-           <div class="d-flex mt-4">
-                <div class="icon-service bg-secondary-transparent rounded-circle text-secondary">
-                    <i class="si si-close"></i>
-                </div>
-                <div class="">
-                    <span class="main-content-label text-uppercase tx-14 mt-4 ">Canceladas</span>
-                    <div class="d-flex my-auto">
-                        <h4 class="mt-1 mb-0"><span id="dashboardCanceladas" ></span>
-                        </h4>
-                    </div>
-                </div>
-            </div> 
-        </div>
-    </div>
-</div>
+
 
 <div class="col-md-12 col-xl-12 col-lg-12 col-xxl-2">
     <div class="card custom-card">

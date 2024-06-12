@@ -13,6 +13,7 @@ use App\Models\EmpresaEmpresas;
 
 use App\Negocio\Saldos\Saldos;
 use App\Negocio\Guias\Creacion as nCreacion;
+use App\Negocio\Guias\FacturacionCFDI as nFacturacionCFDI;
 
 use App\Mail\GuiaCreada;
 
@@ -284,6 +285,7 @@ class GuiaController extends Controller
     private function estafeta($request){
         Log::info(__CLASS__." ".__FUNCTION__." ".__LINE__." estafeta iniciando ----------------------------");
         $mensaje = array();
+        $errors = array();
         try {
 
             $requestInicial = $request->except(['_token']);
@@ -343,8 +345,13 @@ class GuiaController extends Controller
                 $idGuiaPaquite = GuiasPaquete::create($guiaPaqueteInsert)->id;
                 Log::info(__CLASS__." ".__FUNCTION__." ".__LINE__." idGuiaPaquite =$idGuiaPaquite");
                 $i++;
+
+                $requestInicial['guia']= $insert;
+                $requestInicial['guia']['paquete']= $guiaPaqueteInsert;
+
             }
             
+
 
             /*
             * Mail::to($request->email)
@@ -353,16 +360,40 @@ class GuiaController extends Controller
             */
             
             Log::debug(__CLASS__." ".__FUNCTION__." ".__LINE__);
-            Log::debug(print_r($request->all(),true));
+            Log::debug(print_r($requestInicial,true));
             
             $saldo = new Saldos();
             $saldo->menosPrecio($request["sucursal_id"], $request["precio"]);
 
-            Log::debug(__CLASS__." ".__FUNCTION__." ".__LINE__);
+            $nFacturacionCFDI = new nFacturacionCFDI();
+            #$nFacturacion->obtenerToken();
+           
+            $requestInicial['calle_d']= "calle duro";
+            $requestInicial['colonia_d']= "calle duro";
+            $requestInicial['municipio_alcaldia_d']= "calle duro";
+            #$requestInicial['cp']= "06470";
+            #requestInicial['cp_d']= "06470";
+            Log::info(__CLASS__." ".__FUNCTION__." ".__LINE__);
+            $nFacturacionCFDI->crear($requestInicial);
+
+            if ($nFacturacionCFDI->estatus) {
+                Log::info(__CLASS__." ".__FUNCTION__." ".__LINE__);
+                $notices[] = $nFacturacionCFDI->getMensaje();    
+            } else {
+                Log::info(__CLASS__." ".__FUNCTION__." ".__LINE__);
+                $errors[] = $nFacturacionCFDI->getErrors();
+            }
+            
+            
+
+            Log::info(__CLASS__." ".__FUNCTION__." ".__LINE__);
 
             Log::info(__CLASS__." ".__FUNCTION__." store Fin ----------------------------");
             Log::debug(__CLASS__." ".__FUNCTION__." INDEX_r");
-            return \Redirect::route(self::INDEX_r) -> withSuccess ($notices);
+            return \Redirect::route(self::INDEX_r) 
+                -> withSuccess ($notices)
+                ->withErrors($errors)
+                ;
 
          } catch (\Spatie\DataTransferObject\DataTransferObjectError $ex) {
             Log::info(__CLASS__." ".__FUNCTION__." DataTransferObjectError");

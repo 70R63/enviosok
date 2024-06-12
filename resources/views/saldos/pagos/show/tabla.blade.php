@@ -3,13 +3,13 @@
         <thead>
             <tr>
                 <th>PAGO ID </th>
-                <th>FECHA CREACION </th>
+                <th >FECHA PAGO </th>
                 <th>USUARIO  </th>  
                 <th>CLIENTE  </th>  
                 <th>BANCO </th>
                 <th>IMPORTE </th>
                 <th>REFERENCIA </th>
-                <th>FECHA DEPOSITO</th>
+                <th>DESCRIPCION</th>
             </tr>
             <tr>
                 <td></td>
@@ -26,13 +26,13 @@
         <tfoot>
             <tr>
                 <th>PAGO ID </th>
-                <th>FECHA CREACION </th>
+                <th>FECHA PAGO </th>
                 <th>USUARIO  </th>
                 <th>CLIENTE  </th>  
                 <th>BANCO </th>
                 <th>IMPORTE </th>
                 <th>REFERENCIA </th>
-                <th>FECHA DEPOSITO </th>
+                <th>DESCRIPCION </th>
             </tr>
         </tfoot>
     </table>

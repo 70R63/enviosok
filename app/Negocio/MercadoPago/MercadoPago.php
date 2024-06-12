@@ -48,23 +48,13 @@ class MercadoPago {
      * @return void
      */
 
-    public function registroPago($data){
+    public function registroPago(array $data){
 
         Log::info(__CLASS__." ".__FUNCTION__." ".__LINE__); 
 
         $dtoMercadoPago = new dtoMercadoPago();
         $dtoMercadoPago->parsear($data);
         $dataParseada = $dtoMercadoPago->getData();
-
-        if ( $data['payment_id']==='null' ) {
-            Log::info(__CLASS__." ".__FUNCTION__." ".__LINE__); 
-            $maxValue = mPagos::max('id');
-            Log::debug($maxValue);  
-
-            $dataParseada['referencia']= sprintf("%s-%s",$dataParseada['referencia'], $maxValue);
-            Log::info(__CLASS__." ".__FUNCTION__." ".__LINE__); 
-        }
-        
 
         mPagos::create($dataParseada);
         $this->dataParseada = $dataParseada;
@@ -192,8 +182,11 @@ class MercadoPago {
         $data = array_merge($data,$this->preference);
         Log::info(__CLASS__." ".__FUNCTION__." ".__LINE__);
         
+        $data['descripcion'] = sprintf("El pago de $%s fue exito ",$data['unit_price']);
+        $data['importe'] = $data['unit_price'];
+        $data['referencia'] = $data['payment_id'];
         $this->registroPago($data);
-        $data = array_merge($this->dataParseada,$data);
+        //$data = array_merge($this->dataParseada,$data);
 
 
         Log::info(__CLASS__." ".__FUNCTION__." ".__LINE__);
@@ -236,11 +229,19 @@ class MercadoPago {
 
         $data = array_merge($data,$this->preference);
         Log::info(__CLASS__." ".__FUNCTION__." ".__LINE__);
+
+        $maxValue = mPagos::max('id');
+        Log::debug($maxValue);  
+        
+        $data['referencia']= sprintf("%s-%s",$dataParseada['referencia'], ($maxValue+1));
+        $data['descripcion'] = sprintf("El pago de $%s  FUE RECHAZADO",$data['unit_price']);
+        $data['importe'] = 0;
+        Log::info(__CLASS__." ".__FUNCTION__." ".__LINE__); 
         
         $this->registroPago($data);
-        $data = array_merge($this->dataParseada,$data);
+       
 
-         $this->mensajes[]= sprintf("El pago de '%s %s' no se realizo ",$this->preference['unit_price'],$this->preference['currency_id']);
+        $this->mensajes[]= sprintf("El pago de '%s %s' no se realizo ",$this->preference['unit_price'],$this->preference['currency_id']);
        
 
         Log::info(__CLASS__." ".__FUNCTION__." ".__LINE__);
@@ -274,6 +275,25 @@ class MercadoPago {
         Log::info(__CLASS__." ".__FUNCTION__." ".__LINE__);
 
         $this->obtenerPreference($data['preference_id']);
+
+        $data = array_merge($data,$this->preference);
+        Log::info(__CLASS__." ".__FUNCTION__." ".__LINE__);
+
+        $data['referencia']= $data['payment_id'];
+        if ( $data['payment_id']==='null' ) {
+            Log::info(__CLASS__." ".__FUNCTION__." ".__LINE__);
+            $maxValue = mPagos::max('id');
+            $data['referencia']= sprintf("%s-%s",$data['payment_id'], ($maxValue+1));
+
+        }
+        
+        $data['descripcion'] = sprintf("El pago de $%s NO SE ACREDITO ",$data['unit_price']);
+        $data['importe'] = 0;
+        Log::info(__CLASS__." ".__FUNCTION__." ".__LINE__); 
+        
+        
+        $this->registroPago($data);
+
 
         Log::info(__CLASS__." ".__FUNCTION__." ".__LINE__);
 

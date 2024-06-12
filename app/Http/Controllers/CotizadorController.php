@@ -110,7 +110,7 @@ class CotizadorController extends Controller
             Log::info(__CLASS__." ".__FUNCTION__." ".__LINE__." objeto");
             Log::debug(print_r($objeto,true));
             Log::info(__CLASS__." ".__FUNCTION__." ".__LINE__." sucursal");
-            Log::debug(print_r($sucursal->toArray(),true));
+            Log::debug(print_r($sucursal,true));
             Log::info(__CLASS__." ".__FUNCTION__." ".__LINE__." cliente");
             Log::debug(print_r($cliente,true));
 

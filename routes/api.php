@@ -49,6 +49,7 @@ Route::middleware('auth:sanctum')->get('/ping', function (Request $request) {
 });
 
 //SADEMIO
+/*
 Route::name('api')->group(function () {
     Route::name('sademio.')->group(function () {
         Route::group(['prefix'=>'SADEMIO'], function(){
@@ -57,6 +58,7 @@ Route::name('api')->group(function () {
     });
 });
 
+*/
 //Route::domain('local.xpertamexico.com')->group(function () {
     Route::middleware(['throttle:100,1','validaToken'])->group(function(){
         Route::post('logout', [AuthController::class, 'logout']);
@@ -192,7 +194,7 @@ Route::middleware(['throttle:100,1','auth'])->group(function () {
             });
 
             Route::controller(PagosController::class)->group(function(){
-                Route::get('pagos/{empresa_id}', 'tablaPagos')->name("pagos");
+                Route::get('pagos', 'tablaPagos')->name("pagos");
 
             });
 

@@ -2,7 +2,13 @@
 $(document).ready(function() {
    	console.log("Dashboard Ready") 
 
-   	resumenGuias()
+   	if ($('#myChart').length) {
+        console.log("Inicializar tablaSaldosPagosAjax")
+        resumenGuias()
+        var table = null;  
+    }
+    
+   	
 });
 
 function resumenGuias(){
