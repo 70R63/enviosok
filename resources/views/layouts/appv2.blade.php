@@ -73,7 +73,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-6 text-center my-auto">
+                        <div class="col-md-6 text-center my-auto text-md-end">
                             <img src="{{asset('assets/imagenes/seccion1.png')}}" alt="" class="w-90" style="max-width: 750px">
                         </div>
                     </div>
