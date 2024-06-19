@@ -20,7 +20,7 @@
 </head>
 <body>
     <div id="app">
-        <nav class="navbar navbar-expand-md navbar-light bg-envios-gradient-reverse shadow-sm">
+        <nav class="navbar navbar-expand-md navbar-light bg-envios-gradient-reverse shadow-sm" id="menu">
             <div class="container-fluid px-5">
                 <a class="navbar-brand" href="{{ url('/') }}">
                     <img class="" src="{{asset("assets/Envios_OK_secundario.svg")}}" alt="">
@@ -53,6 +53,35 @@
             </div>
         </nav>
         <main class="pb-4">
+            <div class="container-fluid py-2 bg-envios-gradient" id="cotizador">
+                <div class="container text-white">
+                    <div class="row justify-content-between">
+                        <div class="col-md-2">
+                            <label for="origen">Origen</label>
+                            <input type="text" id="origen" class="form-control form-control-sm" placeholder="Código postal">
+                        </div>
+                        <div class="col-md-2">
+                            <label for="origen">Destino</label>
+                            <input type="text" id="origen" class="form-control form-control-sm" placeholder="Código postal">
+                        </div>
+                        <div class="col-md-2">
+                            <label for="origen">Peso (kg)</label>
+                            <input type="number" id="origen" class="form-control form-control-sm" placeholder="Kg" step="0.1" inputmode="numeric">
+                        </div>
+                        <div class="col-md-3">
+                            <label for="origen">Tamaño de caja</label>
+                            <div class="d-flex">
+                                <input type="number" id="origen" class="form-control form-control-sm rounded-0 rounded-start" placeholder="Alto" step="0.1" inputmode="numeric">
+                                <input type="number" id="origen" class="form-control form-control-sm rounded-0" placeholder="Largo" step="0.1" inputmode="numeric">
+                                <input type="number" id="origen" class="form-control form-control-sm rounded-0 rounded-end" placeholder="Ancho" step="0.1" inputmode="numeric">
+                            </div>
+                        </div>
+                        <div class="col-md-2 d-flex align-items-end mt-3 mt-sm-0">
+                            <button class="btn btn-sm px-2 btn-warning text-primary fw-bold">Cotizar envío</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
             <section class="section-header bg-envios-gradient text-white">
                 <div class="container-fluid px-5">
                     <div class="row">
