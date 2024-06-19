@@ -20,7 +20,7 @@
 </head>
 <body>
     <div id="app">
-        <nav class="navbar navbar-expand-md navbar-light bg-envios-gradient-reverse shadow-sm" id="menu">
+        <nav class="navbar navbar-expand-md navbar-light bg-envios-gradient-reverse shadow-sm sticky" id="menu">
             <div class="container-fluid px-5">
                 <a class="navbar-brand" href="{{ url('/') }}">
                     <img class="" src="{{asset("assets/Envios_OK_secundario.svg")}}" alt="">
@@ -34,7 +34,7 @@
                             <a class="nav-link text-white" href="#nosotros">Nosotros</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-white" href="#planes">Nuestros Planes</a>
+                            <a class="nav-link text-white" href="#mantras">Nuestros Mantras</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link text-white" href="#paqueteria">Paquetería</a>
@@ -53,27 +53,30 @@
             </div>
         </nav>
         <main class="pb-4">
-            <div class="container-fluid py-2 bg-envios-gradient" id="cotizador">
+            <div class="container-fluid py-3 bg-envios-gradient" id="cotizador">
                 <div class="container text-white">
                     <div class="row justify-content-between">
+                        <div class="col-12 text-center">
+                            <h6 class="fw-bold">Cotiza gratis tu envío</h6>
+                        </div>
                         <div class="col-md-2">
                             <label for="origen">Origen</label>
-                            <input type="text" id="origen" class="form-control form-control-sm" placeholder="Código postal">
+                            <input type="text" id="origen" class="form-control form-control-sm" placeholder="Código postal" autocomplete="off">
                         </div>
                         <div class="col-md-2">
                             <label for="origen">Destino</label>
-                            <input type="text" id="origen" class="form-control form-control-sm" placeholder="Código postal">
+                            <input type="text" id="destino" class="form-control form-control-sm" placeholder="Código postal" autocomplete="off">
                         </div>
                         <div class="col-md-2">
                             <label for="origen">Peso (kg)</label>
-                            <input type="number" id="origen" class="form-control form-control-sm" placeholder="Kg" step="0.1" inputmode="numeric">
+                            <input type="number" id="peso" class="no-controls form-control form-control-sm" placeholder="Kg" step="0.1" inputmode="numeric" autocomplete="off">
                         </div>
                         <div class="col-md-3">
-                            <label for="origen">Tamaño de caja</label>
+                            <label for="peso">Tamaño de caja (cm)</label>
                             <div class="d-flex">
-                                <input type="number" id="origen" class="form-control form-control-sm rounded-0 rounded-start" placeholder="Alto" step="0.1" inputmode="numeric">
-                                <input type="number" id="origen" class="form-control form-control-sm rounded-0" placeholder="Largo" step="0.1" inputmode="numeric">
-                                <input type="number" id="origen" class="form-control form-control-sm rounded-0 rounded-end" placeholder="Ancho" step="0.1" inputmode="numeric">
+                                <input type="number" id="peso" class="no-controls form-control form-control-sm rounded-0 rounded-start" placeholder="Alto" step="0.1" inputmode="numeric" autocomplete="off">
+                                <input type="number" id="peso" class="no-controls form-control form-control-sm rounded-0" placeholder="Largo" step="0.1" inputmode="numeric" autocomplete="off">
+                                <input type="number" id="peso" class="no-controls form-control form-control-sm rounded-0 rounded-end" placeholder="Ancho" step="0.1" inputmode="numeric" autocomplete="off">
                             </div>
                         </div>
                         <div class="col-md-2 d-flex align-items-end mt-3 mt-sm-0">
@@ -138,7 +141,7 @@
                     </div>
                 </div>
             </section>
-            <section class="section-header bg-cream text-white" id="planes">
+            <section class="section-header bg-cream text-white" id="mantras">
                 <div class="pattern top"></div>
                 <div class="container-fluid mt-0 mt-sm-5 pt-5 px-5">
                     <div class="row justify-content-center">
@@ -151,9 +154,7 @@
                                 <div class="card-body text-center">
                                     <img src="{{asset('assets/iconos/engranes.svg')}}" style="max-width: 60px">
                                     <h5 class="card-title text-primary fw-bold mt-2">Autonomía</h5>
-                                    <p class="card-text">Lorem Ipsum es simplemente el texto de
-                                        relleno de las imprentas y archivos de
-                                        texto.</p>
+                                    <p class="card-text">Gestiona tus envíos sin dependencia, con total control y autonomía.</p>
                                 </div>
                             </div>
                         </div>
@@ -162,9 +163,7 @@
                                 <div class="card-body text-center">
                                     <img src="{{asset('assets/iconos/libertad.svg')}}" style="max-width: 60px">
                                     <h5 class="card-title text-primary fw-bold mt-2">Libertad</h5>
-                                    <p class="card-text">Lorem Ipsum es simplemente el texto de
-                                        relleno de las imprentas y archivos de
-                                        texto.</p>
+                                    <p class="card-text">Envía lo que quieras, cuando quieras, disfrutando de plena libertad y flexibilidad.</p>
                                 </div>
                             </div>
                         </div>
@@ -173,9 +172,7 @@
                                 <div class="card-body text-center">
                                     <img src="{{asset('assets/iconos/click.svg')}}" style="max-width: 60px">
                                     <h5 class="card-title text-primary fw-bold mt-2">Facilidad</h5>
-                                    <p class="card-text">Lorem Ipsum es simplemente el texto de
-                                        relleno de las imprentas y archivos de
-                                        texto.</p>
+                                    <p class="card-text">Facilitamos cada paso del proceso de envío para tu comodidad y tranquilidad.</p>
                                 </div>
                             </div>
                         </div>
@@ -184,9 +181,7 @@
                                 <div class="card-body text-center">
                                     <img src="{{asset('assets/iconos/seguridad.svg')}}" style="max-width: 60px">
                                     <h5 class="card-title text-primary fw-bold mt-2">Seguridad</h5>
-                                    <p class="card-text">Lorem Ipsum es simplemente el texto de
-                                        relleno de las imprentas y archivos de
-                                        texto.</p>
+                                    <p class="card-text">Garantizamos la seguridad de tus paquetes en cada etapa del envío.</p>
                                 </div>
                             </div>
                         </div>
@@ -195,9 +190,7 @@
                                 <div class="card-body text-center">
                                     <img src="{{asset('assets/iconos/camion-engrane.svg')}}" style="max-width: 60px">
                                     <h5 class="card-title text-primary fw-bold mt-2">Gestión de envíos</h5>
-                                    <p class="card-text">Lorem Ipsum es simplemente el texto de
-                                        relleno de las imprentas y archivos de
-                                        texto.</p>
+                                    <p class="card-text">Optimiza la gestión de tus envíos con nuestra plataforma intuitiva. 100% autogestionable.</p>
                                 </div>
                             </div>
                         </div>
@@ -205,10 +198,8 @@
                             <div class="card border-0 rounded-50">
                                 <div class="card-body text-center">
                                     <img src="{{asset('assets/iconos/reloj-engrane.svg')}}" style="max-width: 60px">
-                                    <h5 class="card-title text-primary fw-bold mt-2">Eficiencia de tiempo al enviar paquetes</h5>
-                                    <p class="card-text">Lorem Ipsum es simplemente el texto de
-                                        relleno de las imprentas y archivos de
-                                        texto.</p>
+                                    <h5 class="card-title text-primary fw-bold mt-2">Eficiencia</h5>
+                                    <p class="card-text">Envía de manera rápida y eficiente, ahorrando tiempo y recursos.</p>
                                 </div>
                             </div>
                         </div>
@@ -216,10 +207,8 @@
                             <div class="card border-0 rounded-50">
                                 <div class="card-body text-center">
                                     <img src="{{asset('assets/iconos/etiqueta-precio.svg')}}" style="max-width: 60px">
-                                    <h5 class="card-title text-primary fw-bold mt-2">Precios razonables en tus envíos nacionales</h5>
-                                    <p class="card-text">Lorem Ipsum es simplemente el texto de
-                                        relleno de las imprentas y archivos de
-                                        texto.</p>
+                                    <h5 class="card-title text-primary fw-bold mt-2">Precios razonables.</h5>
+                                    <p class="card-text">Disfruta de precios competitivos sin sacrificar calidad en el servicio.</p>
                                 </div>
                             </div>
                         </div>

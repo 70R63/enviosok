@@ -1,3 +1,9 @@
+.sticky {
+    position: -webkit-sticky; /* Safari */
+    position: sticky;
+    top: 0; /* Ajusta según lo que necesites */
+    z-index: 1000; /* Asegura que los elementos queden por encima del contenido */
+}
 body {
     margin: 0;
     line-height: 1.5;
@@ -95,4 +101,40 @@ body {
 
 .navbar-toggler-icon{
     background: url("../../public/assets/iconos/options.svg");
+}
+
+.autoComplete_wrapper > ul{
+    z-index: 1000;
+    padding: .5rem;
+    width: 100%;
+    margin: 0;
+    font-size: 0.9rem;
+    color: #212529;
+    text-align: left;
+    list-style: none;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 1px solid rgba(0, 0, 0, .15);
+    border-radius: .25rem;
+}
+.autoComplete_wrapper > ul > li mark {
+    background-color: transparent;
+    color: darken($warning, 5%);
+    font-weight: bold;
+    padding: 0;
+}
+.autoComplete_wrapper > ul > li:hover {
+    cursor: pointer;
+    background-color: rgba(144, 192, 255, 0.26);
+}
+
+input[type="number"].no-controls::-webkit-outer-spin-button,
+input[type="number"].no-controls::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+/* Quitar controles en Firefox */
+input[type="number"].no-controls {
+    -moz-appearance: textfield;
 }

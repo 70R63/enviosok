@@ -17,8 +17,10 @@
         "vite": "^3.0.0"
     },
     "dependencies": {
+        "@tarekraafat/autocomplete.js": "^10.2.7",
         "bootstrap": "^5.2.3",
         "chart.js": "^4",
+        "jquery": "^3.7.1",
         "parsleyjs": "^2.9.2"
     }
 }

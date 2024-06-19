@@ -53,7 +53,7 @@ class ApiController extends Controller
 
     public function domicilio(Request $request)
     {
-        
+
         $domicilio = SEPOMEX::where('d_codigo', $request->cp)->first();
         $colonias = SEPOMEX::where('d_codigo', $request->cp)->pluck('d_tipo_asenta','d_asenta');
         if(!isset($domicilio->d_codigo)){
@@ -78,6 +78,22 @@ class ApiController extends Controller
             'domicilio' => $domicilio,
             'colonias' => $html
         ], 200);
+    }
+
+    public function getCP(Request $request)
+    {
+        $domicilio = SEPOMEX::where('d_codigo','like', "%$request->cp%")->orWhere('d_asenta','like',"%$request->cp%")->first();
+        if(!isset($domicilio->d_codigo)){
+            return Response::json([], 200);
+        }
+
+        $colonias = SEPOMEX::where('d_codigo', 'like', "%$request->cp%")->orWhere('d_asenta','like',"%$request->cp%")->pluck('d_codigo','d_asenta');
+        foreach ($colonias as $colonia => $cp) {
+            $data[]=['colonia'=>$cp.' - '.$colonia,'cp'=>$cp];
+        }
+        return Response::json(
+            $data
+        , 200);
     }
     public function municipioAutocomplete(Request $request){
         $qry = $request->post('qry');

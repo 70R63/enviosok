@@ -9,5 +9,6 @@ Alpine.start();
 import './forms';
 import './domicilios';
 import './dashboard';
+import './cotizador';
 
 

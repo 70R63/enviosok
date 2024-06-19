@@ -38,6 +38,7 @@ Route::post('/register',[AuthController::class,'register']);
 Route::post('/login', [AuthController::class, 'login']);
 
 Route::post('domicilio', [ApiController::class,'domicilio'])->name('api.domicilio');
+Route::get('getCP', [ApiController::class,'getCP'])->name('api.getCP');
 Route::post('getColonias', [ApiController::class,'getColonias'])->name('api.getColonias');
 
 Route::middleware('auth:sanctum')->get('/ping', function (Request $request) {
@@ -211,7 +212,7 @@ Route::middleware(['throttle:100,1','auth'])->group(function () {
         Route::group(['prefix'=>'dashboard','as'=>'dashboard.'], function(){
             Route::controller(GuiaController::class)->group(function(){
                 Route::get('resumenGuias', 'resumenGuiasDashboard')->name('resumenGuias');
-               
+
             });
 
         });
