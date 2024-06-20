@@ -1,5 +1,3 @@
-import appear from "@/appear";
-
 $(document).ready(function() {
     const autoCompleteOrigen = new Autocomplete({
         selector: "#origen",
