@@ -487,13 +487,13 @@
                         <div class="col-md-8 justify-content-center d-flex align-items-end justify-content-md-end">
                             <div class="row justify-content-center justify-content-md-end">
                                 <div class="col-auto p-0">
-                                    <a class="btn btn-link text-dark px-1" style="text-decoration: none">Aviso de privacidad</a>
+                                    <a class="btn btn-link text-dark px-1" style="text-decoration: none" href="{{asset('aviso_privacidad.pdf')}}">Aviso de privacidad</a>
                                 </div>
                                 <div class="col-auto p-0 d-flex align-items-center text-dark">
                                     |
                                 </div>
                                 <div class="col-auto p-0">
-                                    <a class="btn btn-link text-dark px-1" style="text-decoration: none">Glosario</a>
+                                    <a class="btn btn-link text-dark px-1" style="text-decoration: none" href="{{asset('glosario.pdf')}}">Glosario</a>
                                 </div>
                                 <div class="col-auto p-0 d-flex align-items-center text-dark">
                                     |
