@@ -57,7 +57,7 @@
                 <div class="container text-white">
                     <div class="row justify-content-between">
                         <div class="col-12 text-center">
-                            <h6 class="fw-bold">Cotiza gratis tu envío</h6>
+                            <h5 class="fw-bold animate__animated animate__flip">Cotiza gratis tu envío</h5>
                         </div>
                         <div class="col-md-2">
                             <label for="origen">Origen</label>
@@ -88,7 +88,7 @@
             <section class="section-header bg-envios-gradient text-white">
                 <div class="container-fluid px-5">
                     <div class="row">
-                        <div class="col-md-6 my-auto">
+                        <div class="col-md-6 my-auto animate__animated animate__backInLeft">
                             <p class="text-justify">En EnvíosOK podrás cotizar envíos nacionales en sencillos pasos.</p>
                             <h1 class="fw-bold">Envía paquetes de forma segura y rápida</h1>
                             <p class="text-justify">Hemos nacido como una empresa joven en el mercado de mensajería y paquetería al ofrecer a nuestros
@@ -105,7 +105,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-6 text-center my-auto text-md-end">
+                        <div class="col-md-6 text-center my-auto text-md-end animate__animated animate__slideInRight">
                             <img src="{{asset('assets/imagenes/seccion1.png')}}" alt="" class="w-90" style="max-width: 750px">
                         </div>
                     </div>
