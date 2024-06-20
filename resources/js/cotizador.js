@@ -1,3 +1,5 @@
+import appear from "@/appear";
+
 $(document).ready(function() {
     const autoCompleteOrigen = new Autocomplete({
         selector: "#origen",
@@ -73,4 +75,37 @@ $(document).ready(function() {
             }
         }
     });
+    var slideLeft = {
+        distance: '150%',
+        origin: 'left',
+        opacity: 0,
+        rotate: {
+            x: 20,
+            z: 20
+        }
+    };
+    var appearScale = {
+        distance: '150%',
+        origin: 'top',
+        opacity: 0,
+        rotate: {
+            x: 20,
+            z: 20
+        },
+        scale: 0
+    };
+    var appearScaleBottom = {
+        distance: '150%',
+        origin: 'bottom',
+        opacity: 0,
+        rotate: {
+            x: 20,
+            z: 20
+        },
+        scale: 0
+    };
+    ScrollReveal().reveal('.appear-left',slideLeft);
+    ScrollReveal().reveal('.appear-scale',appearScale);
+    ScrollReveal().reveal('.appear-scale-bottom',appearScaleBottom);
 });
+
