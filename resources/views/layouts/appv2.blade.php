@@ -105,17 +105,11 @@
                                 <p class="text-justify">En EnviosOK podrás cotizar envíos nacionales en dos sencillos pasos; sólo necesitamos el origen,
                                     destino, peso y dimensiones del paquete que enviaremos. Nuestra plataforma está pensada
                                     para ser usada por profesionales independientes y emprendedores hasta PyMes.</p>
-                                <div class="row my-4">
-                                    <div class="col-12 text-center text-md-start">
-                                        <a class="btn btn-warning text-primary fw-bold">
-                                            Cotiza ahora
-                                        </a>
-                                    </div>
-                                </div>
                             </div>
                             <div class="col-md-6 text-center my-auto text-md-end animate__animated animate__slideInRight appear-left">
                                 <img src="{{asset('assets/imagenes/seccion1.png')}}" alt="Envíos nacionales de forma segura y rápida" class="w-90" style="max-width: 750px">
                             </div>
+                            <div class="col my-4"></div>
                         </div>
                     </div>
                 </div>
@@ -140,14 +134,8 @@
                                 <p class="text-justify text-dark">Es por ello que surge EnvíosOK como la plataforma más eficiente para que
                                     puedas gestionar tus envíos por paquetería de una forma segura y
                                     económica.</p>
-                                <div class="row my-4">
-                                    <div class="col-12 text-center text-md-start">
-                                        <a class="btn btn-warning text-primary fw-bold">
-                                            Cotiza ahora
-                                        </a>
-                                    </div>
-                                </div>
                             </div>
+                            <div class="my-4"></div>
                         </div>
                     </div>
                 </div>
@@ -255,11 +243,6 @@
                                     el traslado seguro de tus paquetes (Estafeta, DHL, Redpack, entre otros).
                                 </p>
                                 <div class="row my-4">
-                                    <div class="col-12 text-center text-md-start">
-                                        <a class="btn btn-warning text-primary fw-bold">
-                                            Cotiza tu envío ahora
-                                        </a>
-                                    </div>
                                 </div>
                             </div>
                             <div class="col-md-6 my-auto text-end appear-left">
