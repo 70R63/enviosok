@@ -2,11 +2,21 @@
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 <head>
     <meta name="google-site-verification" content="Zvnh-85JQrapTpoEpzYXG7dldWEV0e9JSPhMh_IiBjU" />
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-- CSRF Token -->
-    <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>{{ config('app.name', 'Laravel') }}</title>
+    <meta name="description" content="Realiza tus envíos nacionales de forma segura y rápida. Cotiza tu envío en minutos con nuestra plataforma auto gestionable. ¡Cotizar envíos nacionales nunca fue tan fácil!">
+    <meta name="keywords" content="envíos nacionales, cotizar envío, enviar paquete, plataforma auto gestionable para mensajería, paquetería exprés, enviar paquete urgente">
+    <meta property="og:title" content="Envíos nacionales - Enviar paquete de forma segura y rápida">
+    <meta property="og:description" content="Realiza tus envíos nacionales de forma segura y rápida. Cotiza tu envío y envía paquetes con nuestra plataforma auto gestionable.">
+    <meta property="og:image" content="{{asset('img/enviosok.jpeg')}}">
+    <meta property="og:url" content="{{config('app.url', 'https://envios-ok.com')}}">
+    <meta property="og:type" content="website">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content=" Envíos nacionales - Enviar paquete de forma segura y rápida ">
+    <meta name="twitter:description" content="Realiza tus envíos nacionales de forma segura y rápida. Cotiza tu envío y envía paquetes con nuestra plataforma auto gestionable.">
+    <meta name="twitter:image" content="{{asset('img/enviosok.jpeg')}}">
+    <meta name="lang" content="es-MX"/>
+    <meta name="author" content="EnvíosOK"/>
+    <meta name="robots" content="index, follow"/>
+    <link rel="canonical" href="{{config('app.url', 'https://envios-ok.com')}}"/>
     <!-- spruha -->
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport">
@@ -15,7 +25,7 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <!-- Title -->
-    <title>{{ config('app.name', 'Laravel') }} - Plataforma de envios</title>
+    <title>Envíos nacionales: Cotiza tu envío y manda paquetes de forma segura</title>
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
 </head>
 <body>
@@ -104,7 +114,7 @@
                                 </div>
                             </div>
                             <div class="col-md-6 text-center my-auto text-md-end animate__animated animate__slideInRight appear-left">
-                                <img src="{{asset('assets/imagenes/seccion1.png')}}" alt="" class="w-90" style="max-width: 750px">
+                                <img src="{{asset('assets/imagenes/seccion1.png')}}" alt="Envíos nacionales de forma segura y rápida" class="w-90" style="max-width: 750px">
                             </div>
                         </div>
                     </div>
@@ -116,7 +126,7 @@
                     <div class="container">
                         <div class="row">
                             <div class="col-md-6 my-auto mb-4 appear-left">
-                                <img src="{{asset('assets/imagenes/seccion2.png')}}" alt="" class="w-100" style="max-width: 750px">
+                                <img src="{{asset('assets/imagenes/seccion2.png')}}" alt="Cotizar envío a toda la República con Estafeta, DHL, RedPack" class="w-100" style="max-width: 750px">
                             </div>
                             <div class="col-md-6 my-auto pt-3 appear-left">
                                 <h1 class="fw-bold">¿Qué es Envíos<span class="text-warning">OK</span>?</h1>
@@ -253,7 +263,7 @@
                                 </div>
                             </div>
                             <div class="col-md-6 my-auto text-end appear-left">
-                                <img src="{{asset('assets/imagenes/seccion4.png')}}" alt="" class="w-100" style="max-width: 750px">
+                                <img src="{{asset('assets/imagenes/seccion4.png')}}" alt="Envíos baratos a través de Estafeta, RedPack, DHL" class="w-100" style="max-width: 750px">
                             </div>
                         </div>
                     </div>
