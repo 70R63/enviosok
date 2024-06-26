@@ -79,9 +79,8 @@ document.addEventListener('DOMContentLoaded', function () {
             });
     }
 
-
-    if(cp.value.length===5)
+    if(cp && cp.value.length===5)
         cp.dispatchEvent(new Event('keyup'))
-    if(cpDestino.value.length===5)
+    if(cpDestino && cpDestino.value.length===5)
         cpDestino.dispatchEvent(new Event('keyup'))
 });

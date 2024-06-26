@@ -124,6 +124,7 @@ $(document).ready(function() {
     if(formCotizador){
         formCotizador.addEventListener('submit',function(e){
             e.preventDefault();
+            $("#cotizador").addClass('sticky');
             $("#divBusquedaCotizador").addClass('d-none');
             $("#divResultadosCotizador").addClass('d-none');
             validarFormulario(e);
@@ -131,95 +132,29 @@ $(document).ready(function() {
                 contador = -1;
                 cambiarTexto();
                 $("#divBusquedaCotizador").removeClass('d-none');
-
+                let data = new FormData(formCotizador);
+                data.append('_token',token.content);
+                /*Consulta al backend*/
                 setTimeout(function(){
+                    axios.post(url_base+'/api/cotizar',data)
+                        .then(function (response) {
+                            if(response && response.data.html){
+                                $("#divResultadosCotizador").html(response.data.html);
+                            }
+                        })
+                        .catch(function (response) {
+                            $("#divResultadosCotizador").html(`<div class="row border rounded-4 py-2 my-2 align-items-center justify-content-center">
+                                <div class="col-md-8">
+                                    <div class="alert alert-danger my-3 text-center">Lo sentimos, intenta más tarde :(</div>
+                                </div>
+                            </div>`);
+                        });
                     $("#divBusquedaCotizador").addClass('d-none');
+                    $("#cotizador").removeClass('sticky');
                     $("#divResultadosCotizador").removeClass('d-none');
-                    $("#divResultadosCotizador").html(`
-                                <div class="row border rounded-4 py-2 my-2 align-items-center">
-                                    <div class="col-md-3 text-center">
-                                        <img style="max-width: 100px" src="${url_base+'/img/estafeta.png'}" alt="Estafeta">
-                                    </div>
-                                    <div class="col-md-3 text-center">
-                                        <h6 class="fw-bold">Tipo de envío</h6>
-                                        <span class="badge bg-primary">Económica</span><br>
-                                        <span class="badge bg-warning">Express</span><br>
-                                        <small>Según sea el caso</small>
-                                    </div>
-                                    <div class="col-md-3 text-center">
-                                        <h6 class="fw-bold">Estimado de entrega</h6>
-                                        <p class="text-primary fw-semibold m-0">De 2 a 7 días hábiles</p>
-                                        <p class="text-warning fw-semibold m-0">De 1 a 2 días hábiles</p>
-                                        <p class="small m-0">Según sea el caso</p>
-                                    </div>
-                                    <div class="col-md-3 text-center">
-                                        <h4 class="fw-bold mb-0">$150.00</h4>
-                                        <p class="small m-0">Último precio</p>
-                                        <p class="m-0">
-                                            <a href="${url_base+'/login'}" class="btn btn-sm btn-primary fw-bold text-warning">Crear guía</a>
-                                        </p>
-                                    </div>
-                                </div>
-                                <div class="row border rounded-4 py-2 my-2 align-items-center">
-                                    <div class="col-md-3 text-center">
-                                        <img style="max-width: 100px" src="${url_base+'/img/fedex.png'}" alt="FedEx">
-                                    </div>
-                                    <div class="col-md-3 text-center">
-                                        <h6 class="fw-bold">Tipo de envío</h6>
-                                        <span class="badge bg-primary">Económica</span><br>
-                                        <span class="badge bg-warning">Express</span>
-                                        <p class="small m-0">Según sea el caso</p>
-                                    </div>
-                                    <div class="col-md-3 text-center">
-                                        <h6 class="fw-bold">Estimado de entrega</h6>
-                                        <p class="text-primary fw-semibold m-0">De 2 a 7 días hábiles</p>
-                                        <p class="text-warning fw-semibold m-0">De 1 a 2 días hábiles</p>
-                                        <p class="small m-0">Según sea el caso</p>
-                                    </div>
-                                    <div class="col-md-3 text-center">
-                                        <h4 class="fw-bold mb-0">$220.00</h4>
-                                        <p class="small m-0">Último precio</p>
-                                        <p class="m-0">
-                                            <a href="${url_base+'/login'}" class="btn btn-sm btn-primary fw-bold text-warning">Crear guía</a>
-                                        </p>
-                                    </div>
-                                </div>
-                                <div class="row border rounded-4 py-2 my-2 align-items-center">
-                                    <div class="col-md-3 text-center">
-                                        <img style="max-width: 100px" src="${url_base+'/img/dhl.png'}" alt="DHL">
-                                    </div>
-                                    <div class="col-md-3 text-center">
-                                        <h6 class="fw-bold">Tipo de envío</h6>
-                                        <span class="badge bg-warning">Express</span>
-                                    </div>
-                                    <div class="col-md-3 text-center">
-                                        <h6 class="fw-bold">Estimado de entrega</h6>
-                                        <p class="text-warning fw-semibold m-0">De 1 a 2 días hábiles</p>
-                                    </div>
-                                    <div class="col-md-3 text-center">
-                                        <h4 class="fw-bold mb-0">$250.00</h4>
-                                        <p class="small m-0">Último precio</p>
-                                        <p class="m-0">
-                                            <a href="${url_base+'/login'}" class="btn btn-sm btn-primary fw-bold text-warning">Crear guía</a>
-                                        </p>
-                                    </div>
-                                </div>
-                                <div class="row border rounded-4 py-3 my-2 align-items-center">
-                                    <div class="col-md-3 text-center">
-                                        <img style="max-height: 50px" src="${url_base+'/img/ups.png'}" alt="UPS">
-                                    </div>
-                                    <div class="col-md-8 text-center">
-                                        <h6 class="fw-bold text-danger">No disponible</h6>
-                                    </div>
-                                </div>`);
-
-                },7000)
-
-
-
+                },4000)
             }
         },false);
     }
-
 });
 

@@ -21,7 +21,7 @@
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport">
     <!-- Favicon -->
-    <link rel="icon" href="{{ url('spruha/img/brand/favicon.ico') }}" type="image/x-icon"/>
+    <link rel="icon" href="{{ url('favicon.ico') }}" type="image/x-icon"/>
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <!-- Title -->
@@ -69,22 +69,22 @@
                                 </div>
                                 <div class="form-group col-md-2 col-6">
                                     <label for="origen">Origen</label>
-                                    <input type="text" id="origen" class="form-control form-control-sm" placeholder="Código postal" autocomplete="off" required>
+                                    <input type="text" name="origen" id="origen" class="form-control form-control-sm" placeholder="Código postal" autocomplete="off" required>
                                 </div>
                                 <div class="form-group col-md-2 col-6">
                                     <label for="origen">Destino</label>
-                                    <input type="text" id="destino" class="form-control form-control-sm" placeholder="Código postal" autocomplete="off" required>
+                                    <input type="text" name="destino" id="destino" class="form-control form-control-sm" placeholder="Código postal" autocomplete="off" required>
                                 </div>
                                 <div class="form-group col-md-2">
                                     <label for="origen">Peso (kg)</label>
-                                    <input type="number" id="peso" class="no-controls form-control form-control-sm" placeholder="Kg" step="0.1" inputmode="numeric" autocomplete="off" required>
+                                    <input type="number" name="peso" id="peso" class="no-controls form-control form-control-sm" placeholder="Kg" step="0.1" inputmode="numeric" autocomplete="off" required>
                                 </div>
                                 <div class="form-group col-md-3">
                                     <label for="peso">Tamaño de caja (cm)</label>
                                     <div class="d-flex">
-                                        <input type="number" id="peso" class="no-controls form-control form-control-sm rounded-0 rounded-start" placeholder="Alto" step="0.1" inputmode="numeric" autocomplete="off" required>
-                                        <input type="number" id="peso" class="no-controls form-control form-control-sm rounded-0" placeholder="Largo" step="0.1" inputmode="numeric" autocomplete="off" required>
-                                        <input type="number" id="peso" class="no-controls form-control form-control-sm rounded-0 rounded-end" placeholder="Ancho" step="0.1" inputmode="numeric" autocomplete="off" required>
+                                        <input type="number" name="alto" id="alto" class="no-controls form-control form-control-sm rounded-0 rounded-start" placeholder="Alto" step="0.1" inputmode="numeric" autocomplete="off" required>
+                                        <input type="number" name="largo"id="largo" class="no-controls form-control form-control-sm rounded-0" placeholder="Largo" step="0.1" inputmode="numeric" autocomplete="off" required>
+                                        <input type="number" name="ancho"id="ancho" class="no-controls form-control form-control-sm rounded-0 rounded-end" placeholder="Ancho" step="0.1" inputmode="numeric" autocomplete="off" required>
                                     </div>
                                 </div>
                                 <div class="col-md-auto d-flex align-items-end mt-3 mt-sm-0">

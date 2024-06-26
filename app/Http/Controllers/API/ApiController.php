@@ -138,4 +138,99 @@ class ApiController extends Controller
         ], 200);
 
     }
+
+
+    public function cotizar(Request $request){
+        $cp_origen = explode(' - ',$request->origen)[1];
+        $cp_destino = explode(' - ',$request->destino)[1];
+        $peso = $request->peso;
+        $alto = $request->alto;
+        $largo = $request->largo;
+        $ancho = $request->ancho;
+        /**
+         * Aquí implementar la lógica de cotización utilizando las variables anteriores
+         * con base a los resultados armar el html de respuesta como el siguiente
+         */
+        $html="";
+        $url_base = config('app.url');
+        $resultadosDemo=[
+            'estafeta'=>[
+                'disponible'=>true,
+                'tipos'=>['Económico','Express'],
+                'estimado'=>[
+                    'Económico'=>"De 2 a 7 días hábiles",
+                    'Express'=>"De 1 a 2 días hábiles",
+                ],
+                'precio'=>'$150.00'
+            ],
+            'fedex'=>[
+                'disponible'=>true,
+                'tipos'=>['Económico','Express'],
+                'estimado'=>[
+                    'Económico'=>"De 2 a 7 días hábiles",
+                    'Express'=>"De 1 a 2 días hábiles",
+                ],
+                'precio'=>'$200.00'
+            ],
+            'dhl'=>[
+                'disponible'=>true,
+                'tipos'=>['Express'],
+                'estimado'=>[
+                    'Express'=>"De 1 a 2 días hábiles",
+                ],
+                'precio'=>'$250.00'
+            ],
+            'ups'=>[
+                'disponible'=>false
+            ]
+        ];
+
+        foreach ($resultadosDemo as $codigo=>$paqueteria){
+            if ($paqueteria['disponible']) {
+                $html .= '<div class="row border rounded-4 py-2 my-2 align-items-center">';
+                $html .= '<div class="col-md-3 text-center">';
+                $html .= '<img style="max-width: 100px" src="' . $url_base . '/img/' . $codigo . '.png" alt="' . ucfirst($codigo) . '">';
+                $html .= '</div>';
+                $html .= '<div class="col-md-3 text-center">';
+                $html .= '<h6 class="fw-bold">Tipo de envío</h6>';
+                foreach ($paqueteria['tipos'] as $tipo) {
+                    $badgeColor = $tipo == 'Express' ? 'bg-warning' : 'bg-primary';
+                    $html .= '<span class="badge ' . $badgeColor . '">' . $tipo . '</span><br>';
+                }
+                if(count($paqueteria['tipos'])>1)
+                    $html .= '<small>Según sea el caso</small>';
+                $html .= '</div>';
+                $html .= '<div class="col-md-3 text-center">';
+                $html .= '<h6 class="fw-bold">Estimado de entrega</h6>';
+                foreach ($paqueteria['estimado'] as $tipo => $estimado) {
+                    $textColor = $tipo == 'Express' ? 'text-warning' : 'text-primary';
+                    $html .= '<p class="' . $textColor . ' fw-semibold m-0">' . $estimado . '</p>';
+                }
+                $html .= '<p class="small m-0">Según sea el caso</p>';
+                $html .= '</div>';
+                $html .= '<div class="col-md-3 text-center">';
+                $html .= '<h4 class="fw-bold mb-0">' . $paqueteria['precio'] . '</h4>';
+                $html .= '<p class="small m-0">Último precio</p>';
+                $html .= '<p class="m-0">';
+                $html .= '<a href="' . $url_base . '/login" class="btn btn-sm btn-primary fw-bold text-warning">Crear guía</a>';
+                $html .= '</p>';
+                $html .= '</div>';
+                $html .= '</div>';
+            } else {
+                $html .= '<div class="row border rounded-4 py-2 my-2 align-items-center">';
+                $html .= '<div class="col-md-3 text-center">';
+                $html .= '<img style="max-height: 50px" src="' . $url_base . '/img/' . $codigo . '.png" alt="' . ucfirst($codigo) . '">';
+                $html .= '</div>';
+                $html .= '<div class="col-md-8 text-center">';
+                $html .= '<h6 class="fw-bold text-danger">No disponible</h6>';
+                $html .= '</div>';
+                $html .= '</div>';
+            }
+        }
+
+        return Response::json([
+            'html' => $html
+        ], 200);
+
+    }
 }

@@ -41,6 +41,8 @@ Route::post('domicilio', [ApiController::class,'domicilio'])->name('api.domicili
 Route::get('getCP', [ApiController::class,'getCP'])->name('api.getCP');
 Route::post('getColonias', [ApiController::class,'getColonias'])->name('api.getColonias');
 
+Route::post('cotizar', [ApiController::class,'cotizar'])->name('api.cotizar');
+
 Route::middleware('auth:sanctum')->get('/ping', function (Request $request) {
 
     return response()->json([
