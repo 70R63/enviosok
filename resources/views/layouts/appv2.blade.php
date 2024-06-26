@@ -60,34 +60,51 @@
             </div>
         </nav>
         <main class="pb-4">
-            <div class="container-fluid py-3 bg-envios-gradient sticky" id="cotizador">
-                <div class="container text-white ">
-                    <div class="row justify-content-between appear-scale">
-                        <div class="col-12 text-center">
-                            <h5 class="fw-bold animate__animated animate__flip">Cotiza gratis tu envío</h5>
+            <div class="container-fluid px-0 pt-3 bg-envios-gradient sticky" id="cotizador">
+                <div class="container text-white pb-3">
+                    <form action="" id="formCotizador" novalidate>
+                        <div class="row justify-content-between appear-scale">
+                                <div class="col-12 text-center">
+                                    <h5 class="fw-bold animate__animated animate__flip">Cotiza gratis tu envío</h5>
+                                </div>
+                                <div class="form-group col-md-2 col-6">
+                                    <label for="origen">Origen</label>
+                                    <input type="text" id="origen" class="form-control form-control-sm" placeholder="Código postal" autocomplete="off" required>
+                                </div>
+                                <div class="form-group col-md-2 col-6">
+                                    <label for="origen">Destino</label>
+                                    <input type="text" id="destino" class="form-control form-control-sm" placeholder="Código postal" autocomplete="off" required>
+                                </div>
+                                <div class="form-group col-md-2">
+                                    <label for="origen">Peso (kg)</label>
+                                    <input type="number" id="peso" class="no-controls form-control form-control-sm" placeholder="Kg" step="0.1" inputmode="numeric" autocomplete="off" required>
+                                </div>
+                                <div class="form-group col-md-3">
+                                    <label for="peso">Tamaño de caja (cm)</label>
+                                    <div class="d-flex">
+                                        <input type="number" id="peso" class="no-controls form-control form-control-sm rounded-0 rounded-start" placeholder="Alto" step="0.1" inputmode="numeric" autocomplete="off" required>
+                                        <input type="number" id="peso" class="no-controls form-control form-control-sm rounded-0" placeholder="Largo" step="0.1" inputmode="numeric" autocomplete="off" required>
+                                        <input type="number" id="peso" class="no-controls form-control form-control-sm rounded-0 rounded-end" placeholder="Ancho" step="0.1" inputmode="numeric" autocomplete="off" required>
+                                    </div>
+                                </div>
+                                <div class="col-md-auto d-flex align-items-end mt-3 mt-sm-0">
+                                    <button class="btn btn-sm px-2 btn-warning text-primary fw-bold animate__animated animate__wobble">Cotizar envío</button>
+                                </div>
+
                         </div>
-                        <div class="col-md-2 col-6">
-                            <label for="origen">Origen</label>
-                            <input type="text" id="origen" class="form-control form-control-sm" placeholder="Código postal" autocomplete="off">
-                        </div>
-                        <div class="col-md-2 col-6">
-                            <label for="origen">Destino</label>
-                            <input type="text" id="destino" class="form-control form-control-sm" placeholder="Código postal" autocomplete="off">
-                        </div>
-                        <div class="col-md-2">
-                            <label for="origen">Peso (kg)</label>
-                            <input type="number" id="peso" class="no-controls form-control form-control-sm" placeholder="Kg" step="0.1" inputmode="numeric" autocomplete="off">
-                        </div>
-                        <div class="col-md-3">
-                            <label for="peso">Tamaño de caja (cm)</label>
-                            <div class="d-flex">
-                                <input type="number" id="peso" class="no-controls form-control form-control-sm rounded-0 rounded-start" placeholder="Alto" step="0.1" inputmode="numeric" autocomplete="off">
-                                <input type="number" id="peso" class="no-controls form-control form-control-sm rounded-0" placeholder="Largo" step="0.1" inputmode="numeric" autocomplete="off">
-                                <input type="number" id="peso" class="no-controls form-control form-control-sm rounded-0 rounded-end" placeholder="Ancho" step="0.1" inputmode="numeric" autocomplete="off">
+                    </form>
+                </div>
+                <div class="container-fluid bg-white">
+                    <div class="container">
+                        <div class="row p-4 d-none" id="divBusquedaCotizador">
+                            <div class="col-md-12 text-center">
+                                <h4 class="fw-bold" id="tituloCotizador">Cotizando...</h4>
+                            </div>
+                            <div class="col-md-12 text-center">
+                                <img style="max-width: 100px" src="{{asset('img/loading.gif')}}" alt="Buscando los mejores precios">
                             </div>
                         </div>
-                        <div class="col-md-auto d-flex align-items-end mt-3 mt-sm-0">
-                            <button class="btn btn-sm px-2 btn-warning text-primary fw-bold animate__animated animate__wobble">Cotizar envío</button>
+                        <div class="row p-4 d-none" id="divResultadosCotizador">
                         </div>
                     </div>
                 </div>
@@ -289,7 +306,7 @@
                                         </h2>
                                         <div id="collapse2" class="accordion-collapse collapse" aria-labelledby="heading2">
                                             <div class="accordion-body">
-                                                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad amet cupiditate deserunt esse eum excepturi explicabo natus nisi officia possimus quae quam quo quos reiciendis repellendus, reprehenderit ut vel voluptates!
+                                                Sobrepeso es cuando la paquetería pesa y mide tu paquete, detectando que las medidas y pesos son superiores a las declaradas en la guia.
                                             </div>
                                         </div>
                                     </div>
@@ -305,7 +322,17 @@
                                         </h2>
                                         <div id="collapse3" class="accordion-collapse collapse" aria-labelledby="heading3">
                                             <div class="accordion-body">
-                                                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad amet cupiditate deserunt esse eum excepturi explicabo natus nisi officia possimus quae quam quo quos reiciendis repellendus, reprehenderit ut vel voluptates!
+                                                <ul>
+                                                    <li>Animales vivos (incluyendo, pero no limitado a mamíferos, reptiles, peces, invertebrados, anfibios, insectos o aves)</li>
+                                                    <li>Trofeos de caza (animal), partes de animales como marfil o aletas de tiburón, restos de animales, subproductos o derivados de animales, no para consumo humano, prohibidos para transporte por la Convención CITES o reglamentación local</li>
+                                                    <li>Restos humanos o cenizas en cualquiera de sus formas</li>
+                                                    <li>Lingotes (de cualquier metal precioso)</li>
+                                                    <li>Efectivo (moneda de curso legal como billetes, notas de denominación monetaria, monedas)</li>
+                                                    <li>Piedras preciosas y semipreciosas sueltas (cortadas o sin cortar, pulidas o sin pulir)</li>
+                                                    <li>Armas de fuego completas, munición, explosivos, dispositivos explosivos, incluyendo explosivos inertes o piezas de prueba, armas de aire comprimido, réplicas o imitación de armas de fuego o munición></li>
+                                                    <li>Mercancía ilegal, como drogas ilícitas, incluyendo pero no limitado a estimulantes narcóticos, antidepresivos o alucinógenos, cannabis o sus derivados.</li>
+                                                    <li>Mercancías falsificadas en violación de derechos de propiedad intelectual (Intellectual property rights - IPR).</li>
+                                                </ul>
                                             </div>
                                         </div>
                                     </div>
@@ -321,7 +348,7 @@
                                         </h2>
                                         <div id="collapse4" class="accordion-collapse collapse" aria-labelledby="heading4">
                                             <div class="accordion-body">
-                                                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad amet cupiditate deserunt esse eum excepturi explicabo natus nisi officia possimus quae quam quo quos reiciendis repellendus, reprehenderit ut vel voluptates!
+                                                Sí, tenemos la opción, descarga la plantilla en <a href="{{config('app.url').'/ayuda'}}">{{config('app.url').'/ayuda'}}</a> llena el formulario y podrás generar guías masivas en solo segundos.
                                             </div>
                                         </div>
                                     </div>
@@ -337,7 +364,7 @@
                                         </h2>
                                         <div id="collapse5" class="accordion-collapse collapse" aria-labelledby="heading5">
                                             <div class="accordion-body">
-                                                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad amet cupiditate deserunt esse eum excepturi explicabo natus nisi officia possimus quae quam quo quos reiciendis repellendus, reprehenderit ut vel voluptates!
+                                                Es el valor comercial de tu mercancía.
                                             </div>
                                         </div>
                                     </div>
@@ -353,23 +380,7 @@
                                         </h2>
                                         <div id="collapse6" class="accordion-collapse collapse" aria-labelledby="heading6">
                                             <div class="accordion-body">
-                                                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad amet cupiditate deserunt esse eum excepturi explicabo natus nisi officia possimus quae quam quo quos reiciendis repellendus, reprehenderit ut vel voluptates!
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-6 mt-3">
-                                <div class="accordion">
-                                    <div class="accordion-item">
-                                        <h2 class="accordion-header" id="heading7">
-                                            <button class="accordion-button collapsed fw-bold" type="button" data-bs-toggle="collapse" data-bs-target="#collapse7" aria-expanded="false" aria-controls="collapse7">
-                                                ¿Dónde puedo ver el rastreo de mis paquetes?
-                                            </button>
-                                        </h2>
-                                        <div id="collapse7" class="accordion-collapse collapse" aria-labelledby="heading7">
-                                            <div class="accordion-body">
-                                                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad amet cupiditate deserunt esse eum excepturi explicabo natus nisi officia possimus quae quam quo quos reiciendis repellendus, reprehenderit ut vel voluptates!
+                                                Al momento de crear la guía activa el botón "Seguro" el portal te solicitará ingresar el valor declarado de tú envío. La cobertura varía con cada proveedor así como el deducible, sin embargo en todos los casos las indemnizaciones se realizan por causas en los que la responsabilidad del siniestro recaiga en el proveedor, no aplica para robo a unidades o fenómenos naturales.
                                             </div>
                                         </div>
                                     </div>
@@ -385,7 +396,26 @@
                                         </h2>
                                         <div id="collapse8" class="accordion-collapse collapse" aria-labelledby="heading8">
                                             <div class="accordion-body">
-                                                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad amet cupiditate deserunt esse eum excepturi explicabo natus nisi officia possimus quae quam quo quos reiciendis repellendus, reprehenderit ut vel voluptates!
+                                                <p>Por favor envía un email a <a href="mailto:ayuda@envios-ok.com">ayuda@envios-ok.com</a> indicando en el asunto el número de guía y adjuntando la siguiente documentación:</p>
+                                                <ul>
+                                                    <li>Domicilio</li>
+                                                    <li>Entre qué calles</li>
+                                                    <li>Color de fachada</li>
+                                                    <li>Referencias</li>
+                                                    <li>Teléfono de destino</li>
+                                                    <li>Contenido</li>
+                                                    <li>Cantidad de piezas</li>
+                                                    <li>Relación exacta del contenido</li>
+                                                    <li>Empaque del serivicio, peso y dimensiones</li>
+                                                    <li>Descripción del empaque</li>
+                                                    <li>Color</li>
+                                                    <li>Marca</li>
+                                                    <li>Modelo</li>
+                                                    <li>Seguro</li>
+                                                    <li>Foto/Imagen</li>
+                                                    <li>Valor del bien</li>
+                                                    <li>Factura o nota del bien</li>
+                                                </ul>
                                             </div>
                                         </div>
                                     </div>
@@ -396,12 +426,12 @@
                                     <div class="accordion-item">
                                         <h2 class="accordion-header" id="heading9">
                                             <button class="accordion-button collapsed fw-bold" type="button" data-bs-toggle="collapse" data-bs-target="#collapse9" aria-expanded="false" aria-controls="collapse9">
-                                                ¿Qué es un envío exprés?
+                                                ¿Se puede realizar pago contra entrega?
                                             </button>
                                         </h2>
                                         <div id="collapse9" class="accordion-collapse collapse" aria-labelledby="heading9">
                                             <div class="accordion-body">
-                                                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad amet cupiditate deserunt esse eum excepturi explicabo natus nisi officia possimus quae quam quo quos reiciendis repellendus, reprehenderit ut vel voluptates!
+                                                No, todas nuestras guías deben ser pagadas al momento de crearse.
                                             </div>
                                         </div>
                                     </div>
@@ -412,22 +442,255 @@
                                     <div class="accordion-item">
                                         <h2 class="accordion-header" id="heading10">
                                             <button class="accordion-button collapsed fw-bold" type="button" data-bs-toggle="collapse" data-bs-target="#collapse10" aria-expanded="false" aria-controls="collapse10">
-                                                ¿Se puede realizar pago contra entrega?
+                                                ¿Dónde puedo ver el rastreo de mis paquetes?
                                             </button>
                                         </h2>
                                         <div id="collapse10" class="accordion-collapse collapse" aria-labelledby="heading10">
                                             <div class="accordion-body">
-                                                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad amet cupiditate deserunt esse eum excepturi explicabo natus nisi officia possimus quae quam quo quos reiciendis repellendus, reprehenderit ut vel voluptates!
+                                                Dentro de nuestro portal, en la opción Guías - Rastreo podrás seguir el tránsito de todos tus paquetes creados con nosotros.
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-
-                            <div class="col-12 text-center my-4">
-                                <a class="btn btn-warning text-primary fw-bold">
-                                    Ver mas
-                                </a>
+                            <div class="col-md-6 mt-3">
+                                <div class="accordion">
+                                    <div class="accordion-item">
+                                        <h2 class="accordion-header" id="heading11">
+                                            <button class="accordion-button collapsed fw-bold" type="button" data-bs-toggle="collapse" data-bs-target="#collapse11" aria-expanded="false" aria-controls="collapse11">
+                                                ¿Qué es un envío exprés?
+                                            </button>
+                                        </h2>
+                                        <div id="collapse11" class="accordion-collapse collapse" aria-labelledby="heading11">
+                                            <div class="accordion-body">
+                                                Es el envío que tiene un tiempo de entrega de 1 a 2 días hábiles y está sujeto a cobertura.
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 mt-3">
+                                <div class="accordion">
+                                    <div class="accordion-item">
+                                        <h2 class="accordion-header" id="heading12">
+                                            <button class="accordion-button collapsed fw-bold" type="button" data-bs-toggle="collapse" data-bs-target="#collapse12" aria-expanded="false" aria-controls="collapse12">
+                                                ¿Qué es un envío económico?
+                                            </button>
+                                        </h2>
+                                        <div id="collapse12" class="accordion-collapse collapse" aria-labelledby="heading12">
+                                            <div class="accordion-body">
+                                                Es el envío que tiene un tiempo de entrega de 3 a 7 días hábiles y está sujeto a cobertura.
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 mt-3">
+                                <div class="accordion">
+                                    <div class="accordion-item">
+                                        <h2 class="accordion-header" id="heading13">
+                                            <button class="accordion-button collapsed fw-bold" type="button" data-bs-toggle="collapse" data-bs-target="#collapse13" aria-expanded="false" aria-controls="collapse13">
+                                                ¿Cúal es el peso real?
+                                            </button>
+                                        </h2>
+                                        <div id="collapse13" class="accordion-collapse collapse" aria-labelledby="heading13">
+                                            <div class="accordion-body">
+                                                Es lo que pesa tu paquete al estar sobre una báscula.
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 mt-3">
+                                <div class="accordion">
+                                    <div class="accordion-item">
+                                        <h2 class="accordion-header" id="heading14">
+                                            <button class="accordion-button collapsed fw-bold" type="button" data-bs-toggle="collapse" data-bs-target="#collapse14" aria-expanded="false" aria-controls="collapse14">
+                                                ¿Qué es el peso volumétrico?
+                                            </button>
+                                        </h2>
+                                        <div id="collapse14" class="accordion-collapse collapse" aria-labelledby="heading14">
+                                            <div class="accordion-body">
+                                                Si tu paquete tiene las siguientes medidas: 30 cm x 20 cm x 50 cm debemos multiplicarlas y el resultado dividirlo entre 5,000, el resultado de esta operación es el peso volumétrico de nuestro paquete, en este caso: 6 kg, si este mismo paquete al momento de colocarlo sobre la báscula nos arroja que pesa 4 kg, la paquetería nos cobrará por el peso más alto, pues este es el espacio que ocupará dentro de su transporte. El peso a cobrar se redondea al kilo inmediato superior; 1.1kgs es 2 Kgs.
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 mt-3">
+                                <div class="accordion">
+                                    <div class="accordion-item">
+                                        <h2 class="accordion-header" id="heading15">
+                                            <button class="accordion-button collapsed fw-bold" type="button" data-bs-toggle="collapse" data-bs-target="#collapse15" aria-expanded="false" aria-controls="collapse15">
+                                                ¿Por qué trabajar con EnviosOK?
+                                            </button>
+                                        </h2>
+                                        <div id="collapse15" class="accordion-collapse collapse" aria-labelledby="heading15">
+                                            <div class="accordion-body">
+                                                Porque tu economía es lo más importante para nosotros, es por eso que con EnvíosOK siempre tendrás acceso a las mejores tarifas en el mercado.
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 mt-3">
+                                <div class="accordion">
+                                    <div class="accordion-item">
+                                        <h2 class="accordion-header" id="heading16">
+                                            <button class="accordion-button collapsed fw-bold" type="button" data-bs-toggle="collapse" data-bs-target="#collapse17" aria-expanded="false" aria-controls="collapse17">
+                                                ¿Cómo cotizar un envío para mi Negocio?
+                                            </button>
+                                        </h2>
+                                        <div id="collapse17" class="accordion-collapse collapse" aria-labelledby="heading16">
+                                            <div class="accordion-body">
+                                                Dentro de nuestra página principal ingresa tu código postal de origen, código postal de destino, medidas de tu paquete: largo, ancho y alto, peso bascula, y ¡listo! nuestro portal te arrojará las opciones que tenemos disponibles para ti y el costo de cada una.                                             </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 mt-3">
+                                <div class="accordion">
+                                    <div class="accordion-item">
+                                        <h2 class="accordion-header" id="heading18">
+                                            <button class="accordion-button collapsed fw-bold" type="button" data-bs-toggle="collapse" data-bs-target="#collapse18" aria-expanded="false" aria-controls="collapse18">
+                                                ¿Puedo obtener descuentos o tarifas preferenciales en envíos para mi negocio?
+                                            </button>
+                                        </h2>
+                                        <div id="collapse18" class="accordion-collapse collapse" aria-labelledby="heading18">
+                                            <div class="accordion-body">
+                                                Si, a través de nuestro Email de ayuda solicita asesoría personalizada de nuestros ejecutivos comerciales, ellos realizarán el análisis de tu operación y podrán ofrecerte alternativas de acuerdo con tus necesidades.
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 mt-3">
+                                <div class="accordion">
+                                    <div class="accordion-item">
+                                        <h2 class="accordion-header" id="heading19">
+                                            <button class="accordion-button collapsed fw-bold" type="button" data-bs-toggle="collapse" data-bs-target="#collapse19" aria-expanded="false" aria-controls="collapse19">
+                                                ¿Generan facturas?
+                                            </button>
+                                        </h2>
+                                        <div id="collapse19" class="accordion-collapse collapse" aria-labelledby="heading19">
+                                            <div class="accordion-body">
+                                                Sí, dentro de nuestra plataforma deberás subir tu información fiscal, tus facturas se generan de forma automática.
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 mt-3">
+                                <div class="accordion">
+                                    <div class="accordion-item">
+                                        <h2 class="accordion-header" id="heading20">
+                                            <button class="accordion-button collapsed fw-bold" type="button" data-bs-toggle="collapse" data-bs-target="#collapse20" aria-expanded="false" aria-controls="collapse20">
+                                                ¿Cómo puedo pagar las guías de envío?
+                                            </button>
+                                        </h2>
+                                        <div id="collapse20" class="accordion-collapse collapse" aria-labelledby="heading20">
+                                            <div class="accordion-body">
+                                                Desde nuestra plataforma, con tarjeta de débito, crédito o transferencia.
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 mt-3">
+                                <div class="accordion">
+                                    <div class="accordion-item">
+                                        <h2 class="accordion-header" id="heading21">
+                                            <button class="accordion-button collapsed fw-bold" type="button" data-bs-toggle="collapse" data-bs-target="#collapse21" aria-expanded="false" aria-controls="collapse21">
+                                                ¿A donde me comunico si tengo un problema con mi paquete?
+                                            </button>
+                                        </h2>
+                                        <div id="collapse21" class="accordion-collapse collapse" aria-labelledby="heading21">
+                                            <div class="accordion-body">
+                                                Nuestro email de apoyo <a href="mailto:ayuda@envios-ok.com">ayuda@envios-ok.com</a> indica en el asunto el número de guía y en breve uno de nuestros ejecutivos se pondrá en contacto contigo.
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 mt-3">
+                                <div class="accordion">
+                                    <div class="accordion-item">
+                                        <h2 class="accordion-header" id="heading22">
+                                            <button class="accordion-button collapsed fw-bold" type="button" data-bs-toggle="collapse" data-bs-target="#collapse22" aria-expanded="false" aria-controls="collapse22">
+                                                ¿Cúal es la cobertura de EnvíosOk?
+                                            </button>
+                                        </h2>
+                                        <div id="collapse22" class="accordion-collapse collapse" aria-labelledby="heading22">
+                                            <div class="accordion-body">
+                                                Tenemos cobertura a toda la república mexicana a través de nuestros proveedores (DHL, Fedex, Estafeta, Redpack, UPS).
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 mt-3">
+                                <div class="accordion">
+                                    <div class="accordion-item">
+                                        <h2 class="accordion-header" id="heading23">
+                                            <button class="accordion-button collapsed fw-bold" type="button" data-bs-toggle="collapse" data-bs-target="#collapse23" aria-expanded="false" aria-controls="collapse23">
+                                                ¿Cómo se genera una recolección de mi paquete?
+                                            </button>
+                                        </h2>
+                                        <div id="collapse23" class="accordion-collapse collapse" aria-labelledby="heading23">
+                                            <div class="accordion-body">
+                                                Desde nuestra plataforma en el menú Guías - Recolecciones.
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 mt-3">
+                                <div class="accordion">
+                                    <div class="accordion-item">
+                                        <h2 class="accordion-header" id="heading24">
+                                            <button class="accordion-button collapsed fw-bold" type="button" data-bs-toggle="collapse" data-bs-target="#collapse24" aria-expanded="false" aria-controls="collapse24">
+                                                ¿Cómo declaro que estoy enviando artículos delicados o de manejo especial?
+                                            </button>
+                                        </h2>
+                                        <div id="collapse24" class="accordion-collapse collapse" aria-labelledby="heading24">
+                                            <div class="accordion-body">
+                                                En nuestra plataforma puedes indicar el contenido de tu paquete y colocar etiquetas de frágil, sin embargo, debes considerar que para artículos como vidrio, cerámica, no aplica cobertura de seguro.
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 mt-3">
+                                <div class="accordion">
+                                    <div class="accordion-item">
+                                        <h2 class="accordion-header" id="heading25">
+                                            <button class="accordion-button collapsed fw-bold" type="button" data-bs-toggle="collapse" data-bs-target="#collapse25" aria-expanded="false" aria-controls="collapse25">
+                                                ¿Cómo recargo saldo en mi cuenta?
+                                            </button>
+                                        </h2>
+                                        <div id="collapse25" class="accordion-collapse collapse" aria-labelledby="heading25">
+                                            <div class="accordion-body">
+                                                Dentro de nuestra plataforma en el menú PAGOS -  RECARGA, desde ahí podrás realizar una recarga de tu saldo desde $400.
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 mt-3">
+                                <div class="accordion">
+                                    <div class="accordion-item">
+                                        <h2 class="accordion-header" id="heading26">
+                                            <button class="accordion-button collapsed fw-bold" type="button" data-bs-toggle="collapse" data-bs-target="#collapse26" aria-expanded="false" aria-controls="collapse26">
+                                                ¿Qué es un artículo delicado o frágil?
+                                            </button>
+                                        </h2>
+                                        <div id="collapse26" class="accordion-collapse collapse" aria-labelledby="heading26">
+                                            <div class="accordion-body">
+                                                Son aquellos artículos que requieren un manejo especial por la naturaleza del contenido, ejemplo: vidrio, cerámica, talavera, obras de arte. El empaque es responsabilidad del cliente para evitar que sufra daños su mercancía en el tránsito de la red de nuestros proveedores.
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
