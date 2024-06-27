@@ -20,10 +20,10 @@
 		</li>
 	</ul>
 
-	<ul class="nav-sub">
-		<li class="nav-sub-item">
-			<a class="nav-sub-link" href="#">Recolecciones </a>
-		</li>
-	</ul>
+{{--	<ul class="nav-sub">--}}
+{{--		<li class="nav-sub-item">--}}
+{{--			<a class="nav-sub-link" href="#">Recolecciones </a>--}}
+{{--		</li>--}}
+{{--	</ul>--}}
 
 </li>
