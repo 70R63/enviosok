@@ -148,4 +148,11 @@ class Tarifa extends Model
 
     }
 
+
+    public function scopePesoFacturado($query, $pesoFacturado ){
+        return $query->where("tarifas.kg_ini",$pesoFacturado)
+                ->where("tarifas.kg_fin",$pesoFacturado)
+                ;
+    }
+
 }

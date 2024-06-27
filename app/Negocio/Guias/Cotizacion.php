@@ -47,9 +47,7 @@ class Cotizacion {
         Log::info(__CLASS__." ".__FUNCTION__." ".__LINE__);
 
         $empresa_id = auth()->user()->empresa_id;
-
-
-
+        $pesoFacturado = $request['pesoFacturado'];
         Log::info(__CLASS__." ".__FUNCTION__." ".__LINE__);
         $ltds = mCfgLtd::where("estatus",1)->pluck('nombre',    'id')
                 ->toArray();
@@ -63,7 +61,8 @@ class Cotizacion {
             Log::info(__CLASS__." ".__FUNCTION__." ".__LINE__." $canal");
           
 
-            $query = Tarifa::base($empresa_id,$request['cp_d'], $ltdId);
+            $query = Tarifa::base($empresa_id,$request['cp_d'], $ltdId)
+                    ->pesoFacturado($pesoFacturado);
 
             $tablaTmp = $query->get()->toArray();
 

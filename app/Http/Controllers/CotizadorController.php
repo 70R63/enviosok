@@ -4,8 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreCotizadorRequest;
 use App\Http\Requests\UpdateCotizadorRequest;
+
+//GENERAL
 use Log;
-use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Carbon\Carbon;
+
 use Illuminate\Http\Request;
 
 
@@ -19,6 +22,12 @@ use App\Models\Empresa;
 
 use App\Negocio\Guias\Cotizacion as nCotizacion;
 use App\Negocio\MercadoPago\MercadoPago as nMercadoPago;
+
+use Exception;
+use LogicException;
+use Illuminate\Validation\ValidationException;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Illuminate\Database\QueryException;
 
 class CotizadorController extends Controller
 {
@@ -38,7 +47,8 @@ class CotizadorController extends Controller
     public function index(Request $request)
     {
         try {
-            Log::info(__CLASS__." ".__FUNCTION__);
+            $numeroDeSolicitud = Carbon::now()->timestamp;
+            Log::info(__CLASS__." ".__FUNCTION__." ".__LINE__." $numeroDeSolicitud ");
 
             $objeto = $request->all();           
             Log::debug(print_r($objeto,true));
@@ -50,7 +60,8 @@ class CotizadorController extends Controller
             $nMercadoPago = new nMercadoPago();
             $nMercadoPago->preferences();
             $preferences = $nMercadoPago->getPreferences();
-
+            Log::info(__CLASS__." ".__FUNCTION__." ".__LINE__." $numeroDeSolicitud ");
+            Log::debug(print_r($preferences,true));
             Log::info(__CLASS__." ".__FUNCTION__." ".__LINE__);
             return view(self::DASH_v 
                     ,compact( "objeto", "preferences")

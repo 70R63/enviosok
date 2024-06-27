@@ -94,7 +94,7 @@ class MercadoPago {
 
 		Log::info(__CLASS__." ".__FUNCTION__." ".__LINE__); 
 
-		$this->preferences = mMpPreference::select("init_point", "currency_id", "unit_price")
+		$this->preferences = mMpPreference::select("init_point", "currency_id", "unit_price", "imagen")
 		->get()->toArray();
 
 		Log::debug($this->preferences); 
