@@ -89,7 +89,9 @@
                 <div class="main-sidebar-body ps-sm-0 ps-md-2">
                     <ul class="nav">
                         <li class="nav-header"><span class="nav-label"><br></span></li>
-                        <li class="nav-header"><span class="nav-label">MENU</span></li>
+                        <li class="nav-header">
+                            <span class="nav-label text-blue">MENU</span>
+                        </li>
                         <li class="nav-item ">
                             <a class="nav-link" href="{{ route('dashboard') }}">
                                 <img src="{{asset('assets/azul_1.svg')}}" class="ml-1" height="35"  alt="">
