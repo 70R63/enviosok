@@ -11,7 +11,7 @@
 				<div class="col-md-12">
 					<div class="card">
 						<div class="row row-sm">
-							<div class="col-lg-6 col-xl-5 d-none d-lg-block text-center bg-primary details">
+							<div class="col-lg-6 col-xl-5 d-none d-flex align-items-center text-center bg-primary details">
 								<div class="mt-3 pt-3 p-2 pos-absolute">
 									<img src="{{ url('spruha/img/brand/xpertaLogoHor.png') }}" class="header-brand-img mb-4" alt="logo">{{ config('app.env', 'Ambiente') }}
 									<div class="clearfix"></div>

@@ -1,7 +1,7 @@
 $(document).ready(function() {
     const autoCompleteOrigen = new Autocomplete({
         selector: "#origen",
-        placeHolder: "Origen",
+        placeHolder: "Código postal origen",
         threshold: 2,
         data: {
             src: async (query) => {
@@ -39,7 +39,7 @@ $(document).ready(function() {
     });
     const autoCompleteDestino = new Autocomplete({
         selector: "#destino",
-        placeHolder: "Destino",
+        placeHolder: "Código postal destino",
         threshold: 2,
         data: {
             src: async (query) => {

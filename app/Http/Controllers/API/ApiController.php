@@ -141,8 +141,8 @@ class ApiController extends Controller
 
 
     public function cotizar(Request $request){
-        $cp_origen = explode(' - ',$request->origen)[1];
-        $cp_destino = explode(' - ',$request->destino)[1];
+        $cp_origen = explode(' - ',$request->origen)[1] ?? $request->origen;
+        $cp_destino = explode(' - ',$request->destino)[1] ?? $request->destino;
         $peso = $request->peso;
         $alto = $request->alto;
         $largo = $request->largo;
@@ -155,70 +155,71 @@ class ApiController extends Controller
         $url_base = config('app.url');
         $resultadosDemo=[
             'estafeta'=>[
-                'disponible'=>true,
-                'tipos'=>['Económico','Express'],
-                'estimado'=>[
-                    'Económico'=>"De 2 a 7 días hábiles",
-                    'Express'=>"De 1 a 2 días hábiles",
+                [
+                    'tipo'=>'Económico',
+                    'estimado'=>"De 2 a 7 días hábiles",
+                    'precio'=>'$150.00'
                 ],
-                'precio'=>'$150.00'
+                [
+                    'tipo'=>'Express',
+                    'estimado'=>"De 1 a 2 días hábiles",
+                    'precio'=>'$190.00'
+                ],
             ],
             'fedex'=>[
-                'disponible'=>true,
-                'tipos'=>['Económico','Express'],
-                'estimado'=>[
-                    'Económico'=>"De 2 a 7 días hábiles",
-                    'Express'=>"De 1 a 2 días hábiles",
+                [
+                    'tipo'=>'Económico',
+                    'estimado'=>"De 2 a 7 días hábiles",
+                    'precio'=>'$1850.00'
                 ],
-                'precio'=>'$200.00'
+                [
+                    'tipo'=>'Express',
+                    'estimado'=>"De 1 a 2 días hábiles",
+                    'precio'=>'$220.00'
+                ],
             ],
             'dhl'=>[
-                'disponible'=>true,
-                'tipos'=>['Express'],
-                'estimado'=>[
-                    'Express'=>"De 1 a 2 días hábiles",
+                [
+                    'tipo'=>'Económico',
+                    'estimado'=>"De 2 a 7 días hábiles",
+                    'precio'=>'$290.00'
                 ],
-                'precio'=>'$250.00'
+                [
+                    'tipo'=>'Express',
+                    'estimado'=>"De 1 a 2 días hábiles",
+                    'precio'=>'$275.00'
+                ],
             ],
-            'ups'=>[
-                'disponible'=>false
-            ]
+            'ups'=>[]
         ];
 
-        foreach ($resultadosDemo as $codigo=>$paqueteria){
-            if ($paqueteria['disponible']) {
-                $html .= '<div class="row border rounded-4 py-2 my-2 align-items-center">';
-                $html .= '<div class="col-md-3 text-center">';
-                $html .= '<img style="max-width: 100px" src="' . $url_base . '/img/' . $codigo . '.png" alt="' . ucfirst($codigo) . '">';
-                $html .= '</div>';
-                $html .= '<div class="col-md-3 text-center">';
-                $html .= '<h6 class="fw-bold">Tipo de envío</h6>';
-                foreach ($paqueteria['tipos'] as $tipo) {
-                    $badgeColor = $tipo == 'Express' ? 'bg-warning' : 'bg-primary';
-                    $html .= '<span class="badge ' . $badgeColor . '">' . $tipo . '</span><br>';
+        foreach ($resultadosDemo as $codigo => $opciones) {
+            if (!empty($opciones)) {
+                foreach ($opciones as $opcion) {
+                    $html .= '<div class="row border rounded-4 py-2 my-2 align-items-center">';
+                    $html .= '<div class="col-md-3 text-center">';
+                    $html .= '<img style="max-width: 100px" src="' . $url_base . '/img/' . $codigo . '.png" alt="' . ucfirst($codigo) . '">';
+                    $html .= '</div>';
+                    $html .= '<div class="col-md-3 text-center">';
+                    $html .= '<h6 class="fw-bold">Tipo de envío</h6>';
+                    $html .= '<span class="badge bg-'.($opcion['tipo']=='Económico'?'primary':'warning').'">' . $opcion['tipo'] . '</span><br>';
+                    $html .= '</div>';
+                    $html .= '<div class="col-md-3 text-center">';
+                    $html .= '<h6 class="fw-bold">Estimado de entrega</h6>';
+                    $html .= '<p class="text-'.($opcion['tipo']=='Económico'?'primary':'warning').' fw-semibold m-0">' . $opcion['estimado'] . '</p>';
+                    $html .= '</div>';
+                    $html .= '<div class="col-md-3 text-center">';
+                    $html .= '<h4 class="fw-bold mb-0">' . $opcion['precio'] . '</h4>';
+                    $html .= '<p class="small m-0">Último precio</p>';
+                    $html .= '<p class="m-0">';
+                    $html .= '<a href="' . $url_base . '/login" class="btn btn-sm btn-primary fw-bold text-warning">Crear guía</a>';
+                    $html .= '</p>';
+                    $html .= '</div>';
+                    $html .= '</div>';
                 }
-                if(count($paqueteria['tipos'])>1)
-                    $html .= '<small>Según sea el caso</small>';
-                $html .= '</div>';
-                $html .= '<div class="col-md-3 text-center">';
-                $html .= '<h6 class="fw-bold">Estimado de entrega</h6>';
-                foreach ($paqueteria['estimado'] as $tipo => $estimado) {
-                    $textColor = $tipo == 'Express' ? 'text-warning' : 'text-primary';
-                    $html .= '<p class="' . $textColor . ' fw-semibold m-0">' . $estimado . '</p>';
-                }
-                $html .= '<p class="small m-0">Según sea el caso</p>';
-                $html .= '</div>';
-                $html .= '<div class="col-md-3 text-center">';
-                $html .= '<h4 class="fw-bold mb-0">' . $paqueteria['precio'] . '</h4>';
-                $html .= '<p class="small m-0">Último precio</p>';
-                $html .= '<p class="m-0">';
-                $html .= '<a href="' . $url_base . '/login" class="btn btn-sm btn-primary fw-bold text-warning">Crear guía</a>';
-                $html .= '</p>';
-                $html .= '</div>';
-                $html .= '</div>';
             } else {
                 $html .= '<div class="row border rounded-4 py-2 my-2 align-items-center">';
-                $html .= '<div class="col-md-3 text-center">';
+                $html .= '<div class="col-md-3 text-center py-2">';
                 $html .= '<img style="max-height: 50px" src="' . $url_base . '/img/' . $codigo . '.png" alt="' . ucfirst($codigo) . '">';
                 $html .= '</div>';
                 $html .= '<div class="col-md-8 text-center">';

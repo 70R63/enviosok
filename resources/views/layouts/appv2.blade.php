@@ -63,21 +63,21 @@
             <div class="container-fluid px-0 pt-3 bg-envios-gradient sticky" id="cotizador">
                 <div class="container text-white pb-3">
                     <form action="" id="formCotizador" novalidate>
-                        <div class="row justify-content-between appear-scale">
+                        <div class="row justify-content-between appear-scale align-items-end">
                                 <div class="col-12 text-center">
                                     <h5 class="fw-bold animate__animated animate__flip">Cotiza gratis tu envío</h5>
                                 </div>
                                 <div class="form-group col-md-2 col-6">
-                                    <label for="origen">Origen</label>
+                                    <label for="origen">Código postal origen</label>
                                     <input type="text" name="origen" id="origen" class="form-control form-control-sm" placeholder="Código postal" autocomplete="off" required>
                                 </div>
                                 <div class="form-group col-md-2 col-6">
-                                    <label for="origen">Destino</label>
+                                    <label for="origen">Código postal destino</label>
                                     <input type="text" name="destino" id="destino" class="form-control form-control-sm" placeholder="Código postal" autocomplete="off" required>
                                 </div>
                                 <div class="form-group col-md-2">
                                     <label for="origen">Peso (kg)</label>
-                                    <input type="number" name="peso" id="peso" class="no-controls form-control form-control-sm" placeholder="Kg" step="0.1" inputmode="numeric" autocomplete="off" required>
+                                    <input type="number" name="peso" id="peso" class="no-controls form-control form-control-sm" placeholder="Kg(s)" step="0.1" inputmode="numeric" autocomplete="off" required>
                                 </div>
                                 <div class="form-group col-md-3">
                                     <label for="peso">Tamaño de caja (cm)</label>
