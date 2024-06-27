@@ -1,0 +1,20 @@
+.main-header{
+    background-color: #f7e1a7 !important;
+    border: none !important;
+    box-shadow: none !important;
+}
+.main-header>.container-fluid{
+     background-color: #fcda90 !important;
+    border-radius: 25px;
+ }
+
+.text-header{
+    color: #1C75BC !important;
+}
+
+.main-content-title{
+    color: #1C75BC !important;
+}
+.main-sidebar .nav-sub-item.active .nav-sub-link{
+    color: #1C75BC !important;
+}

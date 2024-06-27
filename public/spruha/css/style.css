@@ -4,11 +4,12 @@
 Project        :   SPRUHA - HTML5 Bootstrap Admin Template
 Version        :   V.1
 Create Date    :   03/10/20
-Copyright      :   Spruko Technologies Private Limited 
+Copyright      :   Spruko Technologies Private Limited
 Author         :   SprukoSoft
 Author URL     :   https://themeforest.net/user/sprukosoft
 Support	       :   support@spruko.com
 License        :   Licensed under ThemeForest License
+
 
 -------------------------------------------------------------------*/
 /*
@@ -175,9 +176,10 @@ body {
     font-weight: 400;
     line-height: 1.5;
     text-align: left;
-    background-color: #ffffff;
+    /*background-color: #ffffff;*/
     font-family: "Roboto", sans-serif !important;
-    background: #EDF9F1; #fondo 
+    /*background: #EDF9F1; */
+    background-color: #f7e1a7;
     color: #1d212f;
     direction: ltr;
     -webkit-font-smoothing: antialiased;
@@ -73028,5 +73030,5 @@ body.horizontalmenu {
 .flex-container > b {
   background-color: #white;
   justify-content:flex-end;
-  
+
 }

@@ -14,7 +14,7 @@
         <meta name="csrf-token" content="{{ csrf_token() }}">
 
         <!-- Title -->
-        <title>{{ config('app.name', 'Laravel') }} - Plataforma de envios</title>
+        <title>Envíos nacionales: Cotiza tu envío y manda paquetes de forma segura</title>
 
         <!-- js -->
         <script src="{{ asset('js/chart.js-3.9.1/package/dist/chart.js') }}" ></script>
@@ -29,8 +29,9 @@
         <link href="{{ url('spruha/plugins/web-fonts/plugin.css') }}"  rel="stylesheet"/>
 
         <!-- Style css-->
-        <link href="{{ url('spruha/css/style.css') }}"  rel="stylesheet">
-        <link id="theme" rel="stylesheet" type="text/css" media="all" href="{{ url('spruha/css/colors/color3.css') }}">
+        <link href="{{ url('spruha/css/style.css?version=1') }}"  rel="stylesheet">
+        <link href="{{ url('spruha/css/custom.css?verion=1') }}"  rel="stylesheet">
+{{--        <link id="theme" rel="stylesheet" type="text/css" media="all" href="{{ url('spruha/css/colors/color3.css') }}">--}}
 
         <!-- Select2 css-->
         <link href="{{ url('spruha/plugins/select2/css/select2.min.css') }}"  rel="stylesheet">
@@ -56,13 +57,13 @@
 
 
         @yield('css_rol_page')
-        
+
 
     </head>
 
 
 
-    <body class="main-body leftmenu main-sidebar-hide">
+    <body class="main-body leftmenu">
         <script>
         function disableButton() {
             var btn = document.getElementById('btnEnviar');
@@ -78,19 +79,22 @@
 
                 <div class="sidemenu-logo">
                     <a class="main-logo" href="https://enviosok.com/" target="_blank">
-                        <img src="{{ url('img/Envios_OK_variante_C4x.png') }}" class="header-brand-img desktop-logo" alt="logo">
-                        
+                        <img src="{{ url('assets/Envios_OK_primario.svg') }}" class="header-brand-img desktop-logo" alt="logo">
+
                         <img src="{{ url('img/personaje.svg') }}" class="header-brand-img icon-logo" alt="logo">
-                        
+
                     </a>
                 </div>
 -
-                <div class="main-sidebar-body">
+                <div class="main-sidebar-body ps-sm-0 ps-md-2">
                     <ul class="nav">
                         <li class="nav-header"><span class="nav-label"><br></span></li>
                         <li class="nav-header"><span class="nav-label">MENU</span></li>
                         <li class="nav-item ">
-                            <a class="nav-link" href="{{ route('dashboard') }}"><span class="shape1"></span><span class="shape2"></span><i class="ti-home sidemenu-icon"></i><span class="sidemenu-label">DASHBOARD</span></a>
+                            <a class="nav-link" href="{{ route('dashboard') }}">
+                                <img src="{{asset('assets/azul_1.svg')}}" class="ml-1" height="35"  alt="">
+                                <span class="sidemenu-label">Dashboard</span>
+                            </a>
                         </li>
                         @canany(['isSysAdmin'])
                             @include('menu.cfgltds')
@@ -101,9 +105,7 @@
                             @include('menu.guia')
                             @include('menu.roles')
                             @include('menu.reportes')
-                           
                         @endcanany
-
                         @canany(['isAdmin'])
                             @include('menu.cfgltds')
                             @include('menu.empresas')
@@ -113,61 +115,44 @@
                             @include('menu.guia')
                             @include('menu.roles')
                             @include('menu.reportes')
-                            
                         @endcanany
-
                         @canany(['isContraloria'])
                             @include('menu.empresas')
                             @include('menu.reportes')
-                            
                         @endcanany
-
                         @canany(['isAuditoria'])
                             @include('menu.reportes')
                             @include('menu.ltd')
                         @endcanany
-
-
                         @canany(['isComercial'])
                             @include('menu.empresas')
                             @include('menu.direcciones')
                             @include('menu.ltd')
                             @include('menu.usuario')
                         @endcanany
-
                         @canany(['isAdminOps'])
                             @include('menu.empresas')
                             @include('menu.direcciones')
                             @include('menu.usuario')
                             @include('menu.guia')
                             @include('menu.reportes')
-                           
-
                         @endcanany
-
                         @canany(['isOperaciones'])
                             @include('menu.empresas')
                             @include('menu.direcciones')
                             @include('menu.guia')
                             @include('menu.reportes')
-                           
                         @endcanany
-
                         @canany(['isCliente'])
                             @include('menu.direcciones')
                             @include('menu.usuario')
                             @include('menu.guia')
                             @include('menu.reportes')
-                            
                             @include('menu.facturacion')
-
                         @endcanany
-
                         @canany(['isUsuario'])
                             @include('menu.guia')
-
                         @endcanany
-
                     </ul>
                 </div>
             </div>
@@ -175,12 +160,11 @@
 
             <!-- Main Header-->
             <div class="main-header side-header sticky">
-                <div class="container-fluid">
+                <div class="container-fluid rounded-4">
                     <a class="main-header-menu-icon" href="#" id="mainSidebarToggle"><span></span></a>
                     <div class="main-header-center">
                         <div class="input-group">
                             @include("dashboard.header")
-
                         </div>
 
                     </div>
@@ -218,7 +202,7 @@
                     <div class="collapse navbar-collapse" id="navbarSupportedContent-4">
 
                         <div class="d-flex order-lg-2 ml-auto">
-                            <b class="tx-18 text">HOLA {{ Auth::user()->name }}, BIENVENIDO AL PORTAL DE ENVIOSOK</b>
+                            <b class="tx-18">Hola {{ ucfirst(Auth::user()->name) }}, bienvenido al portal de EnvíosOk</b>
                         </div>
 
                         @include('perfil.index')
@@ -230,7 +214,7 @@
 
             <!-- Main Content-->
             <div class="main-content side-content pt-0">
-                <div class="container-fluid">
+                <div class="container-fluid p-4">
                     @include('mensaje.error')
                     @include('mensaje.danger')
                     @include('mensaje.exitoso')
@@ -244,15 +228,15 @@
             <!-- End Main Content-->
 
             <!-- Main Footer-->
-            <div class="main-footer text-center" >
-                <div class="container">
-                    <div class="row row-sm">
-                        <div class="col-md-12">
-                            <span>Copyright © 2024 <a href="https://www.envios-ok.com/" target="_blank">ENVIOS-OK</a>. Designed by <a href="#">ENVIOS-OK</a> All rights reserved.</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
+{{--            <div class="main-footer text-center" >--}}
+{{--                <div class="container">--}}
+{{--                    <div class="row row-sm">--}}
+{{--                        <div class="col-md-12">--}}
+{{--                            <span>Copyright © 2024 <a href="https://www.envios-ok.com/" target="_blank">ENVIOS-OK</a>. Designed by <a href="#">ENVIOS-OK</a> All rights reserved.</span>--}}
+{{--                        </div>--}}
+{{--                    </div>--}}
+{{--                </div>--}}
+{{--            </div>--}}
             <!--End Footer-->
         </div>
 
