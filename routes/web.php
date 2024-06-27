@@ -112,7 +112,11 @@ Route::group(['as'=>'finanzas.'  ,'prefix'=>'finanzas'],function(){
     Route::resource('pasarela','PasarelaPagoController')
         ->middleware(['roles:sysadmin,admin,contraloria,cliente']
     );
-
+    Route::group(['as'=>'datosfiscales.'  ,'prefix'=>'datosfiscales'],function(){
+        Route::get('index', 'Finanzas\ConstanciaFiscalController@index')->name('index');
+        Route::get('crear', 'Finanzas\ConstanciaFiscalController@create')->name('crear');
+        Route::get('editar/{empresa_id}', 'Finanzas\ConstanciaFiscalController@edit')->name('editar');
+    });
 });
 
 
