@@ -155,4 +155,10 @@ class Tarifa extends Model
                 ;
     }
 
+    public function scopeZona($query, $zona ){
+        return $query->where("tarifas.zona",$zona)
+                
+                ;
+    }
+
 }
