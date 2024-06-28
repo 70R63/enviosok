@@ -25,6 +25,7 @@ use App\Models\Cfg_ltd as mCfgLtd;
 //Negocio
 use App\Negocio\Fedex_tarifas;
 use App\Negocio\Saldos\Saldos;
+use App\Negocio\Guias\Creacion as nCreacion;
 
 class Cotizacion {
 
@@ -47,34 +48,10 @@ class Cotizacion {
         Log::info(__CLASS__." ".__FUNCTION__." ".__LINE__);
 
         $empresa_id = auth()->user()->empresa_id;
-        $pesoFacturado = $request['pesoFacturado'];
+        //$pesoFacturado = $request['pesoFacturado'];
+        
         Log::info(__CLASS__." ".__FUNCTION__." ".__LINE__);
-        $ltds = mCfgLtd::where("estatus",1)->pluck('nombre',    'id')
-                ->toArray();
-        Log::debug($ltds);
-        $tabla = array();
-        foreach ($ltds as $ltdId => $nombre) {
-            Log::info(__CLASS__." ".__FUNCTION__." ".__LINE__." LTD $ltdId => nombre $nombre ");
-
-            $tablaTmp = array();
-
-            Log::info(__CLASS__." ".__FUNCTION__." ".__LINE__." $canal");
-          
-
-            $query = Tarifa::base($empresa_id,$request['cp_d'], $ltdId)
-                    ->pesoFacturado($pesoFacturado);
-
-            $tablaTmp = $query->get()->toArray();
-
-            foreach ($tablaTmp as $key => $value) {
-                $tablaTmp[$key]['zona'] = "NA";
-            }
-            Log::info(__CLASS__." ".__FUNCTION__." ".__LINE__);
-            $tabla = array_merge($tabla, $tablaTmp);
-
-            Log::info(__CLASS__." ".__FUNCTION__." ".__LINE__);
-            $this->tabla = $tabla;
-        }//fin foreach ($empresasLtd as $ltdId => $clasificacion) {
+        $this->todosLtds($request, $canal);
 
         Log::info(__CLASS__." ".__FUNCTION__." ".__LINE__);
         $saldo = new Saldos();
@@ -91,6 +68,79 @@ class Cotizacion {
         $this->tipoPagoId = $empresa->tipo_pago_id;
 
     }// fin public function base ($guiaId){
+
+
+    /**
+     * Funcion todosLtds hace un foreach de todas las LTDS
+     * 
+     * @author Javier Hernandez
+     * @copyright 2024 Envios-OK
+     * @package App\Negocio\Guias
+     * 
+     * @version 1.0.0
+     * 
+     * @since 1.0.0 Primera version de la funcion pesoFacturado
+     * 
+     * @throws
+     *
+     * @param array $data Informacion general de la peticion
+     * 
+     * 
+     * @return $data Se agra informacion segun la necesidad
+     */
+
+    public function todosLtds($data, $canal){
+
+        Log::info(__CLASS__." ".__FUNCTION__." ".__LINE__);
+        $ltds = mCfgLtd::where("estatus",1)->pluck('nombre',    'id')
+                ->toArray();
+        Log::debug($ltds);
+        $tabla = array();
+
+        foreach ($ltds as $ltdId => $nombre) {
+            Log::info(__CLASS__." ".__FUNCTION__." ".__LINE__." LTD $ltdId => nombre $nombre ");
+
+            $tablaTmp = array();
+            Log::info(__CLASS__." ".__FUNCTION__." ".__LINE__." $canal");
+            switch ($nombre) {
+                case 'FEDEX':
+                    Log::info(__CLASS__." ".__FUNCTION__." LINE ".__LINE__);
+                    $zona = Tarifa::fedexZona($data['cp'],$data['cp_d']);
+                    Log::info(__CLASS__." ".__FUNCTION__." ".__LINE__." zona=$zona");
+                    $query = Tarifa::base($data['cp_d'], $ltdId)
+                        ->pesoFacturado($data['pesoFacturado'])
+                        ->zona($zona)
+                        ;
+                    $tablaTmp = $query->get()->toArray();
+                    break;
+                case 'ESTAFETA':
+                    Log::info(__CLASS__." ".__FUNCTION__." LINE ".__LINE__);
+                    
+                    $query = Tarifa::base($data['cp_d'], $ltdId)
+                        ->pesoFacturado($data['pesoFacturado']);
+
+                    $tablaTmp = $query->get()->toArray();
+
+                    foreach ($tablaTmp as $key => $value) {
+                        $tablaTmp[$key]['zona'] = "NA";
+                    }
+
+                    break;
+
+               
+                default:
+                    // code...
+                    break;
+            }
+
+            Log::info(__CLASS__." ".__FUNCTION__." ".__LINE__);
+            $tabla = array_merge($tabla, $tablaTmp);
+
+            Log::info(__CLASS__." ".__FUNCTION__." ".__LINE__);
+            $this->tabla = $tabla;
+        }//fin foreach ($empresasLtd as $ltdId => $clasificacion) {
+
+    }
 
 
     /**
@@ -246,6 +296,152 @@ class Cotizacion {
 
 
         Log::info(__CLASS__." ".__FUNCTION__." ".__LINE__);
+
+    }
+
+
+
+    /**
+     * Funcion pesoFaturado usado para calcular cual es el peso a facturar entre dimensinal o bascula
+     * 
+     * @author Javier Hernandez
+     * @copyright 2024 Envios-OK
+     * @package App\Negocio\Guias
+     * 
+     * @version 1.0.0
+     * 
+     * @since 1.0.0 Primera version de la funcion pesoFacturado
+     * 
+     * @throws
+     *
+     * @param array $data Informacion general de la peticion
+     * 
+     * 
+     * @return $data Se agra informacion segun la necesidad
+     */
+
+    public function pesoFacturado($data){
+
+        Log::info(__CLASS__." ".__FUNCTION__." ".__LINE__);
+
+        $data['peso_bascula'] = $data['peso'];
+        $data['peso_dimensional'] = ($data['alto']*$data['ancho']*$data['largo'])/5000;
+
+        $data['peso_facturado'] = ($data['peso_bascula'] > $data['peso_dimensional']) ? ceil($data['peso_bascula']) : ceil($data['peso_dimensional']) ;
+        
+        $data['pesoFacturado']=$data['peso_facturado'];
+        return $data;
+        
+    }
+
+
+    /**
+     * Funcion que regresara lo valores reale de las cotizaciones al cotizar externo
+     * 
+     * @author Javier Hernandez
+     * @copyright 2024 Envios-Ol
+     * @package App\Negocio\Guias
+     * @api
+     * 
+     * @version 1.0.0
+     * 
+     * @since 1.0.0 Primera version de la funcion cotizacionTipo
+     * 
+     * @throws
+     *
+     * @param array $data informacion de todo el flujo 
+     * 
+     * @var int 
+     * 
+     * 
+     * @return json Objeto con la respuesta de exito o fallo 
+     */
+
+    public function externa($request) {
+
+        Log::info(__CLASS__." ".__FUNCTION__." ".__LINE__);
+        Log::debug($request->all());
+
+
+        $data = array();
+        $data['cp'] = explode(' - ',$request->origen)[0] ?? $request->origen;
+        $data['cp_d'] = explode(' - ',$request->destino)[0] ?? $request->destino;
+        $data['peso'] = $request->peso;
+        $data['alto'] = $request->alto;
+        $data['largo'] = $request->largo;
+        $data['ancho'] = $request->ancho;
+
+        $data = $this->pesoFacturado($data);
+
+        $this->todosLtds($data, "Externo");
+
+        Log::debug($this->tabla);
+
+        Log::info(__CLASS__." ".__FUNCTION__." ".__LINE__);
+
+    }
+
+
+    /**
+     * Funcionpara armar el html de cotizacion externa
+     * 
+     * @author Javier Hernandez
+     * @copyright 2024 Envios-Ol
+     * @package App\Negocio\Guias
+     * @api
+     * 
+     * @version 1.0.0
+     * 
+     * @since 1.0.0 Primera version de la funcion cotizacionTipo
+     * 
+     * @throws
+     *
+     * @param 
+     * 
+     * @var string $html usado para armar un codigo de html
+     * @var string $url_base url del sistema
+     * @var array $estimadoEntrega Arreglo para leyyendas de tiempo de entrega
+     * 
+     * @return json Objeto con la respuesta de exito o fallo 
+     */
+
+    public function externaHtml() {
+        Log::info(__CLASS__." ".__FUNCTION__." ".__LINE__);
+
+        $html="";
+        $url_base = config('app.url');
+        
+
+        $estimadoEntrega=[1=>"De 2 a 7 días hábiles"
+            ,2=>"De 1 a 2 días hábiles"
+        ];
+
+        foreach ($this->tabla as $cotizacion) {
+            $html .= '<div class="row border rounded-4 py-2 my-2 align-items-center">';
+            $html .= '<div class="col-md-3 text-center">';
+            $html .= '<img style="max-width: 100px" src="' . $url_base . '/img/' . strtolower($cotizacion['nombre']) . '.png" alt="' . $cotizacion['nombre'] . '">';
+            $html .= '</div>';
+            $html .= '<div class="col-md-3 text-center">';
+            $html .= '<h6 class="fw-bold">Tipo de envío</h6>';
+            $html .= '<span class="badge bg-'.($cotizacion['servicio_id']=='1'?'primary':'warning').'">' . $cotizacion['servicios_nombre'] . '</span><br>';
+            $html .= '</div>';
+            $html .= '<div class="col-md-3 text-center">';
+            $html .= '<h6 class="fw-bold">Estimado de entrega</h6>';
+            $html .= '<p class="text-'.($cotizacion['servicio_id']=='1'?'primary':'warning').' fw-semibold m-0">' . $estimadoEntrega[$cotizacion['servicio_id']] . '</p>';
+            $html .= '</div>';
+            $html .= '<div class="col-md-3 text-center">';
+            $html .= '<h4 class="fw-bold mb-0">' . $cotizacion['costo'] . '</h4>';
+            $html .= '<p class="small m-0">Último precio</p>';
+            $html .= '<p class="m-0">';
+            $html .= '<a href="' . $url_base . '/login" class="btn btn-sm btn-primary fw-bold text-warning">Crear guía</a>';
+            $html .= '</p>';
+            $html .= '</div>';
+            $html .= '</div>';
+        }
+         
+
+        Log::info(__CLASS__." ".__FUNCTION__." ".__LINE__);
+        return $html;
 
     }
 

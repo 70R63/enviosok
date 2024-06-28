@@ -7,8 +7,9 @@
     	<div class="row">
 			<div class="input-group mb-3">
 				<div class="input-group-prepend">
-					<span class="input-group-text" id="basic-addon1">NOMBRE
+					<span class="input-group-text" id="basic-addon1">NOMBRE<span class="tx-danger">*</span>
 					</span>
+
 				</div>
 
 				{!! Form::text('nombre_d'
@@ -23,7 +24,7 @@
 
 			<div class="input-group mb-3">
 				<div class="input-group-prepend">
-					<span class="input-group-text" id="basic-addon1">CONTACTO
+					<span class="input-group-text" id="basic-addon1">CONTACTO<span class="tx-danger">*</span>
 					</span>
 				</div>
 
@@ -37,26 +38,10 @@
 				!!}
 			</div>
 
-			<div class="input-group mb-3">
-				<div class="input-group-prepend">
-					<span class="input-group-text" id="basic-addon1">DIRECCIÓN
-					</span>
-				</div>
-
-				{!! Form::text('direccion_d'
-					, ''
-					,['class' 		=> 'form-control'
-						,'id'		=> 'direccion_d'
-						,'required'	=>	'true'
-
-					])
-				!!}
-			</div>
-
             <div class="input-group">
                 <div class="input-group mb-3">
                     <div class="input-group-prepend">
-						<span class="input-group-text" id="basic-addon1">C.P.
+						<span class="input-group-text" id="basic-addon1">C.P.<span class="tx-danger">*</span>
 						</span>
                     </div>
                     {!! Form::text('cp_d'
@@ -69,7 +54,7 @@
                     !!}
 
                     <div class="input-group-prepend">
-						<span class="input-group-text" id="basic-addon1">ENTIDAD FEDERATIVA
+						<span class="input-group-text" id="basic-addon1">ENTIDAD FEDERATIVA<span class="tx-danger">*</span>
 						</span>
                     </div>
                     {!! Form::text('estado_d'
@@ -85,10 +70,10 @@
                 <input type="hidden" class="codigo_estado" name="codigo_estado">
                 <input type="hidden" class="tipo_asentamiento" name="tipo_asentamiento" value="">
                 <div class="input-group-prepend">
-						<span class="input-group-text" id="basic-addon1">MUNICIPIO / ALCALDÍA
+						<span class="input-group-text" id="basic-addon1">MUNICIPIO / ALCALDÍA<span class="tx-danger">*</span>
 						</span>
                 </div>
-                {!! Form::text('municipio_alcaldia'
+                {!! Form::text('municipio_alcaldia_d'
                     , @$sucursal ? @$sucursal->domicilio->municipio_alcaldia : null
                     ,['class' 		=> 'form-control municipio_alcaldia'
                         ,'required'	=>	'true'
@@ -98,8 +83,8 @@
 
             <div class="input-group mb-3 div-colonia-cp col-md-6 p-0">
                 <div class="input-group-prepend">
-                            <span class="input-group-text" id="basic-addon1">COLONIA 1
-                            </span>
+                    <span class="input-group-text" id="basic-addon1">COLONIA
+                    </span>
                 </div>
 
                 {!! Form::text('colonia_d'
@@ -111,10 +96,10 @@
             </div>
             <div class="input-group mb-3 col-md-6 p-0">
                 <div class="input-group-prepend">
-						<span class="input-group-text" id="basic-addon1">CALLE 1
+						<span class="input-group-text" id="basic-addon1">CALLE <span class="tx-danger">*</span>
 						</span>
                 </div>
-                {!! Form::text('calle'
+                {!! Form::text('calle_d'
                     , ''
                     ,['class' 		=> 'form-control calle'
                         ,'required'	=>	'true'
@@ -125,7 +110,7 @@
 
             <div class="input-group mb-3 p-0"_d>
                 <div class="input-group-prepend">
-						<span class="input-group-text" id="basic-addon1">CIUDAD
+						<span class="input-group-text" id="basic-addon1">CIUDAD<span class="tx-danger">*</span>
 						</span>
                 </div>
                 {!! Form::text('ciudad_d'
@@ -135,7 +120,7 @@
                     ])
                 !!}
                 <div class="input-group-prepend">
-						<span class="input-group-text" id="basic-addon1">NÚMERO EXTERIOR
+						<span class="input-group-text" id="basic-addon1">NÚMERO EXTERIOR<span class="tx-danger">*</span>
 						</span>
                 </div>
 
@@ -159,7 +144,7 @@
                 !!}
 
                 <div class="input-group-prepend">
-						<span class="input-group-text" id="basic-addon1">TIPO DE VIALIDAD
+						<span class="input-group-text" id="basic-addon1">TIPO DE VIALIDAD<span class="tx-danger">*</span>
 						</span>
                 </div>
                 <select name="tipo_vialidad_id_d" class="form-control tipo_vialidad_id" required>
@@ -185,7 +170,7 @@
 
 			<div class="input-group mb-3">
 				<div class="input-group-prepend">
-					<span class="input-group-text" id="basic-addon1">CELULAR
+					<span class="input-group-text" id="basic-addon1">CELULAR<span class="tx-danger">*</span>
 					</span>
 				</div>
 

@@ -7,7 +7,7 @@
     	<div class="row">
 			<div class="input-group mb-3">
 				<div class="input-group-prepend">
-					<span class="input-group-text" id="basic-addon1">NOMBRE
+					<span class="input-group-text" id="basic-addon1">NOMBRE<span class="tx-danger">*</span>
 					</span>
 				</div>
 
@@ -23,7 +23,7 @@
 
 			<div class="input-group mb-3">
 				<div class="input-group-prepend">
-					<span class="input-group-text" id="basic-addon1">CONTACTO
+					<span class="input-group-text" id="basic-addon1">CONTACTO<span class="tx-danger">*</span>
 					</span>
 				</div>
 
@@ -37,26 +37,11 @@
 				!!}
 			</div>
 
-			<div class="input-group mb-3">
-				<div class="input-group-prepend">
-					<span class="input-group-text" id="basic-addon1">DIRECCIÓN
-					</span>
-				</div>
-
-				{!! Form::text('direccion'
-					, ''
-					,['class' 		=> 'form-control'
-						,'id'		=> 'direccion'
-						,'required'	=>	'true'
-
-					])
-				!!}
-			</div>
-
+			
             <div class="input-group">
                 <div class="input-group mb-3">
                     <div class="input-group-prepend">
-						<span class="input-group-text" id="basic-addon1">C.P.
+						<span class="input-group-text" id="basic-addon1">C.P.<span class="tx-danger">*</span>
 						</span>
                     </div>
                     {!! Form::text('cp'
@@ -69,7 +54,7 @@
                     !!}
 
                     <div class="input-group-prepend">
-						<span class="input-group-text" id="basic-addon1">ENTIDAD FEDERATIVA
+						<span class="input-group-text" id="basic-addon1">ENTIDAD FEDERATIVA<span class="tx-danger">*</span>
 						</span>
                     </div>
                     {!! Form::text('estado'
@@ -85,7 +70,7 @@
                 <input type="hidden" class="codigo_estado" name="codigo_estado">
                 <input type="hidden" class="tipo_asentamiento" name="tipo_asentamiento" value="">
                 <div class="input-group-prepend">
-						<span class="input-group-text" id="basic-addon1">MUNICIPIO / ALCALDÍA
+						<span class="input-group-text" id="basic-addon1">MUNICIPIO / ALCALDÍA<span class="tx-danger">*</span>
 						</span>
                 </div>
                 {!! Form::text('municipio_alcaldia'
@@ -98,8 +83,8 @@
 
             <div class="input-group mb-3 div-colonia-cp col-md-6 p-0">
                 <div class="input-group-prepend">
-                            <span class="input-group-text" id="basic-addon1">COLONIA
-                            </span>
+                    <span class="input-group-text" id="basic-addon1">COLONIA<span class="tx-danger">*</span>
+                    </span>
                 </div>
 
                 {!! Form::text('colonia'
@@ -111,7 +96,7 @@
             </div>
             <div class="input-group mb-3 col-md-6 p-0">
                 <div class="input-group-prepend">
-						<span class="input-group-text" id="basic-addon1">CALLE
+						<span class="input-group-text" id="basic-addon1">CALLE<span class="tx-danger">*</span>
 						</span>
                 </div>
                 {!! Form::text('calle'
@@ -125,7 +110,7 @@
 
             <div class="input-group mb-3 p-0">
                 <div class="input-group-prepend">
-						<span class="input-group-text" id="basic-addon1">CIUDAD
+						<span class="input-group-text" id="basic-addon1">CIUDAD<span class="tx-danger">*</span>
 						</span>
                 </div>
                 {!! Form::text('ciudad'
@@ -135,7 +120,7 @@
                     ])
                 !!}
                 <div class="input-group-prepend">
-						<span class="input-group-text" id="basic-addon1">NÚMERO EXTERIOR
+						<span class="input-group-text" id="basic-addon1">NÚMERO EXTERIOR<span class="tx-danger">*</span>
 						</span>
                 </div>
 
@@ -187,7 +172,7 @@
 
 			<div class="input-group mb-3">
 				<div class="input-group-prepend">
-					<span class="input-group-text" id="basic-addon1">CELULAR
+					<span class="input-group-text" id="basic-addon1">CELULAR<span class="tx-danger">*</span>
 					</span>
 				</div>
 

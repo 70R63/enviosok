@@ -38,7 +38,7 @@ class Tarifa extends Model
     /**
      * Se crea un scope con la base del query para tarifas con difernetes forams de tarificar
      */
-    public function scopeBase($query, $empresa_id,$cp_d, $ltdId ){
+    public function scopeBase($query,$cp_d, $ltdId ){
 
         Log::info(__CLASS__." ".__FUNCTION__." ".__LINE__);
 
@@ -67,7 +67,7 @@ class Tarifa extends Model
                     ->where('cp',$cp_d)
                     ->get()->toArray();
 
-            Log::debug(print_r($ltdCobertura,true));
+            Log::debug(__CLASS__." ".__FUNCTION__." ".__LINE__." ".print_r($ltdCobertura,true));
 
 
             if ( count($ltdCobertura) >= 1){
@@ -152,6 +152,12 @@ class Tarifa extends Model
     public function scopePesoFacturado($query, $pesoFacturado ){
         return $query->where("tarifas.kg_ini",$pesoFacturado)
                 ->where("tarifas.kg_fin",$pesoFacturado)
+                ;
+    }
+
+    public function scopeZona($query, $zona ){
+        return $query->where("tarifas.zona",$zona)
+                
                 ;
     }
 

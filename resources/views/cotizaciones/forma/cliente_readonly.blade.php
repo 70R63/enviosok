@@ -38,21 +38,7 @@
 				!!}
 			</div>
 
-			<div class="input-group mb-3">
-				<div class="input-group-prepend">
-					<span class="input-group-text" id="basic-addon1">DIRECCIÓN
-					</span>
-				</div>
-
-				{!! Form::text('direccion_d'
-					, $cliente->direccion
-					,['class' 		=> 'form-control'
-						,'id'		=> 'direccion_d'
-						,'required'	=>	'true'
-						,'readonly' =>  'true'
-					])
-				!!}
-			</div>
+			
 
             <div class="input-group">
                 <div class="input-group mb-3">
@@ -69,7 +55,7 @@
                     !!}
 
                     <div class="input-group-prepend">
-						<span class="input-group-text" id="basic-addon1">ENTIDAD FEDERATIVA
+						<span class="input-group-text" id="basic-addon1">ENTIDAD FEDERATIVA bRO
 						</span>
                     </div>
                     {!! Form::text('estado_d'
@@ -102,11 +88,11 @@
 
             <div class="input-group mb-3 div-colonia-cp col-md-6 p-0">
                 <div class="input-group-prepend">
-                            <span class="input-group-text" id="basic-addon1">COLONIA
+                            <span class="input-group-text" id="basic-addon1">COLONIA 1
                             </span>
                 </div>
 
-                {!! Form::text('colonia'
+                {!! Form::text('colonia_d'
                     , @$cliente ? @$cliente->domicilio->colonia : null
                     ,['class' 		=> 'form-control colonia'
                         ,'required'	=>	'true'

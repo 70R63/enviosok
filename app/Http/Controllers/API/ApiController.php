@@ -9,6 +9,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Response;
 
+use App\Negocio\Guias\Cotizacion as nCotizacion;
+
 class ApiController extends Controller
 {
     /**
@@ -141,93 +143,14 @@ class ApiController extends Controller
 
 
     public function cotizar(Request $request){
-        $cp_origen = explode(' - ',$request->origen)[1] ?? $request->origen;
-        $cp_destino = explode(' - ',$request->destino)[1] ?? $request->destino;
-        $peso = $request->peso;
-        $alto = $request->alto;
-        $largo = $request->largo;
-        $ancho = $request->ancho;
+        
         /**
          * Aquí implementar la lógica de cotización utilizando las variables anteriores
          * con base a los resultados armar el html de respuesta como el siguiente
          */
-        $html="";
-        $url_base = config('app.url');
-        $resultadosDemo=[
-            'estafeta'=>[
-                [
-                    'tipo'=>'Económico',
-                    'estimado'=>"De 2 a 7 días hábiles",
-                    'precio'=>'$150.00'
-                ],
-                [
-                    'tipo'=>'Express',
-                    'estimado'=>"De 1 a 2 días hábiles",
-                    'precio'=>'$190.00'
-                ],
-            ],
-            'fedex'=>[
-                [
-                    'tipo'=>'Económico',
-                    'estimado'=>"De 2 a 7 días hábiles",
-                    'precio'=>'$1850.00'
-                ],
-                [
-                    'tipo'=>'Express',
-                    'estimado'=>"De 1 a 2 días hábiles",
-                    'precio'=>'$220.00'
-                ],
-            ],
-            'dhl'=>[
-                [
-                    'tipo'=>'Económico',
-                    'estimado'=>"De 2 a 7 días hábiles",
-                    'precio'=>'$290.00'
-                ],
-                [
-                    'tipo'=>'Express',
-                    'estimado'=>"De 1 a 2 días hábiles",
-                    'precio'=>'$275.00'
-                ],
-            ],
-            'ups'=>[]
-        ];
-
-        foreach ($resultadosDemo as $codigo => $opciones) {
-            if (!empty($opciones)) {
-                foreach ($opciones as $opcion) {
-                    $html .= '<div class="row border rounded-4 py-2 my-2 align-items-center">';
-                    $html .= '<div class="col-md-3 text-center">';
-                    $html .= '<img style="max-width: 100px" src="' . $url_base . '/img/' . $codigo . '.png" alt="' . ucfirst($codigo) . '">';
-                    $html .= '</div>';
-                    $html .= '<div class="col-md-3 text-center">';
-                    $html .= '<h6 class="fw-bold">Tipo de envío</h6>';
-                    $html .= '<span class="badge bg-'.($opcion['tipo']=='Económico'?'primary':'warning').'">' . $opcion['tipo'] . '</span><br>';
-                    $html .= '</div>';
-                    $html .= '<div class="col-md-3 text-center">';
-                    $html .= '<h6 class="fw-bold">Estimado de entrega</h6>';
-                    $html .= '<p class="text-'.($opcion['tipo']=='Económico'?'primary':'warning').' fw-semibold m-0">' . $opcion['estimado'] . '</p>';
-                    $html .= '</div>';
-                    $html .= '<div class="col-md-3 text-center">';
-                    $html .= '<h4 class="fw-bold mb-0">' . $opcion['precio'] . '</h4>';
-                    $html .= '<p class="small m-0">Último precio</p>';
-                    $html .= '<p class="m-0">';
-                    $html .= '<a href="' . $url_base . '/login" class="btn btn-sm btn-primary fw-bold text-warning">Crear guía</a>';
-                    $html .= '</p>';
-                    $html .= '</div>';
-                    $html .= '</div>';
-                }
-            } else {
-                $html .= '<div class="row border rounded-4 py-2 my-2 align-items-center">';
-                $html .= '<div class="col-md-3 text-center py-2">';
-                $html .= '<img style="max-height: 50px" src="' . $url_base . '/img/' . $codigo . '.png" alt="' . ucfirst($codigo) . '">';
-                $html .= '</div>';
-                $html .= '<div class="col-md-8 text-center">';
-                $html .= '<h6 class="fw-bold text-danger">No disponible</h6>';
-                $html .= '</div>';
-                $html .= '</div>';
-            }
-        }
+        $nCotizacion = new nCotizacion();
+        $nCotizacion->externa($request);
+        $html = $nCotizacion->externaHtml();
 
         return Response::json([
             'html' => $html
