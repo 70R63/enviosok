@@ -7,29 +7,29 @@
     "file": "assets/bariol_regular_italic-webfont.100c29ef.woff",
     "src": "resources/fonts/bariol_regular_italic-webfont.woff"
   },
-  "resources/fonts/bariol_thin-webfont.woff": {
-    "file": "assets/bariol_thin-webfont.267ea721.woff",
-    "src": "resources/fonts/bariol_thin-webfont.woff"
+  "resources/fonts/bariol_thin_italic-webfont.woff": {
+    "file": "assets/bariol_thin_italic-webfont.fb7bc084.woff",
+    "src": "resources/fonts/bariol_thin_italic-webfont.woff"
   },
   "resources/fonts/bariol_light-webfont.woff": {
     "file": "assets/bariol_light-webfont.853103b7.woff",
     "src": "resources/fonts/bariol_light-webfont.woff"
   },
-  "resources/fonts/bariol_thin_italic-webfont.woff": {
-    "file": "assets/bariol_thin_italic-webfont.fb7bc084.woff",
-    "src": "resources/fonts/bariol_thin_italic-webfont.woff"
+  "resources/fonts/bariol_thin-webfont.woff": {
+    "file": "assets/bariol_thin-webfont.267ea721.woff",
+    "src": "resources/fonts/bariol_thin-webfont.woff"
   },
   "resources/fonts/bariol_light_italic-webfont.woff": {
     "file": "assets/bariol_light_italic-webfont.64e974a2.woff",
     "src": "resources/fonts/bariol_light_italic-webfont.woff"
   },
-  "resources/fonts/bariol_bold_italic-webfont.woff": {
-    "file": "assets/bariol_bold_italic-webfont.18bc1041.woff",
-    "src": "resources/fonts/bariol_bold_italic-webfont.woff"
-  },
   "resources/fonts/bariol_bold-webfont.woff": {
     "file": "assets/bariol_bold-webfont.99e3997c.woff",
     "src": "resources/fonts/bariol_bold-webfont.woff"
+  },
+  "resources/fonts/bariol_bold_italic-webfont.woff": {
+    "file": "assets/bariol_bold_italic-webfont.18bc1041.woff",
+    "src": "resources/fonts/bariol_bold_italic-webfont.woff"
   },
   "public/assets/patterns/wave.svg": {
     "file": "assets/wave.42cce741.svg",

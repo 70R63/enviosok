@@ -46,7 +46,7 @@ class Tarifa extends Model
         ->join('cfg_ltds', 'tarifas.ltds_id', '=', 'cfg_ltds.id')
         ->join('servicios','servicios.id', '=', 'tarifas.servicio_id')
         ->join('ltd_coberturas','ltd_coberturas.ltd_id', '=', 'tarifas.ltds_id')
-       
+
         ->where('ltd_coberturas.cp', $cp_d)
         ->where('ltd_coberturas.ltd_id', $ltdId)
         ;
@@ -73,8 +73,8 @@ class Tarifa extends Model
             if ( count($ltdCobertura) >= 1){
                 Log::info(__CLASS__." ".__FUNCTION__." ".__LINE__);
                 $ltdCobertura = $ltdCobertura[0];
-                
-                $servicio = Servicio::where('nombre', 'like',$ltdCobertura['garantia'])
+
+                $servicio = Servicio::where('nombre', 'like',str_replace('.','',$ltdCobertura['garantia']))
                     ->where('estatus',1)
                     ->get()->toArray()[0];
 
@@ -157,7 +157,7 @@ class Tarifa extends Model
 
     public function scopeZona($query, $zona ){
         return $query->where("tarifas.zona",$zona)
-                
+
                 ;
     }
 
