@@ -106,7 +106,7 @@
 						<span class="input-group-text" id="basic-addon1">CALLE
 						</span>
                 </div>
-                {!! Form::text('calle'
+                {!! Form::text('calle_d'
                     , @$cliente ? $cliente->domicilio->calle : null
                     ,['class' 		=> 'form-control calle'
                         ,'required'	=>	'true'
@@ -121,7 +121,7 @@
 						<span class="input-group-text" id="basic-addon1">CIUDAD
 						</span>
                 </div>
-                {!! Form::text('ciudad'
+                {!! Form::text('ciudad_d'
                     , @$cliente ? $cliente->domicilio->ciudad : null
                     ,['class' 		=> 'form-control ciudad'
                         ,'required'	=>	'true'
@@ -133,7 +133,7 @@
 						</span>
                 </div>
 
-                {!! Form::text('no_exterior'
+                {!! Form::text('no_exterior_d'
                     , @$cliente ? $cliente->domicilio->no_exterior : null
                     ,['class' 		=> 'form-control no_exterior'
                         ,'required'	=>	'true'
@@ -147,7 +147,7 @@
 						<span class="input-group-text" id="basic-addon1">NÚMERO INTERIOR
 						</span>
                 </div>
-                {!! Form::text('no_interior'
+                {!! Form::text('no_interior_d'
                     , @$cliente ? $cliente->domicilio->no_interior : null
                     ,['class' 		=> 'form-control no_interior'
                     ,'readonly' =>  'true'
