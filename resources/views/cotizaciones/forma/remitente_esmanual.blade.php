@@ -46,7 +46,7 @@
                     </div>
                     {!! Form::text('cp'
                         , $_GET['cp_manual']
-                        ,['class' 		=> 'form-control cp'
+                        ,['class' 		=> 'form-control '
                             ,'required'	=>	'true'
                             , 'id' => 'cp'
                             ,'readonly' =>'true'

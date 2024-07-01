@@ -289,9 +289,9 @@ class GuiaController extends Controller
         try {
 
             $requestInicial = $request->except(['_token']);
+            $requestInicial['colonia_d'] = "Los Heroes";
             $empresa_id = auth()->user()->empresa_id;
             $plataforma = 'WEB';
-            
      
             $empresas = EmpresaEmpresas::where('empresa_id',$empresa_id)->pluck('id')->toArray();
             
@@ -364,7 +364,7 @@ class GuiaController extends Controller
             
             $saldo = new Saldos();
             $saldo->menosPrecio($request["sucursal_id"], $request["precio"]);
-
+/*
             $nFacturacionCFDI = new nFacturacionCFDI();
             #$nFacturacion->obtenerToken();
            
@@ -373,6 +373,7 @@ class GuiaController extends Controller
             $requestInicial['municipio_alcaldia_d']= "calle duro";
             #$requestInicial['cp']= "06470";
             #requestInicial['cp_d']= "06470";
+            
             Log::info(__CLASS__." ".__FUNCTION__." ".__LINE__);
             $nFacturacionCFDI->crear($requestInicial);
 
@@ -384,9 +385,7 @@ class GuiaController extends Controller
                 $errors[] = $nFacturacionCFDI->getErrors();
             }
             
-            
-
-            Log::info(__CLASS__." ".__FUNCTION__." ".__LINE__);
+            */
 
             Log::info(__CLASS__." ".__FUNCTION__." store Fin ----------------------------");
             Log::debug(__CLASS__." ".__FUNCTION__." INDEX_r");
@@ -486,8 +485,9 @@ class GuiaController extends Controller
 
             $requestInicial = $request->except(['_token']);
             $numeroDeSolicitud = Carbon::now()->timestamp;
-            $nCreacion = new nCreacion();
 
+            $request['colonia_d'] = "Los Heroes";
+            $nCreacion = new nCreacion();
             $nCreacion->fedex($request, "WEB");
             $nCreacion->recurenciaPorDocumento($request, $numeroDeSolicitud);
 
@@ -523,7 +523,7 @@ class GuiaController extends Controller
        
 
         } catch (\GuzzleHttp\Exception\RequestException $re) {
-            Log::info(__CLASS__." ".__FUNCTION__." RequestException INICIO ------------------");
+            Log::info(__CLASS__." ".__FUNCTION__." ".__LINE__." RequestException INICIO ------------------");
             $response = ($re->getResponse());
             $responseContenido = json_decode($response->getBody()->getContents());    
 
