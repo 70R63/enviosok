@@ -38,7 +38,7 @@ class Tarifa extends Model
     /**
      * Se crea un scope con la base del query para tarifas con difernetes forams de tarificar
      */
-    public function scopeBase($query, $empresa_id,$cp_d, $ltdId ){
+    public function scopeBase($query, $cp_d, $ltdId ){
 
         Log::info(__CLASS__." ".__FUNCTION__." ".__LINE__);
 
@@ -74,7 +74,7 @@ class Tarifa extends Model
                 Log::info(__CLASS__." ".__FUNCTION__." ".__LINE__);
                 $ltdCobertura = $ltdCobertura[0];
 
-                $servicio = Servicio::where('nombre', 'like',str_replace('.','',$ltdCobertura['garantia']))
+                $servicio = Servicio::where('nombre', 'like',$ltdCobertura['garantia'])
                     ->where('estatus',1)
                     ->get()->toArray()[0];
 

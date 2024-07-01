@@ -182,6 +182,7 @@ function tablaSaldosPagos(){
 
                 ,columns: [
                     { "data": "pago_id" }
+                    ,{ "data": "csf_completo"}
                     ,{ "data": "fecha_pago"}
                     ,{ "data": "users_nombre" }
                     ,{ "data": "empresa_nombre" }

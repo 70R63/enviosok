@@ -46,9 +46,4 @@ function initAjaxSaldoPorEmpresa(){
 
 }
 
-var intervalId = window.setInterval(function(){
-    
-    //initAjaxSaldoPorEmpresa()
-    
 
-}, 10000);
