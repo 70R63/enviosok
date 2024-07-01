@@ -125,6 +125,8 @@ $('input.search').on('keyup change', function () {
 
 
 function tablaSaldosPagos(){
+
+    console.log("tablaSaldosPagos")
     
  $.ajax({
         //url: uri,
@@ -135,7 +137,7 @@ function tablaSaldosPagos(){
         
         /* remind that 'data' is the response of the AjaxController */
     }).done(function( response) {
-        //console.log(response.data)
+        
         table = $('#tablaSaldosPagosAjax').DataTable({
                 "oLanguage": {
                     "sEmptyTable": "No se puede mostrar los registros"
@@ -149,7 +151,7 @@ function tablaSaldosPagos(){
                 ,bDestroy: true
                 ,data: response.data
                 ,autoWidth: false
-                ,order: [[0, 'desc']]
+                ,order: [[2, 'desc']]
                 ,lengthMenu: [
                     [ 10, 25, 50, -1 ],
                     [ '10', '25', '50', 'Todo' ]
@@ -181,8 +183,16 @@ function tablaSaldosPagos(){
                ]
 
                 ,columns: [
-                    { "data": "pago_id" }
-                    ,{ "data": "csf_completo"}
+                    { "data": "estatus" 
+                        ,render: function(data, type, row){   
+                            return linkEstatusPago(row); 
+                        }
+                    }
+                    ,{ "data": "csf_completo"
+                        ,render: function(data, type, row){   
+                            return linkFacturacion(row); 
+                        }
+                    }
                     ,{ "data": "fecha_pago"}
                     ,{ "data": "users_nombre" }
                     ,{ "data": "empresa_nombre" }
@@ -216,4 +226,34 @@ $('input.search').on('keyup change', function () {
     table.columns(rel).search(this.value).draw();
 });
 
+function linkFacturacion(row){
+
+    
+    if (row.csf_completo === 'SI' && row.esFacturable === 'SI'){
+        html='<a href="#" rel="noopener noreferrer" class="text-dark"> \
+            <span class="badge badge-info badge-pill tx-14"> FACTURAR</span></a>';
+    } else {
+        html='<a href="#" rel="noopener noreferrer" class="text-dark"> \
+            <span class="badge badge-danger badge-pill tx-14">NO FACTURABLE</span></a>';
+    }
+    
+
+    return html;
 };
+
+function linkEstatusPago(row){
+
+    if (row.esFacturable === 'SI'){
+        html='<a href="#" rel="noopener noreferrer" class="text-dark"> \
+            <span class="badge badge-info badge-pill tx-14"> ACREDITADO</span></a>';
+    } else {
+        html='<a href="#" rel="noopener noreferrer" class="text-dark"> \
+            <span class="badge badge-danger badge-pill tx-14">NO ACREDITADO</span></a>';
+    }
+    
+
+    return html;
+};
+
+};
+

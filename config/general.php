@@ -63,6 +63,7 @@ return [
         ,'Colima'=>'CL'
         ,'Durango'=>'DG'
         ,'Estado de México'=>'EM'
+        ,'Estado de Mexico'=>'EM'
         ,'México'=>'EM'
         ,'Mexico' => 'EM'
         ,'Guanajuato'=>'GT'

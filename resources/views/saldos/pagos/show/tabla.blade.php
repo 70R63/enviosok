@@ -2,8 +2,9 @@
     <table id="tablaSaldosPagosAjax" class="table table-striped table-bordered text-nowrap " >
         <thead>
             <tr>
-                <th>PAGO ID </th>
-                <th >FECHA PAGO </th>
+                <th>ESTATUS </th>
+                <th>FACTURA </th>
+                <th>FECHA PAGO </th>
                 <th>USUARIO  </th>  
                 <th>CLIENTE  </th>  
                 <th>BANCO </th>
@@ -12,6 +13,7 @@
                 <th>DESCRIPCION</th>
             </tr>
             <tr>
+                <td></td>
                 <td></td>
                 <td></td>
                 <td><input rel="2" type="text" class="search" name="usuario"></td>
@@ -25,7 +27,8 @@
                                 
         <tfoot>
             <tr>
-                <th>PAGO ID </th>
+                <th>ESTATUS </th>
+                <th>FACTURA </th>
                 <th>FECHA PAGO </th>
                 <th>USUARIO  </th>
                 <th>CLIENTE  </th>  

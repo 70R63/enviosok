@@ -197,21 +197,25 @@ class DatosFiscales {
         $mDomicilio->update($dataDomicio);
 
         Log::info($this->numeroDeSolicitud." ".__CLASS__." ".__FUNCTION__." ".__LINE__);
-
-        $constanciaFiscal = ConstanciaFiscal::where("empresa_id",auth()->user()->empresa_id)->first();
-
-        Log::info($this->numeroDeSolicitud." ".__CLASS__." ".__FUNCTION__." ".__LINE__);
         Log::info(print_r($_FILES['csf_pdf'],true));
         $data['ruta_csf_pdf'] = $_FILES['csf_pdf']['name'];
 
         Storage::disk('public')->put("csf/".$data['ruta_csf_pdf'], file_get_contents($_FILES['csf_pdf']['tmp_name']));
 
+         Log::info($this->numeroDeSolicitud." ".__CLASS__." ".__FUNCTION__." ".__LINE__);
+
+        $constanciaFiscal = ConstanciaFiscal::where("empresa_id",auth()->user()->empresa_id)
+        
+        ;
+
         $constanciaFiscalId = 0;
-        if ( $constanciaFiscal->count() < 1 ) {
+        if ( count($constanciaFiscal->get()->toArray()) < 1 ) {
             Log::info($this->numeroDeSolicitud." ".__CLASS__." ".__FUNCTION__." ".__LINE__);
             $constanciaFiscalId = ConstanciaFiscal::create($data)->id;
         } else {
-            $constanciaFiscal->update($data);
+            Log::info($this->numeroDeSolicitud." ".__CLASS__." ".__FUNCTION__." ".__LINE__);
+            $constanciaFiscalTmp = $constanciaFiscal->first();
+            $constanciaFiscalTmp->update($data);
         }
 
         Log::info($this->numeroDeSolicitud." ".__CLASS__." ".__FUNCTION__." ".__LINE__);

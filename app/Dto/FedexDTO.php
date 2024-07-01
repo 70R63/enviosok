@@ -54,7 +54,7 @@ class FedexDTO
 				) 
 			);
 		Log::info(__CLASS__." ".__FUNCTION__." ".__LINE__);
-		$direccion = sprintf("%s %s %s,%s",$request['calle'],$request['no_int'],$request['no_ext'],$request['direccion2'] );
+		$direccion = sprintf("%s %s %s,%s",$request['calle'],$request['no_interior'],$request['no_exterior'],$request['direccion2'] );
 		$streetLines = str_split($this->quitar_acentos($direccion),35);
 
 		//Validacion temporal Entidad Federativa
@@ -81,8 +81,13 @@ class FedexDTO
 			);
 
 		Log::info(__CLASS__." ".__FUNCTION__." ".__LINE__);
-		$direccion_d = sprintf("%s %s %s,%s",$request['calle_d'],$request['no_int_d'],$request['no_ext_d'],$request['direccion2_d'] );
+		$direccion_d = sprintf("%s %s %s,%s",$request['calle_d'],$request['no_interior_d'],$request['no_exterior_d'],$request['direccion2_d'] );
 		$streetLines_d = str_split($this->quitar_acentos($direccion_d),35);
+
+
+		Log::info(__CLASS__." ".__FUNCTION__." ".__LINE__." ".print_r(config('general.stateOrProvinceCode'),true));
+
+		Log::info(__CLASS__." ".__FUNCTION__." ".__LINE__." ".print_r($request['estado_d'],true));
 
 		if (strlen($request['estado_d']) ===2 ){
 			$stateOrProvinceCode_d = $request['estado_d'];

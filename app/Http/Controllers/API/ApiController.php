@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\API;
 
+use Log;
 use App\Http\Controllers\Controller;
 use App\Models\CP;
 use App\Models\SEPOMEX;
@@ -10,6 +11,9 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Response;
 
 use App\Negocio\Guias\Cotizacion as nCotizacion;
+
+use Exception;
+use Illuminate\Validation\ValidationException;
 
 class ApiController extends Controller
 {
@@ -55,7 +59,7 @@ class ApiController extends Controller
 
     public function domicilio(Request $request)
     {
-
+        Log::info(__CLASS__." ".__FUNCTION__." ".__LINE__." ". print_r($request->all(),true)); 
         $domicilio = SEPOMEX::where('d_codigo', $request->cp)->first();
         $colonias = SEPOMEX::where('d_codigo', $request->cp)->pluck('d_tipo_asenta','d_asenta');
         if(!isset($domicilio->d_codigo)){
@@ -63,9 +67,14 @@ class ApiController extends Controller
                 'mensaje' => 'sin resultados'
             ], 200);
         }
+
+        $esDestino="";
+        if ($request['esDestino'] === "SI") {
+            $esDestino="_d";
+        }
         $html = '';
         if(!empty($colonias)){
-            $html .= '<select id="colonia" class="form-control select-colonia" name="colonia">';
+            $html .= '<select id="colonia'.$esDestino.'" class="form-control select-colonia" name="colonia'.$esDestino.'">';
             foreach ($colonias as $colonia => $tipo) {
                 $html .= '<option value="'.$colonia.'" data-tipoAsenta="'.$tipo.'">'.$colonia.'</option>';
             }
@@ -73,7 +82,7 @@ class ApiController extends Controller
 
             $html .= '</select>';
         }else{
-            $html .= '<input type="text" class="form-control" id="colonia" name="colonia" value="">';
+            $html .= '<input type="text" class="form-control" id="colonia'.$esDestino.'" name="colonia'.$esDestino.'" value="">';
         }
         return Response::json([
             'mensaje' => 'resultados',
@@ -148,13 +157,38 @@ class ApiController extends Controller
          * Aquí implementar la lógica de cotización utilizando las variables anteriores
          * con base a los resultados armar el html de respuesta como el siguiente
          */
-        $nCotizacion = new nCotizacion();
-        $nCotizacion->externa($request);
-        $html = $nCotizacion->externaHtml();
+        try {
+            $nCotizacion = new nCotizacion();
+            $nCotizacion->externa($request);
+            $html = $nCotizacion->externaHtml();
 
-        return Response::json([
-            'html' => $html
-        ], 200);
+            
+            return Response::json([
+                'html' => $html
+            ], 200);
 
+
+         } catch ( ValidationException $ex) {
+            Log::info(__CLASS__." ".__FUNCTION__." ".__LINE__." ValidationException");
+            $mensaje = $ex->getMessage();
+            Log::debug( print_r($mensaje,true) );
+
+        } catch (ErrorException $ex) {
+            Log::info(__CLASS__." ".__FUNCTION__." ErrorException");
+            Log::debug(print_r($ex,true));
+
+            $mensaje =$ex->getMessage();
+
+        } catch (HttpException $ex) {
+            Log::info(__CLASS__." ".__FUNCTION__." HttpException");
+            $resultado = $ex;
+            $mensaje = $ex->getMessage();
+        } catch (Exception $e) {
+            Log::info(__CLASS__." ".__FUNCTION__." Exception");
+            Log::debug(print_r($e->getMessage(),true ));
+           $mensaje = $e->getMessage();
+        }
+
+        return $this->sendError("Exception",$mensaje, "400");
     }
 }

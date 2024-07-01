@@ -107,7 +107,6 @@ class EstafetaDTO
 
         $this->ltdTipoServicio = LtdTipoServicio::where('service_id',$data['servicio_id'])
             ->where('ltd_id',2)
-            //->whereIN('empresa_id',$empresas)
             ->where('estatus',1)
             ->first()
             
@@ -256,8 +255,8 @@ class EstafetaDTO
         $address->zipCode = $data['cp'];
         $address->roadName = str_split($data['calle'],50)[0];
         $address->settlementName = str_split($data['colonia'],57)[0];
-        $address->externalNum = ( isset($data['no_ext']) ) ? $data["no_ext"] : "NA" ; //chs 20240519
-        $address->indoorInformation = (empty($data['no_int']) ? "" : $data['no_int']);
+        $address->externalNum = ( isset($data['no_exterior']) ) ? $data["no_exterior"] : "NA" ; //chs 20240519
+        $address->indoorInformation = (empty($data['no_interior']) ? "" : $data['no_interior']);
 
         $contact = new Contact();
         $contact->corporateName= str_split($data['nombre'],50)[0];

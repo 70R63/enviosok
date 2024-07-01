@@ -1,4 +1,5 @@
 document.addEventListener('DOMContentLoaded', function () {
+    console.log("Revisoin cp")
     //$('.selects').selectpicker();
     var cp = document.getElementById("cp");
     var cpDestino = document.getElementById("cp_d");
@@ -9,19 +10,20 @@ document.addEventListener('DOMContentLoaded', function () {
     }, false);
     if (cpDestino) cpDestino.addEventListener("keyup", function () {
         if (this.value.length == 5) {
-            setDomicilioAjax(this.value,null,this);
+            setDomicilioAjax(this.value,null,this, "SI");
         }
     }, false);
 
     /*Ajax buscar domicilio*/
-    window.setDomicilioAjax = function (cp, colonia = null,elemento) {
+    window.setDomicilioAjax = function (cp, colonia = null,elemento,esDestino="NO") {
         var token = document.head.querySelector('meta[name="csrf-token"]');
         var url = url_base;
         var padre = elemento.closest('.card-body');
         if(!padre) padre = elemento.closest('form');
         $.post(url + '/api/domicilio', {
             cp: cp,
-            _token: token.content
+            _token: token.content,
+            esDestino:esDestino
         })
             .done(function (response) {
                 var domicilio = response.domicilio;

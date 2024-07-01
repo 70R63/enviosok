@@ -289,7 +289,6 @@ class GuiaController extends Controller
         try {
 
             $requestInicial = $request->except(['_token']);
-            $requestInicial['colonia_d'] = "Los Heroes";
             $empresa_id = auth()->user()->empresa_id;
             $plataforma = 'WEB';
      
@@ -486,7 +485,6 @@ class GuiaController extends Controller
             $requestInicial = $request->except(['_token']);
             $numeroDeSolicitud = Carbon::now()->timestamp;
 
-            $request['colonia_d'] = "Los Heroes";
             $nCreacion = new nCreacion();
             $nCreacion->fedex($request, "WEB");
             $nCreacion->recurenciaPorDocumento($request, $numeroDeSolicitud);
@@ -499,7 +497,6 @@ class GuiaController extends Controller
             *    ->send(new GuiaCreada($request, $id));
             */
             Log::debug(__CLASS__." ".__FUNCTION__." ".__LINE__);
-            //Log::debug(print_r($request->all(),true));
             
             $saldo = new Saldos();
             $saldo->menosPrecio($request["sucursal_id"], $request["precio"]);

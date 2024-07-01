@@ -2,7 +2,7 @@
 <div class="card custom-card">
     <div class="card-body">
     	<div class="card-header border-bottom-0 pt-0 pl-0 pr-0 d-flex">
-            <label class="main-content-label mb-4">DETALLES DEL DESTINATARIO </label>
+            <label class="main-content-label mb-4">DETALLES DEL DESTINATARIO a</label>
         </div>
 
     	<div class="row">
@@ -87,19 +87,7 @@
             </div>
 
             <div class="input-group mb-3 div-colonia-cp col-md-6 p-0">
-                <div class="input-group-prepend">
-                            <span class="input-group-text" id="basic-addon1">COLONIA 1
-                            </span>
-                </div>
-
-                {!! Form::text('colonia_d'
-                    , @$cliente ? @$cliente->domicilio->colonia : null
-                    ,['class' 		=> 'form-control colonia'
-                        ,'required'	=>	'true'
-                    ,'readonly' =>  'true'
-
-                    ])
-                !!}
+                
             </div>
             <div class="input-group mb-3 col-md-6 p-0">
                 <div class="input-group-prepend">
