@@ -1,4 +1,5 @@
 $(document).ready(function() {
+    console.log("autoCompleteOrigen")
     const autoCompleteOrigen = new Autocomplete({
         selector: "#origen",
         placeHolder: "Código postal origen",
@@ -37,6 +38,7 @@ $(document).ready(function() {
             }
         }
     });
+
     const autoCompleteDestino = new Autocomplete({
         selector: "#destino",
         placeHolder: "Código postal destino",

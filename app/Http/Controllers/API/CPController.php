@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests\StoreCPRequest;
 use App\Http\Requests\UpdateCPRequest;
 use App\Models\CP;
+use App\Models\SEPOMEX;
 
 use Log;
 
@@ -54,5 +55,42 @@ class CPController extends ApiController
         return $this->sendError("Exception",$mensaje, "400");
     }
 
+
+    public function coloniasSepomex(int $cp)
+    {
+        Log::info(__CLASS__." ".__FUNCTION__." INICIANDO-----------------");
+        Log::debug(print_r($cp,true));
+        try {
+            $resultado = SEPOMEX::where('d_codigo', $cp)
+                    ->get();
+
+            Log::debug(print_r($resultado->toArray(),true));
+
+            Log::info(__CLASS__." ".__FUNCTION__." FINALIZANDO-----------------");
+            $mensaje = "ok";
+            return $this->successResponse($resultado, $mensaje);    
+
+        } catch (\InvalidArgumentException $ex) {
+            Log::debug($ex );
+            $mensaje = $ex->getMessage();
+
+        } catch (\ErrorException $ex) {
+            Log::info(__CLASS__." ".__FUNCTION__." ErrorException");
+            Log::debug(print_r($ex,true));
+            
+            $mensaje =$ex->getMessage();
+
+        } catch (\HttpException $ex) {
+            Log::info(__CLASS__." ".__FUNCTION__." HttpException");
+            $resultado = $ex;
+            $mensaje = $ex->getMessage();
+        } catch (\Exception $e) {
+            Log::info(__CLASS__." ".__FUNCTION__." Exception");
+            Log::debug(print_r($e->getMessage(),true ));
+           $mensaje = $e->getMessage();
+        }
+        Log::info(__CLASS__." ".__FUNCTION__." FINALIZANDO-----------------");
+        return $this->sendError("Exception",$mensaje, "400");
+    }
     
 }

@@ -18,6 +18,7 @@ use App\Http\Controllers\API\Saldos\SaldosController;
 use App\Http\Controllers\API\Reportes\PagosController as ReportesPagoController;
 use App\Http\Controllers\API\Ltd\FedexController;
 use App\Http\Controllers\API\Ltd\EstafetaController;
+use App\Http\Controllers\API\Misfinanzas\DatosFiscalesController;
 
 
 #use App\Http\Controllers\API\DEV\GuiaController as DevGuiaController ;
