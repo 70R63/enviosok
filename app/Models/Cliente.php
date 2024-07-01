@@ -61,17 +61,17 @@ class Cliente extends Model
         $insert = array(
             "nombre"    => $request['nombre_d']
             ,"contacto" => $request['contacto_d']
-            ,"direccion"=> $request['direccion_d']
+            ,"direccion"=> $request['calle_d']
             ,"direccion2"=>$request['direccion2_d']
             ,"cp"       => $request['cp_d']
             ,"colonia"  => "Colonia" //$request['colonia_d'] chs 20240519
             ,"ciudad"   => $request['ciudad_d']
-            ,"entidad_federativa"=> "Entidad" //$request['entidad_federativa_d'] chs 20240519
+            ,"entidad_federativa"=> $request['estado_d']
             ,"celular"  => $request['celular_d']
             ,"telefono" => $request['telefono_d']
             ,"empresa_id"=>$empresa_id
-            ,"no_ext"   => "ext" //$request['no_ext_d'] chs 20240519
-            ,"no_int"   => $request['no_int_d']
+            ,"no_ext"   => $request['no_exterior_d']
+            ,"no_int"   => $request['no_interior_d']
 
             );
 

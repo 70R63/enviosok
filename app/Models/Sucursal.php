@@ -54,17 +54,17 @@ class Sucursal extends Model
         $insert = array(
             "nombre"    => $request['nombre']
             ,"contacto" => $request['contacto']
-            ,"direccion"=> $request['direccion']
+            ,"direccion"=> $request['calle']
             ,"direccion2"=>$request['direccion2']
             ,"cp"       => $request['cp']
             ,"colonia"  => $request['colonia']
             ,"ciudad"   => $request['ciudad']
-            ,"entidad_federativa"=>$request['entidad_federativa']
+            ,"entidad_federativa"=>$request['estado']
             ,"celular"  => $request['celular']
             ,"telefono" => $request['telefono']
             ,"empresa_id"=>$empresa_id
-            ,"no_ext"   => $request['no_ext']
-            ,"no_int"   => $request['no_int']
+            ,"no_ext"   => $request['no_exterior']
+            ,"no_int"   => $request['no_interior']
 
             );
 
