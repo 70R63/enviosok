@@ -56,7 +56,6 @@ class DhlDTO
 
     	$pickup = new Pickup();
     	$accounts = new Accounts();
-        
 
     	$imageOption1 = new ImageOption1();
     	$imageOption2 = new ImageOption2();
@@ -66,7 +65,7 @@ class DhlDTO
 
         //Origen
         Log::info(__CLASS__." ".__FUNCTION__." ".__LINE__);
-        $addressLine1Full = sprintf("%s %s %s",$request["direccion"], $request["no_int"], $request["no_ext"] );
+        $addressLine1Full = sprintf("%s %s %s",$request["calle"], $request["no_interior"], $request["no_exterior"] );
 
         $addressLineArray = str_split($addressLine1Full,44);
         $addressLine1 = $addressLineArray[0];
@@ -100,7 +99,7 @@ class DhlDTO
 
         //Destino
         Log::info(__CLASS__." ".__FUNCTION__." ".__LINE__);
-        $addressLine1Full = sprintf("%s %s %s",$request["direccion_d"], $request["no_int_d"], $request["no_ext_d"] );
+        $addressLine1Full = sprintf("%s %s %s",$request["calle_d"], $request["no_interior_d"], $request["no_exterior_d"] );
 
         $addressLineArray = str_split($addressLine1Full,44);
         $addressLine1_d = $addressLineArray[0];
