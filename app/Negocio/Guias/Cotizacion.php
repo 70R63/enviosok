@@ -27,6 +27,9 @@ use App\Negocio\Fedex_tarifas;
 use App\Negocio\Saldos\Saldos;
 use App\Negocio\Guias\Creacion as nCreacion;
 
+use Exception;
+use Illuminate\Validation\ValidationException;
+
 class Cotizacion {
 
     private $mensaje = array();
@@ -48,7 +51,6 @@ class Cotizacion {
         Log::info(__CLASS__." ".__FUNCTION__." ".__LINE__);
 
         $empresa_id = auth()->user()->empresa_id;
-        //$pesoFacturado = $request['pesoFacturado'];
         
         Log::info(__CLASS__." ".__FUNCTION__." ".__LINE__);
         $this->todosLtds($request, $canal);
@@ -124,6 +126,63 @@ class Cotizacion {
                     foreach ($tablaTmp as $key => $value) {
                         $tablaTmp[$key]['zona'] = "NA";
                     }
+
+                    break;
+
+                case 'DHL':
+                    Log::info(__CLASS__." ".__FUNCTION__." ".__LINE__);
+
+                    $estadoCoberturaOrigen = LtdCobertura::select('estado', 'extendida')
+                            ->where('ltd_id',Config('ltd.dhl.id'))
+                            ->where('cp',$data['cp'])
+                            ->get()->toArray()
+                            ;
+
+                    Log::info(__CLASS__." ".__FUNCTION__." ".__LINE__);
+                    $estadoCoberturaDestino = LtdCobertura::select('estado', 'extendida', 'ocurre' )
+                            ->where('ltd_id',Config('ltd.dhl.id'))
+                            ->where('cp',$data['cp_d'])
+                            ->get()->toArray()
+                            ;
+
+                    Log::info(__CLASS__." ".__FUNCTION__." ".__LINE__);
+                    if ( !(count($estadoCoberturaOrigen) * count($estadoCoberturaDestino) )  ) {
+                        Log::info(__CLASS__." ".__FUNCTION__." ".__LINE__);
+                        Log::debug("No se cuenta con cobertura");
+                        break;
+                    }
+                    
+                    Log::debug(print_r($estadoCoberturaDestino,true));
+                    $postalGrupoOrigen = PostalGrupo::select('grupo')
+                            ->where('ltd_id',Config('ltd.dhl.id'))
+                            ->where('entidad_federativa',$estadoCoberturaOrigen[0])
+                            ->get()->pluck('grupo')->toArray()
+                            ;
+
+                    $postalGrupoDestino = PostalGrupo::select('grupo')
+                            ->where('ltd_id',Config('ltd.dhl.id'))
+                            ->where('entidad_federativa',$estadoCoberturaDestino[0])
+                            ->get()->pluck('grupo')->toArray()
+                            ;
+                    
+                    Log::debug("Grupos Postales ".$postalGrupoOrigen[0]." ".$postalGrupoDestino[0]);
+
+                    Log::info(__CLASS__." ".__FUNCTION__." ".__LINE__);
+                    $zona = PostalZona::select('zona')
+                            ->where('ltd_id',Config('ltd.dhl.id'))
+                            ->where('grupo_origen',$postalGrupoOrigen[0])
+                            ->where('grupo_destino', $postalGrupoDestino[0])
+                            ->get()->pluck('zona')->toArray()
+                            ;
+
+                   
+                    Log::info(__CLASS__." ".__FUNCTION__." ".__LINE__." Zona ".$zona[0]);
+
+                    $query = Tarifa::base($data['cp_d'], $ltdId)
+                        ->pesoFacturado($data['pesoFacturado'])
+                        ->zona($zona[0]);
+                    Log::info(__CLASS__." ".__FUNCTION__." ".__LINE__." tablaTmp");
+                    $tablaTmp = $query->get()->toArray();
 
                     break;
 
@@ -373,7 +432,16 @@ class Cotizacion {
 
         $data = $this->pesoFacturado($data);
 
+         if ( $data['pesoFacturado'] > 68 ) {
+            
+            throw ValidationException::withMessages(array("Peso Maxima superado, Peso maximo 68 kg"));
+        }
+
         $this->todosLtds($data, "Externo");
+        
+        if ( count($this->tabla) < 1 ) {
+            throw new Exception("No se encontraron resultados para cotizacion");
+        }
 
         Log::debug($this->tabla);
 
