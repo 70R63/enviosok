@@ -44,7 +44,7 @@ class Fedex {
         } else {
             $this->baseUri = "https://apis-sandbox.fedex.com/";
         }
-        
+        Log::info(__CLASS__." ".__FUNCTION__." ".__LINE__." baseuri=$this->baseUri");
         
         $sesion = LtdSesion::where('ltd_id', $ltd_id)
                 ->where('expira_en','>', Carbon::now())
@@ -55,7 +55,6 @@ class Fedex {
             $this->token = $sesion->token;
 
         }else {
-            Log::info(__CLASS__." ".__FUNCTION__." Seccion Else");
 
             if ($plataforma == 'WEB'){
                 $empresa_id = auth()->user()->empresa_id;
@@ -64,7 +63,8 @@ class Fedex {
             $client = new Client(['base_uri' => $this->baseUri]);
 
             $headers = ['Content-Type' => 'application/x-www-form-urlencoded'];
-                
+            
+            Log::info(__CLASS__." ".__FUNCTION__." ".__LINE__." ambiente=$ambiente");
             if ($ambiente==="PRD") {
                 $body = sprintf("grant_type=client_credentials&client_id=%s&client_secret=%s"
                         ,Config('ltd.fedex.client_id')
