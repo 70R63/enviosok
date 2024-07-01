@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Finanzas;
 
-use App\Http\Requests\StoreConstanciaFiscalRequest;
-use App\Http\Requests\UpdateConstanciaFiscalRequest;
-use App\Models\ConstanciaFiscal;
+use App\Http\Requests\StoreCatalogoUsoCfdiRequest;
+use App\Http\Requests\UpdateCatalogoUsoCfdiRequest;
+use App\Models\Misfinanzas\CatalogoUsoCfdi;
 
-class ConstanciaFiscalController extends Controller
+class CatalogoUsoCfdiController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -31,10 +31,10 @@ class ConstanciaFiscalController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \App\Http\Requests\StoreConstanciaFiscalRequest  $request
+     * @param  \App\Http\Requests\StoreCatalogoUsoCfdiRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreConstanciaFiscalRequest $request)
+    public function store(StoreCatalogoUsoCfdiRequest $request)
     {
         //
     }
@@ -42,10 +42,10 @@ class ConstanciaFiscalController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\ConstanciaFiscal  $constanciaFiscal
+     * @param  \App\Models\CatalogoUsoCfdi  $catalogoUsoCfdi
      * @return \Illuminate\Http\Response
      */
-    public function show(ConstanciaFiscal $constanciaFiscal)
+    public function show(CatalogoUsoCfdi $catalogoUsoCfdi)
     {
         //
     }
@@ -53,10 +53,10 @@ class ConstanciaFiscalController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\ConstanciaFiscal  $constanciaFiscal
+     * @param  \App\Models\CatalogoUsoCfdi  $catalogoUsoCfdi
      * @return \Illuminate\Http\Response
      */
-    public function edit(ConstanciaFiscal $constanciaFiscal)
+    public function edit(CatalogoUsoCfdi $catalogoUsoCfdi)
     {
         //
     }
@@ -64,11 +64,11 @@ class ConstanciaFiscalController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \App\Http\Requests\UpdateConstanciaFiscalRequest  $request
-     * @param  \App\Models\ConstanciaFiscal  $constanciaFiscal
+     * @param  \App\Http\Requests\UpdateCatalogoUsoCfdiRequest  $request
+     * @param  \App\Models\CatalogoUsoCfdi  $catalogoUsoCfdi
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateConstanciaFiscalRequest $request, ConstanciaFiscal $constanciaFiscal)
+    public function update(UpdateCatalogoUsoCfdiRequest $request, CatalogoUsoCfdi $catalogoUsoCfdi)
     {
         //
     }
@@ -76,10 +76,10 @@ class ConstanciaFiscalController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\ConstanciaFiscal  $constanciaFiscal
+     * @param  \App\Models\CatalogoUsoCfdi  $catalogoUsoCfdi
      * @return \Illuminate\Http\Response
      */
-    public function destroy(ConstanciaFiscal $constanciaFiscal)
+    public function destroy(CatalogoUsoCfdi $catalogoUsoCfdi)
     {
         //
     }

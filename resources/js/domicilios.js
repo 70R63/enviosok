@@ -12,6 +12,8 @@ document.addEventListener('DOMContentLoaded', function () {
     window.setDomicilioAjax = function(cp,colonia=null){
         var token = document.head.querySelector('meta[name="csrf-token"]');
         var url = url_base;
+
+       
         axios.post(url+'/api/domicilio',{
             cp: cp,
             _token: token.content

@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Models;
+namespace App\Models\Misfinanzas;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class ConstanciaFiscal1 extends Model
+class CatalogoPersonaFiscal extends Model
 {
     use HasFactory;
 }

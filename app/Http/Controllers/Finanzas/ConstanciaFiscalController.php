@@ -6,6 +6,7 @@ use App\Http\Requests\UpdateConstanciaFiscalRequest;
 
 //MODELS
 use App\Models\Misfinanzas\ConstanciaFiscal;
+use App\Models\Misfinanzas\CatalogoPersonaFiscal;
 
 
 //GENERAL
@@ -110,7 +111,7 @@ class ConstanciaFiscalController extends Controller
      */
     public function create()
     {
-         abort(403, 'Unauthorized action.');
+        //abort(403, 'Unauthorized action.');
     }
 
     /**
@@ -121,7 +122,73 @@ class ConstanciaFiscalController extends Controller
      */
     public function store(StoreConstanciaFiscalRequest $request)
     {
-        abort(403, 'Unauthorized action.');
+        try {
+            $tabla = array();
+
+            $numeroDeSolicitud = Carbon::now()->timestamp;
+            Log::info(__CLASS__." ".__FUNCTION__." ".__LINE__." $numeroDeSolicitud");
+            Log::info("$numeroDeSolicitud ".print_r($request->all(),true));
+
+            $nDatosFiscales = new nDatosFiscales($numeroDeSolicitud);
+            $nDatosFiscales->saveComplementoConstancia($request->all());
+            
+            Log::info(__CLASS__." ".__FUNCTION__." ".__LINE__." $numeroDeSolicitud");
+            $notices=array("Exitoso");
+
+            return \Redirect::route("finanzas.datosfiscales.index") -> withSuccess ($notices);
+
+        } catch (LogicException $e) {
+            Log::info(__CLASS__." ".__FUNCTION__." ".__LINE__); 
+            $mensajeInterno=$e->getMessage();
+            Log::debug(print_r($mensajeInterno,true));
+            Log::info("LogicException");       
+            $mensaje = sprintf("%s - LogicException - %s","$numeroDeSolicitud",$mensajeInterno );
+            return \Redirect::back()
+                ->withErrors(array($mensaje))
+                ->withInput();
+
+
+        } catch (ValidationException $e) {
+            Log::info(__CLASS__." ".__FUNCTION__." ".__LINE__); 
+            $mensajeInterno=$e->getMessage();
+            Log::debug(print_r($mensajeInterno,true));
+            Log::info("ValidationException");       
+            $mensaje = sprintf("%s - ValidationException - %s","$numeroDeSolicitud",$mensajeInterno );
+            return \Redirect::back()
+                ->withErrors(array($mensaje))
+                ->withInput();
+
+        } catch (ModelNotFoundException $e) {
+            Log::info(__CLASS__." ".__FUNCTION__." ".__LINE__); 
+            $mensajeInterno=$e->getMessage();
+            Log::debug(print_r($mensajeInterno,true));
+            Log::info("ModelNotFoundException");       
+            $mensaje = sprintf("%s - ModelNotFoundException - Favor de buscar a tu administrador","$numeroDeSolicitud");
+            
+            return \Redirect::back()
+                ->withErrors(array($mensaje))
+                ->withInput();
+        
+        } catch (QueryException $e) {
+            Log::info(__CLASS__." ".__FUNCTION__." ".__LINE__); 
+            $mensajeInterno=$e->getMessage();
+            Log::debug(print_r($mensajeInterno,true));
+            Log::info("QueryException ".print_r($mensajeInterno,true) );       
+            $mensaje = sprintf("%s - QueryException - Favor de buscar a tu administrador","$numeroDeSolicitud");
+            return \Redirect::back()
+                ->withErrors(array($mensaje))
+                ->withInput();
+        } catch (Exception $e) {
+
+            Log::info(__CLASS__." ".__FUNCTION__." ".__LINE__); 
+            $mensaje=$e->getMessage();
+            Log::info(print_r($mensaje,true));
+            Log::info("Error general ");   
+             $mensaje = sprintf("%s - Exception - Favor de buscar a tu administrador","$numeroDeSolicitud");;    
+            return \Redirect::back()
+                ->withErrors(array($mensaje))
+                ->withInput();
+        }
     }
 
     /**
@@ -132,7 +199,7 @@ class ConstanciaFiscalController extends Controller
      */
     public function show(ConstanciaFiscal $constanciaFiscal)
     {
-        abort(403, 'Unauthorized action.');
+        //abort(403, 'Unauthorized action.');
     }
 
     /**
@@ -150,10 +217,17 @@ class ConstanciaFiscalController extends Controller
             
             $datosFiscales = new nDatosFiscales($numeroDeSolicitud);
             $datosFiscales->constancias();
-            $tabla = $datosFiscales->getConstancias();
+            $csf = $datosFiscales->getConstancias()[0];
 
             Log::info(__CLASS__." ".__FUNCTION__." ".__LINE__." $numeroDeSolicitud");
-            return view("finanzas.datosfiscales.editar" 
+
+            Log::info("$numeroDeSolicitud ".__CLASS__." ".__FUNCTION__." ".__LINE__." ".print_r($csf->toArray(),true));
+            $catalogoPersonaFiscal = CatalogoPersonaFiscal::pluck("descripcion", "id")->toArray();
+
+
+            Log::info(__CLASS__." ".__FUNCTION__." ".__LINE__." $numeroDeSolicitud");
+            return view("finanzas.datosfiscales.editar",
+                compact("catalogoPersonaFiscal", "csf") 
                 );
 
         } catch (LogicException $e) {

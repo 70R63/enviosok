@@ -10,7 +10,6 @@
 				<th>Colonia</th>
 				<th>Municipio</th>
 				<th>Entidad Federativa</th>
-				<th>Facturaci&oacute;n Automatica</th>
 				<th>CSF Completo</th>
 				<th class="notexport">ACCIONES</th>
 			</tr>
@@ -27,10 +26,10 @@
 					<td>{{ $objeto->colonia }}</td>
 					<td>{{ $objeto->municipio_alcaldia }}</td>
 					<td>{{ $objeto->estado }}</td>
-					<td>{{ $objeto->facturacion_automatica }}</td>
+					
 					<td>{{ $objeto->csf_completo }}</td>
 					<td>
-						<a href=" {{ route('finanzas.datosfiscales.editar', $objeto->id) }} " class="text-info tx-20 ">
+						<a href=" {{ route('finanzas.datosfiscales.edit', $objeto->id) }} " class="text-info tx-20 ">
 							<i class="fe fe-edit" alt="Editar"></i>
 						</a>
 							
