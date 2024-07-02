@@ -21,7 +21,6 @@ use App\Http\Controllers\API\Ltd\EstafetaController;
 use App\Http\Controllers\API\Misfinanzas\DatosFiscalesController;
 
 
-#use App\Http\Controllers\API\DEV\GuiaController as DevGuiaController ;
 
 
 /*
@@ -52,89 +51,24 @@ Route::middleware('auth:sanctum')->get('/ping', function (Request $request) {
         ], 200);
 });
 
-//SADEMIO
-/*
-Route::name('api')->group(function () {
-    Route::name('sademio.')->group(function () {
-        Route::group(['prefix'=>'SADEMIO'], function(){
-            Route::post('/login', [AuthController::class, 'login'])->name('login');
-        });
+
+Route::middleware(['throttle:100,1','validaToken'])->group(function(){
+    Route::post('logout', [AuthController::class, 'logout']);
+
+
+
+    Route::controller(GuiaController::class)->group(function(){
+        Route::get('ltds', 'creacion');
+        Route::post('fedex', 'fedex');
+        Route::post('estafeta', 'estafeta');
+        Route::post('dev/estafeta', 'estafeta');
+        Route::get('rastreoTabla', 'rastreoTabla');
     });
+
+
+
 });
 
-*/
-//Route::domain('local.xpertamexico.com')->group(function () {
-    Route::middleware(['throttle:100,1','validaToken'])->group(function(){
-        Route::post('logout', [AuthController::class, 'logout']);
-
-
-
-        Route::controller(GuiaController::class)->group(function(){
-            Route::get('ltds', 'creacion');
-            Route::post('fedex', 'fedex');
-            Route::post('estafeta', 'estafeta');
-            Route::post('dev/estafeta', 'estafeta');
-            Route::get('rastreoTabla', 'rastreoTabla');
-        });
-
-/*
-        Route::name('api.')->group(function () {
-            //MENU FEDEX
-
-            Route::name('enviosperros.')->group(function () {
-                Route::group(['prefix'=>'enviosperros'], function(){
-                    Route::name('fedex.')->group(function () {
-                        Route::group(['prefix'=>'fedex'], function(){
-
-                            Route::get('/greeting', function () {
-                                return 'Hello World';
-                            })->name("greeting");
-
-                            Route::controller(FedexController::class)->group(function(){
-                                Route::post('terrestre', 'terrestre')->name("terrestre");
-
-                            });
-
-                            Route::controller(FedexController::class)->group(function(){
-                                Route::post('diasig', 'diasig')->name("diasig");
-
-                            });
-
-                            Route::controller(FedexController::class)->group(function(){
-                                Route::get('cotizacion/{servicio}', 'cotizacion')->name("cotizacion");
-
-                            });
-
-                        });
-                    });
-                });
-            });
-
-
-            //SADEMIO
-             Route::name('sademio.')->group(function () {
-                Route::group(['prefix'=>'SADEMIO'], function(){
-
-                    Route::name('estafeta.')->group(function () {
-                        Route::group(['prefix'=>'estafeta'], function(){
-
-                            Route::get('/greeting', function () {
-                                return 'Hello World';
-                            })->name("greeting");
-
-                            Route::controller(EstafetaController::class)->group(function(){
-                                Route::post('{servicios}', 'creacion')->name("creacion");
-                            });
-                        });
-                    });
-                });
-            });
-
-        });// FIN api.
-    */
-
-    });
-//});
 
 
 
@@ -162,6 +96,9 @@ Route::middleware(['throttle:100,1','auth'])->group(function () {
 
         Route::controller(CPController::class)->group(function(){
             Route::get('cp/colonias', 'colonias')->name("cp.colonias");
+        });
+        Route::controller(CPController::class)->group(function(){
+            Route::get('colonias/sepomex/{cp}', 'coloniasSepomex')->name("colonias.sepomex");
         });
 
         Route::controller(ClienteController::class)->group(function(){
@@ -211,10 +148,22 @@ Route::middleware(['throttle:100,1','auth'])->group(function () {
 
 
 
-        //MENU SALDOS
+        //MENU DASHBOARD
         Route::group(['prefix'=>'dashboard','as'=>'dashboard.'], function(){
             Route::controller(GuiaController::class)->group(function(){
                 Route::get('resumenGuias', 'resumenGuiasDashboard')->name('resumenGuias');
+
+            });
+
+        });
+
+        //MENU MISFINANZAS
+        Route::group(['prefix'=>'misfinanzas','as'=>'misfinanzas.'], function(){
+            Route::controller(DatosFiscalesController::class)->group(function(){
+                
+                Route::get('regimenFiscalPorTipoPersona/{id}', 'regimenFiscalPorTipoPersona')->name('regimenFiscalPorTipoPersona');
+
+                Route::get('usoCdiPorTipoPersona/{id}', 'usoCdiPorTipoPersona')->name('usoCdiPorTipoPersona');
 
             });
 
@@ -231,31 +180,9 @@ Route::middleware(['throttle:100,1','auth'])->group(function () {
     Route::get('rastreoActualizar', 'rastreoActualizarAutomatico')->name("rastreoConsola");
 });
 
-//AMBIENTE DEV TEMPORAL
-/*
-Route::name('api.dev.')->group(function () {
-    Route::group(['prefix'=>'dev/'], function(){
-        Route::name('enviosperros.')->group(function () {
-            Route::group(['prefix'=>'enviosperros'], function(){
-                Route::post('/login', [AuthController::class, 'login'])->name('login');
-            });
-        });
-
-        Route::name('sademio.')->group(function () {
-            Route::group(['prefix'=>'SADEMIO'], function(){
-                Route::post('/login', [AuthController::class, 'login'])->name('login');
-            });
-        });
-    });
-});
-*/
 
 Route::middleware(['throttle:10,1','validaToken'])->group(function(){
-    /*
-    Route::controller(DevGuiaController::class)->group(function(){
-        Route::post('dev/estafeta', 'estafeta');
-    });
-    */
+
     Route::name('api.dev.')->group(function () {
 
         Route::group(['prefix'=>'dev/'], function(){
@@ -290,25 +217,7 @@ Route::middleware(['throttle:10,1','validaToken'])->group(function(){
                 });
             });
 
-            //SADEMIO
-             Route::name('sademio.')->group(function () {
-                Route::group(['prefix'=>'SADEMIO'], function(){
-
-                    Route::name('estafeta.')->group(function () {
-                        Route::group(['prefix'=>'estafeta'], function(){
-
-                            Route::get('/greeting', function () {
-                                return 'Hello World';
-                            })->name("greeting");
-
-                            Route::controller(EstafetaController::class)->group(function(){
-                                Route::post('{servicio}', 'creacionDEV')->name("creacionDEV");
-                            });
-                        });
-                    });
-                });
-            });
-
+            
 
         });// FIN api.
     });
