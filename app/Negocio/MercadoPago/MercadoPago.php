@@ -185,9 +185,9 @@ class MercadoPago {
         $data['descripcion'] = sprintf("El pago de $%s fue exito ",$data['unit_price']);
         $data['importe'] = $data['unit_price'];
         $data['referencia'] = $data['payment_id'];
-        $this->registroPago($data);
-        //$data = array_merge($this->dataParseada,$data);
 
+        $this->registroPago($data);
+        
 
         Log::info(__CLASS__." ".__FUNCTION__." ".__LINE__);
         $nSaldos = new nSaldos();
@@ -236,6 +236,7 @@ class MercadoPago {
         $data['referencia']= sprintf("%s-%s",$dataParseada['referencia'], ($maxValue+1));
         $data['descripcion'] = sprintf("El pago de $%s  FUE RECHAZADO",$data['unit_price']);
         $data['importe'] = 0;
+        $data['estatus'] = 0;
         Log::info(__CLASS__." ".__FUNCTION__." ".__LINE__); 
         
         $this->registroPago($data);
@@ -287,8 +288,9 @@ class MercadoPago {
 
         }
         
-        $data['descripcion'] = sprintf("El pago de $%s NO SE ACREDITO ",$data['unit_price']);
+        $data['descripcion'] = sprintf("El pago de $%s, NO SE COMPLETO ",$data['unit_price']);
         $data['importe'] = 0;
+        $data['estatus'] = 0;
         Log::info(__CLASS__." ".__FUNCTION__." ".__LINE__); 
         
         

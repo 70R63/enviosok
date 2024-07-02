@@ -115,6 +115,9 @@ Route::group(['as'=>'finanzas.'  ,'prefix'=>'finanzas'],function(){
 
     Route::resource('datosfiscales','Finanzas\ConstanciaFiscalController')
         ->middleware(['roles:sysadmin,admin,contraloria,adminops,operaciones,auditoria,cliente']);
+
+    Route::resource('facturaexterna','Finanzas\FacturaExternaController')
+        ->middleware(['roles:sysadmin,admin,contraloria,adminops,operaciones,auditoria,cliente']);
    
 });
 

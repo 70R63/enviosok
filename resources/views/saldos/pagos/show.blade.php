@@ -29,5 +29,6 @@
 
 </div>
 <!-- End Row -->
-     
+
+@include("saldos.pagos.show.modal_facturar")
 @endsection

@@ -13,7 +13,6 @@ use App\Models\EmpresaEmpresas;
 
 use App\Negocio\Saldos\Saldos;
 use App\Negocio\Guias\Creacion as nCreacion;
-use App\Negocio\Guias\FacturacionCFDI as nFacturacionCFDI;
 
 use App\Mail\GuiaCreada;
 

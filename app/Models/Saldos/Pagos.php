@@ -16,7 +16,7 @@ class Pagos extends Model
     
     ];
     
-    protected $fillable = ['empresa_id','tipo_pago_id','banco_id', 'referencia', 'importe', 'fecha_deposito', 'hora_deposito', "usuario_id", "created_at", "descripcion", "facturado"];
+    protected $fillable = ['empresa_id','tipo_pago_id','banco_id', 'referencia', 'importe', 'fecha_deposito', 'hora_deposito', "usuario_id", "created_at", "descripcion", "facturado", "estatus"];
 
 
     public function scopeJoinEmpresa($query) {

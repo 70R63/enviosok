@@ -1,21 +1,21 @@
 <?php
 namespace App\Http\Controllers\Finanzas;
+//GENERAL
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreConstanciaFiscalRequest;
 use App\Http\Requests\UpdateConstanciaFiscalRequest;
+use Log;
+use Carbon\Carbon;
 
 //MODELS
 use App\Models\Misfinanzas\ConstanciaFiscal;
 use App\Models\Misfinanzas\CatalogoPersonaFiscal;
 
 
-//GENERAL
-use Log;
-use Carbon\Carbon;
-
 //NEGOCIO
 use App\Negocio\Finanzas\DatosFiscales as nDatosFiscales;
 
+//EXCEPCIONES
 use Exception;
 use LogicException;
 use Illuminate\Validation\ValidationException;
@@ -184,7 +184,7 @@ class ConstanciaFiscalController extends Controller
             $mensaje=$e->getMessage();
             Log::info(print_r($mensaje,true));
             Log::info("Error general ");   
-             $mensaje = sprintf("%s - Exception - Favor de buscar a tu administrador","$numeroDeSolicitud");;    
+             $mensaje = sprintf("%s - Exception - Favor de buscar a tu administrador","$numeroDeSolicitud");    
             return \Redirect::back()
                 ->withErrors(array($mensaje))
                 ->withInput();
@@ -199,7 +199,7 @@ class ConstanciaFiscalController extends Controller
      */
     public function show(ConstanciaFiscal $constanciaFiscal)
     {
-        //abort(403, 'Unauthorized action.');
+        abort(403, 'Unauthorized action.');
     }
 
     /**

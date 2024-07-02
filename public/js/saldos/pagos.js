@@ -2,14 +2,16 @@ $(document).ready(function() {
     console.log("document ready tablaSaldosPagosResumenAjax")
     if ($('#tablaSaldosPagosResumenAjax').length) {
         console.log("Inicializar tablaSaldosPagosResumenAjax")
-        tablaSaldosPagosResumen()
         var table = null;  
+        tablaSaldosPagosResumen()
+        
     }
 
     if ($('#tablaSaldosPagosAjax').length) {
         console.log("Inicializar tablaSaldosPagosAjax")
+        var table = null;   
         tablaSaldosPagos()
-        var table = null;  
+        
     }
 
 });
@@ -128,7 +130,7 @@ function tablaSaldosPagos(){
 
     console.log("tablaSaldosPagos")
     
- $.ajax({
+    $.ajax({
         //url: uri,
         url: route('api.saldos.pagos'),
         type: 'GET',
@@ -204,7 +206,6 @@ function tablaSaldosPagos(){
                 ],
             });
         //table.columns( [12] ).visible( false );
-
             
     }).fail( function( data,jqXHR, textStatus, errorThrown ) {
         console.log( "fail" );
@@ -219,7 +220,7 @@ function tablaSaldosPagos(){
     }).always(function() {
         console.log( "complete tablaSaldosPagosResumenAjax" );
     });
-
+};
    
 $('input.search').on('keyup change', function () {
     var rel = $(this).attr("rel");
@@ -230,8 +231,23 @@ function linkFacturacion(row){
 
     
     if (row.csf_completo === 'SI' && row.esFacturable === 'SI'){
-        html='<a href="#" rel="noopener noreferrer" class="text-dark"> \
-            <span class="badge badge-info badge-pill tx-14"> FACTURAR</span></a>';
+
+        var html=""
+        switch (row.facturado) { 
+            case 1: 
+                html='<a href="#"  rel="noopener noreferrer" class="text-dark " > \
+                    <span class="badge badge-info badge-pill tx-14 facturarBoton"> FACTURAR</span></a>';    
+                break;
+            case 2:
+                html='<a href="#" target="_blank" rel="noopener noreferrer"><i class="text-info tx-20 fa fa-archive" data-toggle="tooltip" title="" data-original-title="fa fa-archive"></i></a>'
+                html=html+'<a href="#" target="_blank" rel="noopener noreferrer"><i class="text-info tx-20 si si-notebook" data-toggle="tooltip" title="" data-original-title="si si-notebook"></i></a>'
+                
+                break;
+        default:
+            break;
+        }
+
+        
     } else {
         html='<a href="#" rel="noopener noreferrer" class="text-dark"> \
             <span class="badge badge-danger badge-pill tx-14">NO FACTURABLE</span></a>';
@@ -255,5 +271,42 @@ function linkEstatusPago(row){
     return html;
 };
 
-};
+
+$( "#tablaSaldosPagosAjax" ).on( "click", "span", function() {
+
+    var row = table.row( $(this).parent().parent().parent() ).data(); 
+    console.log(row);
+
+    if (row.csf_completo === 'SI' && row.esFacturable === 'SI'){
+        $("#spanReferencia").text( row.referencia );
+        $("#spanImporte").text( row.importe );
+        $("#spanFechaPago").text( row.fecha_pago );
+
+        //valores para el request
+        $("#referencia").val( row.referencia );
+        $("#importe").val( row.importe );
+        $("#fecha_pago").val( row.fecha_pago );
+        $("#id_preference").val( row.id_preference );
+        $("#pago_id").val( row.pago_id );
+       
+        $("#modalFacturar").modal("show");        
+    } else {
+        swal(
+            "El registro no es factuable",
+            "Error!!! En caso ayuda consulte con su administrador",
+            "error"
+          )    
+    }
+
+
+    
+
+});
+
+
+
+
+    
+
+
 

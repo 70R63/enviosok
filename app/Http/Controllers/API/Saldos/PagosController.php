@@ -76,7 +76,8 @@ class PagosController extends ApiController
             Log::info(__CLASS__." ".__FUNCTION__." ".__LINE__);
             $empresaId = auth()->user()->empresa_id;
            
-            $pagos = Pagos::select("pagos.id AS pago_id", "pagos.estatus", "facturado","empresas.nombre AS empresa_nombre", "bancos.nombre AS banco_nombre", "users.name AS users_nombre",\DB::raw('DATE_FORMAT(pagos.created_at, "%Y-%m-%d") as createdAt')
+            $pagos = Pagos::select("pagos.id AS pago_id", "pagos.estatus" , "pagos.id_preference" 
+                , "facturado","empresas.nombre AS empresa_nombre", "bancos.nombre AS banco_nombre", "users.name AS users_nombre",\DB::raw('DATE_FORMAT(pagos.created_at, "%Y-%m-%d") as createdAt')
                 ,\DB::raw("CONCAT (pagos.fecha_deposito,' ', pagos.hora_deposito) as fecha_pago")
                 ,"pagos.importe", "pagos.referencia", "pagos.descripcion"
                 ,\DB::raw("(CASE WHEN constancia_fiscals.id IS NULL THEN 'NO' ELSE 'SI' END) as csf_completo")
