@@ -65,6 +65,8 @@ class Dashboard {
 
         //cjhs Validar usabilidad
         $transito=1;
+        $entregadas=1;
+        $creadas=1;
         foreach ($mGuias as $key => $guia) {
         	Log::info($guia);
 
