@@ -38,11 +38,11 @@
             </span>
         </div>
 
-         {!! Form::text('email'
+         {!! Form::text('email_facturacion'
             , $csf['email']
             ,['class'       => 'form-control'
                 ,'required' =>  'true'
-                ,'id'       => 'true'
+                ,'id'       => 'email_facturacion'
             ])
         !!}
     </div>

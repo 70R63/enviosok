@@ -55,6 +55,7 @@
         <!-- InternalFileupload css-->
         <link href="{{ url('spruha/plugins/fileuploads/css/fileupload.css') }}" rel="stylesheet" type="text/css"/>
 
+        
 
         @yield('css_rol_page')
 
@@ -340,6 +341,11 @@
         @routes
         <script src="{{ asset('js/saldos/saldos.js') }}" ></script>
         <script src="{{ asset('js/dashboard.js') }}" ></script>
+        
+        <script src="https://cdn.jsdelivr.net/npm/@tarekraafat/autocomplete.js@10.2.7/dist/autoComplete.min.js"></script>
+        <script src="{{ asset('js/misfinanzas/datosfiscales.js') }}" ></script>
+
+        
 
 
 {{--INTEGRACION DE ROLES Y USUARIOS--}}

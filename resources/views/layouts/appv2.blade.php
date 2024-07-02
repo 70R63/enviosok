@@ -77,14 +77,14 @@
                                 </div>
                                 <div class="form-group col-md-2">
                                     <label for="origen">Peso (kg)</label>
-                                    <input type="number" name="peso" id="peso" class="no-controls form-control form-control-sm" placeholder="Kg(s)" step="0.1" inputmode="numeric" autocomplete="off" required>
+                                    <input type="number" name="peso" id="peso" class="no-controls form-control form-control-sm" placeholder="Kg(s)" step="0.1" inputmode="numeric" autocomplete="off" required max="68" min="0.1">
                                 </div>
                                 <div class="form-group col-md-3">
                                     <label for="peso">Tamaño de caja (cm)</label>
                                     <div class="d-flex">
-                                        <input type="number" name="alto" id="alto" class="no-controls form-control form-control-sm rounded-0 rounded-start" placeholder="Alto" step="0.1" inputmode="numeric" autocomplete="off" required>
-                                        <input type="number" name="largo"id="largo" class="no-controls form-control form-control-sm rounded-0" placeholder="Largo" step="0.1" inputmode="numeric" autocomplete="off" required>
-                                        <input type="number" name="ancho"id="ancho" class="no-controls form-control form-control-sm rounded-0 rounded-end" placeholder="Ancho" step="0.1" inputmode="numeric" autocomplete="off" required>
+                                        <input type="number" name="alto" id="alto" class="no-controls form-control form-control-sm rounded-0 rounded-start" placeholder="Alto" step="0.1" inputmode="numeric" autocomplete="off" required max="115" min="1">
+                                        <input type="number" name="largo"id="largo" class="no-controls form-control form-control-sm rounded-0" placeholder="Largo" step="0.1" inputmode="numeric" autocomplete="off" required max="115" min="1">
+                                        <input type="number" name="ancho"id="ancho" class="no-controls form-control form-control-sm rounded-0 rounded-end" placeholder="Ancho" step="0.1" inputmode="numeric" autocomplete="off" required max="115" min="1">
                                     </div>
                                 </div>
                                 <div class="col-md-auto d-flex align-items-end mt-3 mt-sm-0">

@@ -209,6 +209,7 @@ class DatosFiscales {
         ;
 
         $constanciaFiscalId = 0;
+        $data['email']=$data['email_facturacion'];
         if ( count($constanciaFiscal->get()->toArray()) < 1 ) {
             Log::info($this->numeroDeSolicitud." ".__CLASS__." ".__FUNCTION__." ".__LINE__);
             $constanciaFiscalId = ConstanciaFiscal::create($data)->id;

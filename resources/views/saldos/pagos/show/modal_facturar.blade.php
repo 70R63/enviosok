@@ -31,6 +31,12 @@
 					Fecha del pago : <span id="spanFechaPago" class="spanFechaPago"></span>
 					
 				</p>
+
+				<p class="bigger-50 bolder center ">
+					<i class="ace-icon fa fa-hand-o-right blue bigger-120"></i>
+					Email de Facturaci&oacute;n : <span id="spanEmail" class="spanEmail"></span>
+					
+				</p>
 				<div class="pricing-plans bg-primary-transparent">
                     Para continuar con la creación, presionar el boton Facturar
                 </div>
@@ -81,6 +87,14 @@
     , null
     ,['class'       => 'form-control'
         ,'id'       => 'pago_id'
+        
+    ])
+!!}
+
+{!! Form::hidden('email'
+    , null
+    ,['class'       => 'form-control'
+        ,'id'       => 'email'
         
     ])
 !!}
