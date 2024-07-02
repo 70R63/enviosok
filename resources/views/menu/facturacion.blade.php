@@ -6,7 +6,7 @@
 	</a>
 	<ul class="nav-sub">
 		<li class="nav-sub-item">
-			<a class="nav-sub-link" href="#">Datos Fiscales</a>
+			<a class="nav-sub-link" href="{{ route('finanzas.datosfiscales.index') }}">Datos Fiscales</a>
 		</li>
 		<li class="nav-sub-item">
 			<a class="nav-sub-link" href="{{ route('finanzas.pasarela.index') }}">Recargas</a>
