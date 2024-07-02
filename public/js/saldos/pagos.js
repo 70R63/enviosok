@@ -240,7 +240,7 @@ function linkFacturacion(row){
                 break;
             case 2:
                 html='<a href="#" target="_blank" rel="noopener noreferrer"><i class="text-info tx-20 fa fa-archive" data-toggle="tooltip" title="" data-original-title="fa fa-archive"></i></a>'
-                html=html+'<a href="#" target="_blank" rel="noopener noreferrer"><i class="text-info tx-20 si si-notebook" data-toggle="tooltip" title="" data-original-title="si si-notebook"></i></a>'
+                html=html+'<a href="#" target="_blank" rel="noopener noreferrer"><i class="text-warning tx-20 si si-notebook" data-toggle="tooltip" title="" data-original-title="si si-notebook"></i></a>'
                 
                 break;
         default:
@@ -281,6 +281,7 @@ $( "#tablaSaldosPagosAjax" ).on( "click", "span", function() {
         $("#spanReferencia").text( row.referencia );
         $("#spanImporte").text( row.importe );
         $("#spanFechaPago").text( row.fecha_pago );
+        $("#spanEmail").text( row.email );
 
         //valores para el request
         $("#referencia").val( row.referencia );
@@ -288,6 +289,7 @@ $( "#tablaSaldosPagosAjax" ).on( "click", "span", function() {
         $("#fecha_pago").val( row.fecha_pago );
         $("#id_preference").val( row.id_preference );
         $("#pago_id").val( row.pago_id );
+        $("#email").val( row.email );
        
         $("#modalFacturar").modal("show");        
     } else {

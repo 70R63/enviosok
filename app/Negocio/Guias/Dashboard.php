@@ -62,6 +62,9 @@ class Dashboard {
         Log::info(__CLASS__." ".__FUNCTION__." ".__LINE__);
         $mGuias = mGuia::resumenGuias($data['empresa_id'])->get()->toArray();
         $graficasTotales = array();
+
+        //cjhs Validar usabilidad
+        $transito=1;
         foreach ($mGuias as $key => $guia) {
         	Log::info($guia);
 

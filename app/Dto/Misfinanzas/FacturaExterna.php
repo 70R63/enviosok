@@ -71,7 +71,7 @@ class FacturaExterna
         $this->obtenerCostoRecarga($data);
         $data = $this->data;
 
-        if (config('app.env') === "local") {
+        if (config('app.env') === "local" || config('app.env') === "dev") {
             Log::info($this->numeroDeSolicitud." ".__CLASS__." ".__FUNCTION__." ".__LINE__);
             $data['rfcEmisor']= "EKU9003173C9";
             $data['razon_social']= "ESCUELA KEMPER URGATE";
@@ -106,7 +106,7 @@ class FacturaExterna
          "NumeroDecimales" => "2", 
          "TipoCFDI" => "Ingreso", 
          "EnviaEmail" => true, 
-         "ReceptorEmail" => "javierv31@gmail.com", 
+         "ReceptorEmail" => $data['email'], 
          "ReceptorCC" => "", 
          "ReceptorCCO" => "", 
          "EmailMensaje" => $emailMensaje

@@ -44,7 +44,7 @@ class Empresa extends Model
         Log::info(__CLASS__." ".__FUNCTION__." ".__LINE__);
 
         return $query->select("empresas.id", "empresas.rfc", "empresas.email", "domicilios.cp", "domicilios.calle", "domicilios.colonia", "domicilios.municipio_alcaldia", "domicilios.estado", "domicilios.no_exterior", "domicilios.no_interior"
-            ,"constancia_fiscals.razon_social","constancia_fiscals.ruta_csf_pdf","constancia_fiscals.regimen_fiscal","constancia_fiscals.uso_cfdi"
+            ,"constancia_fiscals.razon_social","constancia_fiscals.ruta_csf_pdf","constancia_fiscals.regimen_fiscal","constancia_fiscals.uso_cfdi", "constancia_fiscals.email"
             ,DB::raw("(CASE constancia_fiscals.facturacion_automatica WHEN 1 THEN 'SI' WHEN 2 THEN 'NO' ELSE 'NO' END) as facturacion_automatica")
             ,DB::raw("(CASE WHEN constancia_fiscals.id IS NULL THEN 'NO' ELSE 'SI' END) as csf_completo")
             )

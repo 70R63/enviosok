@@ -82,7 +82,7 @@ class PagosController extends ApiController
                 ,"pagos.importe", "pagos.referencia", "pagos.descripcion"
                 ,\DB::raw("(CASE WHEN constancia_fiscals.id IS NULL THEN 'NO' ELSE 'SI' END) as csf_completo")
                 ,\DB::raw("(CASE WHEN pagos.estatus=1 THEN 'SI' ELSE 'NO' END) as esFacturable")
-
+                , "constancia_fiscals.email"
 
             )
 
