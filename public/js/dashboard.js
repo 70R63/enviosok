@@ -3,10 +3,18 @@ $(document).ready(function() {
    	console.log("Dashboard Ready") 
 
    	if ($('#myChart').length) {
-        console.log("Inicializar tablaSaldosPagosAjax")
+        console.log("Inicializar myChart")
         resumenGuias()
         var table = null;  
     }
+
+    if ($('#myChart12').length) {
+        console.log("Inicializar myChart2")
+        //#resumenGuias()
+        var tableLtd = null;  
+    }
+
+    
     
    	
 });

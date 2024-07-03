@@ -130,8 +130,8 @@ class FacturaExterna
                 "Direccion" => $this->direccion($data, self::DESTINATARIO)
              ], 
             "Fecha" => $fecha, 
-            "Serie" => "AB", 
-            "Folio" => "102", 
+            "Serie" => "OK-", 
+            "Folio" => $data['referencia'], 
             "MetodoPago" => "PUE", 
             "FormaPago" => "03", 
             "Moneda" => "MXN", 
