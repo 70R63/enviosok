@@ -5,7 +5,7 @@
 				<th>ID</th>
 				<th>NOMBRE</th>
 				<th>CONTACTO</th>
-				<th>DIRECCION</th>
+				<th>CALLE</th>
 				<th>COLONIA</th>
 				<th>CIUDAD</th>
 				<th>CP</th>

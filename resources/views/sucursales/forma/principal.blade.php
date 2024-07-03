@@ -38,22 +38,7 @@
 					!!}
 				</div>
 
-				<div class="input-group mb-3">
-					<div class="input-group-prepend">
-						<span class="input-group-text" id="basic-addon1">DIRECCIÓN
-							<span class="tx-danger">*</span>
-						</span>
-					</div>
-
-					{!! Form::text('direccion'
-						, null
-						,['class' 		=> 'form-control'
-							,'id'		=> 'direccion'
-							,'required'	=>	'true'
-							,'maxlength'	=> 30
-						])
-					!!}
-				</div>
+				
 
                 <div class="input-group mb-3">
                     <div class="input-group-prepend">
@@ -145,10 +130,6 @@
                             ,'required'	=>	'true'
                         ])
                     !!}
-
-
-
-
 
                 </div>
 

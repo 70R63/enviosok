@@ -79,7 +79,7 @@ class ClienteController extends Controller
             $cliente = Cliente::create([
                 "nombre"    => $request['nombre']
                 ,"contacto" => $request['contacto']
-                ,"direccion"=> $request['direccion']
+                ,"direccion"=> $request->calle
                 ,"celular"  => $request['celular']
                 ,"telefono" => $request['telefono']
                 ,"empresa_id"=> $request['empresa_id']

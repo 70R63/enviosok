@@ -72,12 +72,14 @@ class SucursalController extends Controller
     {
         Log::info(__CLASS__." ".__FUNCTION__);
         $mensaje = "";
+
         try {
 
             $sucursal = Sucursal::create([
                 "nombre"    => $request['nombre']
                 ,"contacto" => $request['contacto']
-                ,"direccion"=> $request['direccion']
+                ,"direccion"=> $request->calle
+                ,"direccion2"=> $request->calle
                 ,"celular"  => $request['celular']
                 ,"telefono" => $request['telefono']
                 ,"empresa_id"=> $request['empresa_id']

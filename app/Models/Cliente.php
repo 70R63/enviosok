@@ -64,7 +64,7 @@ class Cliente extends Model
             ,"direccion"=> $request['calle_d']
             ,"direccion2"=>$request['direccion2_d']
             ,"cp"       => $request['cp_d']
-            ,"colonia"  => "Colonia" //$request['colonia_d'] chs 20240519
+            ,"colonia"  => $request['colonia_d'] 
             ,"ciudad"   => $request['ciudad_d']
             ,"entidad_federativa"=> $request['estado_d']
             ,"celular"  => $request['celular_d']

@@ -19,6 +19,7 @@ class DireccionController extends ApiController
     {
         Log::info(__CLASS__." ".__FUNCTION__." ".__LINE__." INICIANDO-----------------");
         Log::debug($tipo);
+        
 
         try {
 
@@ -31,9 +32,9 @@ class DireccionController extends ApiController
                         'id'=>$i->id,
                         'nombre'=>$i->nombre,
                         'contacto'=>$i->contacto,
-                        'direccion'=>$i->direccion,
+                        'direccion'=>$i->domicilio->calle,
                         'colonia'=>$i->domicilio->colonia,
-                        'ciudad'=>$i->domicilio->ciudad,
+                        'ciudad'=>$i->domicilio->municipio_alcaldia,
                         'cp'=>$i->domicilio->cp,
                         'entidad_federativa'=>$i->domicilio->estado,
                         'telefono'=>$i->telefono,
@@ -49,11 +50,11 @@ class DireccionController extends ApiController
                         'id'=>$i->id,
                         'nombre'=>$i->nombre,
                         'contacto'=>$i->contacto,
-                        'direccion'=>$i->direccion,
-                        'colonia'=>$i->colonia,
-                        'ciudad'=>$i->ciudad, //chs 20240519
-                        'cp'=>$i->cp, //chs 20240519
-                        'entidad_federativa'=>$i->entidad_federativa,//chs 20240519
+                        'direccion'=>$i->domicilio->calle,
+                        'colonia'=>$i->domicilio->colonia,
+                        'ciudad'=>$i->domicilio->municipio_alcaldia, 
+                        'cp'=>$i->domicilio->cp,
+                        'entidad_federativa'=>$i->domicilio->estado,
                         'telefono'=>$i->telefono,
                     ];
                 }

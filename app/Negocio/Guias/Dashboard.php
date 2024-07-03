@@ -64,9 +64,11 @@ class Dashboard {
         $graficasTotales = array();
 
         //cjhs Validar usabilidad
-        $transito=1;
-        $entregadas=1;
-        $creadas=1;
+        $transito=0;
+        $entregadas=0;
+        $creadas=0;
+        $totalesEjex[]="Sin Datos";
+        $totalesContador=0;
         foreach ($mGuias as $key => $guia) {
         	Log::info($guia);
 
