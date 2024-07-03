@@ -236,11 +236,16 @@ function linkFacturacion(row){
         switch (row.facturado) { 
             case 1: 
                 html='<a href="#"  rel="noopener noreferrer" class="text-dark " > \
-                    <span class="badge badge-info badge-pill tx-14 facturarBoton"> FACTURAR</span></a>';    
+                    <span class="badge badge-info badge-pill tx-14 facturarBoton">\
+                    FACTURAR</span></a>';    
                 break;
             case 2:
-                html='<a href="#" target="_blank" rel="noopener noreferrer"><i class="text-info tx-20 fa fa-archive" data-toggle="tooltip" title="" data-original-title="fa fa-archive"></i></a>'
-                html=html+'<a href="#" target="_blank" rel="noopener noreferrer"><i class="text-warning tx-20 si si-notebook" data-toggle="tooltip" title="" data-original-title="si si-notebook"></i></a>'
+                html='<a href="../storage/'+row.ruta_pdf+'" target="_blank" rel="noopener noreferrer"> \
+                    <i class="text-info tx-22 fa fa-archive" data-toggle="tooltip"\
+                     title="" data-original-title="fa fa-archive"></i></a>'
+                html=html+'<a href="../storage/'+row.ruta_xml+'" target="_blank" rel="noopener noreferrer">\
+                    <i class="text-warning tx-22 si si-notebook" data-toggle="tooltip"\
+                     title="" data-original-title="si si-notebook"></i></a>'
                 
                 break;
         default:

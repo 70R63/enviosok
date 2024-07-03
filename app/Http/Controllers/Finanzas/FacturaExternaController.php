@@ -62,6 +62,7 @@ class FacturaExternaController extends Controller
             if ($nFacturaExterna->getEstatus()) {
                 Log::info("$numeroDeSolicitud ".__CLASS__." ".__FUNCTION__." ".__LINE__);
                 $nFacturaExterna->actualizaPagoFacturado($data['pago_id']);
+                $nFacturaExterna->guardarPdfXmlCFDI($data['pago_id']);
                 
                 $notices = $nFacturaExterna->getMensajes();
                 return Redirect::route("pagos.index") -> withSuccess ($notices);

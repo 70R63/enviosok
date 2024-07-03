@@ -62,4 +62,10 @@ class Pagos extends Model
             $query->where('pagos.empresa_id','=', $parametros['empresa_id'] );
         }
     }
+
+
+    public function scopeLeftFacturaExterna($query) {
+      Log::info(__CLASS__." ".__FUNCTION__);
+      return $query->leftjoin('factura_externas', 'factura_externas.pago_id', '=', 'pagos.id');
+    }
 }

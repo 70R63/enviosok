@@ -83,6 +83,7 @@ class PagosController extends ApiController
                 ,\DB::raw("(CASE WHEN constancia_fiscals.id IS NULL THEN 'NO' ELSE 'SI' END) as csf_completo")
                 ,\DB::raw("(CASE WHEN pagos.estatus=1 THEN 'SI' ELSE 'NO' END) as esFacturable")
                 , "constancia_fiscals.email"
+                ,"factura_externas.ruta_pdf","factura_externas.ruta_xml"
 
             )
 
@@ -91,6 +92,7 @@ class PagosController extends ApiController
                 ->joinBancos()
                 ->joinUsuario()
                 ->leftjoin('constancia_fiscals', 'constancia_fiscals.empresa_id', '=', 'empresas.id')
+                ->leftFacturaExterna()
                 ->get()->toArray()
                 ;
             #Log::debug(print_r($pagoResumens, true));

@@ -10,6 +10,7 @@ use GuzzleHttp\Client;
 
 //MODELS
 use App\Models\Saldos\Pagos;
+use App\Models\Misfinanzas\FacturaExterna as mFacturaExterna;
 
 //Negocio
 
@@ -165,7 +166,7 @@ class FacturaExterna {
      * 
      * @version 1.0.0
      * 
-     * @since 1.0.0 Primera version de la funcion crear
+     * @since 1.0.0 Primera version de la funcion validaResponse
      * 
      * @throws \LogicException
      *
@@ -173,10 +174,7 @@ class FacturaExterna {
      * 
      * @var string $uri La uri que se usara para obtener el token
      * @var GuzzleHttp\Client $client Clse apra uso de ptriciones para la APi 
-     * @var array $formQuery Valores que se enviaran para autenticar
-     * @var array $headers Cabeceras de la peticion 
-     * @var array $parametros Valores de array para la peticion
-     * @var array $response Respuesta de la peticion 
+  
      * 
      * 
      * @return json Objeto con la respuesta de exito o fallo 
@@ -195,7 +193,6 @@ class FacturaExterna {
     		$this->mensaje[]= sprintf("Referencia:%s - Fecha de la solicitud: %s",$data['referencia'],$this->response->estatus->fecha);
 
     		$this->mensaje[]= sprintf("%s-%s",$this->response->estatus->codigo, $this->response->estatus->informacionTecnica);
-
     		
     	}
 
@@ -237,7 +234,55 @@ class FacturaExterna {
     }
 
 
+    /**
+     * Funcion para descargar el pdf y xml, de forma consecutiva 
+     * inserta el registro
+     * 
+     * @author Javier Hernandez
+     * @copyright 2024 EnviosOK
+     * @package App\Negocio\Finanzas
+     * @api
+     * 
+     * @version 1.0.0
+     * 
+     * @since 1.0.0 Primera version de la funcion validaResponse
+     * 
+     * @throws \LogicException
+     * 
+     * @var object $this->response Response de la solicutd de timbrar factura
+     * 
+     * 
+     * @return void
+     */
 
+    public function guardarPdfXmlCFDI(int $pago_id){
+        Log::info($this->numeroDeSolicitud." ".__CLASS__." ".__FUNCTION__." ".__LINE__);
+
+        $nameXml = sprintf("facturaexterna/%s.xml",$this->response->cfdiTimbrado->respuesta->uuid );
+        
+        Storage::disk('public')->put($nameXml,$this->response->cfdiTimbrado->respuesta->cfdixml);
+
+        $namePdf = sprintf("facturaexterna/%s.pdf", $this->response->cfdiTimbrado->respuesta->uuid);
+         Storage::disk('public')->put($namePdf,base64_decode($this->response->cfdiTimbrado->respuesta->pdf));
+            
+        Log::info($this->numeroDeSolicitud." ".__CLASS__." ".__FUNCTION__." ".__LINE__);
+
+        mFacturaExterna::create([
+            "noCertificado" => $this->response->cfdiTimbrado->respuesta->noCertificado,
+            "rfcProvCertif" => $this->response->cfdiTimbrado->respuesta->rfcProvCertif,
+            "fecha" =>$this->response->cfdiTimbrado->respuesta->fecha ,
+            "uuid" => $this->response->cfdiTimbrado->respuesta->uuid,
+            "ruta_pdf" => $namePdf,
+            "ruta_xml" => $nameXml,
+            "empresa_id" => auth()->user()->empresa_id,
+            "pago_id" => $pago_id,
+        ]);
+
+        Log::info($this->numeroDeSolicitud." ".__CLASS__." ".__FUNCTION__." ".__LINE__);
+    }
+
+
+ 
 
     public function getResponse(){
         return $this->response;
