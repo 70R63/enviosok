@@ -55,20 +55,36 @@ class Sucursal extends Model
             "nombre"    => $request['nombre']
             ,"contacto" => $request['contacto']
             ,"direccion"=> $request['calle']
-            ,"direccion2"=>$request['direccion2']
             ,"cp"       => $request['cp']
-            ,"colonia"  => $request['colonia']
-            ,"ciudad"   => $request['ciudad']
-            ,"entidad_federativa"=>$request['estado']
             ,"celular"  => $request['celular']
             ,"telefono" => $request['telefono']
             ,"empresa_id"=>$empresa_id
-            ,"no_ext"   => $request['no_exterior']
-            ,"no_int"   => $request['no_interior']
-
             );
 
         $this->insertId = $this->create($insert)->id;
+        Log::info(__CLASS__." ".__FUNCTION__." ");
+        Domicilio::updateOrCreate([
+            'modelo_id'=>$this->insertId,
+            'modelo_type'=>$this->getMorphClass(),
+        ],
+            [
+                'cp'=>$request->cp,
+                'estado'=>$request->estado,
+                'codigo_estado'=>@$request->codigo_estado,
+                'municipio_alcaldia'=>$request->municipio_alcaldia,
+                'colonia'=>$request->colonia,
+                'tipo_asentamiento'=>$request->tipo_asentamiento,
+                'tipo_vialidad_id'=>$request->tipo_vialidad_id,
+                'calle'=>$request->calle,
+                'ciudad'=>@$request->ciudad,
+                'no_exterior'=>$request->no_exterior,
+                'no_interior'=>@$request->no_interior,
+                'referencias'=>@$request->referencias,
+                'latitud'=>@$request->latitud,
+                'longitud'=>@$request->longitud,
+                'modelo_id'=>$this->insertId,
+                'modelo_type'=>$this->getMorphClass(),
+            ]);
 
 
         Log::info(__CLASS__." ".__FUNCTION__." ".__LINE__." FINALIZANDO ---------");

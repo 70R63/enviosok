@@ -50,7 +50,7 @@ class Cliente extends Model
     public function insertSemiManual($request){
         Log::info(__CLASS__." ".__FUNCTION__." INICIANDO ---------");
 
-
+        //dd($request->all());
         if ($request['esManual'] === "SI" || $request['esManual'] === "SEMI" || $request['esManual'] === "API" ) {
             $empresa_id = $request['empresa_id'];
         } else {
@@ -62,20 +62,38 @@ class Cliente extends Model
             "nombre"    => $request['nombre_d']
             ,"contacto" => $request['contacto_d']
             ,"direccion"=> $request['calle_d']
-            ,"direccion2"=>$request['direccion2_d']
-            ,"cp"       => $request['cp_d']
-            ,"colonia"  => $request['colonia_d'] 
-            ,"ciudad"   => $request['ciudad_d']
-            ,"entidad_federativa"=> $request['estado_d']
             ,"celular"  => $request['celular_d']
             ,"telefono" => $request['telefono_d']
             ,"empresa_id"=>$empresa_id
-            ,"no_ext"   => $request['no_exterior_d']
-            ,"no_int"   => $request['no_interior_d']
+            ,"cp"       => $request['cp_d']
+            
 
             );
 
         $this->insertId = $this->create($insert)->id;
+
+        Domicilio::updateOrCreate([
+                    'modelo_id'=>$this->insertId,
+                    'modelo_type'=>$this->getMorphClass(),
+                ],
+                [
+                    'cp'=>$request->cp_d,
+                    'estado'=>$request->estado_d,
+                    'codigo_estado'=>@$request->codigo_estado_d,
+                    'municipio_alcaldia'=>$request->municipio_alcaldia_d,
+                    'colonia'=>$request->colonia_d,
+                    'tipo_asentamiento'=>$request->tipo_asentamiento,
+                    'tipo_vialidad_id'=>$request->tipo_vialidad_id_d,
+                    'calle'=>$request->calle_d,
+                    'ciudad'=>@$request->ciudad_d,
+                    'no_exterior'=>$request->no_exterior_d,
+                    'no_interior'=>@$request->no_interior_d,
+                    'referencias'=>@$request->referencias_d,
+                    'latitud'=>@$request->latitud,
+                    'longitud'=>@$request->longitud,
+                    'modelo_id'=>$this->insertId,
+                    'modelo_type'=>$this->getMorphClass(),
+                ]);
 
 
         Log::info(__CLASS__." ".__FUNCTION__." ".__LINE__." FINALIZANDO ---------");

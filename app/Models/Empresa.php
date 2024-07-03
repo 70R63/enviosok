@@ -34,7 +34,7 @@ class Empresa extends Model
             $empresaId =  isset(auth()->user()->empresa_id)  ? auth()->user()->empresa_id : 2 ;
             $empresas = EmpresaEmpresas::where('id',$empresaId)
                 ->pluck('empresa_id')->toArray();
-            $builder->whereIN('id',$empresas);
+            $builder->whereIN('empresas.id',$empresas);
             
 
         });
