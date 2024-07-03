@@ -3,7 +3,7 @@
     <div class="card-body">
 
         <div class="card-header border-bottom-0 pt-0 pl-0 pr-0 d-flex">
-            <label class="main-content-label mb-4">DETALLES DEL REMITENTE</label>
+            <label class="main-content-label mb-4">DETALLES DEL REMITENTE (Solo Lectura)</label>
         </div>
     	<div class="row">
 			<div class="input-group mb-3">
@@ -38,25 +38,7 @@
 				!!}
 			</div>
 
-			<div class="input-group mb-3">
-				<div class="input-group-prepend">
-					<span class="input-group-text" id="basic-addon1">DIRECCIÓN
-					</span>
-				</div>
-
-				{!! Form::text('direccion'
-					, $sucursal->direccion
-					,['class' 		=> 'form-control'
-						,'id'		=> 'direccion'
-						,'required'	=>	'true'
-						,'readonly' =>  'true'
-					])
-				!!}
-
-
-			</div>
-
-            <div class="input-group">
+			<div class="input-group">
                 <div class="input-group mb-3">
                     <div class="input-group-prepend">
 						<span class="input-group-text" id="basic-addon1">C.P.
@@ -104,8 +86,8 @@
 
             <div class="input-group mb-3 div-colonia-cp col-md-6 p-0">
                 <div class="input-group-prepend">
-                            <span class="input-group-text" id="basic-addon1">COLONIA
-                            </span>
+                    <span class="input-group-text" id="basic-addon1">COLONIA
+                    </span>
                 </div>
 
                 {!! Form::text('colonia'
@@ -123,7 +105,7 @@
 						</span>
                 </div>
                 {!! Form::text('calle'
-                    , @$sucursal ? $sucursal->calle : null
+                    , @$sucursal ? $sucursal->domicilio->calle : null
                     ,['class' 		=> 'form-control calle'
                         ,'required'	=>	'true'
                     ,'readonly' =>  'true'

@@ -24,7 +24,7 @@ class RegisteredUserController extends Controller
     protected $domicilio;
     public function __construct()
     {
-        //$this->domicilio = new DomicilioService();
+        $this->domicilio = new DomicilioService();
     }
 
     /**
@@ -85,7 +85,8 @@ class RegisteredUserController extends Controller
 
         $rolCliente = Roles::whereSlug('cliente')->first();
         $user->roles()->sync([ $rolCliente->id ]);
-        //$this->domicilio->guardarDomicilio($request,$user);
+        
+        $this->domicilio->guardarDomicilio($request,$nEmpresa->getEmpresaModel());
 
         foreach ($request->allFiles() as $k=>$file){
             $file->store('documentos/'.$user->id.'/'.$k);

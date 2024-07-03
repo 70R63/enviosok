@@ -58,26 +58,30 @@ class Dashboard {
 
 		Log::info(__CLASS__." ".__FUNCTION__." ".__LINE__);
         $totalGuias = mGuia::totales($data['empresa_id'])->count();
-
+        //dd($totalGuias);
         Log::info(__CLASS__." ".__FUNCTION__." ".__LINE__);
-        $mGuias = mGuia::resumenGuias($data['empresa_id'])->get()->toArray();
+        $mGuias = mGuia::resumenGuias($data['empresa_id'])->activas()->get()->toArray();
         $graficasTotales = array();
 
-        //cjhs Validar usabilidad
+        
         $transito=0;
         $entregadas=0;
         $creadas=0;
-        $totalesEjex[]="Sin Datos";
-        $totalesContador=0;
+        $recolectadas=0;
+        $totalesEjex=array();
+        $totalesContador=array();
+        Log::info(__CLASS__." ".__FUNCTION__." ".__LINE__." ".print_r($mGuias,true));
         foreach ($mGuias as $key => $guia) {
-        	Log::info($guia);
-
+        	
         	$totalesEjex[]=$guia['nombre'];
         	$totalesContador[]=$guia['contador'];
         	switch ($guia['nombre']) {
         		case 'TRANSITO':
         			$transito= $guia['contador'];
         			break;
+                case 'RECOLECTADO':
+                    $recolectadas= $guia['contador'];
+                    break;    
         		case 'ENTREGADO':
         			$entregadas= $guia['contador'];
         			break;
@@ -90,12 +94,10 @@ class Dashboard {
         	}
         }
 
-        Log::info(print_r($mGuias,true));
-
         $response['guias']['creadas']=$creadas;
         $response['guias']['transito']=$transito;
         $response['guias']['entregadas']=$entregadas;
-        $response['guias']['canceladas']=0;
+        $response['guias']['recolectadas']=$recolectadas;
         $response['saldo']['promedio'] = "100.87";
 		$response['saldo']['actual'] = $saldoActual;
 		$response['graficasTotales']['ejex']= $totalesEjex;

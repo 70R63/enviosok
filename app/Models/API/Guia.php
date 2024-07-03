@@ -113,4 +113,15 @@ class Guia extends Model
         return $query;
 
     }
+
+    public function scopeActivas ($query){
+        Log::info(__CLASS__." ".__FUNCTION__." ".__LINE__);
+        
+        $query->where('guias.estatus',1)            
+                ;
+        Log::info(__CLASS__." ".__FUNCTION__." ".__LINE__);
+
+        return $query;
+
+    }
 }

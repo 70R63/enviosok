@@ -292,7 +292,7 @@ $( "#tablaSaldosPagosAjax" ).on( "click", "span", function() {
         $("#referencia").val( row.referencia );
         $("#importe").val( row.importe );
         $("#fecha_pago").val( row.fecha_pago );
-        $("#id_preference").val( row.id_preference );
+        $("#id_preference").val( row.preference_id );
         $("#pago_id").val( row.pago_id );
         $("#email").val( row.email );
        

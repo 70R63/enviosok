@@ -27,7 +27,7 @@
                 <div class="">
                     <span class="main-content-label text-uppercase tx-14 mt-4 ">Recolectadas</span>
                     <div class="d-flex my-auto">
-                        <h4 class="mt-1 mb-0"><span id="dashboardCanceladas" ></span>
+                        <h4 class="mt-1 mb-0"><span id="dashboardRecolectadas" ></span>
                         </h4>
                     </div>
                 </div>

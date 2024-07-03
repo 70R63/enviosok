@@ -20,6 +20,7 @@ class MercadoPago
         Log::info(print_r($data,true));
         $dataParseado = array();
     	$dataParseado['empresa_id']= $data['empresa_id'];
+        $dataParseado['usuario_id']= auth()->user()->id;
     	$dataParseado['banco_id']= 30;
         $dataParseado['fecha_deposito'] = carbon::now()->format('Y-m-d');
         $dataParseado['hora_deposito'] = carbon::now()->format('H:i:s');

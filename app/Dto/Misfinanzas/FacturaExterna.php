@@ -68,6 +68,7 @@ class FacturaExterna
         $this->obtenerDatosCSF($data);
         $data = $this->data;
 
+        Log::info($this->numeroDeSolicitud." ".__CLASS__." ".__FUNCTION__." ".__LINE__);
         $this->obtenerCostoRecarga($data);
         $data = $this->data;
 
@@ -252,18 +253,18 @@ class FacturaExterna
 
     private function obtenerDatosCSF($data){
         Log::info($this->numeroDeSolicitud." ".__CLASS__." ".__FUNCTION__." ".__LINE__);
-
+        $empresa= null;
         $empresa = Empresa::base()
             ->where("empresas.id", auth()->user()->empresa_id)
             ->get()
             ;
 
-        //dd($empresa->first());
+        //dd( count($empresa));
         if ( !(bool)count($empresa)) {
             Log::info($this->numeroDeSolicitud." ".__CLASS__." ".__FUNCTION__." ".__LINE__);
-            throw ValidationException::withMessages(array("No se cuenta con Datos Fiscales"));
-            
+            throw ValidationException::withMessages(array("No se cuenta con Datos Fiscales"));   
         }
+
         $data['rfcReceptor']= $empresa->first()->rfc;
         $data['razon_social_d']= $empresa->first()->razon_social;
         $data['uso_cfdi'] = $empresa->first()->uso_cfdi;
@@ -313,7 +314,8 @@ class FacturaExterna
 
         if ( !(bool)count($mpPreference)) {
             Log::info($this->numeroDeSolicitud." ".__CLASS__." ".__FUNCTION__." ".__LINE__);
-            throw ValidationException::withMessages(array("No se cuenta con Datos Fiscales"));
+            $mensaje = sprintf("La preferencia '%s', es invalida.",$data['id_preference'] );
+            throw ValidationException::withMessages(array($mensaje));
             
         }
         

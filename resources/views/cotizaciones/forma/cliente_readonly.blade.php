@@ -2,7 +2,7 @@
 <div class="card custom-card">
     <div class="card-body">
     	<div class="card-header border-bottom-0 pt-0 pl-0 pr-0 d-flex">
-            <label class="main-content-label mb-4">DETALLES DEL DESTINATARIO a</label>
+            <label class="main-content-label mb-4">DETALLES DEL DESTINATARIO (Solo Lectura)</label>
         </div>
 
     	<div class="row">
@@ -55,7 +55,7 @@
                     !!}
 
                     <div class="input-group-prepend">
-						<span class="input-group-text" id="basic-addon1">ENTIDAD FEDERATIVA bRO
+						<span class="input-group-text" id="basic-addon1">ENTIDAD FEDERATIVA
 						</span>
                     </div>
                     {!! Form::text('estado_d'
@@ -80,14 +80,27 @@
                     , @$cliente ? @$cliente->domicilio->municipio_alcaldia : null
                     ,['class' 		=> 'form-control municipio_alcaldia'
                         ,'required'	=>	'true'
-                    ,'readonly' =>  'true'
+                        ,'readonly' =>  'true'
 
                     ])
                 !!}
             </div>
 
             <div class="input-group mb-3 div-colonia-cp col-md-6 p-0">
-                
+                <div class="input-group-prepend">
+                    <span class="input-group-text" id="basic-addon1">COLONIA
+                    </span>
+                </div>
+
+                {!! Form::text('colonia_d'
+                    , @$sucursal ? @$cliente->domicilio->colonia : null
+                    ,['class'       => 'form-control colonia'
+                        ,'required' =>  'true'
+                        ,'readonly' =>  'true'
+                        ,'id'       => 'colonia_d'
+
+                    ])
+                !!}
             </div>
             <div class="input-group mb-3 col-md-6 p-0">
                 <div class="input-group-prepend">

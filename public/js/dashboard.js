@@ -24,9 +24,9 @@ function resumenGuias(){
     	console.log(data)
     	
     	$("#dashboardCreadas").text( data.guias.creadas)
+    	$("#dashboardRecolectadas").text( data.guias.recolectadas)	
     	$("#dashboardTransito").text( data.guias.transito)
     	$("#dashboardEntregadas").text( data.guias.entregadas)
-    	$("#dashboardCanceladas").text( data.guias.canceladas)	
     	$("#dashboardPromedio").text( data.saldo.promedio)
     	$("#dashboardActual").text( data.saldo.actual)
 

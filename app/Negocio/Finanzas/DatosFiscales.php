@@ -69,6 +69,7 @@ class DatosFiscales {
             ->get()
             ;
 
+        //dd($this->constancias);
 		Log::info(__CLASS__." ".__FUNCTION__." ".__LINE__." ".$this->numeroDeSolicitud); 
 
 	}
@@ -193,7 +194,7 @@ class DatosFiscales {
         Log::info($this->numeroDeSolicitud." ".__CLASS__." ".__FUNCTION__." ".__LINE__);
         $dataDomicio = ["calle" =>$data["calle"],
         ];
-        $mDomicilio = Domicilio::where("modelo_id",auth()->user()->id)->firstOrFail();
+        $mDomicilio = Domicilio::where("modelo_id",auth()->user()->empresa_id)->firstOrFail();
         $mDomicilio->update($dataDomicio);
 
         Log::info($this->numeroDeSolicitud." ".__CLASS__." ".__FUNCTION__." ".__LINE__);

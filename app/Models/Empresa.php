@@ -49,7 +49,7 @@ class Empresa extends Model
             ,DB::raw("(CASE WHEN constancia_fiscals.id IS NULL THEN 'NO' ELSE 'SI' END) as csf_completo")
             )
             ->join('users', 'users.empresa_id', '=', 'empresas.id')
-            ->join('domicilios', 'domicilios.modelo_id', '=', 'users.id')
+            ->join('domicilios', 'domicilios.modelo_id', '=', 'empresas.id')
             ->leftjoin('constancia_fiscals', 'constancia_fiscals.empresa_id', '=', 'empresas.id')
             ;           
    }

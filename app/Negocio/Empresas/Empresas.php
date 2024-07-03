@@ -69,13 +69,17 @@ class Empresas {
         mSaldos::create(array("empresa_id" => $empresa->id));
 
         $this->empresa_id = $empresa->id;
+        $this->empresaModel = $empresa;
 
     }
 
-
-
     public function getEmpresaId(){
         return $this->empresa_id;
+
+    }
+
+    public function getEmpresaModel(){
+        return $this->empresaModel;
 
     }
 }

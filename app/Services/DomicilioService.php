@@ -4,10 +4,12 @@ namespace App\Services;
 
 use Illuminate\Http\Request;
 
+use App\Models\Domicilio;
+
 class DomicilioService
 {
     public function guardarDomicilio(Request $request,$modelo){
-            \App\Models\Domicilio::updateOrCreate([
+            Domicilio::updateOrCreate([
                 'modelo_id'=>$request->modelo_id??$modelo->id,
                 'modelo_type'=>$request->modelo??$modelo->getMorphClass(),
             ],
