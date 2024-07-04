@@ -73,6 +73,14 @@
                                     </div>
                                     <div class="form-group">
                                         <div class="row row-sm">
+                                            <div class="col-md-3"></div>
+                                            <div class="col-md-9">
+                                                <a href="#" data-toggle="modal" data-target="#cambiarPassModal" data-userid="{{$users['id']}}">Cambiar Contraseña</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="row row-sm">
                                             <div class="col-md-3">
                                                 <label class="form-label">INE Anverso</label>
                                             </div>
@@ -114,14 +122,6 @@
                                                 :maxmb="'5'"
                                                 :entidad="auth()->user()"
                                             />
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <div class="row row-sm">
-                                            <div class="col-md-3"></div>
-                                            <div class="col-md-9">
-                                                <a href="#" data-toggle="modal" data-target="#cambiarPassModal" data-userid="{{$users['id']}}">Cambiar Contraseña</a>
-                                            </div>
                                         </div>
                                     </div>
                                 </form>
