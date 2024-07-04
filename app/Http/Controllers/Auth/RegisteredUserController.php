@@ -15,7 +15,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules;
 
-use App\Negocio\Empresas\Empresas as nEmpresas; 
+use App\Negocio\Empresas\Empresas as nEmpresas;
 
 use Log;
 
@@ -62,12 +62,13 @@ class RegisteredUserController extends Controller
             'calle' => ['required','string', 'max:255'],
             'no_exterior' => ['required','numeric','max:99999'],
             'tipo_vialidad_id' => ['required'],
-            'ine_anverso' => ['required','image','max:5120'],
-            'ine_reverso' => ['required','image','max:5120'],
-            'selfie' => ['required','image','max:5120'],
+            //'ine_anverso' => ['required','image','max:5120'],
+            //'ine_reverso' => ['required','image','max:5120'],
+            //'selfie' => ['required','image','max:5120'],
         ]);
 
         $data = $request->all();
+
         Log::debug(__FILE__." ".__FUNCTION__." ".__LINE__." creado empresa");
         Log::debug( print_r($data));
         $nEmpresa = new nEmpresas();
@@ -85,12 +86,12 @@ class RegisteredUserController extends Controller
 
         $rolCliente = Roles::whereSlug('cliente')->first();
         $user->roles()->sync([ $rolCliente->id ]);
-        
+
         $this->domicilio->guardarDomicilio($request,$nEmpresa->getEmpresaModel());
 
-        foreach ($request->allFiles() as $k=>$file){
-            $file->store('documentos/'.$user->id.'/'.$k);
-        }
+//        foreach ($request->allFiles() as $k=>$file){
+//            $file->store('documentos/'.$user->id.'/'.$k);
+//        }
 
 
         event(new Registered($user));
@@ -99,7 +100,7 @@ class RegisteredUserController extends Controller
         Log::info( print_r(auth()->user()->empresa_id,true));
 
 
-        
-        return redirect(RouteServiceProvider::HOME)->with('success',["Te has registrado correctamente. Te notificaremos por email cuando tu información sea validada."]);
+
+        return redirect(RouteServiceProvider::HOME)->with('success',["Te has registrado correctamente."]);
     }
 }

@@ -30,17 +30,18 @@
                     </div>
                 </div>
                 <div class="row registro justify-content-center">
-                    <ul class="nav nav-tabs">
-                        <li class="nav-item rounded">
-                            <a class="nav-link tx-13 active" aria-current="page" href="#tabInformacion" data-bs-toggle="tab">1. Información</a>
-                        </li>
-                        <li class="nav-item rounded">
-                            <a class="nav-link disabled tx-13" href="#tabDocumentacion" data-bs-toggle="tab">2. Documentación</a>
-                        </li>
-                    </ul>
-                    <div class="tab-content mt-2">
-                        <div class="tab-pane fade p-2 show active" id="tabInformacion">
-                            <form class="row" novalidate id="formularioDatos">
+{{--                    <ul class="nav nav-tabs">--}}
+{{--                        <li class="nav-item rounded">--}}
+{{--                            <a class="nav-link tx-13 active" aria-current="page" href="#tabInformacion" data-bs-toggle="tab">1. Información</a>--}}
+{{--                        </li>--}}
+{{--                        <li class="nav-item rounded">--}}
+{{--                            <a class="nav-link disabled tx-13" href="#tabDocumentacion" data-bs-toggle="tab">2. Documentación</a>--}}
+{{--                        </li>--}}
+{{--                    </ul>--}}
+{{--                    <div class="tab-content mt-2">--}}
+{{--                        <div class="tab-pane fade p-2 show active" id="tabInformacion">--}}
+                            <form method="POST" action="{{route('register')}}" class="row p-3" novalidate id="formularioDatos">
+                                @csrf
                                 <div class="col-12">
                                     <p class="text-muted tx-13">Introduce tus datos personales</p>
                                 </div>
@@ -229,76 +230,80 @@
                                            value="{{@$modelo->domicilio->referencias??old('referencias')}}">
                                 </div>
                                 <div class="col-12 text-right">
-                                    <button type="submit" class="btn ripple btn-main-primary">Siguiente <i class="fa fa-arrow-circle-right"></i></button>
-                                </div>
-                            </form>
-                        </div>
-                        <div class="tab-pane fade p-2" id="tabDocumentacion">
-                            <form method="POST" action="{{route('register')}}" class="row justify-content-center" enctype="multipart/form-data" novalidate id="formularioDocumentacion" >
-                                @csrf
-                                <input type="hidden" name="datos" id="datos">
-                                <div class="col-12">
-                                    <p class="text-muted tx-13">Adjunta los siguientes documentos</p>
-                                </div>
-                                <div class="form-group col-md-8">
-                                    <label for="ine_anverso">INE Anverso: <span class="text-danger">*</span></label>
-                                    <div class="row justify-content-center">
-                                        <div class="col-12"></div>
-                                        <img id="previewIneAnverso" src="" alt="Preview de la imagen" style="display: none; max-width: 300px;">
-                                    </div>
-                                    <input class="form-control documento-registro" data-preview="previewIneAnverso" name="ine_anverso" type="file" id="ine_anverso" required accept="image/*" capture="environment">
-                                    <div class="invalid-feedback">
-                                        Dato obligatorio
-                                    </div>
-                                    @error('ine_anverso')
-                                    <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
-                                    @enderror
-                                </div>
-                                <div class="form-group col-md-8">
-                                    <label for="ine_reverso">INE Reverso: <span class="text-danger">*</span></label>
-                                    <div class="row justify-content-center">
-                                        <div class="col-12"></div>
-                                        <img id="previewIneReverso" src="" alt="Preview de la imagen" style="display: none; max-width: 300px;">
-                                    </div>
-                                    <input class="form-control documento-registro" data-preview="previewIneReverso" name="ine_reverso" type="file" id="ine_reverso" required accept="image/*" capture="environment">
-                                    <div class="invalid-feedback">
-                                        Dato obligatorio
-                                    </div>
-                                    @error('ine_reverso')
-                                    <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
-                                    @enderror
-                                </div>
-                                <div class="form-group col-md-8">
-                                    <label for="selfie">Selfie sosteniendo tu INE: <span class="text-danger">*</span></label>
-                                    <div class="row justify-content-center">
-                                        <div class="col-12"></div>
-                                        <img id="previewSelfie" src="" alt="Preview de la imagen" style="display: none; max-width: 300px;">
-                                    </div>
-                                    <input class="form-control documento-registro" data-preview="previewSelfie" name="selfie" type="file" id="selfie" required accept="image/*" capture="user">
-                                    <div class="invalid-feedback">
-                                        Dato obligatorio
-                                    </div>
-                                    @error('selfie')
-                                    <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
-                                    @enderror
-                                </div>
-                                <div class="col-12 d-flex justify-content-between">
-                                    <button type="button" onclick="cambiarTab('tabInformacion')" class="btn ripple btn-main-primary">
-                                        <i class="fa fa-arrow-circle-left"></i> Atrás
-                                    </button>
                                     <button type="submit" class="btn ripple btn-main-primary">
                                         Completar registro
+{{--                                        Siguiente <i class="fa fa-arrow-circle-right"></i>--}}
                                     </button>
                                 </div>
                             </form>
-                        </div>
-                    </div>
+{{--                        </div>--}}
+{{--                        <div class="tab-pane fade p-2" id="tabDocumentacion">--}}
+{{--                            <form method="POST" action="{{route('register')}}" class="row justify-content-center"--}}
+{{--                                  enctype="multipart/form-data" novalidate id="formularioDocumentacion" >--}}
+{{--                                @csrf--}}
+{{--                                <input type="hidden" name="datos" id="datos">--}}
+{{--                                <div class="col-12">--}}
+{{--                                    <p class="text-muted tx-13">Adjunta los siguientes documentos</p>--}}
+{{--                                </div>--}}
+{{--                                <div class="form-group col-md-8">--}}
+{{--                                    <label for="ine_anverso">INE Anverso: <span class="text-danger">*</span></label>--}}
+{{--                                    <div class="row justify-content-center">--}}
+{{--                                        <div class="col-12"></div>--}}
+{{--                                        <img id="previewIneAnverso" src="" alt="Preview de la imagen" style="display: none; max-width: 300px;">--}}
+{{--                                    </div>--}}
+{{--                                    <input class="form-control documento-registro" data-preview="previewIneAnverso" name="ine_anverso" type="file" id="ine_anverso" required accept="image/*" capture="environment">--}}
+{{--                                    <div class="invalid-feedback">--}}
+{{--                                        Dato obligatorio--}}
+{{--                                    </div>--}}
+{{--                                    @error('ine_anverso')--}}
+{{--                                    <span class="invalid-feedback" role="alert">--}}
+{{--                                            <strong>{{ $message }}</strong>--}}
+{{--                                        </span>--}}
+{{--                                    @enderror--}}
+{{--                                </div>--}}
+{{--                                <div class="form-group col-md-8">--}}
+{{--                                    <label for="ine_reverso">INE Reverso: <span class="text-danger">*</span></label>--}}
+{{--                                    <div class="row justify-content-center">--}}
+{{--                                        <div class="col-12"></div>--}}
+{{--                                        <img id="previewIneReverso" src="" alt="Preview de la imagen" style="display: none; max-width: 300px;">--}}
+{{--                                    </div>--}}
+{{--                                    <input class="form-control documento-registro" data-preview="previewIneReverso" name="ine_reverso" type="file" id="ine_reverso" required accept="image/*" capture="environment">--}}
+{{--                                    <div class="invalid-feedback">--}}
+{{--                                        Dato obligatorio--}}
+{{--                                    </div>--}}
+{{--                                    @error('ine_reverso')--}}
+{{--                                    <span class="invalid-feedback" role="alert">--}}
+{{--                                            <strong>{{ $message }}</strong>--}}
+{{--                                        </span>--}}
+{{--                                    @enderror--}}
+{{--                                </div>--}}
+{{--                                <div class="form-group col-md-8">--}}
+{{--                                    <label for="selfie">Selfie sosteniendo tu INE: <span class="text-danger">*</span></label>--}}
+{{--                                    <div class="row justify-content-center">--}}
+{{--                                        <div class="col-12"></div>--}}
+{{--                                        <img id="previewSelfie" src="" alt="Preview de la imagen" style="display: none; max-width: 300px;">--}}
+{{--                                    </div>--}}
+{{--                                    <input class="form-control documento-registro" data-preview="previewSelfie" name="selfie" type="file" id="selfie" required accept="image/*" capture="user">--}}
+{{--                                    <div class="invalid-feedback">--}}
+{{--                                        Dato obligatorio--}}
+{{--                                    </div>--}}
+{{--                                    @error('selfie')--}}
+{{--                                    <span class="invalid-feedback" role="alert">--}}
+{{--                                            <strong>{{ $message }}</strong>--}}
+{{--                                        </span>--}}
+{{--                                    @enderror--}}
+{{--                                </div>--}}
+{{--                                <div class="col-12 d-flex justify-content-between">--}}
+{{--                                    <button type="button" onclick="cambiarTab('tabInformacion')" class="btn ripple btn-main-primary">--}}
+{{--                                        <i class="fa fa-arrow-circle-left"></i> Atrás--}}
+{{--                                    </button>--}}
+{{--                                    <button type="submit" class="btn ripple btn-main-primary">--}}
+{{--                                        Completar registro--}}
+{{--                                    </button>--}}
+{{--                                </div>--}}
+{{--                            </form>--}}
+{{--                        </div>--}}
+{{--                    </div>--}}
                 </div>
                 <div class="text-center mt-1">
                     @if (Route::has('password.request'))

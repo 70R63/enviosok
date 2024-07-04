@@ -77,32 +77,33 @@ Array.prototype.slice.call(forms)
 
 var formularioDatos = document.getElementById('formularioDatos');
 var formularioDocumentacion = document.getElementById('formularioDocumentacion');
-if(formularioDatos && formularioDocumentacion){
+if(formularioDatos){
     formularioDatos.addEventListener('submit',function(e){
         e.preventDefault();
         validarFormulario(e);
         if(formularioDatos.checkValidity()){
-            var tabDocumentacion = document.querySelector(`a[href="#tabDocumentacion"]`);
-            tabDocumentacion.classList.remove('disabled');
-            cambiarTab('tabDocumentacion');
+            //var tabDocumentacion = document.querySelector(`a[href="#tabDocumentacion"]`);
+            //tabDocumentacion.classList.remove('disabled');
+            //cambiarTab('tabDocumentacion');
+            formularioDatos.submit();
         }
     },false);
-    formularioDocumentacion.addEventListener('submit',function(e){
-        e.preventDefault();
-        validarFormulario(e);
-        if(formularioDocumentacion.checkValidity()){
-            Array.from(formularioDatos.elements).forEach(function(element) {
-                if (element.name) {
-                    var inputHidden = document.createElement('input');
-                    inputHidden.type = 'hidden';
-                    inputHidden.name = element.name;
-                    inputHidden.value = element.value;
-                    formularioDocumentacion.appendChild(inputHidden);
-                }
-            });
-            formularioDocumentacion.submit();
-        }
-    },false);
+    // formularioDocumentacion.addEventListener('submit',function(e){
+    //     e.preventDefault();
+    //     validarFormulario(e);
+    //     if(formularioDocumentacion.checkValidity()){
+    //         Array.from(formularioDatos.elements).forEach(function(element) {
+    //             if (element.name) {
+    //                 var inputHidden = document.createElement('input');
+    //                 inputHidden.type = 'hidden';
+    //                 inputHidden.name = element.name;
+    //                 inputHidden.value = element.value;
+    //                 formularioDocumentacion.appendChild(inputHidden);
+    //             }
+    //         });
+    //         formularioDocumentacion.submit();
+    //     }
+    // },false);
 }
 
 var documentos = document.querySelectorAll('.documento-registro');

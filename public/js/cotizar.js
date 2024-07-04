@@ -13,9 +13,9 @@ var saldoNegativo = false;
 var saldoMinimo = 90;
 
 $(document).ready(function() {
-    
-    var radio = $('input[type="radio"]:checked').val()    
-    
+
+    var radio = $('input[type="radio"]:checked').val()
+
     checkCotizacion(radio)
 })
 
@@ -34,10 +34,10 @@ function checkCotizacion(radio){
             $(".checkSemiHtml").show()
             $("#clienteIdCombo").removeAttr("required");
             $(".cotizacionManual").attr("readonly","true");
-            
+
             direccionesPorEmpresa("remitente","#sucursal",sucursalIdOculto );
             $("#sucursal").attr("required","true");
-               
+
             direccionesPorEmpresa("destinatario", "#cliente", clienteIdOculto);
             $("#cliente").attr("required","true");
 
@@ -47,24 +47,24 @@ function checkCotizacion(radio){
         case 'semi':
             console.log("semi")
             $(".checkManualHtml").show()
-            
+
             $(".cotizacionManual").attr("readonly","true");
             $("#sucursal").attr("required","true");
 
             direccionesPorEmpresa("remitente","#sucursal", sucursalIdOculto);
             $(".cotizacionSemi").removeAttr("readonly");
-           
+
             $("#esManual").val("SEMI");
             $(".checkSemiHtml").hide()
             break;
         case 'manual':
             console.log("manual")
             $(".checkManualHtml").hide()
-            
+
             $(".cotizacionManual").removeAttr("readonly");
             $("#sucursal").removeAttr("required");
             $("#cliente").removeAttr("required");
-            
+
             $("#esManual").val("SI");
             break;
 
@@ -409,9 +409,10 @@ table = $('#cotizacionAjax').DataTable({
 });
 
 $('#cotizacionAjax tbody').on('click', 'tr', function () {
+    //alert('aaaa');
 
-   
-    var dataRow = table.row(this).data(); 
+
+    var dataRow = table.row(this).data();
     console.log(dataRow);
     //Valores de la cotizacion de la Forma Cotizacion
     var sucursal_id = $('#sucursal').val();
@@ -484,9 +485,9 @@ $('#cotizacionAjax tbody').on('click', 'tr', function () {
     $("#peso_bascula").val(bascula);
     $("#sobre_peso_kg").val(sobrePesoKg);
     $("#costo_extendida").val(costoCoberturaExtendida);
-    
-    
-    
+
+
+
     var iteracionClone = 0
     var pesos = []
     var largos = []
@@ -499,20 +500,20 @@ $('#cotizacionAjax tbody').on('click', 'tr', function () {
         var indexPeso = 0 +control
         var indexLargo = 1 +control
         var indexAncho = 2 +control
-        var indexAlto = 3 +control 
-        
+        var indexAlto = 3 +control
+
 
         var peso = $('.registroMultipieza .multi').get()[indexPeso].value
         var largo = $('.registroMultipieza .multi').get()[indexLargo].value
         var ancho = $('.registroMultipieza .multi').get()[indexAncho].value
         var alto = $('.registroMultipieza .multi').get()[indexAlto].value
-        
+
         pesos.push(peso)
         largos.push(largo)
         anchos.push(ancho)
         altos.push(alto)
         iteracionClone++
-    })      
+    })
 
     $("#pesos").val(pesos);
     $("#largos").val(largos);
@@ -657,8 +658,8 @@ $("#sucursal").change(function() {
     var idSucursal = $('#sucursal').val();
     console.log("sucursal "+idSucursal)
     obtenerCP(idSucursal, "Sucursal");
-            
-}); 
+
+});
 
 
 $("#cliente").change(function() {
@@ -725,7 +726,7 @@ function direccionesPorEmpresa(direccionTipo, tipoTag, idCombo=0){
 
     $.ajax({
         /* Usar el route  */
-        
+
         url: route('api.direcciones.tipo', [direccionTipo]),
 
         type: 'GET',
@@ -737,15 +738,15 @@ function direccionesPorEmpresa(direccionTipo, tipoTag, idCombo=0){
         }).done(function( response) {
             console.log("done");
             console.log(response.data);
-            
+
             $(tipoTag).empty();
             $(tipoTag).append('<option selector="0" value=""> Selecciona</option>');
             $.each(response.data,function(key, empresa) {
                 var selectedOp = (parseInt(empresa.id) === parseInt(idCombo) ) ? 'selected' : '' ;
                 console.log(selectedOp)
                 $(tipoTag).append('<option value="'+empresa.id+'" '+ selectedOp +' >'+empresa.nombre+'</option>');
-            });   
-            
+            });
+
         }).fail( function( data,jqXHR, textStatus, errorThrown ) {
             console.log( "fail" );
             console.log(textStatus);
@@ -889,7 +890,7 @@ $('input[type="radio"]').on('click change', function(e) {
     var tipoCotizacion = e.target.value;
 
    checkCotizacion(tipoCotizacion);
-    
+
 });
 
 
