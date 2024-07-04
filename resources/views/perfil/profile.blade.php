@@ -79,6 +79,7 @@
                                             </div>
                                         </div>
                                     </div>
+                                    <div class="mb-4 main-content-label">Documentación</div>
                                     <div class="form-group">
                                         <div class="row row-sm">
                                             <div class="col-md-3">
