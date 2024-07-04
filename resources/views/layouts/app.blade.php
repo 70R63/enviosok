@@ -13,7 +13,7 @@
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
     @vite('resources/css/app.css')
-    
+
 
 
 
@@ -78,6 +78,8 @@
             </div>
         </footer>
     </div>
+
+    @include('partials.modal_preview_archivo')
 </body>
 @vite('resources/js/app.js')
 <script>

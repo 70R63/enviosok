@@ -3,7 +3,7 @@ $(document).ready(function() {
 	console.log("datos fiscales")
 
     completarConCP()
-    
+
 });
 
 
@@ -12,17 +12,17 @@ $("#cp").keyup(function() {
 });
 
 function completarConCP(){
-    var cp = $("#cp").val();
+    var cp = document.getElementById('cp');
     var coloniaOculto = $("#colonia_oculto").val();
 
-    if(cp.length==5){
+    if(cp && cp.length==5){
         console.log("CP con 5 valores")
         $.ajax({
             url: route('api.colonias.sepomex', cp ) ,
             type: 'GET',
             /* send the csrf-token and the input to the controller */
             headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
-            
+
         }).done(function( response) {
             console.log(response.data   )
 
@@ -39,10 +39,10 @@ function completarConCP(){
                 $("#colonia").append('<option selector='+key+' value="'+colonia+'" selected>'+colonia+'</option>');
                 $("#municipio").val(municipio)
                 $("#estado").val(estado)
-                
+
             });
-           
-                
+
+
         }).fail( function( data,jqXHR, textStatus, errorThrown ) {
             console.error( "fail" );
             console.log(data);
@@ -56,7 +56,7 @@ function completarConCP(){
                 console.log( "complete" );
         });
 
-    } 
+    }
 
 }
 
@@ -69,7 +69,7 @@ $("#catalogo_persona_fiscal").change(function() {
         type: 'GET',
         /* send the csrf-token and the input to the controller */
         headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
-        
+
     }).done(function( response) {
         console.log(response.data   )
 
@@ -77,12 +77,12 @@ $("#catalogo_persona_fiscal").change(function() {
         $("#regimen_fiscal").append('<option selector="0" value="0"> TODOS</option>');
 
         $.each(response.data,function(key, desc) {
-            
-            leyenda = key+' - '+desc; 
+
+            leyenda = key+' - '+desc;
             $("#regimen_fiscal").append('<option selector='+key+' value="'+key+'" >'+leyenda+'</option>');
         });
-       
-            
+
+
     }).fail( function( data,jqXHR, textStatus, errorThrown ) {
         console.error( "fail" );
         console.log(data);
@@ -104,7 +104,7 @@ $("#catalogo_persona_fiscal").change(function() {
         type: 'GET',
         /* send the csrf-token and the input to the controller */
         headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
-        
+
     }).done(function( response) {
         console.log(response.data   )
 
@@ -112,13 +112,13 @@ $("#catalogo_persona_fiscal").change(function() {
         $("#uso_cfdi").append('<option selector="0" value="0"> TODOS</option>');
 
         $.each(response.data,function(key, desc) {
-            
+
             var leyenda = key+"-"+desc;
 
             $("#uso_cfdi").append('<option selector='+key+' value="'+key+'" >'+leyenda+'</option>');
         });
-       
-            
+
+
     }).fail( function( data,jqXHR, textStatus, errorThrown ) {
         console.error( "fail" );
         console.log(data);
@@ -132,7 +132,7 @@ $("#catalogo_persona_fiscal").change(function() {
     }).always(function() {
             console.log( "complete" );
     });
-            
-}); 
+
+});
 
 

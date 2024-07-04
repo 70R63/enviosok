@@ -6,6 +6,7 @@ Alpine.start();
 import ScrollReveal from 'scrollreveal';
 window.ScrollReveal = ScrollReveal;
 
+import './archivos';
 import './forms';
 import './domicilios';
 import './dashboard';

@@ -55,7 +55,7 @@
         <!-- InternalFileupload css-->
         <link href="{{ url('spruha/plugins/fileuploads/css/fileupload.css') }}" rel="stylesheet" type="text/css"/>
 
-        
+
 
         @yield('css_rol_page')
 
@@ -241,12 +241,16 @@
 {{--                </div>--}}
 {{--            </div>--}}
             <!--End Footer-->
+
+            @include('partials.modal_preview_archivo')
         </div>
 
 
         @routes
         <!-- Jquery js-->
         <script src="{{ url('spruha/plugins/jquery/jquery.min.js') }}"></script>
+        <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
 
         <!-- Bootstrap js-->
         <script src="{{ url('spruha/plugins/bootstrap/js/popper.min.js') }}"></script>
@@ -328,9 +332,10 @@
         <script src="{{ asset('js/guias.js') }}" ></script>
         <script src="{{ asset('js/remitente.js') }}" ></script>
         <script src="{{ asset('js/destinatario.js') }}" ></script>
+        <script src="{{ asset('js/archivos.js') }}" ></script>
         @routes
         <script>
-            var url_base = '{{url('/')}}';
+            var url_base = base_url = '{{url('/')}}';
             var token = document.head.querySelector('meta[name="csrf-token"]');
         </script>
         <script src="{{ asset('js/direcciones.js') }}" ></script>
@@ -341,11 +346,11 @@
         @routes
         <script src="{{ asset('js/saldos/saldos.js') }}" ></script>
         <script src="{{ asset('js/dashboard.js') }}" ></script>
-        
+
         <script src="https://cdn.jsdelivr.net/npm/@tarekraafat/autocomplete.js@10.2.7/dist/autoComplete.min.js"></script>
         <script src="{{ asset('js/misfinanzas/datosfiscales.js') }}" ></script>
 
-        
+
 
 
 {{--INTEGRACION DE ROLES Y USUARIOS--}}

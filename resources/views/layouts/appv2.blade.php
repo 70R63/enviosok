@@ -55,6 +55,9 @@
                         <li class="nav-item">
                             <a class="nav-link text-white" href="{{route('login')}}">Iniciar sesión</a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-white" href="{{route('register')}}">Registro</a>
+                        </li>
                     </ul>
                 </div>
             </div>

@@ -1,5 +1,5 @@
-@extends('dashboard') 
-@section('content')   
+@extends('dashboard')
+@section('content')
 @include('perfil.dashboard.header')
 
 
@@ -69,6 +69,51 @@
                                             <div class="col-md-9">
                                                 <input type="text" class="form-control" placeholder="Designation" value="{{Auth::user()->roles->isNotEmpty() ? Auth::user()->roles->first()->name : ""}}" readonly>
                                             </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="row row-sm">
+                                            <div class="col-md-3">
+                                                <label class="form-label">INE Anverso</label>
+                                            </div>
+                                            <x-carga-archivos
+                                                :class="'col-md-9'"
+                                                :label="''"
+                                                :codigo="'ine_anverso'"
+                                                :tipo="'pdf-imagen'"
+                                                :maxmb="'5'"
+                                                :entidad="auth()->user()"
+                                            />
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="row row-sm">
+                                            <div class="col-md-3">
+                                                <label class="form-label">INE Reverso</label>
+                                            </div>
+                                            <x-carga-archivos
+                                                :class="'col-md-9'"
+                                                :label="''"
+                                                :codigo="'ine_reverso'"
+                                                :tipo="'pdf-imagen'"
+                                                :maxmb="'5'"
+                                                :entidad="auth()->user()"
+                                            />
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="row row-sm">
+                                            <div class="col-md-3">
+                                                <label class="form-label">Selfie sosteniento tu INE</label>
+                                            </div>
+                                            <x-carga-archivos
+                                                :class="'col-md-9'"
+                                                :label="''"
+                                                :codigo="'selfie_ine'"
+                                                :tipo="'pdf-imagen'"
+                                                :maxmb="'5'"
+                                                :entidad="auth()->user()"
+                                            />
                                         </div>
                                     </div>
                                     <div class="form-group">
@@ -146,5 +191,5 @@
 	    });
 	</script>
 
-	@endsection 
+	@endsection
 @endsection

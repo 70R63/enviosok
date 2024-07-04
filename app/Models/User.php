@@ -45,5 +45,10 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-   
+
+    public function archivos(){
+        return $this->morphMany(Archivo::class,'entidad');
+    }
+
+
 }

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ArchivoController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LtdController;
 
@@ -118,7 +119,7 @@ Route::group(['as'=>'finanzas.'  ,'prefix'=>'finanzas'],function(){
 
     Route::resource('facturaexterna','Finanzas\FacturaExternaController')
         ->middleware(['roles:sysadmin,admin,contraloria,adminops,operaciones,auditoria,cliente']);
-   
+
 });
 
 
@@ -135,3 +136,8 @@ Route::group(['as'=>'returnmp.'  ,'prefix'=>'returnmp'],function(){
 });
 
 require __DIR__.'/auth.php';
+
+
+Route::post('/cargar-archivo',[ArchivoController::class,'store']);
+Route::post('/eliminar-archivo', [ArchivoController::class,'destroy']);
+Route::get('/descargar-archivo/{ruta}/{descarga?}', [ArchivoController::class,'download'])->name('descarga-archivo');
