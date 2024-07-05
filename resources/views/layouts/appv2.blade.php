@@ -70,19 +70,26 @@
                                 <div class="col-12 text-center">
                                     <h5 class="fw-bold animate__animated animate__flip">Cotiza gratis tu envío</h5>
                                 </div>
-                                <div class="form-group col-md-2 col-6">
+                                <div class="form-group col-md-6 col-lg-2 col-6">
                                     <label for="origen">Código postal origen</label>
                                     <input type="text" name="origen" id="origen" class="form-control form-control-sm" placeholder="Código postal" autocomplete="off" required>
                                 </div>
-                                <div class="form-group col-md-2 col-6">
+                                <div class="form-group col-md-6 col-lg-2 col-6">
                                     <label for="origen">Código postal destino</label>
                                     <input type="text" name="destino" id="destino" class="form-control form-control-sm" placeholder="Código postal" autocomplete="off" required>
                                 </div>
-                                <div class="form-group col-md-2">
+                                <div class="form-group col-md-6 col-lg-2 col-6">
+                                    <label for="origen">Tipo de envío</label>
+                                    <select name="tipo_envio" id="tipo_envio" class="form-select form-select-sm" required>
+                                        <option value="caja">Caja</option>
+                                        <option value="sobre">Sobre</option>
+                                    </select>
+                                </div>
+                                <div class="form-group col-md-6 col-lg-1 col-6">
                                     <label for="origen">Peso (kg)</label>
                                     <input type="number" name="peso" id="peso" class="no-controls form-control form-control-sm" placeholder="Kg(s)" step="0.1" inputmode="numeric" autocomplete="off" required max="68" min="0.1">
                                 </div>
-                                <div class="form-group col-md-3">
+                                <div class="form-group col-md-12 col-lg-3">
                                     <label for="peso">Tamaño de caja (cm)</label>
                                     <div class="d-flex">
                                         <input type="number" name="alto" id="alto" class="no-controls form-control form-control-sm rounded-0 rounded-start" placeholder="Alto" step="0.1" inputmode="numeric" autocomplete="off" required max="115" min="1">
@@ -90,7 +97,7 @@
                                         <input type="number" name="ancho"id="ancho" class="no-controls form-control form-control-sm rounded-0 rounded-end" placeholder="Ancho" step="0.1" inputmode="numeric" autocomplete="off" required max="115" min="1">
                                     </div>
                                 </div>
-                                <div class="col-md-auto d-flex align-items-end mt-3 mt-sm-0">
+                                <div class="col-md-auto d-flex align-items-end mt-3 mt-lg-0">
                                     <button class="btn btn-sm px-2 btn-warning text-primary fw-bold animate__animated animate__wobble">Cotizar envío</button>
                                 </div>
 

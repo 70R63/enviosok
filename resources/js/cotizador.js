@@ -1,5 +1,4 @@
 $(document).ready(function() {
-    console.log("autoCompleteOrigen")
     const autoCompleteOrigen = new Autocomplete({
         selector: "#origen",
         placeHolder: "Código postal origen",
@@ -158,5 +157,28 @@ $(document).ready(function() {
             }
         },false);
     }
+
+    let tipo = document.getElementById('tipo_envio');
+    if(tipo){
+        function selectedTipo(){
+            if(tipo.selectedOptions[0].value=='sobre'){
+                $("#peso").val(1).parent().addClass('d-none');
+                $("#alto").val(1).parent().parent().addClass('d-none');
+                $("#largo").val(1);
+                $("#ancho").val(1);
+            }else{
+                $("#peso").val('').parent().removeClass('d-none');
+                $("#alto").val('').parent().parent().removeClass('d-none');
+                $("#largo").val('');
+                $("#ancho").val('');
+            }
+        }
+        tipo.addEventListener('change',function(){
+            selectedTipo();
+        });
+        selectedTipo();
+    }
+
+
 });
 
