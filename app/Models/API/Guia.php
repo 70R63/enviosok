@@ -65,7 +65,8 @@ class Guia extends Model
     public function scopeResumenGuias ($query, $empresa_id){
         Log::info(__CLASS__." ".__FUNCTION__." ".__LINE__);
         
-        $query->select('guias.id','rastreo_estatus',DB::raw('count(rastreo_estatus) contador'), 'nombre')
+        $query->select('guias.id','rastreo_estatus',DB::raw('count(rastreo_estatus) contador'), 'rastreo_estatus.nombre',
+            )
                 ->where('empresa_id',$empresa_id)
                 ->join('rastreo_estatus', 'rastreo_estatus.id', '=', 'guias.rastreo_estatus')            
                 ->groupBy('rastreo_estatus')
@@ -101,12 +102,22 @@ class Guia extends Model
      * @return void 
      */
 
-    public function scopeTotales ($query, $empresa_id){
+    public function scopeCostoPromedioMesActual ($query){
         Log::info(__CLASS__." ".__FUNCTION__." ".__LINE__);
         
-        $query->select('id')
-                ->where('empresa_id',$empresa_id)            
-                //->offset(0)->limit(10)
+        $query->select(DB::raw('COUNT(1) as guias_count, (SUM(costo_base)/count(1)) as costo_base_promedio')
+            )
+            ;
+        Log::info(__CLASS__." ".__FUNCTION__." ".__LINE__);
+
+        return $query;
+
+    }
+
+    public function scopeEmpresaUsuario ($query){
+        Log::info(__CLASS__." ".__FUNCTION__." ".__LINE__);
+        
+        $query->where('empresa_id',auth()->user()->empresa_id)            
                 ;
         Log::info(__CLASS__." ".__FUNCTION__." ".__LINE__);
 

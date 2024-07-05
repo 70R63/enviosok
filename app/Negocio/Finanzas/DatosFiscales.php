@@ -69,7 +69,6 @@ class DatosFiscales {
             ->get()
             ;
 
-        //dd($this->constancias);
 		Log::info(__CLASS__." ".__FUNCTION__." ".__LINE__." ".$this->numeroDeSolicitud); 
 
 	}

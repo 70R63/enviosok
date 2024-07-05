@@ -11,6 +11,7 @@ use GuzzleHttp\Client;
 //MODELS
 use App\Models\Saldos\Pagos;
 use App\Models\Misfinanzas\FacturaExterna as mFacturaExterna;
+use App\Models\PacServicio as mPacServicio;
 
 //Negocio
 
@@ -65,10 +66,19 @@ class FacturaExterna {
     public function obtenerToken(){
 
     	Log::info(__CLASS__." ".__FUNCTION__." ".__LINE__);
-    	$uri = "https://testapi.facturoporti.com.mx/token/crear";
+        $mPacServicio = mPacServicio::where("tipo",1)->get();
+
+        if ( !(bool)count($mPacServicio)) {
+            Log::info($this->numeroDeSolicitud." ".__CLASS__." ".__FUNCTION__." ".__LINE__);
+            $mensaje = sprintf("No cuenta con Servicio de timbrado");
+            throw ValidationException::withMessages(array($mensaje));
+            
+        }
+
+    	$uri = $mPacServicio->first()->uri;
     	$formQuery = [
-    				'Usuario' => "pruebastimbrado",
-                	'Password' => "@Notiene1",
+    				'Usuario' => $mPacServicio->first()->usuario,
+                	'Password' => $mPacServicio->first()->password,
             ];
 
         $headers = [
@@ -109,9 +119,7 @@ class FacturaExterna {
      * 
      * @var string $uri La uri que se usara para obtener el token
      * @var GuzzleHttp\Client $client Clse apra uso de ptriciones para la APi 
-     * @var array $formQuery Valores que se enviaran para autenticar
-     * @var array $headers Cabeceras de la peticion 
-     * @var array $parametros Valores de array para la peticion
+     * @var array $data Valores de array para la peticion
      * @var array $response Respuesta de la peticion 
      * 
      * 
@@ -119,10 +127,19 @@ class FacturaExterna {
      */
 
     public function crear($data){
-
     	Log::info(__CLASS__." ".__FUNCTION__." ".__LINE__);
-    	$uri = "https://testapi.facturoporti.com.mx/servicios/timbrar/json";
-    	$token = "eyJhbGciOiJodHRwOi8vd3d3LnczLm9yZy8yMDAxLzA0L3htbGRzaWctbW9yZSNobWFjLXNoYTI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoialYrdVVUYmtWNmUxRmNZb2cvNWtGQT09IiwibmJmIjoxNzE3OTcxMjY2LCJleHAiOjE3MjA1NjMyNjYsImlzcyI6IlNjYWZhbmRyYVNlcnZpY2lvcyIsImF1ZCI6IlNjYWZhbmRyYSBTZXJ2aWNpb3MiLCJJZEVtcHJlc2EiOiJqVit1VVRia1Y2ZTFGY1lvZy81a0ZBPT0iLCJJZFVzdWFyaW8iOiJidXlaYzFMWUl5VURaSGhGR3NqaGdRPT0ifQ.GCJ1ANqplj0N63bwKybEp-Blc1riG3UufKMUJIGBMc4";
+        $mPacServicio = mPacServicio::where("tipo",2)->get();
+
+        if ( !(bool)count($mPacServicio)) {
+            Log::info($this->numeroDeSolicitud." ".__CLASS__." ".__FUNCTION__." ".__LINE__);
+            $mensaje = sprintf("No cuenta con Servicio de timbrado - Creación");
+            throw ValidationException::withMessages(array($mensaje));
+            
+        }
+
+    	$uri = $mPacServicio->first()->uri;
+    	$token = $mPacServicio->first()->token;
+        Log::info($this->numeroDeSolicitud." ".__CLASS__." ".__FUNCTION__." ".__LINE__." ".$token);
         $authorization = sprintf("Bearer %s",$token);
 
         $headers = [

@@ -57,10 +57,13 @@ class Dashboard {
         $saldoActual = $nSaldos->porEmpresa($data['empresa_id']);
 
 		Log::info(__CLASS__." ".__FUNCTION__." ".__LINE__);
-        $totalGuias = mGuia::totales($data['empresa_id'])->count();
-        //dd($totalGuias);
+        $costosTotales = mGuia::costoPromedioMesActual()->empresaUsuario()
+            ->activas()->firstOrFail();
+        
+        Log::info(__CLASS__." ".__FUNCTION__." ".__LINE__." ". print_r($costosTotales,true));
         Log::info(__CLASS__." ".__FUNCTION__." ".__LINE__);
-        $mGuias = mGuia::resumenGuias($data['empresa_id'])->activas()->get()->toArray();
+        $mGuias = mGuia::resumenGuias($data['empresa_id'])
+            ->activas()->get()->toArray();
         $graficasTotales = array();
 
         
@@ -70,6 +73,7 @@ class Dashboard {
         $recolectadas=0;
         $totalesEjex=array();
         $totalesContador=array();
+        $costoPromedio = 0;
         Log::info(__CLASS__." ".__FUNCTION__." ".__LINE__." ".print_r($mGuias,true));
         foreach ($mGuias as $key => $guia) {
         	
@@ -98,7 +102,7 @@ class Dashboard {
         $response['guias']['transito']=$transito;
         $response['guias']['entregadas']=$entregadas;
         $response['guias']['recolectadas']=$recolectadas;
-        $response['saldo']['promedio'] = "100.87";
+        $response['saldo']['promedio'] = $costosTotales->costo_base_promedio;
 		$response['saldo']['actual'] = $saldoActual;
 		$response['graficasTotales']['ejex']= $totalesEjex;
 		$response['graficasTotales']['contador']= $totalesContador;
