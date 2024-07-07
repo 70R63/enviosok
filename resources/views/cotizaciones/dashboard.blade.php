@@ -106,6 +106,7 @@
         </div>
     </div>
 </div>
+@include('cotizaciones.modals.completar_informacion')
 @include('cotizaciones.modals.resumen_cotizacion')
 @include('cotizaciones.modals.resumen_cotizacion_mercadoPago')
 @endsection

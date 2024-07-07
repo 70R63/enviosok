@@ -642,7 +642,16 @@ $('#cotizacionAjax tbody').on('click', 'tr', function () {
     console.log(saldoPorEmpresa +">"+ precioIva)
     console.log(saldoPorEmpresa > precioIva)
 
-    if ( saldoPorEmpresa > precioIva   ) {
+    let total_envios = parseInt($("#total_guias").val());
+    let tiene_ine_anverso = parseInt($("#tiene_ine_anverso").val());
+    let tiene_ine_reverso = parseInt($("#tiene_ine_reverso").val());
+    let tiene_ine_selfie = parseInt($("#tiene_ine_selfie").val());
+
+    if(total_envios>=2 && (!tiene_ine_anverso || !tiene_ine_reverso || !tiene_ine_selfie)){
+        console.log("modal_completar_documentacion")
+        $("#modal_completar_documentacion").modal("show");
+    }
+    else if ( saldoPorEmpresa > precioIva   ) {
         console.log("myModal")
         $("#myModal").modal("show");
     } else {

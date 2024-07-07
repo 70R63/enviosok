@@ -321,7 +321,7 @@
         <!-- Personalizacion -->
         <script src="{{ asset('js/guardar.js') }}" ></script>
         <script src="{{ asset('js/tipoEnvio.js') }}" ></script>
-        <script src="{{ asset('js/cotizar.js') }}" ></script>
+        <script src="{{ asset('js/cotizar.js?v=1') }}" ></script>
         @routes
         <script src="{{ asset('js/empresa.js') }}" ></script>
         <!-- Personalizacion de validicon con parley -->

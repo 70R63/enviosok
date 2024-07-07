@@ -30,12 +30,12 @@ class Empresa extends Model
         static::addGlobalScope('estatus_empresa', function (Builder $builder) {
             $builder->where('empresas.estatus', '1');
 
-            
+
             $empresaId =  isset(auth()->user()->empresa_id)  ? auth()->user()->empresa_id : 2 ;
             $empresas = EmpresaEmpresas::where('id',$empresaId)
                 ->pluck('empresa_id')->toArray();
             $builder->whereIN('empresas.id',$empresas);
-            
+
 
         });
     }
@@ -51,6 +51,10 @@ class Empresa extends Model
             ->join('users', 'users.empresa_id', '=', 'empresas.id')
             ->join('domicilios', 'domicilios.modelo_id', '=', 'empresas.id')
             ->leftjoin('constancia_fiscals', 'constancia_fiscals.empresa_id', '=', 'empresas.id')
-            ;           
+            ;
+   }
+
+   public function guias(){
+        return $this->hasMany(Guia::class,'empresa_id');
    }
 }

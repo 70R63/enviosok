@@ -50,5 +50,19 @@ class User extends Authenticatable
         return $this->morphMany(Archivo::class,'entidad');
     }
 
+    public function ineAnverso(){
+        return $this->archivos()->whereCodigo('ine_anverso');
+    }
+    public function ineReverso(){
+        return $this->archivos()->whereCodigo('ine_reverso');
+    }
+    public function ineSelfie(){
+        return $this->archivos()->whereCodigo('selfie_ine');
+    }
+
+    public function empresa(){
+        return $this->belongsTo(Empresa::class,'empresa_id');
+    }
+
 
 }
