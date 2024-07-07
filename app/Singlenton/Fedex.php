@@ -39,11 +39,8 @@ class Fedex {
     private function __construct(int $ltd_id= 1, $empresa_id= 1, $plataforma = 'WEB', $ambiente="PRD"){
 
         Log::info(__CLASS__." ".__FUNCTION__);
-        if ($ambiente==="PRD") {
-            $this->baseUri = Config('ltd.fedex.base_uri');    
-        } else {
-            $this->baseUri = "https://apis-sandbox.fedex.com/";
-        }
+        $this->baseUri = Config('ltd.fedex.base_uri');
+        
         Log::info(__CLASS__." ".__FUNCTION__." ".__LINE__." baseuri=$this->baseUri");
         
         $sesion = LtdSesion::where('ltd_id', $ltd_id)
@@ -65,19 +62,11 @@ class Fedex {
             $headers = ['Content-Type' => 'application/x-www-form-urlencoded'];
             
             Log::info(__CLASS__." ".__FUNCTION__." ".__LINE__." ambiente=$ambiente");
-            if ($ambiente==="PRD") {
-                $body = sprintf("grant_type=client_credentials&client_id=%s&client_secret=%s"
+            $body = sprintf("grant_type=client_credentials&client_id=%s&client_secret=%s"
                         ,Config('ltd.fedex.client_id')
                         ,Config('ltd.fedex.client_secret')
-                    );   
-            } else {
-                $body = sprintf("grant_type=client_credentials&client_id=%s&client_secret=%s"
-                        ,"l7640a59a8ce1c4dfea7bb2d302febc882"
-                        ,"2bc10d1d2f3b4b6ab55a0e63518c306e"
-                    );  
-            }
+                    );
             
-           
             $response = $client->request('POST', 'oauth/token', [
                     'headers'   => $headers
                     ,'body'     => $body
