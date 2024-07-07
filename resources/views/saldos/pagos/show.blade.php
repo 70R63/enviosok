@@ -9,7 +9,8 @@
         <div class="card custom-card">
             <div class="card-header bg-transparent border-bottom-0">
                 <div>
-                    <label class="main-content-label mb-2">Muestra el historial de pagos realizados</label> <span class="d-block tx-12 mb-0 text-muted">Reporte de Pagos</span>
+                    <label class="main-content-label mb-2">Facturación</label>
+                    <span class="d-block tx-12 mb-2 text-muted">En esta sección podrás observar el historial de tus pagos y cuales han sido Aprobados o Rechazados. Podrás también solicitar la factura de cada deposito aprobado realizado.</span>
                 </div>
             </div>
         </div>

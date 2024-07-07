@@ -1,4 +1,4 @@
-	@extends('dashboard') 
+	@extends('dashboard')
 	@section('content')
    @include('usuario.dashboard.header')
    <!--Row-->
@@ -8,7 +8,10 @@
             <div class="card-body">
                 <div class="card-header border-bottom-0 pt-0 pl-0 pr-0 d-flex">
                     <div>
-                        <label class="main-content-label mb-2">Tasks q</label> <span class="d-block tx-12 mb-3 text-muted">A task is accomplished by a set deadline, and must contribute toward work-related objectives.</span>
+                        <label class="main-content-label mb-2">Alta de usuarios</label>
+                        <span class="d-block tx-12 mb-3 text-muted">
+                            En esta sección puedes crear hasta 5 usuarios y podrás dar seguimiento a las guías que realicen los integrantes de tu equipo.
+                        </span>
                     </div>
                 </div>
             </div>
@@ -23,11 +26,11 @@
          <div class="card-header border-bottom-0 custom-card-header">
             <div class="col-sm-12 col-md-10">
                <h6 class="main-content-label mb-0">Tabla de usuarios en el sistema</h6>
-            </div>        
+            </div>
          </div>
          <div class="card-body">
             <div class="border">
-            </div> 
+            </div>
             <div class="table-responsive userlist-table">
                <table id="exportGeneral"  class="table table-striped table-bordered text-nowrap" >
                   <thead>
@@ -50,20 +53,20 @@
                         <td>
                         	@if ($users->roles->isNotEmpty())
 	                        	@foreach($users->roles as $rol)
-	                        		<span class="badge badge-pill badge-warning"> {{$rol->name}}</span> 
+	                        		<span class="badge badge-pill badge-warning"> {{$rol->name}}</span>
 	                        	@endforeach
                         	@endif
                         </td>
                         <td>
                          	@if ($users->permisos->isNotEmpty())
 	                        	@foreach($users->permisos as $permiso)
-	                        		<span class="badge badge-pill badge-secondary"> {{$permiso->name}}</span> 
+	                        		<span class="badge badge-pill badge-secondary"> {{$permiso->name}}</span>
 	                        	@endforeach
-                        	@endif                     
+                        	@endif
                         </td>
                         <td>
                            <a href="/users/{{ $users['id'] }}/edit "  class="btn btn-sm btn-info" ><i class="fe fe-edit-2"></i></a>
- 						   <a href="#" data-toggle="modal" data-target="#deleteModal" data-userid="{{$users['id']}}"  class="btn btn-sm btn-danger"><i class="fe fe-trash"></i></a>						
+ 						   <a href="#" data-toggle="modal" data-target="#deleteModal" data-userid="{{$users['id']}}"  class="btn btn-sm btn-danger"><i class="fe fe-trash"></i></a>
                         </td>
                      </tr>
                      @endforeach
@@ -109,9 +112,9 @@
 
 		    <script>
 		        $('#deleteModal').on('show.bs.modal', function (event) {
-		            var button = $(event.relatedTarget) 
-		            var user_id = button.data('userid') 
-		            
+		            var button = $(event.relatedTarget)
+		            var user_id = button.data('userid')
+
 		            var modal = $(this)
 		            // modal.find('.modal-footer #user_id').val(user_id)
 		            modal.find('form').attr('action','/users/' + user_id);

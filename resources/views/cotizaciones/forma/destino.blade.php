@@ -1,8 +1,4 @@
-<div class="col-sm-5">
-	    <div>
-	        <span class="tx-18 mb-5">DESTINO</span> 
-	    </div>
-	</div>
+<span class="tx-18 mb-5">DESTINO</span>
 <div class="checkManualHtml " style="display:none;" >
 	<div class="input-group mb-3 checkSemiHtml">
 		<div class="input-group-prepend">
@@ -13,7 +9,7 @@
 			,'MEX'
 			,['class' 		=> 'form-control select2 cotizacionSemi'
 				,'placeholder'	=> 'Seleccionar'
-				
+
 				,'name'		=> 'cliente'
 				,'id'		=> 'cliente'
 			]);
@@ -33,7 +29,7 @@
 			,'pattern'	=> '\d{5}'
 		])
 	!!}
-	
+
 </div>
 
 
@@ -41,6 +37,6 @@
     , isset($objeto['cliente']) ? $objeto['cliente'] : null
     ,['class'       => 'form-control'
         ,'id'       => 'cliente_id_oculto'
-        
+
     ])
 !!}

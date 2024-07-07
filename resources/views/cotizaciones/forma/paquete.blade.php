@@ -3,13 +3,13 @@
 	<div class="input-group-prepend">
 		<span class="input-group-text" id="basic-addon1"> Piezas <span class="tx-danger">*</span></span>
 	</div>
-		
+
 	<div class="handle-counter" id="handleCounterMax40">
 		<text class="counter-minus btn btn-light">-</text>
 		<input type="text" value="1" class="form-control" name="piezas" id="piezas" required="">
 		<text class="counter-plus btn btn-light">+</text>
 	</div>
-	
+
 	<div class="input-group-prepend">
 		<span class="input-group-text" id="basic-addon1"> Presiona para multipieza</span>
 		<button id="addRow" type="button" class="btn btn-info" title="Multi-Pieza">
@@ -73,10 +73,10 @@
 		['class' 		=> 'form-control'
 			,'id'		=> 'contenido'
 			,'placeholder'	=> 'Contenido del envio '
-			
+
 		])
 	!!}
-	
+
 </div>
 
 <div class="input-group mb-3">
@@ -88,7 +88,7 @@
 			,'data-parsley-type' => 'number'
 			,'data-parsley-type' =>'integer'
 			,'min'	=>	'1'
-			,'placeholder'	=> 'Valor que resulta del peso y las dimensiones'
+			,'placeholder'	=> 'Valor que resulta de comparar el peso dimensional vs el peso bascula. '
 			,'id'		=> 'pesoFacturado'
 			,'required'	=> ''
 			,'readonly' =>	'true'

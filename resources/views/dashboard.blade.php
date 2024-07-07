@@ -29,8 +29,8 @@
         <link href="{{ url('spruha/plugins/web-fonts/plugin.css') }}"  rel="stylesheet"/>
 
         <!-- Style css-->
-        <link href="{{ url('spruha/css/style.css?version=1') }}"  rel="stylesheet">
-        <link href="{{ url('spruha/css/custom.css?verion=1') }}"  rel="stylesheet">
+        <link href="{{ url('spruha/css/style.css?version=2') }}"  rel="stylesheet">
+        <link href="{{ url('spruha/css/custom.css?verion=2') }}"  rel="stylesheet">
 {{--        <link id="theme" rel="stylesheet" type="text/css" media="all" href="{{ url('spruha/css/colors/color3.css') }}">--}}
 
         <!-- Select2 css-->
@@ -54,8 +54,6 @@
 
         <!-- InternalFileupload css-->
         <link href="{{ url('spruha/plugins/fileuploads/css/fileupload.css') }}" rel="stylesheet" type="text/css"/>
-
-
 
         @yield('css_rol_page')
 

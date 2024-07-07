@@ -9,7 +9,10 @@
         <div class="card custom-card">
             <div class="card-header bg-transparent border-bottom-0">
                 <div>
-                    <label class="main-content-label mb-2">Creacion de Reportes de Ventas</label> <span class="d-block tx-12 mb-0 text-muted">Reporte de Ventas</span>
+                    <label class="main-content-label mb-2">Creacion de Reportes de Ventas</label>
+                    <span class="d-block tx-12 mb-0 text-muted">
+                        Esta sección te permitirá descargar un reporte en Excel de tus envíos operados filtrando por fecha, línea transportista y por servicio.
+                    </span>
                 </div>
             </div>
         </div>
@@ -28,5 +31,5 @@
     </div>
 </div>
 <!-- End Row -->
-     
+
 @endsection

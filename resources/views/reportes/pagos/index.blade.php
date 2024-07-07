@@ -9,7 +9,8 @@
         <div class="card custom-card">
             <div class="card-header bg-transparent border-bottom-0">
                 <div>
-                    <label class="main-content-label mb-2">Creacion de Reportes de Pagos</label> <span class="d-block tx-12 mb-0 text-muted">Reporte de Pagos</span>
+                    <label class="main-content-label mb-2">Creacion de Reportes de Pagos</label>
+                    <span class="d-block tx-12 mb-0 text-muted">Esta sección te permitirá descargar un reporte en Excel de tus pagos realizados filtrando por fecha y por banco. </span>
                 </div>
             </div>
         </div>
@@ -28,5 +29,5 @@
     </div>
 </div>
 <!-- End Row -->
-     
+
 @endsection

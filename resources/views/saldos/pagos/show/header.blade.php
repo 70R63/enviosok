@@ -3,10 +3,9 @@
         <h2 class="main-content-title tx-24 mg-b-5">MIS FINANZAS</h2>
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="">Mis Finanzas</a></li>
-            <li class="breadcrumb-item " aria-current="page">
+            <li class="breadcrumb-item active" aria-current="page">
                 <a href="{{ route('pagos.index') }}">Facturación </a>
             </li>
-            <li class="breadcrumb-item active">Dashboard</li>
         </ol>
     </div>
 
