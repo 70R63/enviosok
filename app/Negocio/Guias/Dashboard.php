@@ -112,6 +112,68 @@ class Dashboard {
     }
 
 
+    /**
+     * 
+     * Se busca optener un resumen de guias por LTD de los ultimso 3 meses
+     * 
+     * @author Javier Hernandez
+     * @copyright 2024-2024 Envios OK
+     * @package App\Models\API
+     * @api
+     * 
+     * @version 1.0.0
+     * 
+     * @since 1.0.0 Primera version de la funcion graficaUsoLtd
+     * 
+     * @throws 
+     *
+     * @param array $data 
+     * 
+     * @var array $rastreoPeticion contiene los datos de los rastres ejucutados 
+     * @var string $cp_d
+     * @var array $body valores unicos par envio al LTD
+     * @var string $canal valor que indentifica de donde se realiza la peticion
+     * 
+     * 
+     * @return void 
+     */
+
+    public function graficaUsoLtd (array $data){
+        Log::info(__CLASS__." ".__FUNCTION__." ".__LINE__);
+        $response = array();
+        $response['leyenda']=array();
+        $response['dataSet']=array();
+        Log::info(__CLASS__." ".__FUNCTION__." ".__LINE__);
+        $usoLtd = mGuia::selecUsoLtd()
+            ->empresaUsuario()->activas()
+            ->agruparLtd()
+            ->ultimosTresMeses()
+            ->get();
+        
+        foreach ($usoLtd as $key => $value) {
+            Log::info(__CLASS__." ".__FUNCTION__." ".__LINE__." ". print_r($value->toArray(),true));
+            
+            Log::debug(isset($response['leyenda'][$value->mes]));
+
+            if ( ! (bool)isset($response['leyenda'][$value->mes]) ) {
+                $response['leyenda'][$value->mes]= $value->mes;
+            }
+
+            $response['dataSet'][$value->nombre][$value->mes]= $value->guias_cantidad;
+            
+        }
+
+        
+        
+        Log::info(__CLASS__." ".__FUNCTION__." ".__LINE__);
+       
+       
+        $this->response = $response;
+        Log::info(__CLASS__." ".__FUNCTION__." ".__LINE__);
+
+    }
+
+
     public function getResponse(){
         return $this->response;
     }

@@ -33,10 +33,7 @@
                 <span class="d-block tx-12 mb-0 mt-1 text-muted">Conoce la cantidad de envíos que llevas procesados hasta el momento.</span>
             </div>
             <div class="card-body crypto-wallet">
-                <div class="">
-
                     @include('dashboard.graficas.totalguias')
-                </div>
             </div>
         </div>
     </div>

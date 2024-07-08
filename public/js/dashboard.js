@@ -7,111 +7,95 @@
         var table = null;  
     }
 
-    if ($('#myChart2').length) {
+    if ($('#myChart3').length) {
         console.log("Inicializar myChart2")
-        graficaLtdMensual()
+        graficaUsoLtdAjax()
         
     }
    	
 });
 
+function graficaUsoLtdAjax(){
+    $.ajax({
+        url: route('api.dashboard.graficaUsoLtd'),
+        type: 'GET',
+        headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+        
+    }).done(function( response) {
+    	console.log( "graficaUsoLtdAjax done" );
+    	var data = response.data
+    	console.log(data)
+    	
+    	graficaLtdUso(data)
 
-function graficaLtdMensual(){
-	var chartDataLtdMensual =  {
-        labels: ['Marzo', 'Abril', 'Mayo'],
-        datasets: [{
+    }).fail( function( data,jqXHR, textStatus, errorThrown ) { 
+    	console.error( "graficaUsoLtdAjax fail" );
+    	console.log( textStatus );
 
-            label: 'Fedex',
-            data: [12, 19, 3],
-            backgroundColor: [
-                'rgba(255, 99, 132, 0.2)',                
-                
-            ],
-            borderColor: [
-                'rgba(255, 99, 132, 1)',              
-                
-            ],
-            borderWidth: 1
-        },
-        {
-            label: 'Estafeta',
-            data: [19, 3, 5],
-            backgroundColor: [
-                
-                'rgba(54, 162, 235, 0.2)',
-                
-            ],
-            borderColor: [
-                
-                'rgba(54, 162, 235, 1)',
-               
-            ],
-            borderWidth: 1
-        }
-        ,
-        {
-            label: 'Redpack',
-            data: [3, 5, 2],
-            backgroundColor: [
-                
-                'rgba(255, 206, 86, 0.2)',
-             
-            ],
-            borderColor: [
-                
-                'rgba(255, 206, 86, 1)',
-                
-            ],
-            borderWidth: 1
-        }
-        ,
-        {
-            label: 'DHL',
-            data: [5, 2, 3],
-            backgroundColor: [
-                
-                
-                'rgba(75, 192, 192, 0.2)',
-               
-            ],
-            borderColor: [
-                
-                'rgba(75, 192, 192, 1)',
-               
-            ],
-            borderWidth: 1
-        }]
-    };
+    }).always(function() {
+        console.log( "graficaUsoLtdAjax always" );
+    });
+}
 
-	var chartOptionsLtdMensual =  {
-			scales: {
-	            y: {
-	                beginAtZero: true
-	            }
-	        },
-	        plugins: {
-	            legend: {
-	                display: true,
-	                
-	            }
-	        }
-	    }
+function graficaLtdUso(data){
 
-	const ctx2 = document.getElementById('myChart2').getContext('2d');
+	var ejeXLabels = Object.keys(data.leyenda) ;
 
-	const myChart2 = new Chart(ctx2, {
-	    type: 'bar',
-	    data: chartDataLtdMensual,
-	    options : chartOptionsLtdMensual
+	var dataSetltdsMensual = Object.keys(data.dataSet);
+		
+	var ltdsMensual = [];
+	dataSetltdsMensual.forEach(function(ltd) {
+
+	    console.log(ltd)
+	    console.log(data.dataSet[ltd]);
+
+	    cantidaGuias = []
+	    for (const [key, value] of Object.entries(data.dataSet[ltd])) {
+		  //console.log(value);
+		  cantidaGuias.push(value) ;
+		}
+	    ;
+	    //fin 
 	    
+	    colores= configurarColoresPorLtd(ltd)
+	    var setLtd = {
+			label : ltd, 
+			data : cantidaGuias,
+            backgroundColor:colores['backDefault'],
+            borderColor: colores['boderDefault'],
+            borderWidth: 2
+		}
+
+		ltdsMensual.push(setLtd);
+
 	});
+
+	new Chart("myChart3", {
+	  type: "bar",
+	  data: {
+	    labels: ejeXLabels,
+	    datasets: ltdsMensual,
+		},
+	  options: {
+	    legend: {display: false},
+	    title: {
+	      display: true,
+	     
+	    },
+	    scales: {
+	      y: {
+	        beginAtZero: true
+	      }
+	    }
+	  }
+	});
+
+
 }
  
 
-
 function resumenGuias(){
     $.ajax({
-
         url: route('api.dashboard.resumenGuias'),
         type: 'GET',
         headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
@@ -140,8 +124,8 @@ function resumenGuias(){
 }
 
 function graficaTotal(dataGraficos){
-	const ctx = document.getElementById('myChart').getContext('2d');
-	const myChart = new Chart(ctx, {
+	//const ctx = document.getElementById('myChart').getContext('2d');
+	const myChart = new Chart("myChart", {
 	    type: 'doughnut',
 	    data: {
 	        labels: dataGraficos.ejex,
@@ -153,20 +137,88 @@ function graficaTotal(dataGraficos){
 				    'rgb(54, 162, 235)',
 				    'rgb(255, 205, 86)'
 	            ],
-	            borderWidth: 1
-	            , hoverOffset: 4
+	            borderWidth: 1,
+	            cutout: '40%',
+	            
 	        }
 
 	        ]
 	    },
 	    options: {
-	        scales: {
-	            y: {
-	                beginAtZero: true
-	            }
-	        }
+	    	maintainAspectRatio: false,
+	        plugins: {
+		      datalabels: {
+		        formatter: (value) => {
+		          return value + '%';
+		        },
+		      },
+		    },
+
 	    }
 	});	
 }
 
+function configurarColoresPorLtd(ltd){
 
+	var colores = []
+	switch (ltd) {
+	  case "FEDEX":
+	    colores['backDefault'] =  [
+		      'rgba(77, 20, 140, 0.4)',
+		      'rgba(77, 20, 140, 0.4)',
+		      'rgba(77, 20, 140, 0.4)',
+		      
+		    ];
+		    
+		colores['boderDefault'] = [
+		      'rgb(77, 20, 140)',
+		      'rgb(77, 20, 140)',
+		      'rgb(77, 20, 140)',
+		      
+		    ];
+	    break;
+	  case "DHL":
+	    colores['backDefault'] =  [
+	     'rgba(255, 204, 0, 0.4)',
+	      'rgba(255, 204, 0, 0.4)',
+	      'rgba(255, 204, 0, 0.4)',
+	      
+	    ];
+
+    
+		colores['boderDefault'] = [
+			'rgb(255, 204, 0)',
+			'rgb(255, 204, 0)',
+			'rgb(255, 204, 0)',
+		];
+
+	    break;
+
+	  case "ESTAFETA":
+	    
+	    colores['backDefault'] =  [
+		      'rgba(192, 13, 13, 0.4)',
+		      'rgba(192, 13, 13, 0.4)',
+		      'rgba(192, 13, 13, 0.4)',
+		      
+		    ];
+		    
+		colores['boderDefault'] = [
+		      'rgb(192, 13, 13)',
+		      'rgb(192, 13, 13)',
+		      'rgb(192, 13, 13)',
+		      
+		    ];
+
+	    break;
+	  default:
+	  	var barColors = ["red", "red","red"];
+		var barColors1 = ["green", "green","green"];
+	  	colores['backDefault'] = barColors;
+		colores['boderDefault'] = barColors1;
+	    
+	    break;
+	}
+
+	return colores;
+}

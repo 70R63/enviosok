@@ -16,9 +16,8 @@
         <!-- Title -->
         <title>Envíos nacionales: Cotiza tu envío y manda paquetes de forma segura</title>
 
-        <!-- js -->
-        <script src="{{ asset('js/chart.js-3.9.1/package/dist/chart.js') }}" ></script>
-
+       
+        
 
         <!-- Bootstrap css-->
         <link href="{{ url('spruha/plugins/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">
@@ -256,8 +255,10 @@
         <!-- Bootstrap js-->
         <script src="{{ url('spruha/plugins/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
 
-        <!-- Internal Chart.Bundle js-->
-        <script src="{{ url('spruha/plugins/chart.js/Chart.bundle.min.js') }}"></script>
+        <!-- Internal Chart.js-->
+        
+        <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.3/dist/chart.umd.min.js"></script>
+        
 
         <!-- Peity js-->
         <script src="{{ url('spruha/plugins/peity/jquery.peity.min.js') }}"></script>
@@ -347,7 +348,6 @@
 
         <script src="https://cdn.jsdelivr.net/npm/@tarekraafat/autocomplete.js@10.2.7/dist/autoComplete.min.js"></script>
         <script src="{{ asset('js/misfinanzas/datosfiscales.js') }}" ></script>
-
 
 
 
