@@ -48,7 +48,6 @@ class Empresa extends Model
             ,DB::raw("(CASE constancia_fiscals.facturacion_automatica WHEN 1 THEN 'SI' WHEN 2 THEN 'NO' ELSE 'NO' END) as facturacion_automatica")
             ,DB::raw("(CASE WHEN constancia_fiscals.id IS NULL THEN 'NO' ELSE 'SI' END) as csf_completo")
             )
-            ->join('users', 'users.empresa_id', '=', 'empresas.id')
             ->join('domicilios', 'domicilios.empresa_id', '=', 'empresas.id')
             ->leftjoin('constancia_fiscals', 'constancia_fiscals.empresa_id', '=', 'empresas.id')
             ;

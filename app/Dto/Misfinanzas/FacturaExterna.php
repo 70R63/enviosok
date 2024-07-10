@@ -61,7 +61,7 @@ class FacturaExterna
         
         //Datos solo se usaran en produccion, para LOCAL y DEV se tiene que usar datos entregaedos po el proveedor
         $data['rfcEmisor']= "CXM201015UN0";
-        $data['razon_social']= "COMERCIALIZADORA XPERTA MEXICO";
+        $data['razon_social']= "COMERCIALIZADORA XPERTA MEXICO SA DE CV";
         $data['regimen_fiscal']= "601";
         $data['cp']="11320";
         Log::info($this->numeroDeSolicitud." ".__CLASS__." ".__FUNCTION__." ".__LINE__);
@@ -76,6 +76,8 @@ class FacturaExterna
         Log::info($this->numeroDeSolicitud." ".__CLASS__." ".__FUNCTION__." ".__LINE__);
         $this->obtenerCertificado($data);
         $data = $this->data;
+
+        Log::info($this->numeroDeSolicitud." ".__CLASS__." ".__FUNCTION__." ".__LINE__." ".config('app.env'));
 
         if (config('app.env') === "local" || config('app.env') === "dev") {
             Log::info($this->numeroDeSolicitud." ".__CLASS__." ".__FUNCTION__." ".__LINE__);
