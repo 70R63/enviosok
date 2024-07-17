@@ -47,6 +47,30 @@ class FedexDTO
 		
 		$weight = new Weight(array('value'=> $request['peso_facturado']));
 
+		Log::info(__CLASS__." ".__FUNCTION__." ".__LINE__." dimensiones");
+		$dimensions = array();
+
+		$length=0;
+		foreach ($request['largos'] as $key => $value) {
+			$length = $length+$value;
+		}
+
+		$width=0;
+		foreach ($request['anchos'] as $key => $value) {
+			$width = $width+$value;
+		}
+
+		$height=0;
+		foreach ($request['altos'] as $key => $value) {
+			$height = $height+$value;
+		}
+		
+		$dimensions = array("height"=> $height,
+                    "length"=> $length,
+                    "units"=> "CM",
+                    "width"=> $width
+		);
+
 		$contactShipper = New Contact( 
 			array("personName" 	=> $this->quitar_acentos($request['contacto'])
 				,"phoneNumber"	=> $request['celular']
@@ -113,6 +137,7 @@ class FedexDTO
                 ,'weight' => $weight
                 ,'groupPackageCount' => $request['piezas'] 
                 ,'itemDescriptionForClearance' => $this->quitar_acentos($request['contenido'])
+                ,'dimensions' => $dimensions
             );
 
 		$requestedPackageLineItems = New RequestedPackageLineItems($declaredValueWeight);
