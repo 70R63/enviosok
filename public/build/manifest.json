@@ -3,10 +3,6 @@
     "file": "assets/bariol_regular-webfont.5e306ed7.woff",
     "src": "resources/fonts/bariol_regular-webfont.woff"
   },
-  "resources/fonts/bariol_thin_italic-webfont.woff": {
-    "file": "assets/bariol_thin_italic-webfont.fb7bc084.woff",
-    "src": "resources/fonts/bariol_thin_italic-webfont.woff"
-  },
   "resources/fonts/bariol_regular_italic-webfont.woff": {
     "file": "assets/bariol_regular_italic-webfont.100c29ef.woff",
     "src": "resources/fonts/bariol_regular_italic-webfont.woff"
@@ -15,13 +11,13 @@
     "file": "assets/wave.42cce741.svg",
     "src": "public/assets/patterns/wave.svg"
   },
-  "public/assets/iconos/options.svg": {
-    "file": "assets/options.336a5498.svg",
-    "src": "public/assets/iconos/options.svg"
-  },
   "resources/fonts/bariol_thin-webfont.woff": {
     "file": "assets/bariol_thin-webfont.267ea721.woff",
     "src": "resources/fonts/bariol_thin-webfont.woff"
+  },
+  "resources/fonts/bariol_thin_italic-webfont.woff": {
+    "file": "assets/bariol_thin_italic-webfont.fb7bc084.woff",
+    "src": "resources/fonts/bariol_thin_italic-webfont.woff"
   },
   "resources/fonts/bariol_light_italic-webfont.woff": {
     "file": "assets/bariol_light_italic-webfont.64e974a2.woff",
@@ -43,8 +39,12 @@
     "file": "assets/wave-soft.3110e36c.svg",
     "src": "public/assets/patterns/wave-soft.svg"
   },
+  "public/assets/iconos/options.svg": {
+    "file": "assets/options.336a5498.svg",
+    "src": "public/assets/iconos/options.svg"
+  },
   "resources/js/app.js": {
-    "file": "assets/app.5c948991.js",
+    "file": "assets/app.d3924fd2.js",
     "src": "resources/js/app.js",
     "isEntry": true
   },

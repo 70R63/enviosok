@@ -179,6 +179,24 @@ $(document).ready(function() {
         selectedTipo();
     }
 
+    $("#peso_cotizador").on('change',function(){
+        if(this.value>68)
+            Swal.fire({
+                icon: "error",
+                title: "",
+                text: "Peso excedido, máximo permitido 68 Kgs.",
+                confirmButtonColor: "#3085d6",
+            });
+    })
+    $("#alto_cotizador,#largo_cotizador,#ancho_cotizador").on('change',function(){
+        if(this.value>69)
+            Swal.fire({
+                icon: "error",
+                title: "",
+                text: "Dimensión excedida, máximo permitido 69 cms por lado.",
+                confirmButtonColor: "#3085d6",
+            });
+    })
 
 });
 
