@@ -883,4 +883,77 @@ class GuiaController extends Controller
             return $this->sendError("Exception",$e->getMessage(), "400");
         }
     }//fin resumenGuiasDashboard
+
+
+
+    /**
+     * Busca obtener un resumen de la guias creads, rastreo , transito y saldos para el dashboard principal .
+     * 
+     * @author Javier Hernandez
+     * @copyright 2024 Envios OK
+     * @package App\Http\Controllers\API
+     * @api
+     * 
+     * @version 1.0.0
+     * 
+     * @since 1.0.0 Primera version de la funcion resumenGuiasDashboard
+     * 
+     * @throws ValidationException
+     * @throws ModelNotFoundException
+     * @throws InvalidArgumentException
+     * @throws ErrorException
+     * @throws HttpException
+     * @throws Exception
+     *
+     * @param  
+     * 
+     * @var array $data Se convierte el Json de la peticion a array
+     * 
+     * 
+     * @return json Objeto con la respuesta de exito o fallo 
+     */
+
+    public function graficaUsoLtd(){
+        try{
+
+            Log::info(__CLASS__." ".__FUNCTION__." INICIANDO-----------------");
+            $data['empresa_id']= auth()->user()->empresa_id;
+            $nDashboard = new nDashboard();
+            $nDashboard->graficaUsoLtd($data);
+
+            $response = $nDashboard->getResponse();
+            Log::info(__CLASS__." ".__FUNCTION__." FINALIZANDO-----------------");
+            return $this->successResponse($response, 'successfully.');
+        } catch (ValidationException $ex) {
+            Log::info(__CLASS__." ".__FUNCTION__.__LINE__." ValidationException");
+            Log::debug(print_r($ex->getMessage(),true));
+            return $this->sendError("ValidationException",$ex->getMessage(), "400");
+
+        } catch (ModelNotFoundException $ex) {
+            Log::info(__CLASS__." ".__FUNCTION__.__LINE__." ModelNotFoundException");
+            Log::debug(print_r($ex->getMessage(),true));
+            return $this->sendError("ModelNotFoundException","Favor de contactar al proveedor", "400");
+
+        } catch (InvalidArgumentException $ex) {
+            Log::debug($ex );
+            return $this->sendError("InvalidArgumentException", "InvalidArgumentException","400");
+
+        } catch (ErrorException $ex) {
+            Log::info(__CLASS__." ".__FUNCTION__." ErrorException");
+            Log::debug(print_r($ex,true));
+            
+            $mensaje =$ex->getMessage();
+            return $this->sendError("tracking :$trackingNumber",$ex->getMessage(), "400");
+
+        } catch (HttpException $ex) {
+            Log::info(__CLASS__." ".__FUNCTION__." HttpException");
+            $resultado = $ex;
+            $mensaje = "La guia no pudo ser creada";
+            return $this->sendError("tracking :$trackingNumber",$mensaje, "400");
+
+        } catch (Exception $e) {
+            Log::info(__CLASS__." ".__FUNCTION__." Exception");
+            return $this->sendError("Exception",$e->getMessage(), "400");
+        }
+    }//fin resumenGuiasDashboard
 }

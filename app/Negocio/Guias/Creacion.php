@@ -6,6 +6,7 @@ use Log;
 use Illuminate\Support\Facades\Storage;
 use Carbon\Carbon;
 use Illuminate\Validation\ValidationException;
+use Exception;
 
 //MODELS
 use App\Models\Guia;
@@ -52,10 +53,10 @@ class Creacion {
     public function fedex($data, $canal ){
         Log::info(__CLASS__." ".__FUNCTION__." ".__LINE__);
         $fedexDTO = new FedexDTO();
-        //Log::debug(print_r($data->all(),true));
+        
         $etiqueta = $fedexDTO->parser($data);
 
-        $this->fedex = sFedex::getInstance(Config('ltd.fedex.id'), 2, "WEB", "PRD" );
+        $this->fedex = sFedex::getInstance(Config('ltd.fedex.id'), 2, $canal, Config('app.env') );
         $this->fedex->envio( json_encode($etiqueta, JSON_UNESCAPED_UNICODE));
 
         Log::info(__CLASS__." ".__FUNCTION__." ".__LINE__);
@@ -93,7 +94,14 @@ class Creacion {
             $carbon->settings(['toStringFormat' => 'Y-m-d-H-i-s.u']);
             $this->namePdf = sprintf("%s-%s-%s.pdf",(string)$carbon,$this->insert['empresa_id'],$unique);
 
-            Storage::disk('public')->put($this->namePdf, file_get_contents($this->insert['documento']));
+            try {
+                Storage::disk('public')->put($this->namePdf, file_get_contents($this->insert['documento']."demo"));
+            } catch (Exception $e) {
+                Log::info(__CLASS__." ".__FUNCTION__." ".__LINE__." Exception");
+                Log::debug(__CLASS__." ".__FUNCTION__." ".__LINE__." ".sprintf($e->getMessage()));
+                $this->notices[]= sprintf("Favor de validar el PDF ");
+            }
+            
 
 
             if ($i > 1) {

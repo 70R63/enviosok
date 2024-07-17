@@ -87,7 +87,7 @@ class RegisteredUserController extends Controller
         $rolCliente = Roles::whereSlug('cliente')->first();
         $user->roles()->sync([ $rolCliente->id ]);
 
-        $this->domicilio->guardarDomicilio($request,$nEmpresa->getEmpresaModel());
+        $this->domicilio->guardarDomicilio($request,$nEmpresa->getEmpresaModel(), $nEmpresa->getEmpresaId());
 
 //        foreach ($request->allFiles() as $k=>$file){
 //            $file->store('documentos/'.$user->id.'/'.$k);

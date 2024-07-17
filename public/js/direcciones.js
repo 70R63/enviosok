@@ -29,6 +29,8 @@ document.addEventListener('DOMContentLoaded', function () {
                 var domicilio = response.domicilio;
                 var select = response.colonias;
                 if ((response.mensaje) && (response.mensaje == "resultados")) {
+
+
                     padre.querySelector('.estado').value = domicilio.d_estado;
                     padre.querySelector('.codigo_estado').value = domicilio.codigo_estado;
                     padre.querySelector('.tipo_asentamiento').value = domicilio.d_tipo_asenta;

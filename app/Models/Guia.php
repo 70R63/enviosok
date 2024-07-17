@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Builder;
 use Log;
+use DB;
 
 class Guia extends Model
 {
@@ -49,5 +50,6 @@ class Guia extends Model
 
       return $query->join('empresas', 'empresas.id', '=', 'sucursals.empresa_id');
     }
+
 
 }

@@ -77,6 +77,8 @@ class FacturaExterna
         $this->obtenerCertificado($data);
         $data = $this->data;
 
+        Log::info($this->numeroDeSolicitud." ".__CLASS__." ".__FUNCTION__." ".__LINE__." ".config('app.env'));
+
         if (config('app.env') === "local" || config('app.env') === "dev") {
             Log::info($this->numeroDeSolicitud." ".__CLASS__." ".__FUNCTION__." ".__LINE__);
             $data['rfcEmisor']= "EKU9003173C9";

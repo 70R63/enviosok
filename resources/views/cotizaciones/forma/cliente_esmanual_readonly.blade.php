@@ -82,8 +82,8 @@
             </div>
             
             <div class="input-group mb-3 div-colonia-cp col-md-6 p-0">
-                
             </div>
+            
             <div class="input-group mb-3 col-md-6 p-0">
                 <div class="input-group-prepend">
 						<span class="input-group-text" id="basic-addon1">CALLE <span class="tx-danger">*</span>

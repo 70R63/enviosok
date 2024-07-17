@@ -8,7 +8,7 @@ use App\Models\Domicilio;
 
 class DomicilioService
 {
-    public function guardarDomicilio(Request $request,$modelo){
+    public function guardarDomicilio(Request $request,$modelo, int $empresaId=0){
             Domicilio::updateOrCreate([
                 'modelo_id'=>$request->modelo_id??$modelo->id,
                 'modelo_type'=>$request->modelo??$modelo->getMorphClass(),
@@ -27,6 +27,7 @@ class DomicilioService
                 'longitud'=>@$request->longitud,
                 'modelo_id'=>$request->modelo_id??$modelo->id,
                 'modelo_type'=>$request->modelo??$modelo->getMorphClass(),
+                'empresa_id' => $empresaId
             ]);
     }
 }

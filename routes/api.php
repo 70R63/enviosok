@@ -153,6 +153,8 @@ Route::middleware(['throttle:100,1','auth'])->group(function () {
             Route::controller(GuiaController::class)->group(function(){
                 Route::get('resumenGuias', 'resumenGuiasDashboard')->name('resumenGuias');
 
+                Route::get('graficaUsoLtd', 'graficaUsoLtd')->name('graficaUsoLtd');
+
             });
 
         });

@@ -105,22 +105,7 @@
         !!}
     </div>
     
-    <div class="input-group mb-3 col-md-12 ">
-        <div class="input-group-prepend">
-            <span class="input-group-text" id="basic-addon1">Colonia
-                <span class="tx-danger">*</span>
-            </span>
-        </div>
-
-        {!! Form::select('colonia'
-              , array()
-              ,null
-             ,['class'       => 'form-control select2'
-                 ,'placeholder'  => 'Seleccionar'
-                 ,'id'       => 'colonia'
-                      
-            ]);
-        !!}
+    <div class="input-group mb-3 div-colonia-cp col-md-12">
     </div>
     
     <div class="input-group mb-3 col-md-12 ">
@@ -132,7 +117,7 @@
 
         {!! Form::text('municipio'
             , ''
-            ,['class'       => 'form-control'
+            ,['class'       => 'form-control municipio_alcaldia'
             ,'id'           => 'municipio'
                 ,'required' =>  'true'
                 ,'readonly' => 'true'
@@ -149,7 +134,7 @@
 
         {!! Form::text('estado'
             , ''
-            ,['class'       => 'form-control'
+            ,['class'       => 'form-control estado'
                 ,'id'       => 'estado'
                 ,'required' =>  'true'
                 ,'readonly' => 'true'
@@ -159,10 +144,29 @@
 
 </div>
 
-{!! Form::hidden('colonia_oculto'
-    , $csf['colonia']
-    ,['class'       => 'form-control'
-        ,'id'       => 'colonia_oculto'
+
+
+{!! Form::hidden('codigo_estado_oculto'
+    , null
+    ,['class'       => 'form-control codigo_estado'
+        ,'id'       => 'codigo_estado_oculto'
+        
+    ])
+!!}
+
+{!! Form::hidden('tipo_asentamiento_oculto'
+    , null
+    ,['class'       => 'form-control tipo_asentamiento'
+        ,'id'       => 'tipo_asentamiento_oculto'
+        
+    ])
+!!}
+
+
+{!! Form::hidden('ciudad_oculto'
+    , null
+    ,['class'       => 'form-control ciudad'
+        ,'id'       => 'ciudad_oculto'
         
     ])
 !!}

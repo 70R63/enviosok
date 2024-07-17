@@ -191,9 +191,17 @@ class DatosFiscales {
         $mEmpresa->update($data);
 
         Log::info($this->numeroDeSolicitud." ".__CLASS__." ".__FUNCTION__." ".__LINE__);
-        $dataDomicio = ["calle" =>$data["calle"],
-        ];
-        $mDomicilio = Domicilio::where("modelo_id",auth()->user()->empresa_id)->firstOrFail();
+        $dataDomicio = [ "calle" =>$data["calle"],
+                "no_exterior" =>$data["no_exterior"],
+                "no_interior" =>$data["no_interior"],
+                "cp" =>$data["cp"],
+                "colonia" =>$data["colonia"],
+                "municipio_alcaldia" =>$data["municipio"],
+                "estado" =>$data["estado"],
+        
+            ];
+
+        $mDomicilio = Domicilio::where("empresa_id",auth()->user()->empresa_id)->firstOrFail();
         $mDomicilio->update($dataDomicio);
 
         Log::info($this->numeroDeSolicitud." ".__CLASS__." ".__FUNCTION__." ".__LINE__);

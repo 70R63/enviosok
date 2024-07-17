@@ -114,6 +114,15 @@ class Guia extends Model
 
     }
 
+    public function scopeSelecUsoLtd($query) {
+      Log::info(__CLASS__." ".__FUNCTION__);
+
+      return $query->select("guias.id", "cfg_ltds.nombre",
+            DB::raw("COUNT(1) guias_cantidad"),DB::raw(" upper(MONTHNAME(`guias`.`created_at`)) mes"),
+        )->join("cfg_ltds", "cfg_ltds.id","=","guias.ltd_id")
+      ;
+    }
+
     public function scopeEmpresaUsuario ($query){
         Log::info(__CLASS__." ".__FUNCTION__." ".__LINE__);
         
@@ -132,6 +141,22 @@ class Guia extends Model
                 ;
         Log::info(__CLASS__." ".__FUNCTION__." ".__LINE__);
 
+        return $query;
+
+    }
+
+    public function scopeAgruparLtd ($query){
+        Log::info(__CLASS__." ".__FUNCTION__." ".__LINE__);
+        $query->groupBy('cfg_ltds.id');
+        Log::info(__CLASS__." ".__FUNCTION__." ".__LINE__);
+        return $query;
+
+    }
+
+    public function scopeUltimosTresMeses ($query){
+        Log::info(__CLASS__." ".__FUNCTION__." ".__LINE__);
+        $query->groupBy( DB::raw("DATE_FORMAT(`guias`.`created_at`, '%Y-%m')"));
+        Log::info(__CLASS__." ".__FUNCTION__." ".__LINE__);
         return $query;
 
     }

@@ -38,6 +38,7 @@ use Carbon\Carbon;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Database\QueryException;
+use Exception;
 
 
 use App\Negocio\Guia as nGuia;
