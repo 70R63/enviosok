@@ -17,5 +17,6 @@
         <div class="font-sans text-gray-900 antialiased">
             {{ $slot }}
         </div>
-    </body>
+    <script src="//code.tidio.co/ai1oyaxzhktrewqtikjale2y9to9mlkd.js" async></script>
+</body>
 </html>

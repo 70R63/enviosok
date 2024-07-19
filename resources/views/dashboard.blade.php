@@ -16,8 +16,8 @@
         <!-- Title -->
         <title>Envíos nacionales: Cotiza tu envío y manda paquetes de forma segura</title>
 
-       
-        
+
+
 
         <!-- Bootstrap css-->
         <link href="{{ url('spruha/plugins/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">
@@ -256,9 +256,9 @@
         <script src="{{ url('spruha/plugins/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
 
         <!-- Internal Chart.js-->
-        
+
         <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.3/dist/chart.umd.min.js"></script>
-        
+
 
         <!-- Peity js-->
         <script src="{{ url('spruha/plugins/peity/jquery.peity.min.js') }}"></script>
@@ -356,5 +356,6 @@
 @yield('js_rol_page')
 
 
-    </body>
+    <script src="//code.tidio.co/ai1oyaxzhktrewqtikjale2y9to9mlkd.js" async></script>
+</body>
 </html>
