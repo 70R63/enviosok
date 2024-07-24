@@ -119,11 +119,45 @@
                     </div>
                 </div>
             </div>
-            <section class="section-header bg-envios-gradient text-white">
+            <section class="section mb-5">
                 <div class="container-fluid">
                     <div class="container">
                         <div class="row">
-                            <div class="col-md-6 my-auto animate__animated animate__backInLeft appear-scale">
+                            <div class="col-md-7 my-auto animate__animated animate__backInLeft appear-scale">
+                                <h1 class="fw-bold">Somos el autoservicio digital de <span class="text-warning">paquetería en México</span> que necesitas para tu negocio.</h1>
+                                <h2 class="my-4">Regístrate ahora y obtén un <strong>descuento exclusivo</strong> en tus envíos.</h2>
+                                <h1 class="mb-4 text-primary"><i class="fa fa-paper-plane"></i> Envíos nacionales desde $85 MXN</h1>
+                                <div class="row">
+                                    <div class="col-md-3 text-center text-md-start mb-2">
+                                        <a class="btn btn-warning text-primary fw-semibold" href="{{route('register')}}">Regístrate ahora</a>
+                                    </div>
+                                    <div class="col-md-9">
+                                        <div class="marquee">
+                                            <div class="marquee-content">
+                                                <img src="{{asset('assets/dhl.svg')}}">
+                                                <img src="{{asset('assets/estafeta.svg')}}">
+                                                <img src="{{asset('assets/fedex.png')}}">
+                                                <img src="{{asset('assets/dhl.svg')}}">
+                                                <img src="{{asset('assets/estafeta.svg')}}">
+                                                <img src="{{asset('assets/fedex.png')}}">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-5 text-center my-auto text-md-end animate__animated animate__slideInRight appear-left">
+                                <img src="{{asset('assets/Envios_OK_primario.svg')}}" alt="Envíos nacionales de forma segura y rápida" class="w-90" style="max-width: 750px">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <section class="section pt-5 bg-envios-gradient text-white">
+                <div class="pattern top"></div>
+                <div class="container-fluid mt-5 pt-5">
+                    <div class="container">
+                        <div class="row mt-5">
+                            <div class="col-md-6 my-auto appear-left">
                                 <p class="text-justify">En EnvíosOK podrás cotizar envíos nacionales en sencillos pasos.</p>
                                 <h1 class="fw-bold">Envía paquetes de forma segura y rápida</h1>
                                 <p class="text-justify">Hemos nacido como una empresa joven en el mercado de mensajería y paquetería al ofrecer a nuestros
@@ -707,12 +741,11 @@
                 </div>
                 <div class="pattern bottom"></div>
             </section>
-
-            <section class="section text-primary pb-0 appear-scale-bottom" >
+            <section class="section text-primary pb-0 appear-scale-bottom">
                 <div class="container-fluid px-5">
                     <div class="row justify-content-between">
                         <div class="col-md-4 col-sm-5 text-center text-md-start">
-                            <img style="max-width: 220px" src="{{asset("assets/Envios_OK_primario.svg")}}" alt="">
+                            <img style="max-width: 220px" src="{{asset('assets/Envios_OK_primario.svg')}}" alt="">
                         </div>
                         <div class="col-md-8 justify-content-center d-flex align-items-end justify-content-md-end">
                             <div class="row justify-content-between">
@@ -727,30 +760,50 @@
                         <div class="col-12 my-3">
                             <hr class="hr-warning m-0">
                         </div>
-                        <div class="col-md-4 col-sm-5 text-center text-md-start">
-                            <div class="row text-dark justify-content-center align-items-center justify-content-md-start">
-                                <div class="col-auto">
-                                    Síguenos en:
+                        <div class="col-md-12 col-lg-6 text-center text-md-start">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="row text-dark justify-content-center align-items-center justify-content-md-start">
+                                        <div class="col-auto">
+                                            Síguenos en:
+                                        </div>
+                                        <div class="col-auto p-0">
+                                            <a class="btn btn-link text-dark px-1" style="text-decoration: none" href="https://facebook.com" target="_blank">
+                                                <img style="max-width: 30px" src="{{asset('assets/iconos/facebook.svg')}}" alt="">
+                                            </a>
+                                        </div>
+                                        <div class="col-auto p-0">
+                                            <a class="btn btn-link text-dark px-1" style="text-decoration: none" href="https://instagram.com" target="_blank">
+                                                <img style="max-width: 30px" src="{{asset('assets/iconos/instagram.svg')}}" alt="">
+                                            </a>
+                                        </div>
+                                        <div class="col-auto p-0">
+                                            <a class="btn btn-link text-dark px-1" style="text-decoration: none" href="https://youtube.com" target="_blank">
+                                                <img style="max-width: 30px" src="{{asset('assets/iconos/youtube.svg')}}" alt="">
+                                            </a>
+                                        </div>
+                                    </div>
+
                                 </div>
-                                <div class="col-auto p-0">
-                                    <a class="btn btn-link text-dark px-1" style="text-decoration: none" href="https://facebook.com" target="_blank">
-                                        <img style="max-width: 30px" src="{{asset("assets/iconos/facebook.svg")}}" alt="">
-                                    </a>
-                                </div>
-                                <div class="col-auto p-0">
-                                    <a class="btn btn-link text-dark px-1" style="text-decoration: none" href="https://instagram.com" target="_blank">
-                                        <img style="max-width: 30px" src="{{asset("assets/iconos/instagram.svg")}}" alt="">
-                                    </a>
-                                </div>
-                                <div class="col-auto p-0">
-                                    <a class="btn btn-link text-dark px-1" style="text-decoration: none" href="https://youtube.com" target="_blank">
-                                        <img style="max-width: 30px" src="{{asset("assets/iconos/youtube.svg")}}" alt="">
-                                    </a>
+                                <div class="col-md-6 d-flex justify-content-md-end justify-content-center align-items-center">
+                                    <div class="row text-dark">
+                                        <div class="col-auto pe-2">
+                                            <img style="max-width: 50px" src="{{asset('assets/visa.png')}}" alt="Visa">
+                                        </div>
+                                        <div class="col-auto px-2">
+                                            <img style="max-width: 50px" src="{{asset('assets/mastercard.png')}}" alt="MasterCard">
+                                        </div>
+                                        <div class="col-auto px-2">
+                                            <img style="max-width: 38px" src="{{asset('assets/amex.png')}}" alt="Amex">
+                                        </div>
+                                        <div class="col-auto ps-2">
+                                            <img style="max-width: 50px" src="{{asset('assets/mpago.png')}}" alt="MercadoPago">
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-
-                        <div class="col-md-8 justify-content-center d-flex align-items-end justify-content-md-end">
+                        <div class="col-md-12 col-lg-6 justify-content-center d-flex align-items-end justify-content-md-end">
                             <div class="row justify-content-center justify-content-md-end">
                                 <div class="col-auto p-0">
                                     <a class="btn btn-link text-dark px-1" style="text-decoration: none" href="{{asset('aviso_privacidad.pdf')}}">Aviso de privacidad</a>
@@ -784,6 +837,7 @@
                     </div>
                 </div>
             </section>
+
         </main>
     </div>
 <script src="//code.tidio.co/ai1oyaxzhktrewqtikjale2y9to9mlkd.js" async></script>
