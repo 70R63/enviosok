@@ -13,15 +13,15 @@
                 $res ->status(400)->send();
             }
         }catch(Exception $e){
-            $res ->status(400)->send();
+            $res->status(400)->send();
         }
     }
 
     function recibirmensajes($req,$res){
         try{
-            $res ->send("EVENT_RECEIVED");
+            $res->send("EVENT_RECEIVED");
         }catch(Exception $e){
-            $res ->send("EVENT_RECEIVED");
+            $res->send("EVENT_RECEIVED");
         }
 
     }
