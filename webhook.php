@@ -8,7 +8,7 @@
             $challenge = $req['hub_challenge'];
 
             if (isset($challenge) && isset($token) && $token == TOKEN_ANDERCODE){
-                $res->send(challenge);
+                $res->send($challenge);
             }else{
                 $res ->status(400)->send();
             }
