@@ -1,5 +1,5 @@
 <?php
-    const TOKEN_ANDERCODE = "ANDERCODEPHPAPIMETA";
+    const TOKEN_ANDERCODE = "ENVIOSOK";
     const WEBHOOK_URL = "https://dev.envios-ok.com/webhook.php";
 
     function verificarToken($req,$res){
