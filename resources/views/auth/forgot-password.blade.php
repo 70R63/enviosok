@@ -26,7 +26,7 @@
                                     <i class="fa fa-check-circle"></i> {{ session('status') }}
                                 </div>
                             @endif
-                           <img src="{{ url('spruha/img/brand/xpertaLogoHor.png') }}" class=" d-lg-none header-brand-img text-center float-center mb-4" alt="logo">
+                            <img src="{{ url('img/Envios_OK_variante_B4x.png') }}" class=" d-lg-none header-brand-img text-center float-center mb-4" alt="logo">
                            <div class="clearfix"></div>
                             <form method="POST" action="{{ route('password.email') }}">
                             @csrf
