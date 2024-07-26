@@ -1,5 +1,5 @@
 <?php
-    const TOKEN_ANDERCODE = "ANDERCODEPHPAPIMETA";
+    const TOKEN_ANDERCODE = "ENVIOSOK";
     const WEBHOOK_URL = "https://dev.envios-ok.com/webhook.php";
 
     function verificarToken($req,$res){
@@ -8,20 +8,20 @@
             $challenge = $req['hub_challenge'];
 
             if (isset($challenge) && isset($token) && $token == TOKEN_ANDERCODE){
-                $res->send(challenge);
+                $res->send($challenge);
             }else{
-                $res ->status(400)->send();
+                $res->status(400)->send();
             }
         }catch(Exception $e){
-            $res ->status(400)->send();
+            $res->status(400)->send();
         }
     }
 
     function recibirmensajes($req,$res){
         try{
-            $res ->send("EVENT_RECEIVED");
+            $res->send("EVENT_RECEIVED");
         }catch(Exception $e){
-            $res ->send("EVENT_RECEIVED");
+            $res->send("EVENT_RECEIVED");
         }
 
     }
