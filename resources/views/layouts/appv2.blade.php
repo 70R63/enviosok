@@ -824,7 +824,7 @@
                                     |
                                 </div>
                                 <div class="col-auto p-0">
-                                    <a class="btn btn-link text-dark px-1" style="text-decoration: none">Soporte</a>
+                                    <a class="btn btn-link text-dark px-1" style="text-decoration: none" href="https://helpdesk.envios-ok.com/">Soporte</a>
                                 </div>
                                 <div class="col-auto p-0 d-flex align-items-center text-dark">
                                     |&nbsp;
