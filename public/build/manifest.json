@@ -1,8 +1,4 @@
 {
-  "node_modules/@fortawesome/fontawesome-free/webfonts/fa-solid-900.woff2": {
-    "file": "assets/fa-solid-900.1f0189e0.woff2",
-    "src": "node_modules/@fortawesome/fontawesome-free/webfonts/fa-solid-900.woff2"
-  },
   "node_modules/@fortawesome/fontawesome-free/webfonts/fa-regular-400.woff2": {
     "file": "assets/fa-regular-400.c732f106.woff2",
     "src": "node_modules/@fortawesome/fontawesome-free/webfonts/fa-regular-400.woff2"
@@ -11,21 +7,29 @@
     "file": "assets/fa-brands-400.c411f119.woff2",
     "src": "node_modules/@fortawesome/fontawesome-free/webfonts/fa-brands-400.woff2"
   },
-  "resources/fonts/bariol_regular-webfont.woff": {
-    "file": "assets/bariol_regular-webfont.5e306ed7.woff",
-    "src": "resources/fonts/bariol_regular-webfont.woff"
+  "node_modules/@fortawesome/fontawesome-free/webfonts/fa-solid-900.woff2": {
+    "file": "assets/fa-solid-900.1f0189e0.woff2",
+    "src": "node_modules/@fortawesome/fontawesome-free/webfonts/fa-solid-900.woff2"
   },
   "node_modules/@fortawesome/fontawesome-free/webfonts/fa-v4compatibility.woff2": {
     "file": "assets/fa-v4compatibility.2aca24b3.woff2",
     "src": "node_modules/@fortawesome/fontawesome-free/webfonts/fa-v4compatibility.woff2"
   },
-  "resources/fonts/bariol_thin-webfont.woff": {
-    "file": "assets/bariol_thin-webfont.267ea721.woff",
-    "src": "resources/fonts/bariol_thin-webfont.woff"
+  "resources/fonts/bariol_regular_italic-webfont.woff": {
+    "file": "assets/bariol_regular_italic-webfont.100c29ef.woff",
+    "src": "resources/fonts/bariol_regular_italic-webfont.woff"
+  },
+  "resources/fonts/bariol_regular-webfont.woff": {
+    "file": "assets/bariol_regular-webfont.5e306ed7.woff",
+    "src": "resources/fonts/bariol_regular-webfont.woff"
   },
   "resources/fonts/bariol_thin_italic-webfont.woff": {
     "file": "assets/bariol_thin_italic-webfont.fb7bc084.woff",
     "src": "resources/fonts/bariol_thin_italic-webfont.woff"
+  },
+  "resources/fonts/bariol_thin-webfont.woff": {
+    "file": "assets/bariol_thin-webfont.267ea721.woff",
+    "src": "resources/fonts/bariol_thin-webfont.woff"
   },
   "resources/fonts/bariol_light-webfont.woff": {
     "file": "assets/bariol_light-webfont.853103b7.woff",
@@ -35,33 +39,25 @@
     "file": "assets/wave.42cce741.svg",
     "src": "public/assets/patterns/wave.svg"
   },
-  "resources/fonts/bariol_regular_italic-webfont.woff": {
-    "file": "assets/bariol_regular_italic-webfont.100c29ef.woff",
-    "src": "resources/fonts/bariol_regular_italic-webfont.woff"
+  "resources/fonts/bariol_bold_italic-webfont.woff": {
+    "file": "assets/bariol_bold_italic-webfont.18bc1041.woff",
+    "src": "resources/fonts/bariol_bold_italic-webfont.woff"
   },
   "resources/fonts/bariol_light_italic-webfont.woff": {
     "file": "assets/bariol_light_italic-webfont.64e974a2.woff",
     "src": "resources/fonts/bariol_light_italic-webfont.woff"
   },
-  "resources/fonts/bariol_bold-webfont.woff": {
-    "file": "assets/bariol_bold-webfont.99e3997c.woff",
-    "src": "resources/fonts/bariol_bold-webfont.woff"
-  },
-  "resources/fonts/bariol_bold_italic-webfont.woff": {
-    "file": "assets/bariol_bold_italic-webfont.18bc1041.woff",
-    "src": "resources/fonts/bariol_bold_italic-webfont.woff"
+  "public/assets/patterns/wave-soft.svg": {
+    "file": "assets/wave-soft.3110e36c.svg",
+    "src": "public/assets/patterns/wave-soft.svg"
   },
   "public/assets/iconos/options.svg": {
     "file": "assets/options.336a5498.svg",
     "src": "public/assets/iconos/options.svg"
   },
-  "public/assets/patterns/wave-soft.svg": {
-    "file": "assets/wave-soft.3110e36c.svg",
-    "src": "public/assets/patterns/wave-soft.svg"
-  },
-  "node_modules/@fortawesome/fontawesome-free/webfonts/fa-solid-900.ttf": {
-    "file": "assets/fa-solid-900.31f099c1.ttf",
-    "src": "node_modules/@fortawesome/fontawesome-free/webfonts/fa-solid-900.ttf"
+  "resources/fonts/bariol_bold-webfont.woff": {
+    "file": "assets/bariol_bold-webfont.99e3997c.woff",
+    "src": "resources/fonts/bariol_bold-webfont.woff"
   },
   "node_modules/@fortawesome/fontawesome-free/webfonts/fa-regular-400.ttf": {
     "file": "assets/fa-regular-400.64f9fb62.ttf",
@@ -75,6 +71,10 @@
     "file": "assets/fa-v4compatibility.a6274a12.ttf",
     "src": "node_modules/@fortawesome/fontawesome-free/webfonts/fa-v4compatibility.ttf"
   },
+  "node_modules/@fortawesome/fontawesome-free/webfonts/fa-solid-900.ttf": {
+    "file": "assets/fa-solid-900.31f099c1.ttf",
+    "src": "node_modules/@fortawesome/fontawesome-free/webfonts/fa-solid-900.ttf"
+  },
   "resources/js/app.js": {
     "file": "assets/app.00081fa3.js",
     "src": "resources/js/app.js",
@@ -86,7 +86,7 @@
     "isEntry": true
   },
   "resources/sass/app.scss": {
-    "file": "assets/app.4c9c5fc2.css",
+    "file": "assets/app.0dc188f1.css",
     "src": "resources/sass/app.scss",
     "isEntry": true
   }

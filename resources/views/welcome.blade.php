@@ -19,7 +19,16 @@
                 font-family: 'Nunito', sans-serif;
             }
         </style>
-    </head>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=AW-16657588228">
+    </script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'AW-16657588228');
+    </script>
+</head>
     <body class="antialiased">
         <div class="relative flex items-top justify-center min-h-screen bg-gray-100 dark:bg-gray-900 sm:items-center py-4 sm:pt-0">
             @if (Route::has('login'))

@@ -27,6 +27,15 @@
     <!-- Title -->
     <title>Envíos nacionales: Cotiza tu envío y manda paquetes de forma segura</title>
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
+<script async src="https://www.googletagmanager.com/gtag/js?id=AW-16657588228">
+    </script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'AW-16657588228');
+    </script>
 </head>
 <body>
     <div id="app">
@@ -840,7 +849,10 @@
 
         </main>
     </div>
-<script src="//code.tidio.co/ai1oyaxzhktrewqtikjale2y9to9mlkd.js" async></script>
+    <script src="//code.tidio.co/ai1oyaxzhktrewqtikjale2y9to9mlkd.js" async></script>
+    <a href="https://wa.me/7202706823?text={{urlencode("Hola, deseo más información de los envíos.")}}" target="_blank" class="whatsapp-icon">
+        <i class="fab fa-lg fa-whatsapp"></i>
+    </a>
 </body>
 <script>
     var url_base = '{{url('/')}}';
