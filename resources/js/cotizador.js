@@ -162,15 +162,15 @@ $(document).ready(function() {
     if(tipo){
         function selectedTipo(){
             if(tipo.selectedOptions[0].value=='sobre'){
-                $("#peso").val(1).parent().addClass('d-none');
-                $("#alto").val(1).parent().parent().addClass('d-none');
-                $("#largo").val(1);
-                $("#ancho").val(1);
+                $("#peso_cotizador").val(1).parent().addClass('d-none');
+                $("#alto_cotizador").val(1).parent().parent().addClass('d-none');
+                $("#largo_cotizador").val(1);
+                $("#ancho_cotizador").val(1);
             }else{
-                $("#peso").val('').parent().removeClass('d-none');
-                $("#alto").val('').parent().parent().removeClass('d-none');
-                $("#largo").val('');
-                $("#ancho").val('');
+                $("#peso_cotizador").val('').parent().removeClass('d-none');
+                $("#alto_cotizador").val('').parent().parent().removeClass('d-none');
+                $("#largo_cotizador").val('');
+                $("#ancho_cotizador").val('');
             }
         }
         tipo.addEventListener('change',function(){
