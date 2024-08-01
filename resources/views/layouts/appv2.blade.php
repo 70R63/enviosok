@@ -394,22 +394,6 @@
                             <div class="col-md-6 mt-3">
                                 <div class="accordion">
                                     <div class="accordion-item">
-                                        <h2 class="accordion-header" id="heading4">
-                                            <button class="accordion-button collapsed fw-bold" type="button" data-bs-toggle="collapse" data-bs-target="#collapse4" aria-expanded="false" aria-controls="collapse4">
-                                                ¿Puedo hacer envíos masivos a través de Excel?
-                                            </button>
-                                        </h2>
-                                        <div id="collapse4" class="accordion-collapse collapse" aria-labelledby="heading4">
-                                            <div class="accordion-body">
-                                                Sí, tenemos la opción, descarga la plantilla en <a href="{{config('app.url').'/ayuda'}}">{{config('app.url').'/ayuda'}}</a> llena el formulario y podrás generar guías masivas en solo segundos.
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-6 mt-3">
-                                <div class="accordion">
-                                    <div class="accordion-item">
                                         <h2 class="accordion-header" id="heading5">
                                             <button class="accordion-button collapsed fw-bold" type="button" data-bs-toggle="collapse" data-bs-target="#collapse5" aria-expanded="false" aria-controls="collapse5">
                                                 ¿Qué es el valor declarado?
@@ -676,22 +660,6 @@
                                         <div id="collapse22" class="accordion-collapse collapse" aria-labelledby="heading22">
                                             <div class="accordion-body">
                                                 Tenemos cobertura a toda la república mexicana a través de nuestros proveedores (DHL, Fedex, Estafeta, Redpack, UPS).
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-6 mt-3">
-                                <div class="accordion">
-                                    <div class="accordion-item">
-                                        <h2 class="accordion-header" id="heading23">
-                                            <button class="accordion-button collapsed fw-bold" type="button" data-bs-toggle="collapse" data-bs-target="#collapse23" aria-expanded="false" aria-controls="collapse23">
-                                                ¿Cómo se genera una recolección de mi paquete?
-                                            </button>
-                                        </h2>
-                                        <div id="collapse23" class="accordion-collapse collapse" aria-labelledby="heading23">
-                                            <div class="accordion-body">
-                                                Desde nuestra plataforma en el menú Guías - Recolecciones.
                                             </div>
                                         </div>
                                     </div>
