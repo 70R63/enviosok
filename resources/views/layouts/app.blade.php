@@ -89,7 +89,7 @@
     </div>
 
     @include('partials.modal_preview_archivo')
-<script src="//code.tidio.co/ai1oyaxzhktrewqtikjale2y9to9mlkd.js" async></script>
+
 </body>
 @vite('resources/js/app.js')
 <script>

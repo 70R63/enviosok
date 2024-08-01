@@ -365,6 +365,6 @@
 @yield('js_rol_page')
 
 
-    <script src="//code.tidio.co/ai1oyaxzhktrewqtikjale2y9to9mlkd.js" async></script>
+
 </body>
 </html>
