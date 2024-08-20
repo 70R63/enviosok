@@ -1,4 +1,4 @@
-<div class="input-group mb-3">
+<div class="input-group mb-3 tipoEnvio">
 
 	<div class="input-group-prepend">
 		<span class="input-group-text" id="basic-addon1"> Piezas <span class="tx-danger">*</span></span>
@@ -10,22 +10,15 @@
 		<text class="counter-plus btn btn-light">+</text>
 	</div>
 
-	<div class="input-group-prepend">
-		<span class="input-group-text" id="basic-addon1"> Presiona para multipieza</span>
-		<button id="addRow" type="button" class="btn btn-info" title="Multi-Pieza">
-	    	<i class="mdi mdi-animation wd-20 ht-20 text-center tx-18"></i>
-	    </button>
-	</div>
-
 </div>
 
-<div id="clone" class="input-group mb-3 registroMultipieza">
+<div id="clone" class="input-group mb-3 registroMultipieza tipoEnvio"  >
 
 	<div class="input-group-prepend">
 		<span class="input-group-text" id="basic-addon1"> Peso (Kg.) <span class="tx-danger">*</span></span>
 	</div>
 	{!! Form::text('peso[]', null,
-		['class' 		=> 'form-control multi'
+		['class' 		=> 'form-control multi paquete'
 			,'id'		=> 'peso[]'
 			,'data-parsley-type' => 'number'
 			,'min'	=>	'0.1'
@@ -36,10 +29,10 @@
 
 
 	<div class="input-group-prepend">
-		<span class="input-group-text" id="basic-addon1">Dimensiones (LxWxH) <span class="tx-danger">*</span></span>
+		<span class="input-group-text" id="basic-addon1">Dimensiones<span class="tx-danger">*</span></span>
 	</div>
 	{!! Form::text('largo[]', null,
-		['class' 		=> 'form-control multi'
+		['class' 		=> 'form-control multi paquete'
 		,'id'			=> 'largo'
 		,'placeholder'	=> 'Largo '
 		,'required'		=> 'true'
@@ -47,7 +40,7 @@
 	!!}
 
 	{!! Form::text('ancho[]', null,
-		['class' 		=> 'form-control multi'
+		['class' 		=> 'form-control multi paquete'
 		,'id'			=> 'ancho'
 		,'placeholder'	=> 'Ancho  '
 		,'required'		=> 'true'
@@ -55,7 +48,7 @@
 	!!}
 
 	{!! Form::text('alto[]', null,
-		['class' 		=> 'form-control multi'
+		['class' 		=> 'form-control multi paquete'
 		,'id'			=> 'alto'
 		,'placeholder'	=> 'Alto '
 		,'required'		=> 'true'

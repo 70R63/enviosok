@@ -11,13 +11,53 @@ var costoCoberturaExtendida = 0;
 var costoKgExtra = 0;
 var saldoNegativo = false;
 var saldoMinimo = 90;
+var esSobre = false;
 
 $(document).ready(function() {
 
-    var radio = $('input[type="radio"]:checked').val()
-
+    var radio = $('input[name="radio3"]:checked').val()
+    
     checkCotizacion(radio)
+
+    var tipoEnvio = $('input[name="tipoEnvio"]:checked').val()
+   
+    checkTipoEnvio(tipoEnvio)
+
+
 })
+
+
+function checkTipoEnvio(tipoEnvio){
+    console.log("function checkTipoEnvio")
+    
+    switch (tipoEnvio){
+        case 'paquete':
+             console.log("paquete")
+             $(".tipoEnvio").show()
+             $(".paquete").attr("required","true");
+            esSobre = false
+            break;
+        case 'sobre':
+            console.log("sobre")
+            $(".tipoEnvio").hide()
+            $(".paquete").removeAttr("required");
+            esSobre = true
+            
+            break;
+        }
+
+
+}
+
+$('input[name="tipoEnvio"]').on('click', function(e) {
+    //console.log(e.target);
+    var tipoCotizacion = e.target.value;
+
+   checkTipoEnvio(tipoCotizacion);
+   $("#pesoFacturado").val(1);
+   peso = 1;
+   
+});
 
 function checkCotizacion(radio){
     console.log("function tipoCotizacion")
@@ -111,7 +151,7 @@ function pesoDimensionalyBascula(){
 function pesofacturado(){
 
     var peso = 0
-    var piezas = $("#piezas").val()
+    var piezas = $("#piezas").val();
     var iteracionClone = 0
     var pesoFacturado =+0
 
@@ -128,11 +168,14 @@ function pesofacturado(){
 
 
         var peso = $('.registroMultipieza .multi').get()[indexPeso].value
+
+
         var largo = $('.registroMultipieza .multi').get()[indexLargo].value
         var ancho = $('.registroMultipieza .multi').get()[indexAncho].value
         var alto = $('.registroMultipieza .multi').get()[indexAlto].value
 
         if ($('.registroMultipieza').length == 1){
+            
             bascula = peso*piezas
             dimensional = (((alto*ancho*largo)/5000)*piezas)
 
@@ -325,8 +368,10 @@ $("#cotizar").click(function(e) {
                 table = $('#cotizacionAjax').DataTable({
                     "oLanguage": {
                         "sEmptyTable": "No exiten tarifas con los datos para cotizar"
-                    }
-                    ,"processing": true,
+                    },
+                    dom: '<"title"<"filter"f>>rtip',
+                    
+                    "processing": true,
                     "bDestroy": true,
                     order: [[1, 'desc']]
 
@@ -409,9 +454,7 @@ table = $('#cotizacionAjax').DataTable({
 });
 
 $('#cotizacionAjax tbody').on('click', 'tr', function () {
-    //alert('aaaa');
-
-
+   /*
     var dataRow = table.row(this).data();
     console.log(dataRow);
     //Valores de la cotizacion de la Forma Cotizacion
@@ -442,6 +485,7 @@ $('#cotizacionAjax tbody').on('click', 'tr', function () {
     var zona  = dataRow['zona'];
     var costoBase  = dataRow['costo'];
 
+
     //valores para el modal resumen_cotizacion.blade
     $(".spanPrecio").text( precioIva );
     $("#spanMensajeria").text(ltd_nombre);
@@ -458,7 +502,7 @@ $('#cotizacionAjax tbody').on('click', 'tr', function () {
     $("#spanZona").text(zona);
 
     //valores para request, campos ocultos guiastore_ocultos -> card_preciofinal
-    pesofacturado()
+    
     $("#precio").val(precioIva);
     $("#tarifa_id").val(tarifa_id);
     $("#sucursal_id").val(sucursal_id);
@@ -520,7 +564,7 @@ $('#cotizacionAjax tbody').on('click', 'tr', function () {
     $("#anchos").val(anchos);
     $("#altos").val(altos);
 
-
+*/
     var dataRow = table.row(this).data();
 
     console.log(dataRow);
@@ -604,26 +648,37 @@ $('#cotizacionAjax tbody').on('click', 'tr', function () {
     var anchos = []
     var altos = []
 
-    $('.registroMultipieza').each(function(){
-        console.log("--------------"+iteracionClone)
-        var control = +iteracionClone *4
-        var indexPeso = 0 +control
-        var indexLargo = 1 +control
-        var indexAncho = 2 +control
-        var indexAlto = 3 +control
+    if (esSobre) {
+        pesos.push(1)
+        largos.push(0)
+        anchos.push(0)
+        altos.push(0)
+
+    } else {
+
+        $('.registroMultipieza').each(function(){
+            console.log("--------------"+iteracionClone)
+            var control = +iteracionClone *4
+            var indexPeso = 0 +control
+            var indexLargo = 1 +control
+            var indexAncho = 2 +control
+            var indexAlto = 3 +control
 
 
-        var peso = $('.registroMultipieza .multi').get()[indexPeso].value
-        var largo = $('.registroMultipieza .multi').get()[indexLargo].value
-        var ancho = $('.registroMultipieza .multi').get()[indexAncho].value
-        var alto = $('.registroMultipieza .multi').get()[indexAlto].value
+            var peso = $('.registroMultipieza .multi').get()[indexPeso].value
+            var largo = $('.registroMultipieza .multi').get()[indexLargo].value
+            var ancho = $('.registroMultipieza .multi').get()[indexAncho].value
+            var alto = $('.registroMultipieza .multi').get()[indexAlto].value
 
-        pesos.push(peso)
-        largos.push(largo)
-        anchos.push(ancho)
-        altos.push(alto)
-        iteracionClone++
-    })
+            pesos.push(peso)
+            largos.push(largo)
+            anchos.push(ancho)
+            altos.push(alto)
+            iteracionClone++
+        })
+
+    }
+    
 
     $("#pesos").val(pesos);
     $("#largos").val(largos);
@@ -633,9 +688,7 @@ $('#cotizacionAjax tbody').on('click', 'tr', function () {
     var saldoPorEmpresa = document.getElementById("spanSaldoPorEmpresa").innerText;
     console.error(saldoPorEmpresa)
 
-    console.log("crearPreferencia")
-    //crearPreferencia(400,ltd_nombre, servicioNombre);
-
+    
     saldoPorEmpresa = parseFloat(saldoPorEmpresa);
     precioIva = parseFloat(precioIva);
 
@@ -894,7 +947,7 @@ $("#addRow").click(function () {
 });
 
 
-$('input[type="radio"]').on('click change', function(e) {
+$('input[name="radio3"]').on('click change', function(e) {
     //console.log(e.target);
     var tipoCotizacion = e.target.value;
 

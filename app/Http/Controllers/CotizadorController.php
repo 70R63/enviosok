@@ -81,6 +81,7 @@ class CotizadorController extends Controller
      */
     public function create(Request $request)
     {
+        $numeroDeSolicitud = Carbon::now()->timestamp;
         Log::info(__CLASS__." ".__FUNCTION__." ".__LINE__." INICIANDO-----------------");
         try {
 
@@ -130,19 +131,28 @@ class CotizadorController extends Controller
                 , compact('cliente', 'sucursal', 'precio', 'piezas', 'ltd_nombre','objeto','servicio')
             );
 
+         } catch (ModelNotFoundException $e) {
+            Log::info(__CLASS__." ".__FUNCTION__." ".__LINE__); 
+            $mensajeInterno=$e->getMessage();
+            Log::debug(print_r($mensajeInterno,true));
+            Log::info("ModelNotFoundException");       
+            $mensaje[] = sprintf("%s - ModelNotFoundException - Favor de buscar a tu administrador","$numeroDeSolicitud");
+
         } catch(\Illuminate\Database\QueryException $ex){
             Log::info(__CLASS__." ".__FUNCTION__." "."QueryException");
             Log::debug($ex->getMessage());
 
+            $mensaje[] = sprintf("%s - QueryException - Favor de buscar a tu administrador","$numeroDeSolicitud");
+
         } catch (Exception $e) {
             Log::info(__CLASS__." ".__FUNCTION__." "."Exception");
             Log::debug( $e->getMessage() );
-
+            $mensaje[] = sprintf("%s - Exception - Favor de buscar a tu administrador","$numeroDeSolicitud");
         }
 
         Log::info(__CLASS__." ".__FUNCTION__." FINALIZANDO CON ERROR-----------------");
         return \Redirect::back()
-                ->withErrors(array($ex->errorInfo[2]))
+                ->withErrors($mensaje)
                 ->withInput();
     }
 

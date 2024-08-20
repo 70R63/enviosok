@@ -25,12 +25,39 @@
 <div class="row row-sm">
     <div class="col-lg-12 col-xl-5  col-md-12">
         <div class="card custom-card ">
-            <div class="card-body">
-                <div class="col-sm-5 ">
-                    <div>
-                        <span class="tx-18 mb-3">PAQUETE</span>
+            <div class="card-body">     
+
+                <div class="row">
+                    <div class="col-md-6 card-radio">
+                        <input type="radio" name="tipoEnvio" id="paquete" value="paquete" checked>
+                        <label for="paquete" >
+                            <div class="card">
+                                <div class="card-body text-center">
+                                    <h5 class="text-primary"><i class="si si-social-dropbox"></i> Paquete</h5>
+                                    <p class="m-0">Ingrese dimensiones.</p>
+                                </div>
+                            </div>
+                        </label>
+                    </div>
+                    <div class="col-md-6 card-radio">
+                        <input type="radio" name="tipoEnvio" id="sobre" value="sobre"
+                            
+                        >
+                        <label for="sobre" >
+                            <div class="card">
+                                <div class="card-body text-center">
+                                    <h5 class="text-primary"><i class="si si-envelope"></i> 
+                                    Sobre
+                                    </h5>
+                                    <p class="m-0">Peso maximo 1kg.</p>
+                                    
+                                </div>
+                            </div>
+                        </label>
                     </div>
                 </div>
+                    
+                
                  @include('cotizaciones.forma.paquete')
 
             </div>
@@ -40,34 +67,7 @@
         <div class="card custom-card">
             <div class="card-body">
 
-                <div class="row">
-                    <div class="col-md-6 card-radio">
-                        <input type="radio" name="radio3" id="credit" value="manual"
-                        {{@$objeto['radio3'] ? ($objeto['radio3']=='manual'?'checked':'') :'checked'}}
-                        >
-                        <label for="credit" >
-                            <div class="card">
-                                <div class="card-body text-center">
-                                    <h5 class="text-primary"><i class="fa fa-hand-pointer"></i> Manual</h5>
-                                    <p class="m-0">Ingresa el código postal de origen y código postal de destino</p>
-                                </div>
-                            </div>
-                        </label>
-                    </div>
-                    <div class="col-md-6 card-radio">
-                        <input type="radio" name="radio3" id="paypal" value="libreta"
-                            {{@$objeto['radio3'] ? ($objeto['radio3']=='libreta'?'checked':'') :''}}
-                        >
-                        <label for="paypal" >
-                            <div class="card">
-                                <div class="card-body text-center">
-                                    <h5 class="text-primary"><i class="fa fa-book"></i> Libreta de direcciones</h5>
-                                    <p class="m-0">Elige de la lista desplegable el ORIGEN y el DESTINO</p>
-                                </div>
-                            </div>
-                        </label>
-                    </div>
-                </div>
+                @include('cotizaciones.forma.cps')
                 <div class="row mt-2">
                    <div class="col-6 my-auto text-sm-center">
                         @include('cotizaciones.forma.origen')

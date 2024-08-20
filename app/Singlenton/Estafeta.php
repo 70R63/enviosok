@@ -63,7 +63,7 @@ class Estafeta {
             $this->token = $sesion->token;
 
         }else {
-            Log::info(__CLASS__." ".__FUNCTION__." Seccion Else");
+            Log::info(__CLASS__." ".__FUNCTION__." ".__LINE__." Seccion Else");
             
             $client = new Client(['base_uri' => Config('ltd.estafeta.token_uri') ]);
             $headers = ['Content-Type' => 'application/x-www-form-urlencoded'];

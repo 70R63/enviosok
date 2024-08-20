@@ -847,7 +847,7 @@
 
         </main>
     </div>
-
+    
     <a href="https://wa.me/7202706823?text={{urlencode("Hola, deseo más información de los envíos.")}}" target="_blank" class="whatsapp-icon">
         <i class="fab fa-lg fa-whatsapp"></i>
     </a>

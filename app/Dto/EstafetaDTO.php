@@ -288,7 +288,7 @@ class EstafetaDTO
         
         $contact = new Contact();        
         $contact->corporateName=$data['nombre_d'];
-        $contact->contactName=$data['contacto_d'];
+        $contact->contactName=str_split($data['contacto_d'],30)[0];
         $contact->cellPhone=$data['celular_d'];
 
 
@@ -318,7 +318,7 @@ class EstafetaDTO
         $address->indoorInformation = (empty($data['no_interior_d']) ? "" : $data['no_interior_d']);
         
         $contact->corporateName=$data['nombre_d'];
-        $contact->contactName=$data['contacto_d'];
+        $contact->contactName=str_split($data['contacto_d'],30)[0];
         $contact->cellPhone=$data['celular_d'];
 
 
