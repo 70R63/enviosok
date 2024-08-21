@@ -10,7 +10,9 @@
                 <div class="card-header border-bottom-0 pt-0 pl-0 pr-0 d-flex">
                     <div>
                         <label class="main-content-label mb-2">
-                            Dashboard</label>
+                            <div class="text-info"> Empieza a vivir la experiencia, realiza una <a href="{{ route('finanzas.pasarela.index') }}" >    recarga </a>desde el menú "Mis Finanzas" </div>
+                            Dashboard  
+                        </label>
                         <span class="d-block tx-12 mb-3 text-muted">
                             En este dashboard de EnvíosOK, podrás ver un detalle completo de tus envíos. Incluye información sobre el rastreo en tiempo real, el estatus actual del paquete, número de tracking, origen y destino de cada envío, así como la tarifa aplicada. Este panel te proporciona una vista clara y precisa de todos tus envíos en un solo lugar.
                         </span>

@@ -8,7 +8,7 @@
                         <thead>
                             <tr>
                                 <th>ID</th>
-                                <th class='notexport'>GUIA /<br>RETORNO</th>
+                                <th class='notexport'>Descarga <br>tu guía</th>
                                 <th>MENSAJERIA</th>
                                 <th>SERVICIO</th>
                                 <th>USUARIO</th>
