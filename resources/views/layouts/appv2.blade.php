@@ -819,6 +819,12 @@
                                     |
                                 </div>
                                 <div class="col-auto p-0">
+                                    <a class="btn btn-link text-dark px-1" style="text-decoration: none" href="{{asset('terminos_condiciones.pdf')}}">Términos y Condiciones</a>
+                                </div>
+                                <div class="col-auto p-0 d-flex align-items-center text-dark">
+                                    |
+                                </div>
+                                <div class="col-auto p-0">
                                     <a class="btn btn-link text-dark px-1" style="text-decoration: none" href="{{asset('glosario.pdf')}}">Glosario</a>
                                 </div>
                                 <div class="col-auto p-0 d-flex align-items-center text-dark">
@@ -847,7 +853,7 @@
 
         </main>
     </div>
-    
+
     <a href="https://wa.me/7202706823?text={{urlencode("Hola, deseo más información de los envíos.")}}" target="_blank" class="whatsapp-icon">
         <i class="fab fa-lg fa-whatsapp"></i>
     </a>
