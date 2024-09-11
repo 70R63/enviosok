@@ -379,7 +379,7 @@
                 document.addEventListener('DOMContentLoaded', (event) => {
                     swal(
                         "Recarga exitosa",
-                        {{session()->get("montoMP")}},
+                        "{{session()->get("montoMP")}}",
                         "success"
                     )
                 });

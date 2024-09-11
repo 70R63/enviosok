@@ -193,7 +193,7 @@ class MercadoPago {
         $nSaldos = new nSaldos();
         $nSaldos->calcular($data);
         $this->mensajes[]= sprintf("El pago de '%s %s' se realizó con éxito",$this->preference['unit_price'],$this->preference['currency_id']);
-        session()->put("montoMP",sprintf("El pago de '%s %s' se realizó con éxito",$this->preference['unit_price'],$this->preference['currency_id']));
+        session()->put("montoMP",sprintf("El pago de %s %s se realizó con éxito",$this->preference['unit_price'],$this->preference['currency_id']));
         session()->put("montoMPMXN",$this->preference['unit_price']);
         //$this->mensajes[]= sprintf("montoMP %s",$this->preference['unit_price']);
 
