@@ -4,8 +4,11 @@
             <i class="ace-icon fa fa-times"></i>
         </button>
         @foreach(Session::get('success') as $msj)
-                <p></p>
-                <strong><i class="ace-icon fa fa-check green"></i> {{ $msj }} </strong>
+            <p class="m-0">
+                <strong>
+                    <i class="ace-icon fa fa-check green"></i> {{ $msj }}
+                </strong>
+            </p>
         @endforeach
     </div>
 @endif
