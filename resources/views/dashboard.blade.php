@@ -66,6 +66,19 @@
 
         gtag('config', 'AW-16657588228');
     </script>
+
+    @if(session()->has("montoMPMXN"))
+        <script>
+            gtag('event', 'conversion', {
+                'send_to': 'AW-16657588228/I2TyCMOPzcYZEITA-oY-',
+                'value': {{doubleval(session()->get("montoMPMXN"))}},
+                'currency': 'MXN'
+            });
+        </script>
+        @php
+            session()->forget("montoMPMXN")
+        @endphp
+    @endif
 </head>
 
 
@@ -358,13 +371,9 @@
         <script src="https://cdn.jsdelivr.net/npm/@tarekraafat/autocomplete.js@10.2.7/dist/autoComplete.min.js"></script>
         <script src="{{ asset('js/misfinanzas/datosfiscales.js') }}" ></script>
 
+        {{--INTEGRACION DE ROLES Y USUARIOS--}}
+        @yield('js_user_page')
+        @yield('js_rol_page')
 
-
-{{--INTEGRACION DE ROLES Y USUARIOS--}}
-@yield('js_user_page')
-@yield('js_rol_page')
-
-
-    
 </body>
 </html>

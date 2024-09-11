@@ -25,7 +25,7 @@
 <div class="row row-sm">
     <div class="col-lg-12 col-xl-5  col-md-12">
         <div class="card custom-card ">
-            <div class="card-body">     
+            <div class="card-body">
 
                 <div class="row">
                     <div class="col-md-6 card-radio">
@@ -41,23 +41,23 @@
                     </div>
                     <div class="col-md-6 card-radio">
                         <input type="radio" name="tipoEnvio" id="sobre" value="sobre"
-                            
+
                         >
                         <label for="sobre" >
                             <div class="card">
                                 <div class="card-body text-center">
-                                    <h5 class="text-primary"><i class="si si-envelope"></i> 
+                                    <h5 class="text-primary"><i class="si si-envelope"></i>
                                     Sobre
                                     </h5>
                                     <p class="m-0">Peso maximo 1kg.</p>
-                                    
+
                                 </div>
                             </div>
                         </label>
                     </div>
                 </div>
-                    
-                
+
+
                  @include('cotizaciones.forma.paquete')
 
             </div>
@@ -109,4 +109,18 @@
 @include('cotizaciones.modals.completar_informacion')
 @include('cotizaciones.modals.resumen_cotizacion')
 @include('cotizaciones.modals.resumen_cotizacion_mercadoPago')
+    @if(session()->has("montoMP")))
+        <script>
+            document.addEventListener('DOMContentLoaded', (event) => {
+                swal(
+                    "Recarga exitosa",
+                    {{session()->get("montoMP")}},
+                    "success"
+                )
+            });
+        </script>
+        @php
+            session()->forget("montoMP")
+        @endphp
+    @endif
 @endsection
