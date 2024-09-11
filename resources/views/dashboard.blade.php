@@ -374,6 +374,20 @@
         {{--INTEGRACION DE ROLES Y USUARIOS--}}
         @yield('js_user_page')
         @yield('js_rol_page')
+        @if(session()->has("montoMP"))
+            <script>
+                document.addEventListener('DOMContentLoaded', (event) => {
+                    swal(
+                        "Recarga exitosa",
+                        {{session()->get("montoMP")}},
+                        "success"
+                    )
+                });
+            </script>
+            @php
+                session()->forget("montoMP")
+            @endphp
+        @endif
 
 </body>
 </html>

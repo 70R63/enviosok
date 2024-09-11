@@ -109,18 +109,5 @@
 @include('cotizaciones.modals.completar_informacion')
 @include('cotizaciones.modals.resumen_cotizacion')
 @include('cotizaciones.modals.resumen_cotizacion_mercadoPago')
-    @if(session()->has("montoMP")))
-        <script>
-            document.addEventListener('DOMContentLoaded', (event) => {
-                swal(
-                    "Recarga exitosa",
-                    {{session()->get("montoMP")}},
-                    "success"
-                )
-            });
-        </script>
-        @php
-            session()->forget("montoMP")
-        @endphp
-    @endif
+
 @endsection
