@@ -67,18 +67,20 @@
         gtag('config', 'AW-16657588228');
     </script>
 
-{{--    @if(session()->has("montoMPMXN"))--}}
-{{--        <script>--}}
-{{--            gtag('event', 'conversion', {--}}
-{{--                'send_to': 'AW-16657588228/I2TyCMOPzcYZEITA-oY-',--}}
-{{--                'value': {{doubleval(session()->get("montoMPMXN"))}},--}}
-{{--                'currency': 'MXN'--}}
-{{--            });--}}
-{{--        </script>--}}
-{{--        @php--}}
-{{--            session()->forget("montoMPMXN")--}}
-{{--        @endphp--}}
-{{--    @endif--}}
+    @if(session()->has("montoMPMXN"))
+        @if(config('app.env'=='production'))
+            <script>
+                gtag('event', 'conversion', {
+                    'send_to': 'AW-16657588228/I2TyCMOPzcYZEITA-oY-',
+                    'value': {{doubleval(session()->get("montoMPMXN"))}},
+                    'currency': 'MXN'
+                });
+            </script>
+        @endif
+        @php
+            session()->forget("montoMPMXN")
+        @endphp
+    @endif
 </head>
 
 
