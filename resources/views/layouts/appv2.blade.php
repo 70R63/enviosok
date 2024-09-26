@@ -97,6 +97,18 @@
                         <li class="nav-item">
                             <a class="nav-link text-white" href="{{route('register')}}">Registro</a>
                         </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle text-white" href="#" id="tutorialesDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                Tutoriales
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="tutorialesDropdown">
+                                <li><a class="dropdown-item" href="#tutorial1">Como Realizar una Recarga de Saldo</a></li>
+                                <li><a class="dropdown-item" href="#tutorial2">Como Generar una Guía</a></li>
+                                <li><a class="dropdown-item" href="#tutorial3">Como Facturar</a></li>
+                                <li><a class="dropdown-item" href="#tutorial4">Como puedo saber cuanto me costara mi envío</a></li>
+                                <li><a class="dropdown-item" href="#tutorial5">Como descargar mi guía</a></li>
+                            </ul>
+                        </li>
                     </ul>
                 </div>
             </div>
@@ -111,11 +123,11 @@
                                 </div>
                                 <div class="form-group col-md-6 col-lg-2 col-6">
                                     <label for="origen">Código postal origen</label>
-                                    <input type="text" name="origen" id="origen" class="form-control form-control-sm" placeholder="Código postal" autocomplete="off" required>
+                                    <input type="text" name="origen" id="origen" maxlength="5" class="form-control form-control-sm" placeholder="Código postal" autocomplete="off" required>
                                 </div>
                                 <div class="form-group col-md-6 col-lg-2 col-6">
                                     <label for="origen">Código postal destino</label>
-                                    <input type="text" name="destino" id="destino" class="form-control form-control-sm" placeholder="Código postal" autocomplete="off" required>
+                                    <input type="text" name="destino" id="destino" maxlength="5" class="form-control form-control-sm" placeholder="Código postal" autocomplete="off" required>
                                 </div>
                                 <div class="form-group col-md-6 col-lg-2 col-6">
                                     <label for="origen">Tipo de envío</label>
@@ -853,10 +865,13 @@
 
         </main>
     </div>
+    <div class="whatsapp-container">
+        <span class="h4">¡¡Estamos aquí para ayudarte!!</span>
+        <a href="https://wa.me/7202706823?text={{urlencode("Hola, deseo más información de los envíos.")}}" target="_blank" class="whatsapp-icon">
+            <i class="fab fa-xl fa-whatsapp"></i>
+        </a>
+    </div>
 
-    <a href="https://wa.me/7202706823?text={{urlencode("Hola, deseo más información de los envíos.")}}" target="_blank" class="whatsapp-icon">
-        <i class="fab fa-lg fa-whatsapp"></i>
-    </a>
 </body>
 <script>
     var url_base = '{{url('/')}}';

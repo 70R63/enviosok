@@ -51,7 +51,7 @@ class Cotizacion {
         Log::info(__CLASS__." ".__FUNCTION__." ".__LINE__);
 
         $empresa_id = auth()->user()->empresa_id;
-        
+
         Log::info(__CLASS__." ".__FUNCTION__." ".__LINE__);
         $this->todosLtds($request, $canal);
 
@@ -74,20 +74,20 @@ class Cotizacion {
 
     /**
      * Funcion todosLtds hace un foreach de todas las LTDS
-     * 
+     *
      * @author Javier Hernandez
      * @copyright 2024 Envios-OK
      * @package App\Negocio\Guias
-     * 
+     *
      * @version 1.0.0
-     * 
+     *
      * @since 1.0.0 Primera version de la funcion pesoFacturado
-     * 
+     *
      * @throws
      *
      * @param array $data Informacion general de la peticion
-     * 
-     * 
+     *
+     *
      * @return $data Se agra informacion segun la necesidad
      */
 
@@ -117,7 +117,7 @@ class Cotizacion {
                     break;
                 case 'ESTAFETA':
                     Log::info(__CLASS__." ".__FUNCTION__." LINE ".__LINE__);
-                    
+
                     $query = Tarifa::base($data['cp_d'], $ltdId)
                         ->pesoFacturado($data['pesoFacturado']);
 
@@ -151,7 +151,7 @@ class Cotizacion {
                         Log::debug("No se cuenta con cobertura");
                         break;
                     }
-                    
+
                     Log::debug(print_r($estadoCoberturaDestino,true));
                     $postalGrupoOrigen = PostalGrupo::select('grupo')
                             ->where('ltd_id',Config('ltd.dhl.id'))
@@ -164,7 +164,7 @@ class Cotizacion {
                             ->where('entidad_federativa',$estadoCoberturaDestino[0])
                             ->get()->pluck('grupo')->toArray()
                             ;
-                    
+
                     Log::debug("Grupos Postales ".$postalGrupoOrigen[0]." ".$postalGrupoDestino[0]);
 
                     Log::info(__CLASS__." ".__FUNCTION__." ".__LINE__);
@@ -175,7 +175,7 @@ class Cotizacion {
                             ->get()->pluck('zona')->toArray()
                             ;
 
-                   
+
                     Log::info(__CLASS__." ".__FUNCTION__." ".__LINE__." Zona ".$zona[0]);
 
                     $query = Tarifa::base($data['cp_d'], $ltdId)
@@ -186,7 +186,7 @@ class Cotizacion {
 
                     break;
 
-               
+
                 default:
                     // code...
                     break;
@@ -309,24 +309,24 @@ class Cotizacion {
 
      /**
      * Se busca validar que tipo de cotizacion es Manu, Semi o Libreta
-     * 
+     *
      * @author Javier Hernandez
      * @copyright 2022-2023 XpertaMexico
      * @package App\Negocio\Guias
      * @api
-     * 
+     *
      * @version 1.0.0
-     * 
+     *
      * @since 1.0.0 Primera version de la funcion cotizacionTipo
-     * 
+     *
      * @throws
      *
-     * @param array $data informacion de todo el flujo 
-     * 
-     * @var int 
-     * 
-     * 
-     * @return json Objeto con la respuesta de exito o fallo 
+     * @param array $data informacion de todo el flujo
+     *
+     * @var int
+     *
+     *
+     * @return json Objeto con la respuesta de exito o fallo
      */
 
     public function cotizacionTipo($objeto) {
@@ -362,20 +362,20 @@ class Cotizacion {
 
     /**
      * Funcion pesoFaturado usado para calcular cual es el peso a facturar entre dimensinal o bascula
-     * 
+     *
      * @author Javier Hernandez
      * @copyright 2024 Envios-OK
      * @package App\Negocio\Guias
-     * 
+     *
      * @version 1.0.0
-     * 
+     *
      * @since 1.0.0 Primera version de la funcion pesoFacturado
-     * 
+     *
      * @throws
      *
      * @param array $data Informacion general de la peticion
-     * 
-     * 
+     *
+     *
      * @return $data Se agra informacion segun la necesidad
      */
 
@@ -387,33 +387,33 @@ class Cotizacion {
         $data['peso_dimensional'] = ($data['alto']*$data['ancho']*$data['largo'])/5000;
 
         $data['peso_facturado'] = ($data['peso_bascula'] > $data['peso_dimensional']) ? ceil($data['peso_bascula']) : ceil($data['peso_dimensional']) ;
-        
+
         $data['pesoFacturado']=$data['peso_facturado'];
         return $data;
-        
+
     }
 
 
     /**
      * Funcion que regresara lo valores reale de las cotizaciones al cotizar externo
-     * 
+     *
      * @author Javier Hernandez
      * @copyright 2024 Envios-Ol
      * @package App\Negocio\Guias
      * @api
-     * 
+     *
      * @version 1.0.0
-     * 
+     *
      * @since 1.0.0 Primera version de la funcion cotizacionTipo
-     * 
+     *
      * @throws
      *
-     * @param array $data informacion de todo el flujo 
-     * 
-     * @var int 
-     * 
-     * 
-     * @return json Objeto con la respuesta de exito o fallo 
+     * @param array $data informacion de todo el flujo
+     *
+     * @var int
+     *
+     *
+     * @return json Objeto con la respuesta de exito o fallo
      */
 
     public function externa($request) {
@@ -433,12 +433,12 @@ class Cotizacion {
         $data = $this->pesoFacturado($data);
 
          if ( $data['pesoFacturado'] > 68 ) {
-            
+
             throw ValidationException::withMessages(array("Peso Maxima superado, Peso maximo 68 kg"));
         }
 
         $this->todosLtds($data, "Externo");
-        
+
         if ( count($this->tabla) < 1 ) {
             throw new Exception("No se encontraron resultados para cotizacion");
         }
@@ -452,25 +452,25 @@ class Cotizacion {
 
     /**
      * Funcionpara armar el html de cotizacion externa
-     * 
+     *
      * @author Javier Hernandez
      * @copyright 2024 Envios-Ol
      * @package App\Negocio\Guias
      * @api
-     * 
+     *
      * @version 1.0.0
-     * 
+     *
      * @since 1.0.0 Primera version de la funcion cotizacionTipo
-     * 
+     *
      * @throws
      *
-     * @param 
-     * 
+     * @param
+     *
      * @var string $html usado para armar un codigo de html
      * @var string $url_base url del sistema
      * @var array $estimadoEntrega Arreglo para leyyendas de tiempo de entrega
-     * 
-     * @return json Objeto con la respuesta de exito o fallo 
+     *
+     * @return json Objeto con la respuesta de exito o fallo
      */
 
     public function externaHtml() {
@@ -478,7 +478,7 @@ class Cotizacion {
 
         $html="";
         $url_base = config('app.url');
-        
+
 
         $estimadoEntrega=[1=>"De 2 a 7 días hábiles"
             ,2=>"De 1 a 2 días hábiles"
@@ -498,7 +498,7 @@ class Cotizacion {
             $html .= '<p class="text-'.($cotizacion['servicio_id']=='1'?'primary':'warning').' fw-semibold m-0">' . $estimadoEntrega[$cotizacion['servicio_id']] . '</p>';
             $html .= '</div>';
             $html .= '<div class="col-md-3 text-center">';
-            $html .= '<h4 class="fw-bold mb-0">' . $cotizacion['costo'] . '</h4>';
+            $html .= '<h4 class="fw-bold mb-0">$' . $cotizacion['costo'] . '</h4>';
             $html .= '<p class="small m-0">Último precio</p>';
             $html .= '<p class="m-0">';
             $html .= '<a href="' . $url_base . '/login" class="btn btn-sm btn-primary fw-bold text-warning">Crear guía</a>';
@@ -506,7 +506,7 @@ class Cotizacion {
             $html .= '</div>';
             $html .= '</div>';
         }
-         
+
 
         Log::info(__CLASS__." ".__FUNCTION__." ".__LINE__);
         return $html;

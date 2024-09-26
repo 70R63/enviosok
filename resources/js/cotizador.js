@@ -15,12 +15,18 @@ $(document).ready(function() {
             keys: ["colonia"],
         },
         resultsList: {
-            maxResults:10,
+            maxResults: 10,
             element: (list, data) => {
                 if (!data.results.length) {
                     const message = document.createElement("div");
                     message.setAttribute("class", "no_result");
-                    message.innerHTML = `<span class="text-dark">Sin resultados de "${data.query}"</span>`;
+
+                    // Crear el mensaje de "Sin resultados"
+                    message.innerHTML = `
+                    <span class="text-dark">Sin resultados de "${data.query}"</span>
+                    <br>
+                    Valida <a href="https://www.correosdemexico.gob.mx/SSLServicios/ConsultaCP/Descarga.aspx" class="text-primary fw-semibold" target="_blank">aquí</a> tu código postal.
+                `;
                     list.prepend(message);
                 }
             },
@@ -59,7 +65,13 @@ $(document).ready(function() {
                 if (!data.results.length) {
                     const message = document.createElement("div");
                     message.setAttribute("class", "no_result");
-                    message.innerHTML = `<span class="text-dark">Sin resultados de "${data.query}"</span>`;
+
+                    // Crear el mensaje de "Sin resultados"
+                    message.innerHTML = `
+                    <span class="text-dark">Sin resultados de "${data.query}"</span>
+                    <br>
+                    Valida <a href="https://www.correosdemexico.gob.mx/SSLServicios/ConsultaCP/Descarga.aspx" class="text-primary fw-semibold" target="_blank">aquí</a> tu código postal.
+                `;
                     list.prepend(message);
                 }
             },

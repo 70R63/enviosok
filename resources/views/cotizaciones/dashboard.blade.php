@@ -82,13 +82,14 @@
 
 </div>
 <!-- Row end -->
-
+<div class="col-12 text-center mb-2">
+    <span>Da clic en <strong>Limpiar</strong> para una nueva cotización</span>
+</div>
 <div class="col-lg-12">
     <div class="form-group row justify-content-around">
         <div>
             <a id="cotizar" class="btn btn-primary" >Cotizar</a>
             <a id="limpiar" class="btn badge-dark" >Limpiar</a>
-
         </div>
     </div>
 </div>

@@ -25,7 +25,7 @@
                            <div class="clearfix"></div>
                            <form method="POST" action="{{ route('login') }}">
                            	@csrf
-                              <h5 class="text-left mb-2">Bienvenid@</h5>
+                              <h5 class="text-left mb-2 fw-semibold">Bienvenid@</h5>
                               <p class="mb-4 text-muted tx-13 ml-0 text-left">Inicie sesión para crear y descubrir una nueva experiencia</p>
                               <div class="form-group text-left">
                                  <label>Email</label>
@@ -51,7 +51,7 @@
                            	@if (Route::has('password.request'))
                               <div class="mb-1"><a href="{{ route('password.request') }}">¿Olvidaste tu contraseña?</a></div>
                             @endif
-                              <div>¿No tienes una cuenta? <a href="{{route('register')}}">Regístrate aquí</a></div>
+                              <div>¿No tienes una cuenta? <a href="{{route('register')}}" class="h4">Regístrate aquí</a></div>
                            </div>
                         </div>
                      </div>

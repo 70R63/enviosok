@@ -9,9 +9,6 @@
 
     <title>{{ config('app.name', 'Laravel') }}</title>
 
-    <!-- Fonts -->
-    <link rel="dns-prefetch" href="//fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
     @vite('resources/css/app.css')
 
 
@@ -61,6 +58,17 @@
             }
             footer {
                 margin-top: auto; /* Automatically margins the footer at the bottom */
+            }
+
+            html,body{
+                font-family: 'Bariol Regular', serif !important;
+                font-size: 1.1rem;
+            }
+            .fw-bold{
+                font-weight: bolder;
+            }
+            .fw-semibold{
+                font-weight: bold;
             }
         </style>
 
