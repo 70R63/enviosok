@@ -200,6 +200,11 @@ $(document).ready(function() {
                 confirmButtonColor: "#3085d6",
             });
     })
+    $("#alto_cotizador,#largo_cotizador,#ancho_cotizador").on('input',function(){
+        if (this.value.length > 3) {
+            this.value = this.value.slice(0, 3); // Limitar a 5 caracteres
+        }
+    })
     $("#alto_cotizador,#largo_cotizador,#ancho_cotizador").on('change',function(){
         if(this.value>69)
             Swal.fire({
